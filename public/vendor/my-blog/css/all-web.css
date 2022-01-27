@@ -1,0 +1,124 @@
+img[alt="www.000webhost.com"] {
+    display: none;
+}
+
+.main-blog .entry .entry-content code {
+    padding: 3px 1.5px 3px 1.5px;
+    border-radius: 2px;
+    background-color: var(--codeText-color);
+    color: var(--text-color);
+}
+
+.main-blog .entry .entry-content pre {
+    height: auto;
+    max-height: 400px;
+    padding: 10px;
+    color: var(--text-color);
+    background-color: inherit;
+    background-color: var(--codeText-color);
+    border-radius: 5px 5px 5px 0;
+    margin-top: 10px;
+    overflow: auto;
+}
+
+.main-blog .entry .entry-content pre::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    background-color: transparent;
+}
+.main-blog .entry .entry-content pre::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: transparent;
+}
+.main-blog .entry .entry-content pre::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: var(--first-color);
+}
+.main-blog .entry .entry-content pre::-webkit-scrollbar-corner {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+/* .main-blog .entry-thumbnail .entry-content .read-more {
+    position: absolute;
+    bottom: 48px;
+    border: 2px solid var(--primDark-color);
+    font-size: 15px;
+    font-weight: 500;
+    background: transparent;
+    transition: all 0.3s ease;
+    display: block;
+}
+
+.main-blog .entry-thumbnail .entry-content .btnLinkBlog {
+    border-radius: 3px;
+    padding: 5px 10px;
+    background: var(--primDark-color);
+    color: #fff;
+    z-index: 1;
+    visibility: hidden;
+}
+
+.main-blog .entry-thumbnail .entry-content .btnLinkBlog:after {
+    position: absolute;
+    content: "";
+    width: 0;
+    height: 100%;
+    top: 0;
+    right: 0;
+    z-index: -1;
+    background: var(--containerSec-color);
+    transition: all 0.3s ease;
+}
+
+.main-blog .entry-thumbnail .entry-content .btnLinkBlog:hover {
+    color: var(--text-color);
+    background: var(--primDark-color);
+}
+
+.main-blog .entry-thumbnail .entry-content .btnLinkBlog:hover:after {
+    left: 0;
+    width: 100%;
+}
+
+.main-blog .entry-thumbnail .entry-content .btnLinkBlog:active {
+    top: 2px;
+} */
+
+/* .about .content .accordion {
+    cursor: pointer;
+    padding: 14px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    background-color: var(--sectionBg-color);
+    color: var(--text-color);
+}
+
+.about .content .accordion:hover {
+    box-shadow: 0 0 2px #333;
+}
+
+.about .accordion:after {
+    content: "\002B";
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+.about .active:after {
+    content: "\2212";
+    box-shadow: 0 5px 5px -5px #333;
+}
+
+.about .content .panel {
+    padding: 0 14px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+    background-color: var(--container-color);
+    color: var(--text-color);
+    cursor: default;
+} */

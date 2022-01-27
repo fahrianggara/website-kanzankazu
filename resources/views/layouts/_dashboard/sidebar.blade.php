@@ -1,0 +1,112 @@
+<div class="left side-menu">
+    <button type="button" class="button-menu-mobile button-menu-mobile-topbar open-left waves-effect">
+        <i class="uil uil-times"></i>
+    </button>
+
+    <!-- LOGO -->
+    <div class="topbar-left">
+        <div class="text-center">
+            <a href="index.html" class="logo"> {{ config('app.name') }}</a>
+        </div>
+    </div>
+
+    <div class="sidebar-inner slimscrollleft">
+
+        <div id="sidebar-menu">
+            <ul>
+                {{-- HOMEPAGE --}}
+                <li>
+                    <a href="{{ route('homepage') }}" target="_blank" class="waves-effect">
+                        <i class="uil uil-estate"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                {{-- DASHBOARD --}}
+                <li>
+                    <a href="{{ route('dashboard.index') }}"
+                        class="waves-effect {{ set_active('dashboard.index') }}">
+                        <i class="uil uil-desktop"></i>
+                        <span> Dashboard</span>
+                    </a>
+                </li>
+
+                {{-- POSTS --}}
+                @can('manage_posts')
+                    <li class="menu-title">Manage Articles</li>
+                    <li>
+                        <a href="{{ route('posts.index') }}"
+                            class="waves-effect {{ set_active(['posts.index', 'posts.create', 'posts.edit', 'posts.show', 'posts.delete']) }}">
+                            <i class="uil uil-files-landscapes-alt"></i>
+                            <span> Posts</span>
+                        </a>
+                    </li>
+                @endcan
+                {{-- CATEGORIES --}}
+                @can('manage_categories')
+                    <li>
+                        <a href="{{ route('categories.index') }}"
+                            class="waves-effect {{ set_active(['categories.index', 'categories.create', 'categories.edit']) }}">
+                            <i class="uil uil-bookmark"></i>
+                            <span> Categories</span>
+                        </a>
+                    </li>
+                @endcan
+                {{-- TAGS --}}
+                @can('manage_tags')
+                    <li>
+                        <a href="{{ route('tags.index') }}"
+                            class="waves-effect {{ set_active(['tags.index', 'tags.create', 'tags.edit']) }}">
+                            <i class="uil uil-tag-alt"></i>
+                            <span> Tags</span>
+                        </a>
+                    </li>
+                @endcan
+
+                {{-- USERS --}}
+                @can('manage_users')
+                    <li class="menu-title">Manage Users</li>
+                    <li>
+                        <a href="{{ route('users.index') }}"
+                            class="waves-effect {{ set_active(['users.index', 'users.create', 'users.edit']) }}">
+                            <i class="uil uil-users-alt"></i>
+                            <span> Users</span>
+                        </a>
+                    </li>
+                @endcan
+                {{-- ROLES --}}
+                @can('manage_roles')
+                    <li>
+                        <a href="{{ route('roles.index') }}"
+                            class="waves-effect {{ set_active(['roles.index', 'roles.create', 'roles.edit', 'roles.show']) }}">
+                            <i class="uil uil-user-check"></i>
+                            <span> Roles</span>
+                        </a>
+                    </li>
+                @endcan
+
+                {{-- INBOX CONTACT --}}
+                @can('manage_inbox')
+                    <li class="menu-title">Inbox</li>
+                    <li>
+                        <a href="{{ route('contact.index') }}" class="waves-effect {{ set_active('contact.index') }}">
+                            <i class="uil uil-inbox"></i>
+                            <span> Contact</span>
+                        </a>
+                    </li>
+                @endcan
+
+                {{-- FILEMANAGER --}}
+                <li class="menu-title">File Manager</li>
+                <li>
+                    <a href="{{ route('filemanager.index') }}"
+                        class="waves-effect {{ set_active('filemanager.index') }}">
+                        <i class="uil uil-folder-open"></i>
+                        <span> File Manager</span>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+    </div> <!-- end sidebarinner -->
+</div>

@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'there_are_no_comments' => '最初のコメントになってください！',
+    'authentication_required' => '認証が必要です',
+    'you_must_login_to_post_a_comment' => 'コメントを投稿するには、ログインする必要があります。',
+    'log_in' => 'ログインする',
+    'reply' => '返事',
+    'edit' => '編集',
+    'delete' => 'デリート',
+    'edit_comment' => 'コメントを編集',
+    'update_your_message_here' => 'ここでメッセージを更新してください：',
+    'update' => 'アップデート',
+    'cancel' => 'キャンセル',
+    'reply_to_comment' => 'コメントに返信',
+    'enter_your_message_here' => 'ここにあなたのメッセージを入力してください：',
+    'markdown_cheatsheet' => '<a target="_blank" href=":url">Markdown</a> cheatsheet.',
+    'submit' => '参加する',
+    'your_message_is_required' => 'あなたのメッセージが必要です。',
+    'enter_your_message_here' => 'メッセージを入力してください :',
+    'enter_your_email_here' => 'メールアドレスを入力 :',
+    'enter_your_name_here' => 'あなたの名前を入力してください :',
+    'enter_your_name' => 'あなたの名前',
+    'enter_your_email' => 'youremail@mail.com',
+    'enter_your_message' => 'あなたのメッセージコメント',
+];

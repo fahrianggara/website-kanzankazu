@@ -1,0 +1,270 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Display:wght@400;500;600;700&display=swap");
+
+:root {
+    --primary-color: #00b2cc;
+    --container-color: #fff;
+    --containerSec-color: #fff;
+    --text-color: #000;
+}
+
+body.dark-theme {
+    --primary-color: #00b2cc;
+    --container-color: #121212;
+    --containerSec-color: #1e1e1e;
+    --text-color: #fff;
+}
+
+* {
+    font-family: "Noto Sans Display", sans-serif;
+}
+
+body {
+    height: 100vh;
+    background: var(--container-color) !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s all ease-in-out;
+}
+
+/* Change Dark Mode */
+.change-theme {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px 10px;
+    border-radius: 0 0 0 15px !important;
+    background: #00829b;
+    cursor: pointer;
+}
+
+.change-theme > i {
+    font-size: 26px;
+    position: relative;
+    top: -1px;
+    right: -1px;
+    color: #fff;
+    transition: 0.3s all ease-in-out;
+}
+
+.change-theme > i:hover {
+    color: #60e4ff;
+    transition: 0.3s all ease-in-out;
+}
+
+.card {
+    overflow: hidden;
+    border: 0 !important;
+    border-radius: 15px !important;
+    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.3);
+}
+
+.img-left {
+    width: 45%;
+    background: url("https://source.unsplash.com/414x512?nature=1");
+    background-size: cover;
+}
+
+.card-body {
+    background: var(--containerSec-color);
+    color: var(--text-color);
+    padding: 2rem;
+    transition: 0.3s all ease-in-out;
+}
+
+.title {
+    margin-bottom: 2rem;
+    font-size: 30px;
+    color: var(--primary-color);
+}
+
+.form-input {
+    position: relative;
+}
+
+.form-input .form_control {
+    width: 100%;
+    height: 45px;
+    padding-left: 40px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    box-shadow: none;
+    border: 1px solid var(--text-color);
+    border-radius: 50px;
+    outline: none;
+    background: transparent;
+    color: var(--text-color);
+    transition: 0.3s all ease-in-out;
+}
+
+.form-input span {
+    position: relative;
+    top: -20px;
+    padding-left: 15px;
+}
+
+.form-input .iconForm {
+    position: absolute;
+    top: 8px;
+    padding-left: 14px;
+    color: var(--primary-color);
+}
+
+.form-input .iconForm > i {
+    color: var(--primary-color);
+    font-size: 19px;
+}
+
+.form-input .passTog {
+    position: absolute;
+    top: 7px;
+    right: 13px;
+    cursor: pointer;
+}
+
+.form-input .passTog > i {
+    color: var(--primary-color);
+    font-size: 21px;
+}
+
+.form-input .passTog > i.bi::before {
+    font-weight: 500;
+}
+
+.form-input input:focus {
+    border: 2px solid var(--primary-color);
+}
+
+.form-input > .is-invalid {
+    border: 2px solid #d63444;
+}
+
+.form-input label {
+    position: absolute;
+    top: 10px;
+    left: 37px;
+    font-weight: normal;
+    color: #808080;
+    transition: 0.3s all;
+    padding: 0 5px;
+    cursor: text;
+}
+
+.form_control:focus ~ label {
+    top: -12px;
+    left: 37px;
+    background: var(--containerSec-color);
+    color: var(--primary-color);
+    transition: 0.3s all ease-in-out;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+label.active {
+    top: -12px;
+    left: 37px;
+    background: var(--containerSec-color);
+    color: var(--text-color);
+    transition: 0.3s all ease-in-out;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.is-invalid.form_control:focus ~ label.active {
+    color: var(--primary-color);
+}
+
+.is-invalid ~ label.active {
+    color: #d63444;
+}
+
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: var(--primary-color) !important;
+    border: 0px;
+}
+
+.form-box button[type="submit"] {
+    border: 2px solid var(--primary-color);
+    border-radius: 50px;
+    color: var(--text-color);
+    z-index: 10;
+    padding: 12px;
+    font-family: "Noto Sans Display", sans-serif;
+    font-weight: 500;
+    font-size: 90%;
+    margin-top: 10px;
+    letter-spacing: 0.1rem;
+    -webkit-animation-delay: 0.8s;
+    animation-delay: 0.8s;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    transition: 0.3s all ease-in-out;
+}
+
+.form-box button[type="submit"]:after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    background: var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.form-box button[type="submit"]:hover {
+    color: var(--text-color);
+}
+
+.form-box button[type="submit"]:hover:after {
+    top: 0;
+    height: 100%;
+    border-radius: 50px;
+}
+
+.form-box button[type="submit"]:active {
+    top: 2px;
+}
+
+.forget-link,
+.register-link {
+    position: relative;
+    color: var(--text-color);
+    transition: 0.3s all ease-in-out;
+}
+
+.forget-link:before,
+.register-link:before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .forget-link:hover::before,
+    .register-link:hover::before {
+        left: 0;
+        right: auto;
+        width: 100%;
+    }
+}
+
+.forget-link:hover,
+.register-link:hover {
+    text-decoration: none;
+    color: var(--text-color);
+    transition: 0.3s all ease-in-out;
+}
+
+.hr {
+    border-color: var(--text-color);
+    transition: 0.3s all ease-in-out;
+}

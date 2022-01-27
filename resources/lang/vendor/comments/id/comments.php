@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'there_are_no_comments' => 'Jadilah komentar pertama!',
+    'authentication_required' => 'Autentikasi diperlukan',
+    'you_must_login_to_post_a_comment' => 'Kamu harus login dulu sebelum komen.',
+    'log_in' => 'Gabung',
+    'reply' => 'Balas',
+    'edit' => 'Edit',
+    'delete' => 'Hapus',
+    'edit_comment' => 'Edit Komen',
+    'update_your_message_here' => 'Perbarui pesan kamu disini:',
+    'update' => 'Edit',
+    'cancel' => 'Batal',
+    'reply_to_comment' => 'Balas komentar',
+    'enter_your_message_here' => 'Masukkan pesan kamu disini:',
+    'markdown_cheatsheet' => '<a target="_blank" href=":url">Markdown</a> cheatsheet.',
+    'submit' => 'Submit',
+    'your_message_is_required' => 'Pesan harus diisi.',
+    'enter_your_message_here' => 'Masukkan komentar kamu disini:',
+    'enter_your_email_here' => 'Masukkan email kamu disini:',
+    'enter_your_name_here' => 'Masukkan nama kamu disini:',
+    'enter_your_name' => 'Nama kamu...',
+    'enter_your_email' => 'namakamu@mail.com',
+    'enter_your_message' => 'Komentar kamu...',
+];

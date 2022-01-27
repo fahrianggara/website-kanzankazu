@@ -1,0 +1,140 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Display:wght@400;500;600;700&display=swap");
+
+* {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: "Noto Sans Display", sans-serif;
+}
+
+body {
+    padding: 0;
+    margin: 10px;
+    background: #121212;
+    overflow: hidden;
+}
+
+#notFound {
+    position: relative;
+    height: 100vh;
+}
+
+#notFound .notFound {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.notFound {
+    max-width: 520px;
+    width: 100%;
+    text-align: center;
+    line-height: 1.4;
+}
+
+.notFound .notFound_404 {
+    height: 190px;
+}
+
+.notFound .notFound_404 h1 {
+    font-family: "Noto Sans Display", sans-serif;
+    font-size: 146px;
+    font-weight: 700;
+    margin: 0;
+    color: #00829b;
+}
+
+.notFound .notFound_404 h1 > span {
+    display: inline-block;
+    width: 120px;
+    height: 120px;
+    background-image: url("../img/home-img/icon/sadEmoji.png");
+    background-size: cover;
+    -webkit-transform: scale(1.4);
+    -ms-transform: scale(1.4);
+    transform: scale(1.4);
+    z-index: -1;
+}
+
+.notFound h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+    text-transform: uppercase;
+    color: #00b2cc;
+}
+
+.notFound p {
+    color: #fff;
+    font-weight: 500;
+}
+
+.notFound a {
+    text-decoration: none;
+}
+
+.notFound .buttonError {
+    border: 2px solid #00829b;
+    color: #fff;
+    z-index: 10;
+    padding: 12px 32px;
+    border-radius: 50px;
+    margin: 10px;
+    font-family: "Noto Sans Display", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1;
+    -webkit-animation-delay: 0.8s;
+    animation-delay: 0.8s;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.notFound .buttonError:after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    background: #00829b;
+    transition: all 0.3s ease;
+}
+
+.notFound .buttonError:hover {
+    color: #fff;
+}
+
+.notFound .buttonError:hover:after {
+    top: 0;
+    height: 100%;
+    border-radius: 50px;
+}
+
+.notFound .buttonError:active {
+    top: 2px;
+}
+
+@media only screen and (max-width: 767px) {
+    .notFound .notFound_404 {
+        height: 115px;
+    }
+
+    .notFound .notFound_404 h1 {
+        font-size: 86px;
+    }
+
+    .notFound .notFound_404 h1 > span {
+        width: 86px;
+        height: 86px;
+    }
+
+    .notFound p {
+        font-size: 15px;
+    }
+}
