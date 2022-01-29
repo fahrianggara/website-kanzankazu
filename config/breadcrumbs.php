@@ -25,7 +25,7 @@ return [
     |
     */
 
-    'view' => 'breadcrumbs::breadcrumbs-annex',
+    'view' => 'breadcrumbs::annex',
 
     /*
     |--------------------------------------------------------------------------
