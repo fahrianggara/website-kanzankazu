@@ -77,6 +77,11 @@ class User extends Authenticatable
         return $this->hasMany(Post::class, 'user_id');
     }
 
+    public function posts()
+    {
+        return $this->hasMany(Post::class)->where('status', 'publish');
+    }
+
     public function publish($query)
     {
         return $query->where('status', "publish");
@@ -85,5 +90,14 @@ class User extends Authenticatable
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    public function getImageAttribute($value)
+    {
+        if ($value) {
+            return asset('vendor/dashboard/image/picture-profiles/' . $value);
+        } else {
+            return asset('vendor/dashboard/image/picture-profiles/avatar.png');
+        }
     }
 }

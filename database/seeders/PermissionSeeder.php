@@ -19,7 +19,7 @@ class PermissionSeeder extends Seeder
         $authorities = config('permission.authorities');
 
         $listPermission = [];
-        $superAdminPermissions = [];
+        $miminPermissions = [];
         $adminPermissions = [];
         $editorPermissions = [];
 
@@ -33,8 +33,8 @@ class PermissionSeeder extends Seeder
                     "created_at" => date('Y-m-d H:i:s'),
                     "updated_at" => date('Y-m-d H:i:s'),
                 ];
-                // superadmin
-                $superAdminPermissions[] = $permission;
+                // mimin
+                $miminPermissions[] = $permission;
                 // admin
                 if (in_array($label, ['manage_posts', 'manage_categories', 'manage_tags', 'manage_inbox'])) {
                     $adminPermissions[] = $permission;
@@ -56,8 +56,8 @@ class PermissionSeeder extends Seeder
          */
 
         // SUPER ADMIN
-        $superAdmin = Role::create([
-            "name" => "Super Admin",
+        $mimin = Role::create([
+            "name" => "Mimin",
             'guard_name' => 'web',
             "created_at" => date('Y-m-d H:i:s'),
             "updated_at" => date('Y-m-d H:i:s'),
@@ -78,20 +78,19 @@ class PermissionSeeder extends Seeder
         ]);
 
         // ketika sudah dimasukkan ke database kita kasih permissionnya(hak akses)
-        $superAdmin->givePermissionTo($superAdminPermissions);
+        $mimin->givePermissionTo($miminPermissions);
         $admin->givePermissionTo($adminPermissions);
         $editor->givePermissionTo($editorPermissions);
 
-        // kita jadikan user berdasarkan id dan kasihkan user itu ke role superadmin, admin dan editor
-        $userSuperAdmin = User::find(1)->assignRole("Super Admin");
-        $userAdmin = User::find(2)->assignRole("Admin");
-        $userEditor = User::find(3)->assignRole("Editor");
+        // kita jadikan user berdasarkan id dan kasihkan user itu ke role mimin, admin dan editor
+        User::find(1)->assignRole("Mimin");
+        User::find(2)->assignRole("Mimin");
 
         /**
          * pengecekan datanya masuk apa tidak..
-         * 
+         *
          * dd in terminal = php artisan db:seed --class=PermissionTableSeeder
-         * 
+         *
          * dd("Super Admin", $superAdminPermissions);
          * dd("Admin", $adminPermissions);
          * dd("Editor", $editorPermissions);

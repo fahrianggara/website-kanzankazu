@@ -9,7 +9,6 @@
 @endsection
 
 @section('content')
-
     <div class="container">
         <div class="row">
             @forelse ($posts as $post)
@@ -18,11 +17,11 @@
                     <article class="entry-thumbnail">
                         <div class="entry-img loading">
                             <a href="{{ route('blog.detail', ['slug' => $post->slug]) }}">
-                                @if (file_exists(public_path($post->thumbnail)))
-                                    <img src="{{ asset($post->thumbnail) }}" alt="{{ $post->title }}"
-                                        class="img-fluid" />
+                                @if (file_exists(public_path('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail)))
+                                    <img src="{{ asset('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail) }}"
+                                        alt="{{ $post->title }}" class="img-fluid" />
                                 @else
-                                    <img class="img-fluid" src="{{ asset('vendor/my-blog/img/noimage.jpg') }}"
+                                    <img class="img-fluid" src="{{ asset('vendor/blog/img/default.png') }}"
                                         alt="{{ $post->title }}">
                                 @endif
                             </a>
@@ -87,8 +86,7 @@
                                 {{ trans('blog.no-data.blogs') }}
                             </p>
 
-                            <a href="{{ route('homepage') }}"
-                                class="buttonBlogNotFound">{{ trans('error.404-backLink') }}</a>
+                            <a id="buttonBack" class="buttonBlogNotFound">{{ trans('blog.links.linkBack') }}</a>
                         </div>
 
                     </div>
@@ -101,5 +99,4 @@
             {{ $posts->links('vendor.pagination.blog') }}
         @endif
     </div>
-
 @endsection

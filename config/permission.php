@@ -39,7 +39,10 @@ return [
         'manage_inbox' => [
             'inbox_show',
             'inbox_delete'
-        ]
+        ],
+        'manage_website' => [
+            'website_show'
+        ],
     ],
 
     'models' => [

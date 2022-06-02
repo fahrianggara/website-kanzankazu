@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class Localization
 {
@@ -18,7 +19,7 @@ class Localization
     {
         // pengecekan
         if (session()->has('locale')) {
-            \App::setLocale(session()->get('locale'));
+            App::setLocale(session()->get('locale'));
         }
         return $next($request);
     }

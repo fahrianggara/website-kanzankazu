@@ -4,14 +4,21 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\WebSetting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\View;
 use RealRashid\SweetAlert\Facades\Alert;
+use Intervention\Image\Facades\Image;
 
 class CategoryController extends Controller
 {
     public function __construct()
     {
+        $setting = WebSetting::find(1);
+        View::share('setting', $setting);
+
         $this->middleware('permission:category_show', ['only' => 'index']);
         $this->middleware('permission:category_create', ['only' => ['create', 'store']]);
         $this->middleware('permission:category_update', ['only' => ['edit', 'update']]);
@@ -32,8 +39,8 @@ class CategoryController extends Controller
             $categories->onlyParent();
         }
 
-        return view('manage-posts.categories.index', [
-            'categories' => $categories->paginate(5)->appends(['keyword' => $request->get('keyword')])
+        return view('dashboard.manage-posts.categories.index', [
+            'categories' => $categories->latest()->paginate(5)->appends(['keyword' => $request->get('keyword')])
         ]);
     }
 
@@ -58,7 +65,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('manage-posts.categories.create');
+        return view('dashboard.manage-posts.categories.create');
     }
 
     /**
@@ -69,51 +76,54 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make(
-            $request->all(),
-            [
-                'title'         => 'required|string|max:50',
-                'slug'          => 'required|string|unique:categories,slug',
-                'thumbnail'     => 'required',
-                'description'   => 'required',
-            ],
-        );
+        // validate the data
+        $validator = Validator::make($request->all(), [
+            'title'         => 'required|string|max:20|min:3',
+            'slug'          => 'unique:categories,slug',
+            'thumbnail'     => 'image|mimes:jpg,png,jpeg,gif|max:2048',
+            'description'   => 'nullable|max:400|min:10'
+        ]);
 
         if ($validator->fails()) {
             if ($request->has('parent_category')) {
                 $request['parent_category'] = Category::select('id', 'title')->find($request->parent_category);
             }
             return redirect()->back()->withInput($request->all())->withErrors($validator);
-        }
+        } else {
 
-        // dd($request->title, $request->slug, parse_url($request->thumbnail)['path'], $request->description, $request->parent_category);
-
-        // INSERT DATA
-        try {
-            Category::create([
-                'title' => $request->title,
-                'slug' => $request->slug,
-                'thumbnail' => parse_url($request->thumbnail)['path'],
-                'description' => $request->description,
-                'parent_id' => $request->parent_category,
-            ]);
-
-            Alert::success('Success', 'New category created successfully');
-
-            return redirect()->route('categories.index');
-        } catch (\Throwable $th) {
-
-            if ($request->has('parent_category')) {
-                $request['parent_category'] = Category::select('id', 'title')->find($request->parent_category);
+            // INSERT DATA
+            if ($request->hasFile('thumbnail')) {
+                $path = public_path("vendor/dashboard/image/thumbnail-categories/");
+                $image = $request->file('thumbnail');
+                $newImage = uniqid('CateIMG-', true) . '.' . $image->extension();
+                // Resize Img
+                $resizeImg = Image::make($image->path());
+                $resizeImg->resize(1280, 800)->save($path . '/' . $newImage);
             }
 
-            Alert::error(
-                'Error',
-                'Failed during data input process. 
-                Message: ' . $th->getMessage()
-            );
+            // insert data
+            $insert = Category::create([
+                'title'         => $request->title,
+                'slug'          => $request->slug,
+                'description'   => $request->description ?? '',
+                'thumbnail'     => $newImage ?? 'default.png',
+                'parent_id'     => $request->parent_category
+            ]);
 
-            return redirect()->back()->withInput($request->all());
+            if ($insert) {
+                // Alert success
+                return redirect()->route('categories.index')->with(
+                    'success',
+                    'New Category has been saved!'
+                );
+            } else {
+                // Jika gagal
+                if ($request->has('parent_category')) {
+                    $request['parent_category'] = Category::select('id', 'title')->find($request->parent_category);
+                }
+
+                return redirect()->back()->withInput($request->all());
+            }
         }
     }
 
@@ -125,7 +135,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('manage-posts.categories.edit', compact('category'));
+        return view('dashboard.manage-posts.categories.edit', compact('category'));
     }
 
     /**
@@ -137,13 +147,14 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+        // Validation
         $validator = Validator::make(
             $request->all(),
             [
                 'title'         => 'required|string|max:50',
                 'slug'          => 'required|string|unique:categories,slug,' . $category->id,
-                'thumbnail'     => 'required',
-                'description'   => 'required',
+                'thumbnail'     => 'image|mimes:jpg,png,jpeg,gif|max:2048',
+                'description'   => 'nullable|max:400|min:10'
             ],
         );
 
@@ -152,35 +163,49 @@ class CategoryController extends Controller
                 $request['parent_category'] = Category::select('id', 'title')->find($request->parent_category);
             }
             return redirect()->back()->withInput($request->all())->withErrors($validator);
-        }
+        } else {
+            // UPDATE CATEGORY
+            $category->title        = $request->input('title');
+            $category->slug         = $request->input('slug');
+            $category->description  = $request->input('description') ?? '';
+            $category->parent_id    = $request->input('parent_category');
 
-        // dd($request->title, $request->slug, parse_url($request->thumbnail)['path'], $request->description, $request->parent_category);
+            if ($request->hasFile('thumbnail')) {
+                $path = "vendor/dashboard/image/thumbnail-categories/";
+                if (File::exists($path . $category->thumbnail)) {
+                    File::delete($path . $category->thumbnail);
+                }
+                $image = $request->file('thumbnail');
+                $newImage = uniqid('CateIMG-', true) . '.' . $image->extension();
+                // Resize Img
+                $resizeImg = Image::make($image->path());
+                $resizeImg->resize(1280, 800)->save(public_path($path) . '/' . $newImage);
 
-        // UPDATE CATEGORY
-        try {
-            $category->update([
-                'title' => $request->title,
-                'slug' => $request->slug,
-                'thumbnail' => parse_url($request->thumbnail)['path'],
-                'description' => $request->description,
-                'parent_id' => $request->parent_category
-            ]);
-
-            Alert::success('Success', 'Category ' . $request->title . ', Updated successfully');
-
-            return redirect()->route('categories.index');
-        } catch (\Throwable $th) {
-            if ($request->has('parent_category')) {
-                $request['parent_category'] = Category::select('id', 'title')->find($request->parent_category);
+                $category->thumbnail = $newImage;
             }
 
-            Alert::error(
-                'Error',
-                'Failed during data input process. 
-                Message: ' . $th->getMessage()
-            );
+            if ($category->isDirty()) {
 
-            return redirect()->back()->withInput($request->all());
+                // Updated process
+                $cateUpdate = $category->update();
+
+                if ($cateUpdate) {
+                    return redirect()->route('categories.index')->with(
+                        'success',
+                        'Category successfully updated!'
+                    );
+                } else {
+                    if ($request->has('parent_category')) {
+                        $request['parent_category'] = Category::select('id', 'title')->find($request->parent_category);
+                    }
+                    return redirect()->back()->withInput($request->all());
+                }
+            } else {
+                return redirect()->route('categories.index')->with(
+                    'success',
+                    'Oops.. nothing seems to be updated!'
+                );
+            }
         }
     }
 
@@ -193,17 +218,24 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         try {
+            // Delete image data category
+            $path = "vendor/dashboard/image/thumbnail-categories/";
+            if (File::exists($path . $category->thumbnail)) {
+                File::delete($path . $category->thumbnail);
+            }
+            // Delete data
             $category->delete();
-
-            Alert::success('Success', 'Category ' . $category->title . ', Deleted successfully');
         } catch (\Throwable $th) {
             Alert::error(
                 'Error',
-                'Failed during data input process. 
+                'Failed during data input process.
                 Message: ' . $th->getMessage()
             );
         }
 
-        return redirect()->back();
+        return redirect()->back()->with(
+            'success',
+            $category->title . ' category successfully Deleted!'
+        );
     }
 }

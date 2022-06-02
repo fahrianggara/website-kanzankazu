@@ -3,16 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Models\WebSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\View;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ContactController extends Controller
 {
     public function __construct()
     {
+        $setting = WebSetting::find(1);
+        View::share('setting', $setting);
+
         $this->middleware('permission:inbox_show', ['only' => 'index']);
         $this->middleware('permission:inbox_delete', ['only' => 'destroy']);
     }
@@ -30,7 +35,7 @@ class ContactController extends Controller
         $contact = $request->get('keyword') ? Contact::where('name', 'LIKE', '%' . $q . '%')
             ->orWhere('subject', 'LIKE', '%' . $q . '%')->paginate(5) : Contact::paginate(5);
 
-        return view('contact.index', [
+        return view('dashboard.contact.index', [
             'contact' => $contact->appends(['keyword' => $request->keyword])
         ]);
     }
@@ -54,20 +59,33 @@ class ContactController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'name' => 'required|string|regex:/^[a-zA-Z\s]*$/|min:3|max:40',
+                'name' => 'required|string|alpha_spaces|min:3|max:40',
                 "email" => 'required|email',
-                'subject' => 'required|string|alpha_num|max:100|min:3',
-                'message' => 'required|alpha_num|max:300|min:5',
+                'subject' => 'required|string|alpha_spaces|max:50|min:3',
+                'messages' => 'required|max:300|min:5',
             ],
-            [],
-            $this->attributes()
+            [
+                'name.required' => 'Masukkan nama kamu',
+                'name.alpha_spaces' => 'Input nama tidak boleh mengandung angka dan lain-lain',
+                'name.min' => 'Input nama minimal 3 karakter',
+                'name.max' => 'Input nama maksimal 40 karakter',
+                'email.required' => 'Masukkan alamat email kamu',
+                'email.email' => 'Email kamu tidak valid',
+                'subject.required' => 'Masukkan judul pesan kamu',
+                'subject.alpha_spaces' => 'Judul pesan tidak boleh mengandung angka dan lain-lain',
+                'subject.max' => 'Judul pesan maksimal 50 karakter',
+                'subject.min' => 'Judul pesan minimal 3 karakter',
+                'messages.required' => 'Masukkan isi pesan kamu',
+                'messages.max' => 'Isi pesan maksimal 300 karakter',
+                'messages.min' => 'Isi pesan minimal 5 karakter',
+            ]
         );
 
-        if (!$validator->passes()) {
+        if ($validator->fails()) {
             return response()->json(
                 [
-                    'status' => 0,
-                    'error' => $validator->errors()->toArray()
+                    'status' => 400,
+                    'errors' => $validator->errors()->toArray()
                 ]
             );
         } else {
@@ -75,7 +93,7 @@ class ContactController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'subject' => $request->subject,
-                'message' => $request->message,
+                'message' => $request->messages,
             ];
 
             $query = Contact::create($values);
@@ -83,8 +101,8 @@ class ContactController extends Controller
             if ($query) {
                 return response()->json(
                     [
-                        'status' => 1,
-                        'msg' => trans('home.alert.create.message.success')
+                        'status' => 200,
+                        'msg' => 'Terimakasih atas pesan-mu ~Zex'
                     ]
                 );
             }
@@ -152,7 +170,7 @@ class ContactController extends Controller
         } catch (\Throwable $th) {
             Alert::error(
                 'Error',
-                'Failed during data input process. 
+                'Failed during data input process.
                 Message: ' . $th->getMessage()
             );
         }

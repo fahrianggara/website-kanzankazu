@@ -85,5 +85,13 @@ class AuthServiceProvider extends ServiceProvider
                 'inbox_delete'
             ]);
         });
+
+        // MANAGE WEBSITE
+        Gate::define('manage_website', function ($user) {
+            return $user->hasAnyPermission([
+                'website_show',
+                'website_update',
+            ]);
+        });
     }
 }

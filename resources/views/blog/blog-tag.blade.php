@@ -1,12 +1,18 @@
 @extends('layouts.blog')
 
 @section('title')
-    Tags? {{ $tag->title }}
+    Tag {{ $tag->title }}
 @endsection
 
 @section('content')
-
     <div class="container">
+        @if ($tag->posts->count() >= 1)
+            <div class="section-title">
+                <h2>Ini dia yang kamu cari</h2>
+                <p>Ada {{ $tag->posts->count() }} blog dalam tag {{ $tag->title }}.</p>
+            </div>
+        @endif
+
         <div class="row">
             @forelse ($posts as $post)
                 <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up">
@@ -14,11 +20,11 @@
                     <article class="entry-thumbnail">
                         <div class="entry-img loading">
                             <a href="{{ route('blog.detail', ['slug' => $post->slug]) }}">
-                                @if (file_exists(public_path($post->thumbnail)))
-                                    <img src="{{ asset($post->thumbnail) }}" alt="{{ $post->title }}"
-                                        class="img-fluid" />
+                                @if (file_exists(public_path('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail)))
+                                    <img src="{{ asset('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail) }}"
+                                        alt="{{ $post->title }}" class="img-fluid" />
                                 @else
-                                    <img class="img-fluid" src="{{ asset('vendor/my-blog/img/noimage.jpg') }}"
+                                    <img class="img-fluid" src="{{ asset('vendor/blog/img/default.png') }}"
                                         alt="{{ $post->title }}">
                                 @endif
                             </a>
@@ -55,7 +61,7 @@
                             </div>
                             <div class="read-more loading">
                                 <a href=" {{ route('blog.detail', ['slug' => $post->slug]) }}">
-                                    {{ trans('blog.button.btnDetail') }}
+                                    Lihat Selengkapnya
                                 </a>
                             </div>
                         </div>
@@ -80,11 +86,11 @@
 
 
                             <p class="text-emptyBlog">
-                                {{ trans('blog.no-data.tag', ['name' => $tag->title]) }}
+                                Oops.. sepertinya blog dengan tag <span class="titleFilter">{{ $tag->title }}</span>
+                                belum dibuat.
                             </p>
 
-                            <a href="{{ route('homepage') }}"
-                                class="buttonBlogNotFound">{{ trans('error.404-backLink') }}</a>
+                            <a id="buttonBack" class="buttonBlogNotFound">Kembali</a>
                         </div>
 
                     </div>
@@ -96,5 +102,4 @@
             {{ $posts->links('vendor.pagination.blog') }}
         @endif
     </div>
-
 @endsection

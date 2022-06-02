@@ -22,6 +22,18 @@ Breadcrumbs::for('list-contact', function (BreadcrumbTrail $trail) {
     $trail->push('Contacts', route('contact.index'));
 });
 
+// Dashboard > Profile
+Breadcrumbs::for('dash-profile', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Profile', route('profile.index'));
+});
+
+// Dashboard > Website Settings
+Breadcrumbs::for('web_settings', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Settings', route('dashboard.setting'));
+});
+
 // =================================================================
 
 Breadcrumbs::for('categories', function (BreadcrumbTrail $trail) {
@@ -37,8 +49,7 @@ Breadcrumbs::for('add_category', function (BreadcrumbTrail $trail) {
 // Dashboard > Categories > Edit
 Breadcrumbs::for('edit_category', function (BreadcrumbTrail $trail, $category) {
     $trail->parent('categories');
-    $trail->push('Edit', route('categories.edit', ['category' => $category]));
-    $trail->push($category->title);
+    $trail->push($category->title, route('categories.edit', ['category' => $category]));
 });
 
 // =================================================================
@@ -55,8 +66,7 @@ Breadcrumbs::for('add_tags', function (BreadcrumbTrail $trail) {
 
 Breadcrumbs::for('edit_tag', function (BreadcrumbTrail $trail, $tag) {
     $trail->parent('tags');
-    $trail->push('Edit', route('tags.edit', ['tag' => $tag]));
-    $trail->push($tag->title);
+    $trail->push($tag->title, route('tags.edit', ['tag' => $tag]));
 });
 
 // =================================================================

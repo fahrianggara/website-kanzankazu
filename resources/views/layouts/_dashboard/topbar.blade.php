@@ -5,27 +5,36 @@
         <ul class="list-inline float-right mb-0">
 
             <li class="list-inline-item dropdown notification-list">
+                <a class="nav-link dropdown-toggle arrow-none waves-effect">
+                    <i id="theme-toggle" class="uil uil-moon noti-icon"></i>
+                </a>
+            </li>
+
+            <li class="list-inline-item dropdown notification-list">
                 <a class="nav-link dropdown-toggle arrow-none waves-effect nav-user" data-toggle="dropdown" href="#"
                     role="button" aria-haspopup="false" aria-expanded="false">
-                    <img src="{{ asset(Auth::user()->user_image) }}" alt="{{ Auth::user()->name }}"
-                        class="rounded-circle">
+                    @if (file_exists(public_path('vendor/dashboard/image/picture-profiles/' . Auth::user()->user_image)))
+                        <img src="{{ asset('vendor/dashboard/image/picture-profiles/' . Auth::user()->user_image) }}"
+                            alt="{{ Auth::user()->name }}" class="rounded-circle userImage">
+                    @else
+                        <img src="{{ asset('vendor/dashboard/image/picture-profiles/default.png') }}"
+                            alt="{{ Auth::user()->name }}" class="rounded-circle userImage">
+                    @endif
                 </a>
                 <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                     <!-- item-->
                     <div class="dropdown-item noti-title">
-                        <h5>{{ Auth::user()->name }}</h5>
+                        <h5 class="user_name">{{ Auth::user()->name }}</h5>
                     </div>
-                    <a class="dropdown-item" href="#"><i class="uil uil-user m-r-5 text-muted"></i>
+                    <a class="dropdown-item" href="{{ route('profile.index') }}"><i
+                            class="uil uil-user m-r-5 text-muted"></i>
                         Profile</a>
                     <div class="dropdown-divider"></div>
 
-                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();">
-                        <i class="uil uil-signout m-r-5 text-muted"></i> Logout
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
+                    <a class="dropdown-item" href="{{ route('logout') }}" data-toggle="modal"
+                        data-target="#logModal">
+                        <i class="uil uil-signout m-r-5 text-muted"></i>
+                        Logout
                     </a>
                 </div>
             </li>
@@ -44,4 +53,23 @@
 
     </nav>
 
+</div>
+
+<div class="modal fade" id="logModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                Do you really want to logout?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a href="{{ route('logout') }}" type="button" class="btn btn-primary btn-danger" onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();">Logout
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </a>
+            </div>
+        </div>
+    </div>
 </div>

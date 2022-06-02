@@ -11,9 +11,9 @@
                 </div>
             @endif
             @if ($item->generation)
-                @include('blog.sub-category', [
-                'categoryRoot' => $item->generation,
-                'category' => $category,
+                @include('blog.sub-blog.sub-category', [
+                    'categoryRoot' => $item->generation,
+                    'category' => $category,
                 ])
             @endif
         </li>

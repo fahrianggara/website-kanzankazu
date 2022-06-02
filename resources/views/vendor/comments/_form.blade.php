@@ -10,7 +10,8 @@
                 {{ $errors->first('commentable_id') }}
             </div>
         @endif
-        <form id="form-comment" method="POST" action="{{ route('comments.store') }}" class="form_comment">
+        <form id="form-comment" method="POST" action="{{ route('comments.store') }}" class="form_comment"
+            autocomplete="off">
             @csrf
             @honeypot
             <input type="hidden" name="commentable_type" value="\{{ get_class($model) }}" />
@@ -22,29 +23,19 @@
                     <div class="col-lg-6">
                         <div class="form-group ">
                             <label for="message">@lang('comments::comments.enter_your_name_here')</label>
-                            <input type="text" class="form-control @if ($errors->has('guest_name')) is-invalid @endif" name="guest_name"
-                                placeholder="@lang('comments::comments.enter_your_name')" />
-                            @error('guest_name')
-                                <div class="invalid-feedback">
-                                    <b>
-                                        {{ $message }}
-                                    </b>
-                                </div>
-                            @enderror
+                            <input id="guest_name" type="text"
+                                class="form-control @if ($errors->has('guest_name')) is-invalid @endif"
+                                name="guest_name" placeholder="@lang('comments::comments.enter_your_name')" />
+                            <span class="invalid-feedback d-block error-text guest_name_error"></span>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label for="message">@lang('comments::comments.enter_your_email_here')</label>
-                            <input type="email" class="form-control @if ($errors->has('guest_email')) is-invalid @endif" name="guest_email"
-                                placeholder="@lang('comments::comments.enter_your_email')" />
-                            @error('guest_email')
-                                <div class="invalid-feedback">
-                                    <b>
-                                        {{ $message }}
-                                    </b>
-                                </div>
-                            @enderror
+                            <input id="guest_email" type="email"
+                                class="form-control @if ($errors->has('guest_email')) is-invalid @endif"
+                                name="guest_email" placeholder="@lang('comments::comments.enter_your_email')" />
+                            <span class="invalid-feedback d-block error-text guest_email_error"></span>
                         </div>
                     </div>
                 </div>
@@ -52,13 +43,10 @@
 
             <div class="form-group">
                 <label for="message">@lang('comments::comments.enter_your_message_here')</label>
-                <textarea class="form-control @if ($errors->has('message')) is-invalid @endif" name="message" rows="3"
+                <textarea id="message" class="form-control @if ($errors->has('comment')) is-invalid @endif" name="message" rows="3"
                     placeholder="@lang('comments::comments.enter_your_message')"></textarea>
-                <div class="invalid-feedback">
-                    <b>
-                        @lang('comments::comments.your_message_is_required')
-                    </b>
-                </div>
+                <span class="invalid-feedback d-block error-text message_error"></span>
+
                 {{-- <small class="form-text text-muted">@lang('comments::comments.markdown_cheatsheet', ['url' =>
                     'https://help.github.com/articles/basic-writing-and-formatting-syntax'])</small> --}}
             </div>
@@ -68,24 +56,71 @@
     </div>
 </div>
 
+@push('css-external')
+    <link rel="stylesheet" href="{{ asset('vendor/dashboard/plugins/alertify/css/alert.css') }}">
+@endpush
+
+@push('js-external')
+    <script src="{{ asset('vendor/dashboard/plugins/alertify/js/alert.js') }}"></script>
+@endpush
+
 @push('js-internal')
     <script>
-        // $(document).ready(function() {
-        //     $('form > .form-control').keyup(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
-        //         var empty = false;
-        //         $('form > .form-control').each(function() {
-        //             if ($(this).val().length == 0) {
-        //                 empty = true;
-        //             }
-        //         });
+        $(function() {
+            $("#form-comment").on('submit', function(e) {
+                e.preventDefault();
 
-        //         if (empty) {
-        //             $('#submit-comment').attr('disabled', 'disabled');
-        //         } else {
-        //             $('#submit-comment').removeAttr('disabled');
-        //         }
-        //     });
-        // });
+                $.ajax({
+                    type: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: new FormData(this),
+                    dataType: "json",
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function() {
+                        $('#submit-comment').attr('disable', 'disable')
+                        $('#submit-comment').html('<i class="fa fa-spinner fa-spin"></i>');
+                        $(document).find('span.error-text').text('');
+                        $(document).find('input.form-control').removeClass(
+                            'is-invalid');
+                        $(document).find('textarea.form-control').removeClass(
+                            'is-invalid');
+                    },
+                    complete: function() {
+                        $('#submit-comment').removeAttr('disable');
+                        $('#submit-comment').html('@lang('comments::comments.submit')');
+                    },
+                    success: function(response) {
+                        if (response.status == 400) {
+                            $.each(response.errors, function(key, val) {
+                                $("#" + key).addClass('is-invalid');
+                                $('span.' + key + '_error').text(val[0]);
+                            });
+                        } else {
+                            $('#form-comment')[0].reset();
+
+                            alertify
+                                .delay(3500)
+                                .log(response.msg);
+
+                            setTimeout((function() {
+                                window.location.reload();
+                            }), 950);
+
+                        }
+                    },
+                    error: function(response) {
+                        alert(response.status + "\n" + response.errors + "\n" + thrownError);
+                    }
+                })
+            });
+
+        });
     </script>
 @endpush

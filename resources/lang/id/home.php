@@ -10,7 +10,7 @@ return [
         'subtitle' => [
             'one' => 'Semoga suka dengan Website saya!',
             'two' => 'ini adalah Pantai Pasir Putih, yang ada di cilegon, Wajib kalian kesini!',
-            'three' => 'Jalak suren atau jalak uren adalah spesies jalak yang ditemukan di Anakbenua India dan Asia Tenggara. Burung-burung ini biasa ditemukan dalam kelompok kecil di kaki lembah dan di dataran rendah. 
+            'three' => 'Jalak suren atau jalak uren adalah spesies jalak yang ditemukan di Anakbenua India dan Asia Tenggara. Burung-burung ini biasa ditemukan dalam kelompok kecil di kaki lembah dan di dataran rendah.
             Jalak suren acapkali dijumpai di kota atau perdesaan.',
         ],
         'button' => 'Jelajahi..',
@@ -37,7 +37,7 @@ return [
             'titleDesg' => "Desain & Fotografi",
         ],
         "desc" => "Halo, nama saya Fahri Anggara, bisa dipanggil Angga. Semoga kamu suka dengan Website saya!
-        Oke.. Pertama saya akan menjelaskan.. kenapa saya membuat website ini? karena saya suka coding. Yap, Hobi saya adalah coding. 
+        Oke.. Pertama saya akan menjelaskan.. kenapa saya membuat website ini? karena saya suka coding. Yap, Hobi saya adalah coding.
         dan ini sangat menyenangkan."
 
     ],
@@ -121,7 +121,7 @@ return [
                 'success'   => 'Berhasil'
             ],
             'message' => [
-                'success' => "Terima Kasih atas informasi-nya!",
+                'success' => "Terima Kasih atas pesan-nya!",
                 'error' => "Oops.. Terjadi kesalahan saat menyimpan Contact baru! :error"
             ]
         ],

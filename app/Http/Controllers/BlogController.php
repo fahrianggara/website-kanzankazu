@@ -19,7 +19,7 @@ class BlogController extends Controller
             ->publish()
             ->latest()
             ->filter(request(['month', 'year']))
-            ->paginate(10)
+            ->paginate(6)
             ->appends(request(['month', 'year']));
 
         return view('blog.blog', [
@@ -93,8 +93,6 @@ class BlogController extends Controller
         $q = $request->get('keyword');
 
         $posts = Post::publish()->where('title', 'LIKE', '%' . $q . '%')
-            ->orWhere('description', 'LIKE', '%' . $q . '%')
-            ->orWhere('author', 'LIKE', '%' . $q . '%')
             ->latest()
             ->paginate(10);
 
@@ -114,7 +112,8 @@ class BlogController extends Controller
             foreach ($posts as $post) {
 
                 $new_row['title'] = $post->title;
-                $new_row['url'] = url('blog/' . $post->slug);
+                // $new_row['url'] = url('blog/' . $post->slug);
+                $new_row['url'] = route('blog.detail', ['slug' => $post->slug]);
 
                 $row_set[] = $new_row;
             }
@@ -125,11 +124,11 @@ class BlogController extends Controller
 
     public function showPostsByCategory($slug)
     {
+        $category = Category::where('slug', $slug)->firstOrFail();
+
         $posts = Post::publish()->whereHas('categories', function ($query) use ($slug) {
             return $query->where('slug', $slug);
         })->latest()->paginate(10);
-
-        $category = Category::where('slug', $slug)->firstOrFail();
 
         $categoryRoot = $category->root();
 
@@ -169,14 +168,29 @@ class BlogController extends Controller
     public function showPostsByAuthor(User $author)
     {
         $authorName = $author->name;
+        $authorImage = $author->user_image;
+        $authorBio = $author->bio;
+        $authorIg = $author->instagram;
+        $authorFb = $author->facebook;
+        $authorTw = $author->twitter;
+        $authorGh = $author->github;
 
         $posts = $author
             ->post()
             ->publish()
             ->latest()
-            ->paginate(10);
+            ->paginate(6);
 
-        return view('blog.authors', compact('posts', 'authorName'));
+        return view('blog.authors', compact(
+            'posts',
+            'authorName',
+            'authorImage',
+            'authorBio',
+            'authorIg',
+            'authorFb',
+            'authorTw',
+            'authorGh'
+        ));
     }
 
     public function showPostsbyMonthYear($year, $month)
@@ -200,5 +214,12 @@ class BlogController extends Controller
             ->toArray();
 
         return view('blog.blog-year-month', compact('posts', 'archives', 'post'));
+    }
+
+    public function showAuthors()
+    {
+        return view('blog.blog-author', [
+            'authors' => User::orderBy('created_at', 'desc')->paginate(9),
+        ]);
     }
 }

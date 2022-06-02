@@ -11,6 +11,7 @@ return [
         "categories" => "Kategori",
         "tags" => "Tag",
         'posts' => "Postingan",
+        'authors' => 'Pengarang',
         "archive" => "Arsip Blog",
         'filter' => 'Filter Blog',
         "blogAll" => "Lihat Semua Blog"

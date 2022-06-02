@@ -1,34 +1,36 @@
 @extends('layouts.blog')
 
-@section('author')
-    Fahri Anggara
-@endsection
-
 @section('title')
-    my BLOGS
+    Blog
 @endsection
 
 @section('content')
-
     <div class="container">
+        @if ($posts->count() >= 1)
+            <div class="section-title">
+                <h2>Mau cari blog apa?</h2>
+                <p>Silahkan cari blog yang kamu cari.</p>
+            </div>
+        @endif
+
         <div class="row">
             @forelse ($posts as $post)
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up">
+                <div class="col-sm-6 col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up">
 
                     <article class="entry-thumbnail">
-                        <div class="entry-img loading">
+                        <div class="entry-img ">
                             <a href="{{ route('blog.detail', ['slug' => $post->slug]) }}">
-                                @if (file_exists(public_path($post->thumbnail)))
-                                    <img src="{{ asset($post->thumbnail) }}" alt="{{ $post->title }}"
-                                        class="img-fluid" />
+                                @if (file_exists(public_path('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail)))
+                                    <img src="{{ asset('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail) }}"
+                                        alt="{{ $post->title }}" class="img-fluid" />
                                 @else
-                                    <img class="img-fluid" src="{{ asset('vendor/my-blog/img/noimage.jpg') }}"
+                                    <img class="img-fluid" src="{{ asset('vendor/blog/img/default.png') }}"
                                         alt="{{ $post->title }}">
                                 @endif
                             </a>
                         </div>
 
-                        <h2 class="entry-title loading">
+                        <h2 class="entry-title ">
                             <a class="underline"
                                 href="{{ route('blog.detail', ['slug' => $post->slug]) }}">{{ $post->title }}</a>
                         </h2>
@@ -36,14 +38,14 @@
                         <div class="entry-meta">
                             <ul>
                                 <li class="d-flex align-items-center">
-                                    <div class="loading">
+                                    <div class="">
                                         <i class="icofont-user"></i>
                                         <a class="underline iconAuthor"
                                             href="{{ route('blog.author', ['author' => $post->user->slug]) }}">{{ $post->user->name }}</a>
                                     </div>
                                 </li>
                                 <li class="d-flex align-items-center">
-                                    <div class="loading">
+                                    <div class="">
                                         <i class="uil uil-calendar-alt"></i>
                                         <span>{{ $post->created_at->format('j M, Y') }}</span>
                                     </div>
@@ -52,14 +54,14 @@
                         </div>
 
                         <div class="entry-content">
-                            <div class="loading">
+                            <div class="">
                                 <p>
                                     {{ substr($post->description, 0, 200) }}...
                                 </p>
                             </div>
-                            <div class="read-more loading">
+                            <div class="read-more ">
                                 <a href="{{ route('blog.detail', ['slug' => $post->slug]) }}">
-                                    {{ trans('blog.button.btnDetail') }}
+                                    Baca Selengkapnya
                                 </a>
                             </div>
                         </div>
@@ -83,11 +85,10 @@
 
 
                             <p class="text-emptyBlog">
-                                {{ trans('blog.no-data.blogs') }}
+                                Oops.. Belum ada blog yang ditulis.
                             </p>
 
-                            <a href="{{ route('homepage') }}"
-                                class="buttonBlogNotFound">{{ trans('error.404-backLink') }}</a>
+                            <a id="buttonBack" class="buttonBlogNotFound">Kembali</a>
                         </div>
 
                     </div>
@@ -101,5 +102,4 @@
             {{ $posts->links('vendor.pagination.blog') }}
         @endif
     </div>
-
 @endsection

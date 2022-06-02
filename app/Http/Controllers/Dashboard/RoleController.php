@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Models\WebSetting;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
 use RealRashid\SweetAlert\Facades\Alert;
 
 
@@ -15,6 +17,9 @@ class RoleController extends Controller
 {
     public function __construct()
     {
+        $setting = WebSetting::find(1);
+        View::share('setting', $setting);
+
         $this->middleware('permission:user_show', ['only' => 'index']);
         $this->middleware('permission:user_create', ['only' => ['create', 'store']]);
         $this->middleware('permission:user_update', ['only' => ['edit', 'update']]);
@@ -36,7 +41,7 @@ class RoleController extends Controller
             $roles = Role::paginate(5);
         }
 
-        return view('manage-users.roles.index', [
+        return view('dashboard.manage-users.roles.index', [
             'roles' => $roles->appends(['keyword' => $request->keyword]),
         ]);
     }
@@ -57,7 +62,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('manage-users.roles.create', [
+        return view('dashboard.manage-users.roles.create', [
             'authorities' => config('permission.authorities'),
         ]);
     }
@@ -87,15 +92,15 @@ class RoleController extends Controller
             $role = Role::create(['name' => $request->name]);
             $role->givePermissionTo($request->permissions);
 
-            Alert::success('Success', 'New role permission, created successfully');
+            // Alert::success('Success', 'New role permission, created successfully');
 
-            return redirect()->route('roles.index');
+            return redirect()->route('roles.index')->with('success', 'New role permission, created successfully');
         } catch (\Throwable $th) {
             DB::rollBack();
 
             Alert::error(
                 'Error',
-                'Failed during data input process. 
+                'Failed during data input process.
                 Message: ' . $th->getMessage()
             );
 
@@ -113,7 +118,7 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        return view('manage-users.roles.detail', [
+        return view('dashboard.manage-users.roles.detail', [
             'role' => $role,
             'authorities' => config('permission.authorities'),
             'rolePermissions' => $role->permissions->pluck('name')->toArray(),
@@ -128,7 +133,7 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        return view('manage-users.roles.edit', [
+        return view('dashboard.manage-users.roles.edit', [
             'role' => $role,
             'authorities' => config('permission.authorities'),
             'permissionChecked' => $role->permissions->pluck('name')->toArray(),
@@ -162,15 +167,17 @@ class RoleController extends Controller
             $role->syncPermissions($request->permissions);
             $role->update();
 
-            Alert::success('Success', $request->name . ' role, updated successfully');
-
-            return redirect()->route('roles.index');
+            return redirect()->route('roles.index')
+                ->with(
+                    'success',
+                    $request->name . ' role, updated successfully!'
+                );
         } catch (\Throwable $th) {
             DB::rollBack();
 
             Alert::error(
                 'Error',
-                'Failed during data input process. 
+                'Failed during data input process.
                 Message: ' . $th->getMessage()
             );
 
@@ -201,20 +208,24 @@ class RoleController extends Controller
             $role->revokePermissionTo($role->permissions->pluck('name')->toArray());
             $role->delete();
 
-            Alert::success('Success', $role->name . ' role, updated successfully');
+            // Alert::success('Success', $role->name . ' role, updated successfully');
 
-            return redirect()->route('roles.index');
+            return redirect()->route('roles.index')
+                ->with(
+                    'success',
+                    $role->name . ' role, deleted successfully!'
+                );
         } catch (\Throwable $th) {
             DB::rollBack();
 
             Alert::error(
                 'Error',
-                'Failed during data input process. 
+                'Failed during data input process.
                 Message: ' . $th->getMessage()
             );
         } finally {
             DB::commit();
         }
-        return redirect()->route('roles.index');
+        return redirect()->route('roles.index')->with('success', 'Failed to delete role');
     }
 }

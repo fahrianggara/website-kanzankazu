@@ -1,5 +1,9 @@
 @extends('layouts.blog')
 
+@section('keywords')
+    {{ $setting->meta_keywords }}, {{ $post->keywords }}
+@endsection
+
 @section('author')
     {{ $post->author }}
 @endsection
@@ -8,30 +12,37 @@
     {{ $post->title }}
 @endsection
 
-@section('desc')
+@section('description')
     {{ $post->description }}
 @endsection
 
-@section('content')
+@section('image')
+    {{ asset('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail) }}
+@endsection
 
+@section('url')
+    {{ route('blog.detail', ['slug' => $post->slug]) }}
+@endsection
+
+@section('content')
     <div class="progress-read">
         <div class="bar"></div>
     </div>
 
     <div class="container">
 
-
         <div class="row">
 
             <div class="col-lg-8 entries">
 
-                <article class="entry entry-single" style="margin-bottom: 20px">
+                <article class="entry entry-single">
 
                     <div class="entry-img loading">
-                        @if (file_exists(public_path($post->thumbnail)))
-                            <img src="{{ asset($post->thumbnail) }}" alt="{{ $post->title }}" class="img-fluid" />
+                        @if (file_exists(public_path('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail)))
+                            <img src="{{ asset('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail) }}"
+                                alt="{{ $post->title }}" class="img-fluid" />
                         @else
-                            <img class="img-fluid" src="{{ asset('vendor/my-blog/img/noimage.jpg') }}"
+                            <img class="img-fluid" src="{{ asset('vendor/blog/img/default.png') }}"
                                 alt="{{ $post->title }}">
                         @endif
                     </div>
@@ -99,15 +110,45 @@
                         </div>
 
                     </div>
-
                 </article>
 
-                <article class="entry-bottom" style="margin-bottom: 20px">
+                <div class="blog-author d-flex align-items-center">
+                    @if (file_exists(public_path('vendor/dashboard/image/picture-profiles/' . $post->user->user_image)))
+                        <img src="{{ asset('vendor/dashboard/image/picture-profiles/' . $post->user->user_image) }}"
+                            alt="{{ $post->user->name }}" class="rounded-circle float-left" />
+                    @else
+                        <img src="{{ asset('vendor/dashboard/image/picture-profiles/default.png') }}"
+                            class="rounded-circle float-left" alt="">
+                    @endif
+                    <div>
+                        <a class="nameAuthor" href="{{ route('blog.author', ['author' => $post->user->slug]) }}">
+                            {{ $post->user->name }}
+                        </a>
+                        <div class="social-links">
+                            <a target="_blank" href="{{ $post->user->facebook }}">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a target="_blank" href="{{ $post->user->twitter }}">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a target="_blank" href="{{ $post->user->instagram }}">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a target="_blank" href="{{ $post->user->github }}">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                        <p>
+                            " {{ $post->user->bio }} "
+                        </p>
+                    </div>
+                </div>
 
+                <article class="entry-bottom" style="margin-bottom: 20px">
                     @if ($prev)
                         <div class="float-right">
                             <a href="{{ route('blog.detail', ['slug' => $prev->slug]) }}" class="btn-Next">
-                                {{ trans('blog.button.btnNext') }} <i class="icofont-rounded-right"></i>
+                                Blog Berikutnya <i class="icofont-rounded-right"></i>
                             </a>
                         </div>
                     @endif
@@ -115,26 +156,32 @@
                     @if ($next)
                         <div class="float-left">
                             <a href="{{ route('blog.detail', ['slug' => $next->slug]) }}" class="btn-Prev">
-                                <i class="icofont-rounded-left"></i> {{ trans('blog.button.btnPrev') }}
+                                <i class="icofont-rounded-left"></i> Blog Sebelumnya
                             </a>
                         </div>
                     @endif
                 </article>
 
-                <article class="sect-coment">
-                    <h2 class="sect-title"> {{ $post->comments->count() }} {{ trans('blog.comment') }}</h2>
-                    <hr class="hr" style="padding-bottom: 5px">
-                    @comments([
-                    'model' => $post,
-                    'approved' => true,
-                    'maxIndentationLevel' => 1
-                    ])
-                </article>
-
                 {{-- RELATED POSTS --}}
-                <div id="relatedPost" class="related-post">
+                <div id="relatedPost" class="related-post mb-4">
                     @include('blog.sub-blog.related-post')
                 </div>
+
+                <article class="sect-coment">
+                    @if ($post->comments->count() >= 1)
+                        <h2 class="sect-title"> {{ $post->comments->count() }} Komentar</h2>
+                        <hr class="hr" style="padding-bottom: 5px">
+                    @else
+                        <h2 class="sect-title"> Belum ada komentar</h2>
+                        <hr class="hr" style="padding-bottom: 5px">
+                    @endif
+
+                    @comments([
+                        'model' => $post,
+                        'approved' => true,
+                        'maxIndentationLevel' => 1,
+                    ])
+                </article>
 
             </div>
 
@@ -142,23 +189,20 @@
 
                 <div class="fixedInfo">
                     <div class="sidebar">
-                        <h3 class="sidebar-title">{{ trans('blog.sidebar.newPost') }}</h3>
+                        <h3 class="sidebar-title">Blog Terbaru</h3>
                         <div class="sidebar-item recent-posts">
 
                             @foreach ($recents as $recent)
                                 <div class="post-item clearfix">
-                                    <div class="imgSidebar loading">
+                                    <div class="imgSidebar img-container loading">
                                         <a href="{{ route('blog.detail', ['slug' => $recent->slug]) }}">
-                                            @if (file_exists(public_path($recent->thumbnail)))
-                                                <div class="img-container">
-                                                    <img src="{{ asset($recent->thumbnail) }}"
-                                                        alt="{{ $recent->title }}" />
-                                                </div>
+                                            @if (file_exists(public_path('vendor/dashboard/image/thumbnail-posts/' . $recent->thumbnail)))
+                                                <img src="{{ asset('vendor/dashboard/image/thumbnail-posts/' . $recent->thumbnail) }}"
+                                                    alt="{{ $recent->title }}" class="img-container" />
                                             @else
-                                                <div class="img-container">
-                                                    <img src="{{ asset('vendor/my-blog/img/noimage.jpg') }}"
-                                                        alt="{{ $recent->title }}">
-                                                </div>
+                                                <img class="img-container"
+                                                    src="{{ asset('vendor/blog/img/default.png') }}"
+                                                    alt="{{ $recent->title }}">
                                             @endif
                                         </a>
                                     </div>
@@ -181,17 +225,22 @@
 
                     <div class="sidebar">
 
-                        <h3 class="sidebar-title">{{ trans('blog.sidebar.categories') }}</h3>
+                        <h3 class="sidebar-title">Kategori</h3>
                         <div class="sidebar-item categories">
 
                             @foreach ($categories as $category)
                                 <div class="category-item clearfix">
-                                    <div class="imgSidebar loading">
+                                    <div class="imgSidebar img-container">
                                         <a href="{{ route('blog.posts.categories', ['slug' => $category->slug]) }}">
-                                            <div class="img-container">
-                                                <img src="{{ asset($category->thumbnail) }}" alt="{{ $category->title }}"
-                                                    class="img-fluid" />
-                                            </div>
+                                            @if (file_exists(public_path('vendor/dashboard/image/thumbnail-categories/' . $category->thumbnail)))
+                                                <img class="img-container"
+                                                    src="{{ asset('vendor/dashboard/image/thumbnail-categories/' . $category->thumbnail) }}"
+                                                    alt="{{ $category->title }}">
+                                            @else
+                                                <img class="img-container"
+                                                    src="{{ asset('vendor/blog/img/default.png') }}"
+                                                    alt="{{ $category->title }}">
+                                            @endif
                                         </a>
                                     </div>
                                     <h4 class="titleSidebar loading">
@@ -202,10 +251,7 @@
                                     </h4>
                                     <time class="timeSidebar loading">
                                         <p>
-                                            {{ $category->created_at->format('j M, Y') }} -
-                                            <span>
-                                                ({{ $category->posts->count() }})
-                                            </span>
+                                            {{ $category->created_at->format('j M, Y') }}
                                         </p>
                                     </time>
                                 </div>
@@ -216,7 +262,7 @@
                     </div>
 
                     <div class="sidebar">
-                        <h3 class="sidebar-title">{{ trans('blog.sidebar.tags') }}</h3>
+                        <h3 class="sidebar-title">Tag</h3>
 
                         <div class="sidebar-item tags">
                             <ul>
@@ -232,13 +278,9 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
-
         </div>
 
         <br>
     </div>
-
 @endsection

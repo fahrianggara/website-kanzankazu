@@ -13,7 +13,7 @@ class Post extends Model
 {
     use HasFactory, Commentable;
     protected $table = "posts";
-    protected $fillable = ['title', 'slug', 'author', 'thumbnail', 'description', 'content', 'status', 'user_id', 'views', 'deleted_at'];
+    protected $fillable = ['title', 'slug', 'author', 'thumbnail', 'description', 'content', 'keywords', 'status', 'user_id', 'views', 'deleted_at'];
     protected $hidden = [
         'created_at',
         'updated_at',
@@ -37,7 +37,17 @@ class Post extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class)->select('id', 'name', 'slug', 'user_image');
+        return $this->belongsTo(User::class)->select(
+            'id',
+            'name',
+            'slug',
+            'user_image',
+            'bio',
+            'facebook',
+            'twitter',
+            'instagram',
+            'github'
+        );
     }
 
     public function scopeSearch($query, $title)

@@ -1,19 +1,23 @@
 @extends('layouts.blog')
 
 @section('title')
-    {{ trans('blog.navbar.tags') }}
+    Tag
 @endsection
 
 @section('content')
-
     <div class="container">
+        @if ($tags->count() >= 1)
+            <div class="section-title">
+                <h2>Mau pilih tag apa?</h2>
+                <p>Silahkan pilih tag yang kamu cari.</p>
+            </div>
+        @endif
+
         <div class="tags tags-container">
             <div class="col-lg-12 col-md-12">
                 @forelse ($tags as $tag)
-
                     <a class="button-links btnLinkTag" href="{{ route('blog.posts.tags', ['slug' => $tag->slug]) }}">
                         {{ $tag->title }}
-                        ({{ $tag->posts->count() }})
                     </a>
                 @empty
                     <div class="container">
@@ -33,11 +37,10 @@
 
 
                                 <p class="text-emptyBlog">
-                                    {{ trans('blog.no-data.tags') }}
+                                    Oopss.. sepertinya tag blog belum dibuat.
                                 </p>
 
-                                <a href="{{ route('homepage') }}"
-                                    class="buttonBlogNotFound">{{ trans('error.404-backLink') }}</a>
+                                <a id="buttonBack" class="buttonBlogNotFound">Kembali</a>
                             </div>
 
                         </div>
@@ -49,5 +52,4 @@
             {{ $tags->links('vendor.pagination.blog') }}
         @endif
     </div>
-
 @endsection

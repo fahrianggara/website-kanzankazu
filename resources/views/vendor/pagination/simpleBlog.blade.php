@@ -4,16 +4,14 @@
             @if ($paginator->onFirstPage())
                 <li class="disabled"><i class="icofont-rounded-left"></i></li>
             @else
-                <li class="btn-tooltip-hide" data-toggle="tooltip" data-placement="bottom"
-                    title="{{ trans('pagination.previous') }}" id="theme-toggle">
+                <li class="btn-tooltip-hide" id="theme-toggle">
                     <a href="{{ $paginator->previousPageUrl() }}"><i class="icofont-rounded-left"></i>
                     </a>
                 </li>
             @endif
 
             @if ($paginator->hasMorePages())
-                <li class="btn-tooltip-hide" data-toggle="tooltip" data-placement="bottom"
-                    title="{{ trans('pagination.next') }}" id="theme-toggle">
+                <li class="btn-tooltip-hide" id="theme-toggle">
                     <a href="{{ $paginator->nextPageUrl() }}" rel="next">
                         <i class="icofont-rounded-right"></i>
                     </a>

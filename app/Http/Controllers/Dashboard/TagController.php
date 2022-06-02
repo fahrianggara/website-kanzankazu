@@ -4,14 +4,19 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Tag;
+use App\Models\WebSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\View;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class TagController extends Controller
 {
     public function __construct()
     {
+        $setting = WebSetting::find(1);
+        View::share('setting', $setting);
+
         $this->middleware('permission:tag_show', ['only' => 'index']);
         $this->middleware('permission:tag_create', ['only' => ['create', 'store']]);
         $this->middleware('permission:tag_update', ['only' => ['edit', 'update']]);
@@ -26,10 +31,10 @@ class TagController extends Controller
     public function index(Request $request)
     {
         $tags = $request->get('keyword')
-            ? Tag::search($request->keyword)->paginate(10)
-            : Tag::paginate(10);
+            ? Tag::search($request->keyword)->paginate(5)
+            : Tag::paginate(5);
 
-        return view('manage-posts.tags.index', [
+        return view('dashboard.manage-posts.tags.index', [
             'tags' => $tags->appends(['keyword' => $request->keyword])
         ]);
     }
@@ -54,7 +59,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        return view('manage-posts.tags.create');
+        return view('dashboard.manage-posts.tags.create');
     }
 
     /**
@@ -68,7 +73,7 @@ class TagController extends Controller
         Validator::make(
             $request->all(),
             [
-                'title'         => 'required|string|max:50',
+                'title'         => 'required|string|max:50|min:3',
                 'slug'          => 'required|string|unique:tags,slug',
             ],
         )->validate();
@@ -81,13 +86,11 @@ class TagController extends Controller
                 ]
             );
 
-            Alert::success('Success', 'New tag created successfully');
-
-            return redirect()->route('tags.index');
+            return redirect()->route('tags.index')->with('success', 'New tag successfully created!');
         } catch (\Throwable $th) {
             Alert::error(
                 'Error',
-                'Failed during data input process. 
+                'Failed during data input process.
                 Message: ' . $th->getMessage()
             );
 
@@ -103,7 +106,7 @@ class TagController extends Controller
      */
     public function edit(Tag $tag)
     {
-        return view('manage-posts.tags.edit', compact('tag'));
+        return view('dashboard.manage-posts.tags.edit', compact('tag'));
     }
 
     /**
@@ -118,25 +121,36 @@ class TagController extends Controller
         Validator::make(
             $request->all(),
             [
-                'title'         => 'required|string|max:50',
+                'title'         => 'required|string|max:50|min:3',
                 'slug'          => 'required|string|unique:tags,slug,' . $tag->id,
             ],
             [],
         )->validate();
 
         try {
-            $tag->update([
-                'title' => $request->title,
-                'slug'  => $request->slug,
-            ]);
+            $tag->title = $request->input('title');
+            $tag->slug  = $request->input('slug');
 
-            Alert::success('Success', 'Tag with title ' . $request->title . ', Updated successfully');
+            if ($tag->isDirty()) {
 
-            return redirect()->route('tags.index');
+                $tag->update();
+
+                return redirect()->route('tags.index')
+                    ->with(
+                        'success',
+                        'Tag successfully updated!'
+                    );
+            } else {
+                return redirect()->route('tags.index')
+                    ->with(
+                        'success',
+                        'Oops.. nothing seems to be updated!'
+                    );
+            }
         } catch (\Throwable $th) {
             Alert::error(
                 'Error',
-                'Failed during data input process. 
+                'Failed during data input process.
                 Message: ' . $th->getMessage()
             );
 
@@ -154,15 +168,14 @@ class TagController extends Controller
     {
         try {
             $tag->delete();
-            Alert::success('Success', 'Tag with title ' . $tag->title . ', Deleted successfully');
         } catch (\Throwable $th) {
             Alert::error(
                 'Error',
-                'Failed during data input process. 
+                'Failed during data input process.
                 Message: ' . $th->getMessage()
             );
         }
 
-        return redirect()->back();
+        return redirect()->back()->with('success', $tag->title . '\'s Tag successfully deleted!');
     }
 }

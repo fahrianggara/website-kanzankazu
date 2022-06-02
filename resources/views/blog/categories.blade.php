@@ -1,16 +1,17 @@
 @extends('layouts.blog')
 
-@section('author')
-    Fahri Anggara
-@endsection
-
 @section('title')
-    {{ trans('blog.navbar.categories') }}
+    Kategori
 @endsection
 
 @section('content')
-
     <div class="container">
+        @if ($categories->count() >= 1)
+            <div class="section-title">
+                <h2>Mau pilih kategori apa?</h2>
+                <p>Silahkan pilih kategori yang kamu cari.</p>
+            </div>
+        @endif
 
         <div class="row">
             @forelse ($categories as $category)
@@ -19,11 +20,11 @@
                     <article class="entry-thumbnail">
                         <div class="entry-img loading">
                             <a href="{{ route('blog.posts.categories', ['slug' => $category->slug]) }}">
-                                @if (file_exists(public_path($category->thumbnail)))
-                                    <img src="{{ asset($category->thumbnail) }}" alt="{{ $category->title }}"
-                                        class="img-fluid" />
+                                @if (file_exists(public_path('vendor/dashboard/image/thumbnail-categories/' . $category->thumbnail)))
+                                    <img src="{{ asset('vendor/dashboard/image/thumbnail-categories/' . $category->thumbnail) }}"
+                                        alt="{{ $category->title }}" class="img-fluid" />
                                 @else
-                                    <img class="img-fluid" src="{{ asset('vendor/my-blog/img/noimage.jpg') }}"
+                                    <img class="img-fluid" src="{{ asset('vendor/blog/img/default.png') }}"
                                         alt="{{ $category->title }}">
                                 @endif
                             </a>
@@ -53,7 +54,7 @@
                             </div>
                             <div class="read-more loading">
                                 <a href=" {{ route('blog.posts.categories', ['slug' => $category->slug]) }}">
-                                    {{ trans('blog.button.btnShowCategory') }}
+                                    Lihat Blog-nya
                                 </a>
                             </div>
                         </div>
@@ -77,11 +78,10 @@
 
 
                             <p class="text-emptyBlog">
-                                {{ trans('blog.no-data.categories') }}
+                                Oops.. Sepertinya kategori blog belum dibuat.
                             </p>
 
-                            <a href="{{ route('homepage') }}"
-                                class="buttonBlogNotFound">{{ trans('error.404-backLink') }}</a>
+                            <a id="buttonBack" class="buttonBlogNotFound">Kembali</a>
                         </div>
 
                     </div>
@@ -93,5 +93,4 @@
             {{ $categories->links('vendor.pagination.blog') }}
         @endif
     </div>
-
 @endsection

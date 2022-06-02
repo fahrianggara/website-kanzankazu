@@ -27,9 +27,15 @@ class AppServiceProvider extends ServiceProvider
         //Add this custom validation rule.
         Validator::extend('alpha_spaces', function ($attribute, $value) {
 
-            // This will only accept alpha and spaces. 
+            // This will only accept alpha and spaces.
             // If you want to accept hyphens use: /^[\pL\s-]+$/u.
             return preg_match('/^[\pL\s]+$/u', $value);
+        });
+
+        //Add this custom validation rule.
+        Validator::extend('url_www', function ($attribute, $value) {
+
+            return preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $value);
         });
     }
 }

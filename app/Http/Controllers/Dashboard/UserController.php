@@ -4,17 +4,24 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\WebSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 use Spatie\Permission\Models\Role;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\View;
 
 class UserController extends Controller
 {
     public function __construct()
     {
+        $setting = WebSetting::find(1);
+        View::share('setting', $setting);
+
         $this->middleware('permission:user_show', ['only' => 'index']);
         $this->middleware('permission:user_create', ['only' => ['create', 'store']]);
         $this->middleware('permission:user_update', ['only' => ['edit', 'update']]);
@@ -34,7 +41,7 @@ class UserController extends Controller
         $users = $request->get('keyword') ? User::where('name', 'LIKE', '%' . $q . '%')
             ->orWhere('email', 'LIKE', '%' . $q . '%')->paginate(6) : User::paginate(6);
 
-        return view('manage-users.users.index', [
+        return view('dashboard.manage-users.users.index', [
             'users' => $users->appends(['keyword' => $request->keyword]),
         ]);
     }
@@ -46,7 +53,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('manage-users.users.create', [
+        return view('dashboard.manage-users.users.create', [
             'users' => User::all(),
         ]);
     }
@@ -66,8 +73,8 @@ class UserController extends Controller
                 'role' => 'required',
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required|min:8|confirmed',
-                'user_image' => 'required',
-                'slug' => 'required'
+                'user_image' => 'image|mimes:jpg,png,jpeg,gif|max:2048',
+                'slug' => 'required|unique:users,slug'
             ],
         );
 
@@ -77,42 +84,47 @@ class UserController extends Controller
                 ->back()
                 ->withInput($request->all())
                 ->withErrors($validator);
-        }
+        } else {
+            DB::beginTransaction();
+            try {
+                if ($request->hasFile('user_image')) {
+                    $path = public_path("vendor/dashboard/image/picture-profiles/");
+                    $picture = $request->file('user_image');
+                    $newPict = uniqid('USER-', true) . '.' . $picture->extension();
+                    // resize
+                    $resizeImg = Image::make($picture->path());
+                    $resizeImg->resize(1080, 1080)->save($path . '/' . $newPict);
+                }
 
-        // dd($request->all());
+                $user = User::create([
+                    'name' => $request->name,
+                    'slug' => $request->slug,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                    'user_image' => $newPict ?? "avatar.png",
+                ]);
+                $user->assignRole($request->role);
 
-        DB::beginTransaction();
-        try {
-            $user = User::create([
-                'name' => $request->name,
-                'slug' => $request->slug,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'user_image' => parse_url($request->user_image)['path'],
-            ]);
-            $user->assignRole($request->role);
+                return redirect()->route('users.index')->with('success', 'New user successfully created!');
+            } catch (\Throwable $th) {
+                DB::rollBack();
 
-            Alert::success('Success', 'New user created successfully');
+                Alert::error(
+                    'Error',
+                    'Failed during data input process.
+                    Message: ' . $th->getMessage()
+                );
 
-            return redirect()->route('users.index');
-        } catch (\Throwable $th) {
-            DB::rollBack();
+                $request['role'] = Role::select('id', 'name')->find($request->role);
+                return redirect()
+                    ->back()
+                    ->withInput($request->all())
+                    ->withErrors($validator);
 
-            Alert::error(
-                'Error',
-                'Failed during data input process. 
-                Message: ' . $th->getMessage()
-            );
-
-            $request['role'] = Role::select('id', 'name')->find($request->role);
-            return redirect()
-                ->back()
-                ->withInput($request->all())
-                ->withErrors($validator);
-
-            return redirect()->back()->withInput($request->all());
-        } finally {
-            DB::commit();
+                return redirect()->back()->withInput($request->all());
+            } finally {
+                DB::commit();
+            }
         }
     }
 
@@ -124,7 +136,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('manage-users.users.edit', [
+        return view('dashboard.manage-users.users.edit', [
             'user' => $user,
             'roleOld' => $user->roles->first(),
         ]);
@@ -145,7 +157,7 @@ class UserController extends Controller
                 'name' => 'required|string|max:50|min:3',
                 'slug'  => 'required|unique:users,slug,' . $user->id,
                 'role' => 'required',
-                'user_image' => 'required',
+                'user_image' => 'image|mimes:jpg,png,jpeg,gif|max:2048',
             ],
         );
 
@@ -155,36 +167,51 @@ class UserController extends Controller
                 ->back()
                 ->withInput($request->all())
                 ->withErrors($validator);
-        }
+        } else {
+            DB::beginTransaction();
+            try {
 
-        DB::beginTransaction();
-        try {
-            $user->update([
-                'name' => $request->name,
-                'slug' => $request->slug,
-                'user_image' => parse_url($request->user_image)['path'],
-            ]);
-            $user->syncRoles($request->role);
+                if ($request->hasFile('user_image')) {
+                    $path = "vendor/dashboard/image/picture-profiles/";
+                    if (File::exists($path . $user->user_image)) {
+                        File::delete($path . $user->user_image);
+                    }
+                    $userPict = $request->file('user_image');
+                    $newPict = uniqid('USER-', true) . '.' . $userPict->extension();
+                    // resize
+                    $resizeImg = Image::make($userPict->path());
+                    $resizeImg->resize(1080, 1080)->save(public_path($path) . '/' . $newPict);
 
-            Alert::success('Success', $request->name . ' user, updated successfully');
+                    $user->user_image = $newPict;
+                }
 
-            return redirect()->route('users.index');
-        } catch (\Throwable $th) {
-            DB::rollBack();
+                $user->name = $request->input('name');
+                $user->slug = $request->input('slug');
+                $user->syncRoles($request->role);
 
-            Alert::error(
-                'Error',
-                'Failed during data input process. 
-                Message: ' . $th->getMessage()
-            );
+                $user->update();
 
-            $request['role'] = Role::select('id', 'name')->find($request->role);
-            return redirect()
-                ->back()
-                ->withInput($request->all())
-                ->withErrors($validator);
-        } finally {
-            DB::commit();
+                return redirect()->route('users.index')->with(
+                    'success',
+                    'User data successfully updated!'
+                );
+            } catch (\Throwable $th) {
+                DB::rollBack();
+
+                Alert::error(
+                    'Error',
+                    'Failed during data input process.
+                    Message: ' . $th->getMessage()
+                );
+
+                $request['role'] = Role::select('id', 'name')->find($request->role);
+                return redirect()
+                    ->back()
+                    ->withInput($request->all())
+                    ->withErrors($validator);
+            } finally {
+                DB::commit();
+            }
         }
     }
 
@@ -198,21 +225,23 @@ class UserController extends Controller
     {
         DB::beginTransaction();
         try {
+            $path = "vendor/dashboard/image/picture-profiles/";
+            if (File::exists($path . $user->user_image)) {
+                File::delete($path . $user->user_image);
+            }
             $user->removeRole($user->roles->first());
             $user->delete();
-
-            Alert::success('Success', $user->name . ' user, deleted successfully');
         } catch (\Throwable $th) {
             DB::rollBack();
 
             Alert::error(
                 'Error',
-                'Failed during data input process. 
+                'Failed during data input process.
                 Message: ' . $th->getMessage()
             );
         } finally {
             DB::commit();
-            return redirect()->back();
+            return redirect()->back()->with('success', $user->name . ' user, successfully Deleted!');
         }
     }
 }

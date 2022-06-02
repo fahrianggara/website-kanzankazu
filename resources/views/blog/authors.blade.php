@@ -5,22 +5,77 @@
 @endsection
 
 @section('content')
+    <div class="authorSec section-bg">
+        <div class="container mb-5">
+            <div class="row">
+                <div class="col-md-12 text-center authorBlog" data-aos="fade-up">
+                    <div class="entry-img loading">
+                        @if (file_exists(public_path('vendor/dashboard/image/picture-profiles/' . $authorImage)))
+                            <img src="{{ asset('vendor/dashboard/image/picture-profiles/' . $authorImage) }}" alt=""
+                                class="img-fluid img-round" />
+                        @else
+                            <img src="{{ asset('vendor/dashboard/image/picture-profiles/default.png') }}" alt=""
+                                class="img-fluid img-round" />
+                        @endif
+                    </div>
+
+                    <h3 class="author-title">
+                        {{ $authorName }}
+                    </h3>
+
+                    <p class="author-bio">
+                        {{ $authorBio }}
+                    </p>
+
+                    <div class="author-sosmed">
+                        <a target="_blank" href="{{ $authorFb }}">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a target="_blank" href="{{ $authorTw }}">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a target="_blank" href="{{ $authorIg }}">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a target="_blank" href="{{ $authorGh }}">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="container">
+        @if ($posts->count() >= 1)
+            <div class="section-title">
+                <h2>{{ $authorName }}'s Blog</h2>
+                <p>Ada {{ $posts->count() }} blog yang ditulis oleh {{ $authorName }}.</p>
+            </div>
+        @endif
+
         <div class="row">
             @forelse ($posts as $post)
                 <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up">
 
                     <article class="entry-thumbnail">
                         <div class="entry-img loading">
-                            <a href="{{ route('blog.detail', ['slug' => $post->slug]) }}">
-                                <img src="{{ asset($post->thumbnail) }}" alt="{{ $post->title }}"
-                                    class="img-fluid" />
-                            </a>
+                            @if (file_exists(public_path('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail)))
+                                <a href="{{ route('blog.detail', ['slug' => $post->slug]) }}">
+                                    <img src="{{ asset('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail) }}"
+                                        alt="{{ $post->title }}" class="img-fluid" />
+                                </a>
+                            @else
+                                <a href="{{ route('blog.detail', ['slug' => $post->slug]) }}">
+                                    <img src="{{ asset('vendor/blog/img/default.png') }}" alt="{{ $post->title }}"
+                                        class="img-fluid" />
+                                </a>
+                            @endif
                         </div>
 
                         <h2 class="entry-title loading">
-                            <a href="{{ route('blog.detail', ['slug' => $post->slug]) }}">{{ $post->title }}</a>
+                            <a class="underline"
+                                href="{{ route('blog.detail', ['slug' => $post->slug]) }}">{{ $post->title }}</a>
                         </h2>
 
                         <div class="entry-meta">
@@ -48,7 +103,7 @@
                             </div>
                             <div class="read-more loading">
                                 <a href=" {{ route('blog.detail', ['slug' => $post->slug]) }}">
-                                    {{ trans('blog.button.btnDetail') }}
+                                    Lihat Postingan
                                 </a>
                             </div>
                         </div>
@@ -73,11 +128,11 @@
 
 
                             <p class="text-emptyBlog">
-                                {{ trans('blog.no-data.blogs') }}
+                                Oops.. sepertinya author <span class="titleFilter">{{ $authorName }}</span> belum
+                                membuat artikel.
                             </p>
 
-                            <a href="{{ route('homepage') }}"
-                                class="buttonBlogNotFound">{{ trans('error.404-backLink') }}</a>
+                            <a id="buttonBack" class="buttonBlogNotFound">Kembali</a>
                         </div>
 
                     </div>
@@ -88,5 +143,4 @@
             {{ $posts->links('vendor.pagination.blog') }}
         @endif
     </div>
-
 @endsection

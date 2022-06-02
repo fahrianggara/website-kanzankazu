@@ -1,7 +1,6 @@
 @extends('layouts.auth')
 
 @section('content')
-
     <div class="container">
         <div class="row px-3">
             <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0">
@@ -11,7 +10,7 @@
 
                     <div class="change-theme">
                         <i class="uil uil-moon btn-tooltip-hide" data-toggle="tooltip" data-placement="left"
-                            title="{{ trans('blog.tooltip.theme') }}" id="theme-toggle">
+                            title="Ganti Tema" id="theme-toggle">
                         </i>
                     </div>
 
@@ -32,7 +31,7 @@
 
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ trans($message) }}</strong>
+                                    <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
@@ -77,7 +76,7 @@
 
                         <div class="text-center mb-2">
                             <a href="{{ route('homepage') }}" class="register-link">
-                                Back to homepage
+                                Kembali ke Halaman Utama
                             </a>
                         </div>
                     </form>
@@ -85,5 +84,4 @@
             </div>
         </div>
     </div>
-
 @endsection

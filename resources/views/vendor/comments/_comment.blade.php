@@ -15,7 +15,7 @@ $markdown->setSafeMode(true);
 
         <div class="d-flex mb-1">
             <div class="comTitle loading">
-                <div class="comment-title">
+                <div class="comment-title guestName">
                     {{ $comment->commenter->name ?? $comment->guest_name }}
                 </div>
             </div>
@@ -25,7 +25,7 @@ $markdown->setSafeMode(true);
         </div>
 
         <div class="loading comText" style="margin-top: 1px">
-            <div class="comment-text">{!! $markdown->line($comment->comment) !!} </div>
+            <div class="comment-text commentMsg">{!! $markdown->line($comment->comment) !!} </div>
         </div>
 
         <div style="margin-top: 2px">
@@ -55,10 +55,11 @@ $markdown->setSafeMode(true);
             <div class="modal fade" id="comment-modal-{{ $comment->getKey() }}" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <form method="POST" class="form-modal-comment"
+                        <form id="formCommentUpdate" method="POST" class="form-modal-comment"
                             action="{{ route('comments.update', $comment->getKey()) }}">
                             @method('PUT')
                             @csrf
+
                             <div class="modal-header">
                                 <h5 class="modal-title">@lang('comments::comments.edit_comment')</h5>
                                 <button type="button" class="close" data-dismiss="modal">
@@ -68,11 +69,8 @@ $markdown->setSafeMode(true);
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label for="message">@lang('comments::comments.update_your_message_here')</label>
-                                    <textarea required class="form-control" name="message" rows="3"
-                                        autofocus>{{ $comment->comment }}</textarea>
-                                    <small class="form-text text-muted">@lang('comments::comments.markdown_cheatsheet',
-                                        ['url' =>
-                                        'https://help.github.com/articles/basic-writing-and-formatting-syntax'])</small>
+                                    <textarea required class="form-control" name="message" rows="3" autofocus>{{ $comment->comment }}</textarea>
+                                    <small class="form-text text-muted">@lang('comments::comments.markdown_cheatsheet', ['url' => 'https://help.github.com/articles/basic-writing-and-formatting-syntax'])</small>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -103,9 +101,7 @@ $markdown->setSafeMode(true);
                                 <div class="form-group">
                                     <label for="message">@lang('comments::comments.enter_your_message_here')</label>
                                     <textarea required class="form-control" name="message" rows="3"></textarea>
-                                    <small class="form-text text-muted">@lang('comments::comments.markdown_cheatsheet',
-                                        ['url' =>
-                                        'https://help.github.com/articles/basic-writing-and-formatting-syntax'])</small>
+                                    <small class="form-text text-muted">@lang('comments::comments.markdown_cheatsheet', ['url' => 'https://help.github.com/articles/basic-writing-and-formatting-syntax'])</small>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -135,8 +131,8 @@ $markdown->setSafeMode(true);
             {{-- TODO: Don't repeat code. Extract to a new file and include it. --}}
             @foreach ($grouped_comments[$comment->getKey()] as $child)
                 @include('comments::_comment', [
-                'comment' => $child,
-                'grouped_comments' => $grouped_comments
+                    'comment' => $child,
+                    'grouped_comments' => $grouped_comments,
                 ])
             @endforeach
         @endif
@@ -149,8 +145,8 @@ $markdown->setSafeMode(true);
     {{-- TODO: Don't repeat code. Extract to a new file and include it. --}}
     @foreach ($grouped_comments[$comment->getKey()] as $child)
         @include('comments::_comment', [
-        'comment' => $child,
-        'grouped_comments' => $grouped_comments
+            'comment' => $child,
+            'grouped_comments' => $grouped_comments,
         ])
     @endforeach
 @endif

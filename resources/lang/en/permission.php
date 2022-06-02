@@ -34,5 +34,7 @@ return [
     'user_delete' => 'Delete',
     'manage_inbox' => 'Manage inbox',
     'inbox_delete' => 'Delete',
-    'inbox_show' => 'Show'
+    'inbox_show' => 'Show',
+    'manage_website' => 'Manage Website',
+    'website_show' => 'Show',
 ];

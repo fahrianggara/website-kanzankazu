@@ -6,7 +6,7 @@
     <!-- LOGO -->
     <div class="topbar-left">
         <div class="text-center">
-            <a href="index.html" class="logo"> {{ config('app.name') }}</a>
+            <a href="{{ route('dashboard.index') }}" class="logo site_name">{{ $setting->site_name }}</a>
         </div>
     </div>
 
@@ -14,6 +14,15 @@
 
         <div id="sidebar-menu">
             <ul>
+                <li class="menu-title">Main Page</li>
+                {{-- DASHBOARD --}}
+                <li>
+                    <a href="{{ route('dashboard.index') }}"
+                        class="waves-effect {{ set_active('dashboard.index') }}">
+                        <i class="uil uil-graph-bar"></i>
+                        <span> Dashboard</span>
+                    </a>
+                </li>
                 {{-- HOMEPAGE --}}
                 <li>
                     <a href="{{ route('homepage') }}" target="_blank" class="waves-effect">
@@ -21,14 +30,26 @@
                         <span>Home</span>
                     </a>
                 </li>
-                {{-- DASHBOARD --}}
+                {{-- Profile --}}
+                <li class="menu-title">Manage Profile</li>
                 <li>
-                    <a href="{{ route('dashboard.index') }}"
-                        class="waves-effect {{ set_active('dashboard.index') }}">
-                        <i class="uil uil-desktop"></i>
-                        <span> Dashboard</span>
+                    <a href="{{ route('profile.index') }}" class="{{ set_active('profile.index') }}waves-effect">
+                        <i class="uil uil-user"></i>
+                        <span>Profile</span>
                     </a>
                 </li>
+
+                @can('manage_website')
+                    {{-- Settings website --}}
+                    <li class="menu-title">Setting Website</li>
+                    <li>
+                        <a href="{{ route('dashboard.setting') }}"
+                            class="waves-effect {{ set_active('dashboard.setting') }}">
+                            <i class="uil uil-setting"></i>
+                            <span> Settings</span>
+                        </a>
+                    </li>
+                @endcan
 
                 {{-- POSTS --}}
                 @can('manage_posts')
@@ -36,7 +57,7 @@
                     <li>
                         <a href="{{ route('posts.index') }}"
                             class="waves-effect {{ set_active(['posts.index', 'posts.create', 'posts.edit', 'posts.show', 'posts.delete']) }}">
-                            <i class="uil uil-files-landscapes-alt"></i>
+                            <i class="uil uil-book-medical"></i>
                             <span> Posts</span>
                         </a>
                     </li>
@@ -78,7 +99,7 @@
                     <li>
                         <a href="{{ route('roles.index') }}"
                             class="waves-effect {{ set_active(['roles.index', 'roles.create', 'roles.edit', 'roles.show']) }}">
-                            <i class="uil uil-user-check"></i>
+                            <i class="uil uil-user-arrows"></i>
                             <span> Roles</span>
                         </a>
                     </li>
@@ -102,6 +123,16 @@
                         class="waves-effect {{ set_active('filemanager.index') }}">
                         <i class="uil uil-folder-open"></i>
                         <span> File Manager</span>
+                    </a>
+                </li>
+
+                {{-- Logout --}}
+                <li class="menu-title">__________________</li>
+                <li>
+                    <a href="{{ route('logout') }}" data-toggle="modal" data-target="#logModal"
+                        class="waves-effect">
+                        <i class="uil uil-signout"></i>
+                        <span>Logout</span>
                     </a>
                 </li>
 
