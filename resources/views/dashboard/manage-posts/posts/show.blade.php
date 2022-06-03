@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-lg-8">
             <div class="card m-b-30">
-                @if (!file_exists(public_path($post->thumbnail)))
+                @if (file_exists('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail))
                     <img class="card-img-top img-fluid"
                         src="{{ asset('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail) }}"
                         alt="{{ $post->title }}">

@@ -42,13 +42,13 @@
                                 <div class="card my-1">
                                     <div class="card-body">
                                         <div class="row">
-                                            @if (file_exists(public_path('vendor/dashboard/image/picture-profiles/' . $user->user_image)))
+                                            @if (file_exists('vendor/dashboard/image/picture-profiles/' . $user->user_image))
                                                 <img src="{{ asset('vendor/dashboard/image/picture-profiles/' . $user->user_image) }}"
                                                     alt="{{ $user->name }}" height="64"
                                                     class="d-flex ml-2 mr-2 rounded-circle userImage">
                                             @else
-                                                <img src="{{ asset('vendor/dashboard/image/picture-profiles/default.png') }}"
-                                                    height="64" alt="{{ $user->name }}"
+                                                <img src="{{ asset('vendor/dashboard/image/avatar.png') }}" height="64"
+                                                    alt="{{ $user->name }}"
                                                     class="d-flex ml-2 mr-2 rounded-circle userImage">
                                             @endif
 

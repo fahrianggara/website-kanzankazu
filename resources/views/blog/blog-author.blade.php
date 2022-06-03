@@ -19,13 +19,13 @@
                     <div class="card card-outline">
                         <div class="card-body box-profile">
                             <div class="text-center">
-                                @if (file_exists(public_path('vendor/dashboard/image/picture-profiles/' . $author->user_image)))
+                                @if (file_exists('vendor/dashboard/image/picture-profiles/' . $author->user_image))
                                     <img class="profile-user-img img-fluid img-circle"
                                         src="{{ asset('vendor/dashboard/image/picture-profiles/' . $author->user_image) }}"
                                         alt="{{ $author->name }} avatar">
                                 @else
                                     <img class="profile-user-img img-fluid img-circle"
-                                        src="{{ asset('vendor/dashboard/image/picture-profiles/default.png') }}"
+                                        src="{{ asset('vendor/dashboard/image/avatar.png') }}"
                                         alt="{{ $author->name }} avatar">
                                 @endif
                             </div>

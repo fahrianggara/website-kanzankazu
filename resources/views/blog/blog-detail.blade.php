@@ -38,7 +38,7 @@
                 <article class="entry entry-single">
 
                     <div class="entry-img loading">
-                        @if (file_exists(public_path('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail)))
+                        @if (file_exists('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail))
                             <img src="{{ asset('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail) }}"
                                 alt="{{ $post->title }}" class="img-fluid" />
                         @else
@@ -113,7 +113,7 @@
                 </article>
 
                 <div class="blog-author d-flex align-items-center">
-                    @if (file_exists(public_path('vendor/dashboard/image/picture-profiles/' . $post->user->user_image)))
+                    @if (file_exists('vendor/dashboard/image/picture-profiles/' . $post->user->user_image))
                         <img src="{{ asset('vendor/dashboard/image/picture-profiles/' . $post->user->user_image) }}"
                             alt="{{ $post->user->name }}" class="rounded-circle float-left" />
                     @else
@@ -148,7 +148,7 @@
                     @if ($prev)
                         <div class="float-right">
                             <a href="{{ route('blog.detail', ['slug' => $prev->slug]) }}" class="btn-Next">
-                                Blog Berikutnya <i class="icofont-rounded-right"></i>
+                                Berikutnya <i class="icofont-rounded-right"></i>
                             </a>
                         </div>
                     @endif
@@ -156,7 +156,7 @@
                     @if ($next)
                         <div class="float-left">
                             <a href="{{ route('blog.detail', ['slug' => $next->slug]) }}" class="btn-Prev">
-                                <i class="icofont-rounded-left"></i> Blog Sebelumnya
+                                <i class="icofont-rounded-left"></i> Sebelumnya
                             </a>
                         </div>
                     @endif
@@ -196,7 +196,7 @@
                                 <div class="post-item clearfix">
                                     <div class="imgSidebar img-container loading">
                                         <a href="{{ route('blog.detail', ['slug' => $recent->slug]) }}">
-                                            @if (file_exists(public_path('vendor/dashboard/image/thumbnail-posts/' . $recent->thumbnail)))
+                                            @if (file_exists('vendor/dashboard/image/thumbnail-posts/' . $recent->thumbnail))
                                                 <img src="{{ asset('vendor/dashboard/image/thumbnail-posts/' . $recent->thumbnail) }}"
                                                     alt="{{ $recent->title }}" class="img-container" />
                                             @else
@@ -232,7 +232,7 @@
                                 <div class="category-item clearfix">
                                     <div class="imgSidebar img-container">
                                         <a href="{{ route('blog.posts.categories', ['slug' => $category->slug]) }}">
-                                            @if (file_exists(public_path('vendor/dashboard/image/thumbnail-categories/' . $category->thumbnail)))
+                                            @if (file_exists('vendor/dashboard/image/thumbnail-categories/' . $category->thumbnail))
                                                 <img class="img-container"
                                                     src="{{ asset('vendor/dashboard/image/thumbnail-categories/' . $category->thumbnail) }}"
                                                     alt="{{ $category->title }}">

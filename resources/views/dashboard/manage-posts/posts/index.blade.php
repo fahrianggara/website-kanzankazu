@@ -66,7 +66,7 @@
                 <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
                     <div class="card m-b-30">
                         {{-- <img class="card-img-top img-fluid" src="{{ asset($post->thumbnail) }}" alt="{{ $post->title }}"> --}}
-                        @if (file_exists(public_path('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail)))
+                        @if (file_exists('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail))
                             <img src="{{ asset('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail) }}"
                                 alt="{{ $post->title }}" class="card-img-top img-fluid">
                         @else

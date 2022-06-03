@@ -7,7 +7,7 @@
                 <div class="post-related">
                     <div class="img-moreBlog img-container">
                         <a href="{{ route('blog.detail', ['slug' => $post->slug]) }}">
-                            @if (file_exists(public_path('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail)))
+                            @if (file_exists('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail))
                                 <div class="img-container">
                                     <img src="{{ asset('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail) }}"
                                         alt="{{ $post->title }}" class="img-fluid" />

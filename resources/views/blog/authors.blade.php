@@ -10,11 +10,11 @@
             <div class="row">
                 <div class="col-md-12 text-center authorBlog" data-aos="fade-up">
                     <div class="entry-img loading">
-                        @if (file_exists(public_path('vendor/dashboard/image/picture-profiles/' . $authorImage)))
+                        @if (file_exists('vendor/dashboard/image/picture-profiles/' . $authorImage))
                             <img src="{{ asset('vendor/dashboard/image/picture-profiles/' . $authorImage) }}" alt=""
                                 class="img-fluid img-round" />
                         @else
-                            <img src="{{ asset('vendor/dashboard/image/picture-profiles/default.png') }}" alt=""
+                            <img src="{{ asset('vendor/dashboard/image/avatar.png') }}" alt=""
                                 class="img-fluid img-round" />
                         @endif
                     </div>
@@ -60,7 +60,7 @@
 
                     <article class="entry-thumbnail">
                         <div class="entry-img loading">
-                            @if (file_exists(public_path('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail)))
+                            @if (file_exists('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail))
                                 <a href="{{ route('blog.detail', ['slug' => $post->slug]) }}">
                                     <img src="{{ asset('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail) }}"
                                         alt="{{ $post->title }}" class="img-fluid" />

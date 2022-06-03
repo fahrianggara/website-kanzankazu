@@ -173,7 +173,7 @@
                 @foreach ($postToday as $post)
                     <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
                         <div class="card m-b-30">
-                            @if (file_exists(public_path('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail)))
+                            @if (file_exists('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail))
                                 <img src="{{ asset('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail) }}"
                                     alt="{{ $post->title }}" class="card-img-top img-fluid">
                             @else
@@ -223,7 +223,7 @@
                 @foreach ($cateToday as $cate)
                     <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
                         <div class="card m-b-30">
-                            @if (file_exists(public_path('vendor/dashboard/image/thumbnail-categories/' . $cate->thumbnail)))
+                            @if (file_exists('vendor/dashboard/image/thumbnail-categories/' . $cate->thumbnail))
                                 <img src="{{ asset('vendor/dashboard/image/thumbnail-categories/' . $cate->thumbnail) }}"
                                     alt="{{ $cate->title }}" class="card-img-top img-fluid">
                             @else
@@ -299,14 +299,13 @@
                         <div class="card m-b-30">
                             <div class="card-body">
                                 <div class="media">
-                                    @if (file_exists(public_path('vendor/dashboard/image/picture-profiles/' . $user->user_image)))
+                                    @if (file_exists('vendor/dashboard/image/picture-profiles/' . $user->user_image))
                                         <img src="{{ asset('vendor/dashboard/image/picture-profiles/' . $user->user_image) }}"
                                             alt="{{ $user->name }}" height="64"
                                             class="d-flex mr-3 rounded-circle userImage">
                                     @else
-                                        <img src="{{ asset('vendor/dashboard/image/picture-profiles/default.png') }}"
-                                            height="64" alt="{{ $user->name }}"
-                                            class="d-flex mr-3 rounded-circle userImage">
+                                        <img src="{{ asset('vendor/dashboard/image/avatar.png') }}" height="64"
+                                            alt="{{ $user->name }}" class="d-flex mr-3 rounded-circle userImage">
                                     @endif
 
                                     <div class="media-body">

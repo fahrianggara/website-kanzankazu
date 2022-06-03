@@ -12,7 +12,7 @@
                     <article class="entry-thumbnail">
                         <div class="entry-img loading">
                             <a href="{{ route('blog.posts.categories', ['slug' => $category->slug]) }}">
-                                @if (file_exists(public_path('vendor/dashboard/image/thumbnail-categories/' . $category->thumbnail)))
+                                @if (file_exists('vendor/dashboard/image/thumbnail-categories/' . $category->thumbnail))
                                     <img src="{{ asset('vendor/dashboard/image/thumbnail-categories/' . $category->thumbnail) }}"
                                         alt="{{ $category->title }}" class="img-fluid" />
                                 @else

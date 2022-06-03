@@ -41,7 +41,7 @@
     {{-- jQuery Ui --}}
     <link rel="stylesheet" href="{{ asset('vendor/blog/assets/jquery-ui/jquery-ui.css') }}">
     {{-- Main CSS --}}
-    <link rel="stylesheet" href="{{ asset('vendor/blog/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/blog/css/main.css') }}">
     {{-- CSS EXT --}}
     @stack('css-external')
     {{-- CSS INT --}}
@@ -77,7 +77,7 @@
     {{-- Main Js --}}
     <script src="{{ asset('vendor/blog/js/main.js') }}"></script>
     {{-- JS Ext --}}
-    @stack('js-external')
+    {{-- @stack('js-external') --}}
     {{-- JS Int --}}
     @stack('js-internal')
     {{-- Script --}}
@@ -90,108 +90,13 @@
             }
         }
 
-        $(function() {
-            document.getElementById('buttonBack').onclick = function() {
-                window.location = document.referrer;
-            }
+        document.getElementById('buttonBack').onclick = function() {
+            window.location = document.referrer;
+        }
 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $('[data-dismiss="modal"]').on('click', function() {
-                $(document).find('span.error-text').text('');
-                $(document).find('input.form-control').removeClass(
-                    'is-invalid');
-                $(document).find('textarea.form-control').removeClass(
-                    'is-invalid');
-                $('#formContactUs')[0].reset();
-            });
-
-            // Contact Us Modal
-            $('#formContactUs').on('submit', function(e) {
-                e.preventDefault();
-
-                var xhr = $.ajax({
-                    url: $(this).attr('action'),
-                    method: $(this).attr('method'),
-                    data: new FormData(this),
-                    contentType: false,
-                    processData: false,
-                    dataType: 'json',
-                    beforeSend: function() {
-                        $(document).find('span.error-text').text('');
-                        $(document).find('input.form-control').removeClass(
-                            'is-invalid');
-                        $(document).find('textarea.form-control').removeClass(
-                            'is-invalid');
-                        // button
-                        $('#btn_contactUs').attr('disabled', true);
-                        $('#btn_contactUs').html('<i class="fa fa-spin fa-spinner"></i>');
-                    },
-                    complete: function() {
-                        $('#btn_contactUs').attr('disabled', false);
-                        $('#btn_contactUs').html('{{ trans('home.contact.buttonform') }}');
-                    },
-                    success: function(response) {
-                        if (response.status == 400) {
-                            $.each(response.errors, function(key, val) {
-                                $('input#' + key).addClass('is-invalid');
-                                $('textarea#' + key).addClass('is-invalid');
-                                $('span.' + key + '_error').text(val[0]);
-                            });
-                        } else {
-                            $('#formContactUs')[0].reset();
-                            $('#modalContactUs').modal('hide');
-                            // Notif
-                            alertify
-                                .delay(3500)
-                                .log(response.msg);
-                        }
-                    },
-                    error: function(response) {
-                        alert(response.status + "\n" + response.errors + "\n" + thrownError);
-                    }
-                });
-            });
-
-            // newsletter
-            $('#formNewsletter').on('submit', function(e) {
-                e.preventDefault();
-
-                $.ajax({
-                    method: $(this).attr('method'),
-                    url: $(this).attr('action'),
-                    data: new FormData(this),
-                    contentType: false,
-                    processData: false,
-                    dataType: 'json',
-                    beforeSend: function() {
-                        $('#btn_newsletter').attr('disabled', true);
-                        $('#btn_newsletter').html('<i class="fa fa-spin fa-spinner"></i>');
-                    },
-                    complete: function(response) {
-                        $('#btn_newsletter').attr('disabled', false);
-                        $('#btn_newsletter').html('Subscribe');
-
-                    },
-                    success: function(response) {
-                        if (response.status == 400) {
-                            alertify
-                                .delay(4000)
-                                .error(response.error.email[0]);
-                        } else {
-                            $('#formNewsletter')[0].reset();
-                            alertify
-                                .delay(4000)
-                                .log(response.msg);
-                        }
-                    }
-                });
-            });
-        })
+        $(".btn-tooltip-hide").tooltip().on("click", function() {
+            $(this).tooltip("hide")
+        });
     </script>
 </body>
 

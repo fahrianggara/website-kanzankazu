@@ -13,12 +13,12 @@
             <li class="list-inline-item dropdown notification-list">
                 <a class="nav-link dropdown-toggle arrow-none waves-effect nav-user" data-toggle="dropdown" href="#"
                     role="button" aria-haspopup="false" aria-expanded="false">
-                    @if (file_exists(public_path('vendor/dashboard/image/picture-profiles/' . Auth::user()->user_image)))
+                    @if (file_exists('vendor/dashboard/image/picture-profiles/' . Auth::user()->user_image))
                         <img src="{{ asset('vendor/dashboard/image/picture-profiles/' . Auth::user()->user_image) }}"
                             alt="{{ Auth::user()->name }}" class="rounded-circle userImage">
                     @else
-                        <img src="{{ asset('vendor/dashboard/image/picture-profiles/default.png') }}"
-                            alt="{{ Auth::user()->name }}" class="rounded-circle userImage">
+                        <img src="{{ asset('vendor/dashboard/image/avatar.png') }}" alt="{{ Auth::user()->name }}"
+                            class="rounded-circle userImage">
                     @endif
                 </a>
                 <div class="dropdown-menu dropdown-menu-right profile-dropdown ">

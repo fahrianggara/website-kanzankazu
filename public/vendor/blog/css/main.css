@@ -166,6 +166,10 @@ a.underline:hover {
     z-index: 997;
     padding: 10px 0;
     background: var(--container-color);
+
+    width: 100%;
+    position: fixed;
+    top: 0px;
 }
 
 .scroll-header {
@@ -281,7 +285,6 @@ input[type="search"]:focus::-webkit-search-cancel-button {
     border: 1px solid var(--first-color);
     border-radius: 5px 5px 5px 5px;
     outline: none;
-
 }
 
 #header form input:focus {
@@ -290,7 +293,7 @@ input[type="search"]:focus::-webkit-search-cancel-button {
 
 #header form .search-blog {
     height: 100%;
-    width: 300px;
+    width: 334px;
     padding: 0 10px;
     color: var(--text-color);
     background: var(--container-color);
@@ -339,15 +342,15 @@ input[type="search"]:focus::-webkit-search-cancel-button {
         pointer-events: none;
         width: 100%;
         border: none !important;
-        transition: top 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        transition: top 0.2s ease-in-out, opacity 0.2s ease-in-out;
     }
 
     #header form .search-blog {
         background: var(--container-color);
         align-items: center;
-        margin-left: 2.8%;
         border: 1px solid var(--first-color);
         width: 100%;
+        margin-left: 2.8%;
     }
 
     #header form button {
@@ -544,7 +547,7 @@ input[type="search"]:focus::-webkit-search-cancel-button {
     right: 15px;
 }
 
-@media (max-width: 1366px) {
+@media (max-width: 991px) {
     .nav-menu .drop-down .drop-down ul {
         left: -90%;
     }
@@ -589,6 +592,7 @@ input[type="search"]:focus::-webkit-search-cancel-button {
     transition: ease-in-out 0.3s;
     align-items: center;
     display: flex;
+    font-family: "Rubik", sans-serif;
 }
 
 .mobile-nav i.uil {
@@ -644,11 +648,11 @@ input[type="search"]:focus::-webkit-search-cancel-button {
     position: fixed;
     top: 20px;
     right: 15px;
-    z-index: 999;
+    z-index: 9998;
     border: 0;
     background: none;
     font-size: 24px;
-
+    transition: all 0.4s;
     outline: none !important;
     line-height: 1;
     cursor: pointer;
@@ -880,7 +884,6 @@ section {
 }
 
 .section-title {
-    /* text-align: center; */
     padding-bottom: 30px;
 }
 
@@ -907,6 +910,13 @@ section {
     margin-left: 1px;
     font-size: 18px;
     color: var(--text-color);
+}
+
+@media (max-width: 396px) {
+    .section-title h2 {
+        font-size: 25px;
+        font-weight: 700;
+    }
 }
 
 /* ==========ABOUT========== */
@@ -1262,11 +1272,23 @@ section {
     max-width: 100%;
 }
 
-/* @media (max-width: 1026px) {
-    .banner .banner_content {
-        margin-top: 10000px !important;
+@media (max-width: 576px) {
+    .banner img {
+        display: block;
+        height: auto;
+        max-width: 100%;
+        width: 230px !important;
+        height: 230px !important;
     }
-} */
+
+    .banner h3 {
+        margin-top: 50px !important;
+    }
+
+    .banner {
+        padding-bottom: 50px;
+    }
+}
 
 @media (max-width: 1199px) {
     .banner .banner_content {
@@ -1407,6 +1429,26 @@ section {
 
 .blog .entry-thumbnail .entry-content .read-more a:hover {
     box-shadow: 0 0 5px var(--text-color);
+}
+
+@media (max-width: 396px) {
+    .blog .entry-thumbnail .entry-title a {
+        font-size: 24px;
+    }
+
+    .blog .entry-thumbnail .entry-meta a,
+    .blog .entry-thumbnail .entry-meta span,
+    .blog .entry-thumbnail .entry-meta i {
+        font-size: 14px;
+    }
+
+    .blog .entry-thumbnail .entry-content p {
+        font-size: 15px;
+    }
+
+    .blog .entry-thumbnail .entry-content .read-more a {
+        font-size: 14px;
+    }
 }
 
 .blog .btn-blog {
@@ -2373,7 +2415,7 @@ pre[class*="language-"] {
     background: 0 0;
     font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
     text-shadow: 0 1px var(--sectionBg-color);
-    font-size: 1em;
+    font-size: 16px;
     border-radius: 5px;
     text-align: left;
     white-space: pre;
@@ -3974,11 +4016,11 @@ ul.ui-autocomplete {
     border: 1px solid var(--first-color);
     border-radius: 0 0 5px 5px;
     overflow: hidden;
+    z-index: 9999;
 }
 
 .ui-widget-content .ui-state-active {
     background-color: var(--codeText-color);
-    /* border: none !important; */
 }
 
 .ui-widget-content .ui-state-active p {

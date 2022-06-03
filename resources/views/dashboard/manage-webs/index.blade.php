@@ -67,7 +67,7 @@
                             <p>
                                 <strong class="font-18 mr-1">IMAGE BANNER :</strong>
                                 <span class="font-18">
-                                    @if (file_exists(public_path('vendor/blog/img/home-img/' . $settings->image_banner)))
+                                    @if (file_exists('vendor/blog/img/home-img/' . $settings->image_banner))
                                         <img width="200" height="200"
                                             src="{{ asset('vendor/blog/img/home-img/' . $settings->image_banner) }}"
                                             alt="banner" class="img-fluid image_banner">

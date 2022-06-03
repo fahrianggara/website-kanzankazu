@@ -14,14 +14,13 @@
             <div class="card card-outline">
                 <div class="card-body box-profile">
                     <div class="text-center">
-                        @if (file_exists(public_path('vendor/dashboard/image/picture-profiles/' . Auth::user()->user_image)))
+                        @if (file_exists('vendor/dashboard/image/picture-profiles/' . Auth::user()->user_image))
                             <img class="profile-user-img userImage img-fluid img-circle"
                                 src="{{ asset('vendor/dashboard/image/picture-profiles/' . Auth::user()->user_image) }}"
                                 alt="{{ Auth::user()->name }}">
                         @else
                             <img class="profile-user-img userImage img-fluid img-circle"
-                                src="{{ asset('vendor/dashboard/image/picture-profiles/default.png') }}"
-                                alt="{{ Auth::user()->name }}">
+                                src="{{ asset('vendor/dashboard/image/avatar.png') }}" alt="{{ Auth::user()->name }}">
                         @endif
                     </div>
                     <div class="dropdown-divider mt-4 mb-3"></div>
