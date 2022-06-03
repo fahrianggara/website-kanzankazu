@@ -31,7 +31,7 @@
                         @forelse ($footerPost as $post)
                             <div class="post-item clearfix">
                                 <div class="post-img loading">
-                                    @if (file_exists(public_path('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail)))
+                                    @if (file_exists('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail))
                                         <a href="{{ route('blog.detail', ['slug' => $post->slug]) }}"
                                             class="img"
                                             style="background-image: url({{ asset('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail) }})"></a>

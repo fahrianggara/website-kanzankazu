@@ -67,6 +67,7 @@ class ProfileController extends Controller
 
     public function updateImage(Request $request)
     {
+        $public_path = '../../public_html/blog/';
         $path = 'vendor/dashboard/image/picture-profiles/';
         $file = $request->file('user_image');
         // $ext = $file->getClientOriginalExtension();
