@@ -22,7 +22,8 @@
                             <form action="" method="GET" class="form-inline form-row">
                                 <div class="col-6">
                                     <div class="input-group mx-1">
-                                        <select id="statusPost" name="status" class="custom-select">
+                                        <select id="statusPost" name="status" class="custom-select"
+                                            style="border-radius: 4px">
                                             {{-- @foreach ($statuses as $value => $label)
                                                 <option value="{{ $value }}"
                                                     {{ $statusSelected == $value ? 'selected' : null }}>
@@ -43,8 +44,9 @@
                                                 </option>
                                             @endif
                                         </select>
-                                        <div class="input-group-append">
-                                            <button id="submitStatus" class="btn btn-primary" type="submit">Apply</button>
+                                        <div class="">
+                                            <button id="submitStatus" class="btn btn-primary d-none"
+                                                type="submit">Apply</button>
                                         </div>
                                     </div>
                                 </div>
