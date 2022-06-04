@@ -12,6 +12,7 @@ use App\Models\Tag;
 use App\Models\WebSetting;
 use Spatie\Permission\Models\Role;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 
 class DashboardController extends Controller
@@ -28,7 +29,7 @@ class DashboardController extends Controller
     public function dashboard()
     {
         $countUser = User::count();
-        $countPost = Post::count();
+        $countPost = Post::where('user_id', Auth::id())->count();
         $countTag = Tag::count();
         $countCategory = Category::count();
         $countContact = Contact::count();
