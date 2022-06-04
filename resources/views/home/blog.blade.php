@@ -16,7 +16,7 @@
                                     <img src="{{ asset('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail) }}"
                                         alt="{{ $post->title }}" class="img-fluid" />
                                 @else
-                                    <img class="img-fluid" src="{{ asset('vendor/my-blog/img/noimage.jpg') }}"
+                                    <img class="img-fluid" src="{{ asset('vendor/blog/img/default.png') }}"
                                         alt="{{ $post->title }}">
                                 @endif
                             </a>
