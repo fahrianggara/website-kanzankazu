@@ -9,6 +9,7 @@ return [
     'post_update' => 'Update',
     'post_detail' => 'Detail',
     'post_delete' => 'Delete',
+    'post_approval' => 'Approval',
     'manage_categories' => 'Manage categories',
     'category_show' => 'Show',
     'category_create' => "Add",

@@ -40,8 +40,11 @@ class User extends Authenticatable
         'password',
         'remember_token',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'roles'
     ];
+
+    protected $appends = ['role_names'];
 
     /**
      * The attributes that should be cast.
@@ -99,5 +102,20 @@ class User extends Authenticatable
         } else {
             return asset('vendor/dashboard/image/picture-profiles/avatar.png');
         }
+    }
+
+    public function editorRole()
+    {
+        return $this->roles()->where('name', 'Editor')->first();
+    }
+
+    public function adminRole()
+    {
+        return $this->roles()->where('name', 'Admin')->first();
+    }
+
+    public function miminRole()
+    {
+        return $this->roles()->where('name', 'Mimin')->first();
     }
 }

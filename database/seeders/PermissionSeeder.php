@@ -50,7 +50,6 @@ class PermissionSeeder extends Seeder
          * Insert data PERMISSION
          */
         Permission::insert($listPermission);
-
         /**
          * Insert data ROLE
          */

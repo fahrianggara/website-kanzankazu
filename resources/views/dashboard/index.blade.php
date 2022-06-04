@@ -171,22 +171,24 @@
         <div class="row">
             @if ($postToday->count() >= 1)
                 @foreach ($postToday as $post)
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
-                        <div class="card m-b-30">
-                            @if (file_exists('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail))
-                                <img src="{{ asset('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail) }}"
-                                    alt="{{ $post->title }}" class="card-img-top img-fluid">
-                            @else
-                                <img src="{{ asset('vendor/blog/img/default.png') }}" alt="{{ $post->title }}"
-                                    class="card-img-top img-fluid">
-                            @endif
+                    @if ($post->user_id == Auth::user()->id)
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                            <div class="card m-b-30">
+                                @if (file_exists('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail))
+                                    <img src="{{ asset('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail) }}"
+                                        alt="{{ $post->title }}" class="card-img-top img-fluid">
+                                @else
+                                    <img src="{{ asset('vendor/blog/img/default.png') }}" alt="{{ $post->title }}"
+                                        class="card-img-top img-fluid">
+                                @endif
 
-                            <div class="card-body">
-                                <h5 class="card-title font-20 mt-0">{{ $post->title }}</h5>
-                                <p class="card-text">{{ substr($post->description, 0, 150) }}...</p>
+                                <div class="card-body">
+                                    <h5 class="card-title font-20 mt-0">{{ $post->title }}</h5>
+                                    <p class="card-text">{{ substr($post->description, 0, 150) }}...</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 @endforeach
             @else
                 <div class="col-12">

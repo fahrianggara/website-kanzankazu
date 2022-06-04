@@ -36,7 +36,9 @@ class DashboardController extends Controller
 
         // post today
         $Today = Carbon::today();
-        $postToday = Post::select('title', 'thumbnail', 'description')->whereDate('created_at', $Today)->paginate(4);
+        $postToday = Post::publish()
+            ->whereDate('created_at', $Today)
+            ->paginate(4);
         $cateToday = Category::select('title', 'thumbnail', 'description')->whereDate('created_at', $Today)->paginate(4);
         $tagToday = Tag::select('title')->whereDate('created_at', $Today)->get();
         $inboxToday = Contact::select('name', 'email', 'subject', 'message')->whereDate('created_at', $Today)->get();

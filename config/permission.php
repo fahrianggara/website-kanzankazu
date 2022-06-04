@@ -8,7 +8,8 @@ return [
             'post_create',
             'post_update',
             'post_detail',
-            'post_delete'
+            'post_delete',
+            'post_approval',
         ],
         'manage_categories' => [
             'category_show',

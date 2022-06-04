@@ -21,7 +21,7 @@ class CreatePostsTable extends Migration
             $table->string('author');
             $table->string('description', 500);
             $table->text('content');
-            $table->enum('status', ['publish', 'draft']);
+            $table->enum('status', ['publish', 'draft', 'approve']);
             $table->integer('approval')->default(0);
             $table->string('keywords');
             $table->timestamps();

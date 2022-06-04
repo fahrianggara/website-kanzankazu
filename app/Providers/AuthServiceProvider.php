@@ -23,6 +23,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
         $this->registerPolicies();
 
         // MANAGE POST
@@ -32,7 +33,8 @@ class AuthServiceProvider extends ServiceProvider
                 'post_create',
                 'post_update',
                 'post_detail',
-                'post_delete'
+                'post_delete',
+                'post_approve',
             ]);
         });
 

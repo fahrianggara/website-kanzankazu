@@ -151,18 +151,17 @@
                         </div>
 
                         {{-- STATUS --}}
-                        <div class="
-                                form-group">
-                            <label for="select_post_status">Status</label>
+
+                        <div class="form-group">
+                            <label for="select_post_status" class="">Status
+                            </label>
 
                             <select name="status" id="select_post_status"
                                 class="custom-select w-100 @error('status') is-invalid @enderror">
-                                @foreach ($statuses as $key => $value)
-                                    <option value="{{ $key }}"
-                                        {{ old('status', $post->status) == $key ? 'selected' : null }}>
-                                        {{ $value }}
-                                    </option>
-                                @endforeach
+                                <option value="publish" {{ old('status') == 'publish' ? 'selected' : null }}>Publish
+                                </option>
+                                <option value="draft" {{ old('status') == 'draft' ? 'selected' : null }}>Draft
+                                </option>
                             </select>
 
                             @error('status')
@@ -171,6 +170,7 @@
                                 </span>
                             @enderror
                         </div>
+
 
                         {{-- DESCRIPTION --}}
                         <div class="form-group">

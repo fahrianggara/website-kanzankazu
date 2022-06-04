@@ -82,6 +82,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         // Posts
         Route::get('/posts/trash', [\App\Http\Controllers\Dashboard\PostController::class, 'listsDeletePosts'])->name('posts.delete');
         Route::post('/posts/restore/{id}', [\App\Http\Controllers\Dashboard\PostController::class, 'restore'])->name('posts.restore');
+        Route::put('/posts/approved/{post}', [\App\Http\Controllers\Dashboard\PostController::class, 'updateApproval'])->name('posts.approval');
         Route::resource('/posts', \App\Http\Controllers\Dashboard\PostController::class);
         // Role
         Route::get('/roles/select', [\App\Http\Controllers\Dashboard\RoleController::class, 'select'])->name('roles.select');

@@ -16,6 +16,8 @@ use RealRashid\SweetAlert\Facades\Alert;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Traits\HasRoles;
 
 class PostController extends Controller
 {
@@ -29,6 +31,7 @@ class PostController extends Controller
         $this->middleware('permission:post_update', ['only' => ['edit', 'update']]);
         $this->middleware('permission:post_detail', ['only' => 'show']);
         $this->middleware('permission:post_delete', ['only' => 'destroy']);
+        // $this->middleware('permission:post_approval', ['only' => 'updateApproval']);
     }
 
     /**
@@ -38,9 +41,30 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $statusSelected = in_array($request->get('status'), ['publish', 'draft']) ? $request->get('status') : "publish";
+        // $statusSelected = in_array($request->get('status'), ['publish', 'draft']) ? $request->get('status') : "publish";
+        if (in_array($request->get('status'), ['publish', 'draft', 'approve'])) {
+            if ($request->get('status') == "approve") {
+                if (Auth::user()->roles->pluck('name')->contains('Editor')) {
+                    return redirect()->route('posts.index')->with('success', 'You are not authorized');
+                } else {
+                    $statusSelected = $request->get('status');
+                }
+            } else {
+                $statusSelected = $request->get('status');
+            }
+        } else {
+            $statusSelected = "publish";
+        }
 
-        $posts = $statusSelected == "publish" ? Post::publish()->latest() : Post::draft();
+        if ($statusSelected == "publish") {
+            $posts = Post::publish()->where('user_id', Auth::id())->latest();
+        } else if ($statusSelected == "draft") {
+            $posts = Post::draft()->where('user_id', Auth::id())->latest();;
+        } else {
+            $posts = Post::approve()->latest();
+        }
+
+        // $posts = $statusSelected == "publish" ? Post::publish()->latest() : Post::draft();
 
         if ($request->get('keyword')) {
             $posts->search($request->get('keyword'));
@@ -53,6 +77,14 @@ class PostController extends Controller
         ]);
     }
 
+    public function updateApproval(Post $post)
+    {
+        $post->status = 'publish';
+        $post->update();
+
+        return redirect()->route('posts.index')->with('success', 'Post has been Published!');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -60,6 +92,7 @@ class PostController extends Controller
      */
     public function create()
     {
+
         return view('dashboard.manage-posts.posts.create', [
             'categories' => Category::with('generation')->onlyParent()->get(),
             'statuses'   => $this->statuses(),
@@ -125,7 +158,15 @@ class PostController extends Controller
                 $post->tags()->attach($request->tag);
                 $post->categories()->attach($request->category);
 
-                return redirect()->route('posts.index')->with('success', 'New post created successfully!');
+                if (Role::where('name', 'Editor')->first()) {
+                    return redirect()->route('posts.index')->with('success', 'Your post waiting for approval!');
+                } else {
+                    if ($post->status == 'publish') {
+                        return redirect()->route('posts.index')->with('success', 'New post created successfully!');
+                    } else {
+                        return redirect()->route('posts.index')->with('success', 'New post has been created in draft option!');
+                    }
+                }
             } catch (\Throwable $th) {
                 DB::rollBack();
 
@@ -317,6 +358,12 @@ class PostController extends Controller
         return [
             'publish'   => "Publish",
             'draft'     => "Draft",
+            'approve'   => "Approve"
         ];
+    }
+
+    private function editorRole()
+    {
+        return $this->roles()->where('name', 'Editor')->first();
     }
 }

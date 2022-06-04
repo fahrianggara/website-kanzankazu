@@ -17,25 +17,37 @@
             <div class="card m-b-30">
                 <div class="card-header">
                     <div class="row">
+
                         <div class="col-md-6">
                             <form action="" method="GET" class="form-inline form-row">
-                                {{-- STATUS --}}
                                 <div class="col-6">
                                     <div class="input-group mx-1">
                                         <select name="status" class="custom-select">
-                                            @foreach ($statuses as $value => $label)
+                                            {{-- @foreach ($statuses as $value => $label)
                                                 <option value="{{ $value }}"
                                                     {{ $statusSelected == $value ? 'selected' : null }}>
                                                     {{ $label }}
                                                 </option>
-                                            @endforeach
+                                            @endforeach --}}
+                                            <option value="publish"
+                                                {{ $statusSelected == 'publish' ? 'selected' : null }}>
+                                                Publish
+                                            </option>
+                                            <option value="draft" {{ $statusSelected == 'draft' ? 'selected' : null }}>
+                                                Draft
+                                            </option>
+                                            @if (!Auth::user()->editorRole())
+                                                <option value="approve"
+                                                    {{ $statusSelected == 'approve' ? 'selected' : null }}>
+                                                    Approve
+                                                </option>
+                                            @endif
                                         </select>
                                         <div class="input-group-append">
                                             <button class="btn btn-primary" type="submit">Apply</button>
                                         </div>
                                     </div>
                                 </div>
-                                {{-- SEARCH --}}
                                 <div class="col-6">
                                     <div class="input-group mx-1">
                                         <input name="keyword" type="search" value="{{ request()->get('keyword') }}"
@@ -49,6 +61,7 @@
                                 </div>
                             </form>
                         </div>
+
                         @can('post_create')
                             <div class="col-md-6">
                                 <a href="{{ route('posts.create') }}" class="btn btn-primary float-right"><i
@@ -63,6 +76,7 @@
 
         <div class="row">
             @forelse ($posts as $post)
+                {{-- @if ($post->user_id == Auth::user()->id) --}}
                 <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
                     <div class="card m-b-30">
                         {{-- <img class="card-img-top img-fluid" src="{{ asset($post->thumbnail) }}" alt="{{ $post->title }}"> --}}
@@ -83,25 +97,49 @@
                             @endcan
                             @if ($post->user_id == Auth::user()->id)
                                 {{-- edit --}}
-                                <a href="{{ route('posts.edit', ['post' => $post]) }}"
-                                    class="btn btn-warning btn-sm waves-effect waves-light"><i
-                                        class="uil uil-pen"></i></a>
-                                {{-- delete --}}
-                                <form action="{{ route('posts.destroy', ['post' => $post]) }}" method="POST"
-                                    class="d-inline" role="alert"
-                                    alert-text="Are you sure you want to delete the {{ $post->title }} post?">
-                                    @csrf
-                                    @method('DELETE')
+                                @can('post_update')
+                                    <a href="{{ route('posts.edit', ['post' => $post]) }}"
+                                        class="btn btn-warning btn-sm waves-effect waves-light"><i
+                                            class="uil uil-pen"></i></a>
+                                @endcan
 
-                                    <button type="submit" class="btn btn-danger btn-sm waves-effect waves-light">
-                                        <i class="uil uil-trash"></i>
-                                    </button>
-                                </form>
+                                @can('post_delete')
+                                    {{-- delete --}}
+                                    <form action="{{ route('posts.destroy', ['post' => $post]) }}" method="POST"
+                                        class="d-inline" role="alertDelete"
+                                        alert-text="Are you sure you want to delete the {{ $post->title }} post?">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button type="submit" class="btn btn-danger btn-sm waves-effect waves-light">
+                                            <i class="uil uil-trash"></i>
+                                        </button>
+                                    </form>
+                                @endcan
+                            @endif
+
+                            @if ($post->status == 'approve')
+                                @if (!Auth::user()->editorRole())
+                                    <form action="{{ route('posts.approval', ['post' => $post]) }}" method="POST"
+                                        class="d-inline" role="alertPublish"
+                                        alert-text="Are you sure you want to publish the {{ $post->title }} post?">
+                                        @csrf
+                                        @method('PUT')
+
+                                        <input type="hidden" name="status" value="{{ $post->status }}">
+
+                                        <button type="submit"
+                                            class="float-right btn btn-success btn-sm waves-effect waves-light">
+                                            <i class="uil uil-upload"></i>
+                                        </button>
+                                    </form>
+                                @endif
                             @endif
 
                         </div>
                     </div>
                 </div>
+                {{-- @endif --}}
             @empty
                 <b class="ml-5">
                     @if (request()->get('keyword'))
@@ -136,7 +174,7 @@
         }
 
         $(document).ready(function() {
-            $("form[role='alert']").submit(function(e) {
+            $("form[role='alertDelete']").submit(function(e) {
                 e.preventDefault();
 
                 Swal.fire({
@@ -148,6 +186,26 @@
                     cancelButtonText: "Cancel",
                     confirmButtonText: "Delete",
                     confirmButtonColor: '#d33',
+                    reverseButtons: true,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        e.target.submit();
+                    }
+                });
+            });
+
+            $("form[role='alertPublish']").submit(function(e) {
+                e.preventDefault();
+
+                Swal.fire({
+                    title: "Warning",
+                    text: $(this).attr('alert-text'),
+                    icon: "warning",
+                    allowOutsideClick: false,
+                    showCancelButton: true,
+                    cancelButtonText: "Cancel",
+                    confirmButtonText: "Upload",
+                    confirmButtonColor: 'green',
                     reverseButtons: true,
                 }).then((result) => {
                     if (result.isConfirmed) {

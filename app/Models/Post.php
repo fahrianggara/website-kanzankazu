@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Laravelista\Comments\Comment;
 use Laravelista\Comments\Commentable;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Traits\HasRoles;
 use Carbon\Carbon;
 
 class Post extends Model
@@ -65,10 +68,16 @@ class Post extends Model
         return $query->where('status', "draft");
     }
 
+    public function scopeApprove($query)
+    {
+        return $query->where('status', "approve");
+    }
+
     public function scopePopular($query)
     {
         return $query->orderBy('views', 'DESC');
     }
+
 
     public function scopeFilter($query, $filters)
     {

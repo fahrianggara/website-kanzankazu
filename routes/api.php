@@ -26,7 +26,6 @@ Route::get('/category/index', [CategoryController::class, 'index']);
 Route::group(['middleware' => 'auth:sanctum'], function () {
     // Categories
     Route::get('/category/select', [CategoryController::class, 'select']);
-
     // Logout
     Route::get('/logout', [AuthController::class, 'logout']);
 });

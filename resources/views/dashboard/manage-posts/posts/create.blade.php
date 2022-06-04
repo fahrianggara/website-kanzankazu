@@ -149,25 +149,41 @@
                         </div>
 
                         {{-- STATUS --}}
-                        <div class="
-                                form-group">
-                            <label for="select_post_status">Status</label>
+                        @if (Auth::user()->editorRole())
+                            <div class="form-group">
+                                <label for="select_post_status" class="">Status
+                                </label>
 
-                            <select name="status" id="select_post_status"
-                                class="custom-select w-100 @error('status') is-invalid @enderror">
-                                @foreach ($statuses as $key => $value)
-                                    <option value="{{ $key }}" {{ old('status') == $key ? 'selected' : null }}>
-                                        {{ $value }}
+                                <select name="status" id="select_post_status"
+                                    class="custom-select w-100 @error('status') is-invalid @enderror">
+                                    <option value="approve" @if (old('status') == 'approve') selected @endif>Approve
                                     </option>
-                                @endforeach
-                            </select>
+                                </select>
 
-                            @error('status')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
+                                @error('status')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        @else
+                            <div class="form-group">
+                                <label for="select_post_status">Status</label>
+
+                                <select name="status" id="select_post_status"
+                                    class="custom-select w-100 @error('status') is-invalid @enderror">
+                                    <option value="publish" @if (old('status') == 'publish') selected @endif>Publish
+                                    </option>
+                                    <option value="draft" @if (old('status') == 'draft') selected @endif>Draft</option>
+
+                                    @error('status')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </select>
+                            </div>
+                        @endif
 
                         {{-- DESCRIPTION --}}
                         <div class="form-group">
