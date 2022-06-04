@@ -22,7 +22,7 @@
                             <form action="" method="GET" class="form-inline form-row">
                                 <div class="col-6">
                                     <div class="input-group mx-1">
-                                        <select name="status" class="custom-select">
+                                        <select id="statusPost" name="status" class="custom-select">
                                             {{-- @foreach ($statuses as $value => $label)
                                                 <option value="{{ $value }}"
                                                     {{ $statusSelected == $value ? 'selected' : null }}>
@@ -44,7 +44,7 @@
                                             @endif
                                         </select>
                                         <div class="input-group-append">
-                                            <button class="btn btn-primary" type="submit">Apply</button>
+                                            <button id="submitStatus" class="btn btn-primary" type="submit">Apply</button>
                                         </div>
                                     </div>
                                 </div>
@@ -174,6 +174,11 @@
         }
 
         $(document).ready(function() {
+            // status post
+            $('#statusPost').on('change', function() {
+                $('#submitStatus').click();
+            });
+
             $("form[role='alertDelete']").submit(function(e) {
                 e.preventDefault();
 
