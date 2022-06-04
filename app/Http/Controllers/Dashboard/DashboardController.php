@@ -29,7 +29,7 @@ class DashboardController extends Controller
     public function dashboard()
     {
         $countUser = User::count();
-        $countPost = Post::where('user_id', Auth::id())->count();
+        $countPost = Post::publish()->where('user_id', Auth::id())->count();
         $countTag = Tag::count();
         $countCategory = Category::count();
         $countContact = Contact::count();
