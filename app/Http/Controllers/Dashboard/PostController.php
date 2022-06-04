@@ -167,11 +167,26 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('dashboard.manage-posts.posts.edit', [
-            'post'          => $post,
-            'categories'    => Category::with('generation')->onlyParent()->get(),
-            'statuses'      => $this->statuses(),
-        ]);
+        if ($post->user_id == Auth::user()->id) {
+            return view('dashboard.manage-posts.posts.edit', [
+                'post' => $post,
+                'categories' => Category::with('generation')->onlyParent()->get(),
+                'statuses'   => $this->statuses(),
+            ]);
+        } else {
+            Alert::error(
+                'Error',
+                'You are not authorized to edit this post.'
+            );
+
+            return redirect()->route('posts.index');
+        }
+
+        // return view('dashboard.manage-posts.posts.edit', [
+        //     'post'          => $post,
+        //     'categories'    => Category::with('generation')->onlyParent()->get(),
+        //     'statuses'      => $this->statuses(),
+        // ]);
     }
 
     /**

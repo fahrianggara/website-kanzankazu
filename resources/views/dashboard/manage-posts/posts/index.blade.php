@@ -81,13 +81,12 @@
                                 <a href="{{ route('posts.show', ['post' => $post]) }}"
                                     class="btn btn-primary btn-sm waves-effect waves-light"><i class="uil uil-eye"></i></a>
                             @endcan
-                            {{-- edit --}}
-                            @can('post_update')
+                            @if ($post->user_id == Auth::user()->id)
+                                {{-- edit --}}
                                 <a href="{{ route('posts.edit', ['post' => $post]) }}"
-                                    class="btn btn-warning btn-sm waves-effect waves-light"><i class="uil uil-pen"></i></a>
-                            @endcan
-                            {{-- delete --}}
-                            @can('post_delete')
+                                    class="btn btn-warning btn-sm waves-effect waves-light"><i
+                                        class="uil uil-pen"></i></a>
+                                {{-- delete --}}
                                 <form action="{{ route('posts.destroy', ['post' => $post]) }}" method="POST"
                                     class="d-inline" role="alert"
                                     alert-text="Are you sure you want to delete the {{ $post->title }} post?">
@@ -98,7 +97,8 @@
                                         <i class="uil uil-trash"></i>
                                     </button>
                                 </form>
-                            @endcan
+                            @endif
+
                         </div>
                     </div>
                 </div>
