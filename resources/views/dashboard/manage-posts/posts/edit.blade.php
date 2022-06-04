@@ -150,28 +150,6 @@
                             @enderror
                         </div>
 
-                        {{-- STATUS --}}
-
-                        <div class="form-group">
-                            <label for="select_post_status" class="">Status
-                            </label>
-
-                            <select name="status" id="select_post_status"
-                                class="custom-select w-100 @error('status') is-invalid @enderror">
-                                <option value="publish" {{ old('status') == 'publish' ? 'selected' : null }}>Publish
-                                </option>
-                                <option value="draft" {{ old('status') == 'draft' ? 'selected' : null }}>Draft
-                                </option>
-                            </select>
-
-                            @error('status')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-
-
                         {{-- DESCRIPTION --}}
                         <div class="form-group">
                             <label for="input_post_desc">Description</label>

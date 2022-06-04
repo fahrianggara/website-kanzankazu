@@ -77,7 +77,23 @@ class PostController extends Controller
         ]);
     }
 
-    public function updateApproval(Post $post)
+    public function publish(Post $post)
+    {
+        $post->status = 'publish';
+        $post->update();
+
+        return redirect()->route('posts.index')->with('success', 'Your post has been Published!');
+    }
+
+    public function draft(Post $post)
+    {
+        $post->status = 'draft';
+        $post->update();
+
+        return redirect()->route('posts.index')->with('success', 'Your post has been Drafted!');
+    }
+
+    public function approve(Post $post)
     {
         $post->status = 'publish';
         $post->update();
@@ -249,7 +265,6 @@ class PostController extends Controller
                 'content'       => 'required|min:10',
                 'category'      => 'required',
                 'tag'           => 'required',
-                'status'        => 'required',
                 'keywords'      => 'required|string|min:3|max:100',
             ],
         );
@@ -283,7 +298,6 @@ class PostController extends Controller
             $post->slug = $request->slug;
             $post->description = $request->description;
             $post->content = $request->content;
-            $post->status = $request->status;
             $post->keywords = $request->keywords;
             $post->tags()->sync($request->tag);
             $post->categories()->sync($request->category);

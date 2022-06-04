@@ -24,12 +24,6 @@
                                     <div class="input-group mx-1">
                                         <select id="statusPost" name="status" class="custom-select"
                                             style="border-radius: 4px">
-                                            {{-- @foreach ($statuses as $value => $label)
-                                                <option value="{{ $value }}"
-                                                    {{ $statusSelected == $value ? 'selected' : null }}>
-                                                    {{ $label }}
-                                                </option>
-                                            @endforeach --}}
                                             <option value="publish"
                                                 {{ $statusSelected == 'publish' ? 'selected' : null }}>
                                                 Publish
@@ -78,10 +72,8 @@
 
         <div class="row">
             @forelse ($posts as $post)
-                {{-- @if ($post->user_id == Auth::user()->id) --}}
                 <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
                     <div class="card m-b-30">
-                        {{-- <img class="card-img-top img-fluid" src="{{ asset($post->thumbnail) }}" alt="{{ $post->title }}"> --}}
                         @if (file_exists('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail))
                             <img src="{{ asset('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail) }}"
                                 alt="{{ $post->title }}" class="card-img-top img-fluid">
@@ -118,17 +110,43 @@
                                         </button>
                                     </form>
                                 @endcan
+
+                                @if ($post->status == 'publish')
+                                    <form action="{{ route('posts.draft', ['post' => $post]) }}" method="POST"
+                                        class="d-inline" role="alertPublish"
+                                        alert-text="Are you sure you want to archive the {{ $post->title }} post?"
+                                        alert-button="Archive">
+                                        @csrf
+                                        @method('PUT')
+
+                                        <button type="submit" title="Draft"
+                                            class="float-right btn btn-secondary btn-sm waves-effect waves-light">
+                                            <i class="uil uil-archive"></i>
+                                        </button>
+                                    </form>
+                                @elseif ($post->status == 'draft')
+                                    <form action="{{ route('posts.publish', ['post' => $post]) }}" method="POST"
+                                        class="d-inline" role="alertPublish"
+                                        alert-text="Are you sure you want to publish the {{ $post->title }} post?"
+                                        alert-button="Publish">
+                                        @csrf
+                                        @method('PUT')
+
+                                        <button type="submit" title="Publish"
+                                            class="float-right btn btn-secondary btn-sm waves-effect waves-light">
+                                            <i class="uil uil-upload-alt"></i>
+                                        </button>
+                                    </form>
+                                @endif
                             @endif
 
                             @if ($post->status == 'approve')
                                 @if (!Auth::user()->editorRole())
                                     <form action="{{ route('posts.approval', ['post' => $post]) }}" method="POST"
                                         class="d-inline" role="alertPublish"
-                                        alert-text="Are you sure you want to publish the {{ $post->title }} post?">
+                                        alert-text="Are you sure you want to approve the {{ $post->title }} post?">
                                         @csrf
                                         @method('PUT')
-
-                                        <input type="hidden" name="status" value="{{ $post->status }}">
 
                                         <button type="submit"
                                             class="float-right btn btn-success btn-sm waves-effect waves-light">
@@ -141,7 +159,6 @@
                         </div>
                     </div>
                 </div>
-                {{-- @endif --}}
             @empty
                 <b class="ml-5">
                     @if (request()->get('keyword'))
@@ -211,8 +228,8 @@
                     allowOutsideClick: false,
                     showCancelButton: true,
                     cancelButtonText: "Cancel",
-                    confirmButtonText: "Upload",
-                    confirmButtonColor: 'green',
+                    confirmButtonText: $(this).attr('alert-button'),
+                    confirmButtonColor: '#00829b',
                     reverseButtons: true,
                 }).then((result) => {
                     if (result.isConfirmed) {
