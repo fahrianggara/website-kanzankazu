@@ -143,7 +143,7 @@
                             @if ($post->status == 'approve')
                                 @if (!Auth::user()->editorRole())
                                     <form action="{{ route('posts.approval', ['post' => $post]) }}" method="POST"
-                                        class="d-inline" role="alertPublish"
+                                        class="d-inline" role="alertPublish" alert-button="Approve"
                                         alert-text="Are you sure you want to approve the {{ $post->title }} post?">
                                         @csrf
                                         @method('PUT')
