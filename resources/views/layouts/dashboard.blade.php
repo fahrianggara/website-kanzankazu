@@ -39,7 +39,7 @@
 <body class="fixed-left">
 
     {{-- Session message status --}}
-    <div class="notif-success" data-notif="{{ Session::get('status') }}"></div>
+    <div class="notif-success" data-notif="{{ Session::get('success') }}"></div>
 
     <div id="wrapper">
 

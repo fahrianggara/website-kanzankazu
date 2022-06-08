@@ -95,6 +95,6 @@ class RegisterController extends Controller
     {
         $setting = WebSetting::find(1);
         return redirect()->route('dashboard.index')
-            ->with('status', 'Welcome to ' . $setting->site_name . ', ' . $user->name . '.');
+            ->with('success', 'Welcome to ' . $setting->site_name . ', ' . $user->name . '.');
     }
 }
