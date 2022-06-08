@@ -5,9 +5,14 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\WebSetting;
+use App\Notifications\WelcomeUserEmail;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class RegisterController extends Controller
 {
@@ -29,7 +34,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::DASHBOARD;
 
     /**
      * Create a new controller instance.
@@ -50,7 +55,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255', 'unique:users,slug', 'unique:users,name'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -64,10 +69,32 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
+            'slug' => $data['slug'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        $role = Role::select('id')->where('name', 'Editor')->first();
+        $user->roles()->attach($role);
+
+        $user->notify(new WelcomeUserEmail($user));
+
+        return $user;
+    }
+
+    /**
+     * The user has been registered.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function registered(Request $request, $user)
+    {
+        $setting = WebSetting::find(1);
+        return redirect()->route('dashboard.index')
+            ->with('status', 'Welcome to ' . $setting->site_name . ', ' . $user->name . '.');
     }
 }

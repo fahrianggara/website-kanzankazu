@@ -21,7 +21,7 @@
 
                     <form action="{{ route('categories.index') }}" method="GET" class="float-left">
                         <div class="input-group">
-                            <input type="search" id="keyword" name="keyword" class="form-control"
+                            <input autocomplete="off" type="search" id="keyword" name="keyword" class="form-control"
                                 placeholder="Search Category.." value="{{ request()->get('keyword') }}"
                                 autocomplete="off">
                             {{-- buton submit --}}
@@ -34,8 +34,10 @@
                     </form>
                     @can('category_create')
                         {{-- button create --}}
-                        <a href="{{ route('categories.create') }}" class="btn btn-primary float-right"><i
-                                class="uil uil-plus"></i></a>
+                        <a href="{{ route('categories.create') }}" class="btn btn-primary float-right" data-toggle="tooltip"
+                            data-placement="bottom" title="Category Create">
+                            <i class="uil uil-plus"></i>
+                        </a>
                     @endcan
                 </div>
 

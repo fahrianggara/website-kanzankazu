@@ -2,8 +2,14 @@
 
 namespace App\Providers;
 
+use App\Models\Post;
+use App\Models\User;
+use App\Models\WebSetting;
+use App\Notifications\UserPostApproved;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -36,6 +42,15 @@ class AppServiceProvider extends ServiceProvider
         Validator::extend('url_www', function ($attribute, $value) {
 
             return preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $value);
+        });
+
+        View::composer('*', function ($view) {
+            $postUserApprove = Post::approve()->where('user_id', Auth::id())->latest();
+            $view->with([
+                'postUserApprove' => $postUserApprove->limit(3)->get(),
+                'postApprove' => Post::approve()->limit(3)->get(),
+                'setting' => WebSetting::find(1),
+            ]);
         });
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Models\Post;
 use App\Models\WebSetting;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
@@ -17,9 +18,6 @@ class RoleController extends Controller
 {
     public function __construct()
     {
-        $setting = WebSetting::find(1);
-        View::share('setting', $setting);
-
         $this->middleware('permission:user_show', ['only' => 'index']);
         $this->middleware('permission:user_create', ['only' => ['create', 'store']]);
         $this->middleware('permission:user_update', ['only' => ['edit', 'update']]);

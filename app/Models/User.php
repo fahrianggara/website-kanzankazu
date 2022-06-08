@@ -14,9 +14,9 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 use Laravelista\Comments\Commenter;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, Commenter;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, Commenter, Notifiable;
 
     /**
      * The attributes that are mass assignable.

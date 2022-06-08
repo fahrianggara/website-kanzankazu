@@ -28,69 +28,73 @@
 
                     <div class="tab-content">
                         <div class="tab-pane active p-3" id="information-1" role="tabpanel">
-                            {{-- SITE NAME --}}
-                            <p>
-                                <strong class="font-18 mr-1">SITE NAME :</strong>
-                                <span class="font-18 site_name">
-                                    {{ $settings->site_name }}
-                                </span>
-                            </p>
-                            {{-- SITE EMAIL --}}
-                            <p>
-                                <strong class="font-18 mr-1">SITE EMAIL :</strong>
-                                <span class="font-18 site_">
-                                    {{ $settings->site_email }}
-                                </span>
-                            </p>
-                            {{-- SITE DESCRIPTION --}}
-                            <p>
-                                <strong class="font-18 mr-1">SITE DESCRIPTION :</strong>
-                                <span class="font-18 site_description">
-                                    {{ $settings->site_description }}
-                                </span>
-                            </p>
-                            {{-- SITE FOOTER --}}
-                            <p>
-                                <strong class="font-18 mr-1">SITE FOOTER :</strong>
-                                <span class="font-18 site_footer">
-                                    {{ $settings->site_footer }}
-                                </span>
-                            </p>
-                            {{-- META KEYWORDS --}}
-                            <p>
-                                <strong class="font-18 mr-1">META KEYWORDS :</strong>
-                                <span class="font-18 meta_keywords">
-                                    {{ $settings->meta_keywords }}
-                                </span>
-                            </p>
-                            {{-- IMAGE BANNER --}}
-                            <p>
-                                <strong class="font-18 mr-1">IMAGE BANNER :</strong>
-                                <span class="font-18">
-                                    @if (file_exists('vendor/blog/img/home-img/' . $settings->image_banner))
-                                        <img width="200" height="200"
-                                            src="{{ asset('vendor/blog/img/home-img/' . $settings->image_banner) }}"
-                                            alt="banner" class="img-fluid image_banner">
-                                    @else
-                                        <img width="200" height="200"
-                                            src="{{ asset('vendor/blog/img/home-img/banner.png') }}" alt="banner"
-                                            class="img-fluid image_banner">
-                                    @endif
-                                </span>
-                            </p>
 
-                            {{-- Social media --}}
-                            <div class="social-links">
-                                <a class="" href="{{ $settings->site_twitter }}">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                                <a class="link_github" href="{{ $settings->site_github }}">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                                <a class="" href="mailto:{{ $settings->site_email }}">
-                                    <i class="fas fa-envelope"></i>
-                                </a>
-                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <strong class="font-18 mr-1">SITE NAME :</strong>
+                                    <span class="font-18 site_name">
+                                        {{ $setting->site_name }}
+                                    </span>
+                                </li>
+
+                                <li class="list-group-item">
+                                    <strong class="font-18 mr-1">SITE EMAIL :</strong>
+                                    <span class="font-18 site_">
+                                        {{ $setting->site_email }}
+                                    </span>
+                                </li>
+
+                                <li class="list-group-item">
+                                    <strong class="font-18 mr-1">SITE DESCRIPTION :</strong>
+                                    <span class="font-18 site_description">
+                                        {{ $setting->site_description }}
+                                    </span>
+                                </li>
+
+                                <li class="list-group-item">
+                                    <strong class="font-18 mr-1">SITE FOOTER :</strong>
+                                    <span class="font-18 site_footer">
+                                        {{ $setting->site_footer }}
+                                    </span>
+                                </li>
+
+                                <li class="list-group-item">
+                                    <strong class="font-18 mr-1">META KEYWORDS :</strong>
+                                    <span class="font-18 meta_keywords">
+                                        {{ $setting->meta_keywords }}
+                                    </span>
+                                </li>
+
+                                <li class="list-group-item">
+                                    <strong class="font-18 mr-1">IMAGE BANNER :</strong>
+                                    <span class="font-18">
+                                        @if (file_exists('vendor/blog/img/home-img/' . $setting->image_banner))
+                                            <img width="100" height="100"
+                                                src="{{ asset('vendor/blog/img/home-img/' . $setting->image_banner) }}"
+                                                alt="banner" class="img-fluid image_banner">
+                                        @else
+                                            <img width="100" height="100"
+                                                src="{{ asset('vendor/blog/img/home-img/banner.png') }}" alt="banner"
+                                                class="img-fluid image_banner">
+                                        @endif
+                                    </span>
+                                </li>
+
+                                <li class="list-group-item">
+                                    <div class="social-links">
+                                        <a class="" href="{{ $setting->site_twitter }}">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                        <a class="link_github" href="{{ $setting->site_github }}">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                        <a class="" href="mailto:{{ $setting->site_email }}">
+                                            <i class="fas fa-envelope"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+
                         </div>
 
                         {{-- Setting Profile --}}
@@ -104,7 +108,7 @@
                                     <label for="site_name" class="col-sm-2 col-form-label">Site Name</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control site_name" id="site_name"
-                                            placeholder="Enter your site name" value="{{ $settings->site_name }}"
+                                            placeholder="Enter your site name" value="{{ $setting->site_name }}"
                                             name="site_name">
                                         <span class="invalid-feedback d-block error-text site_name_error"></span>
                                     </div>
@@ -114,7 +118,7 @@
                                     <label for="site_footer" class="col-sm-2 col-form-label">Site Footer</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control site_footer" id="site_footer"
-                                            placeholder="Enter your site footer" value="{{ $settings->site_footer }}"
+                                            placeholder="Enter your site footer" value="{{ $setting->site_footer }}"
                                             name="site_footer">
                                         <span class="invalid-feedback d-block error-text site_footer_error"></span>
                                     </div>
@@ -124,7 +128,7 @@
                                     <label for="site_email" class="col-sm-2 col-form-label">Site Email</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control site_email" id="site_email"
-                                            placeholder="Enter your site email" value="{{ $settings->site_email }}"
+                                            placeholder="Enter your site email" value="{{ $setting->site_email }}"
                                             name="site_email">
                                         <span class="invalid-feedback d-block error-text site_email_error"></span>
                                     </div>
@@ -134,8 +138,7 @@
                                     <label for="site_description" class="col-sm-2 col-form-label">Site Description</label>
                                     <div class="col-sm-10">
                                         <textarea class="form-control site_description" id="site_description" name="site_description"
-                                            placeholder="enter your site description" onkeyup="countChar(this)" cols="2"
-                                            rows="6">{{ $settings->site_description }}</textarea>
+                                            placeholder="enter your site description" onkeyup="countChar(this)" cols="2" rows="6">{{ $setting->site_description }}</textarea>
                                         <span class="float-right" id="charNum"></span>
                                         <span class="invalid-feedback d-block error-text site_description_error"></span>
                                     </div>
@@ -146,7 +149,7 @@
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control meta_keywords" id="meta_keywords"
                                             placeholder="Enter meta keywords for your website"
-                                            value="{{ $settings->meta_keywords }}" name="meta_keywords">
+                                            value="{{ $setting->meta_keywords }}" name="meta_keywords">
                                         <span class="invalid-feedback d-block error-text meta_keywords_error"></span>
                                     </div>
                                 </div>
@@ -158,7 +161,7 @@
                                             <input type="file" name="image_banner" class="custom-file-input image_banner"
                                                 id="image_banner">
                                             <label class="custom-file-label"
-                                                for="image_banner">{{ $settings->image_banner }}</label>
+                                                for="image_banner">{{ $setting->image_banner }}</label>
                                         </div>
                                         <span class="invalid-feedback d-block error-text image_banner_error"></span>
                                     </div>
@@ -168,7 +171,7 @@
                                     <label for="link_github" class="col-sm-2 col-form-label">Link Github</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control link_github" id="link_github"
-                                            placeholder="Link Github" value="{{ $settings->site_github }}"
+                                            placeholder="Link Github" value="{{ $setting->site_github }}"
                                             name="link_github">
                                         <span class="invalid-feedback d-block error-text link_github_error"></span>
                                     </div>
@@ -178,7 +181,7 @@
                                     <label for="link_twitter" class="col-sm-2 col-form-label">Link Twitter</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control link_twitter" id="link_twitter"
-                                            placeholder="Link Twitter" value="{{ $settings->site_twitter }}"
+                                            placeholder="Link Twitter" value="{{ $setting->site_twitter }}"
                                             name="link_twitter">
                                         <span class="invalid-feedback d-block error-text link_twitter_error"></span>
                                     </div>

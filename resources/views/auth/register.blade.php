@@ -1,78 +1,120 @@
-@extends('layouts.app')
+@extends('layouts.auth')
+
+@section('title', 'Register')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+    <div class="container">
+        <div class="row px-3">
+            <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0">
+                <div class="img-left d-none d-md-flex"></div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+
+                    <div class="change-theme">
+                        <i class="uil uil-moon btn-tooltip-hide" data-toggle="tooltip" data-placement="left" title="Darkmode"
+                            id="theme-toggle">
+                        </i>
+                    </div>
+
+                    <h4 class="title text-center mt-4">
+                        Register
+                    </h4>
+
+                    {{-- Form Input --}}
+                    <form action="{{ route('register') }}" method="POST" class="form-box px-3" autocomplete="off">
                         @csrf
 
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                        <input id="slugName" type="hidden" name="slug" value="{{ old('name') }}">
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                        {{-- Name --}}
+                        <div class="form-input">
+                            <div class="iconForm"><i class="uil uil-user"></i></div>
+                            <input type="text" id="name" class="form_control @error('name') is-invalid @enderror"
+                                name="name" value="{{ old('name') }}" autofocus>
+                            <label for="name">Name</label>
 
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ trans($message) }}</strong>
+                                </span>
+                            @enderror
                         </div>
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                        {{-- Email --}}
+                        <div class="form-input">
+                            <div class="iconForm"><i class="uil uil-envelope"></i></div>
+                            <input type="email" id="email" class="form_control @error('email') is-invalid @enderror"
+                                name="email" value="{{ old('email') }}" autofocus>
+                            <label for="email">Email</label>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                            @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ trans($message) }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        {{-- Password --}}
+                        <div class="form-input">
+                            <div class="iconForm"><i class="uil uil-key-skeleton"></i></div>
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                            <input type="password" class="form_control @error('password') is-invalid @enderror"
+                                id="password" type="password" name="password" autocomplete="new-password">
+                            <label for="password">Password</label>
+
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                        {{-- Confirm Password --}}
+                        <div class="form-input">
+                            <div class="iconForm"><i class="uil uil-key-skeleton"></i></div>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                            <input type="password" class="form_control @error('password') is-invalid @enderror"
+                                id="password-confirm" type="password" name="password_confirmation"
+                                autocomplete="new-password">
+                            <label for="password">Confirm Password</label>
 
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-block text-uppercase">
+                                Register
+                            </button>
                         </div>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
+                        <hr class="my-4 hr">
+
+                        <div class="text-center mb-2">
+                            <a href="{{ route('login') }}" class="register-link">
+                                Already have account?
+                            </a>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+    @push('js')
+        <script>
+            $(function() {
+                const generateSlug = (value) => {
+                    return value.trim()
+                        .toLowerCase()
+                        .replace(/[^a-z\d-]/gi, '-')
+                        .replace(/-+/g, '-').replace(/^-|-$/g, "")
+                }
+
+                $('#name').change(function(e) {
+                    e.preventDefault();
+
+                    let title = $(this).val();
+                    $('#slugName').val(generateSlug(title));
+                });
+            });
+        </script>
+    @endpush
 @endsection

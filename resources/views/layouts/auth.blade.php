@@ -9,19 +9,20 @@
     <meta content="Login" name="description">
     <meta content="Fahri Anggara" name="author">
     {{-- Title --}}
-    <title>Login</title>
+    <title>@yield('title')</title>
     {{-- Logo / icon --}}
     <link rel="shortcut icon" href="{{ asset('logo-web/favicon.ico') }}" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('logo-web/apple-icon-180x180.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('logo-web/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('logo-web/favicon-16x16.png') }}">
     {{-- CSS --}}
-    <link rel="stylesheet" href="{{ asset('vendor/blog/css/login.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/blog/css/log.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/blog/assets/bootstrap-icon/bootstrap-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/blog/assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     {{-- jQuery --}}
     <script src="{{ asset('vendor/blog/assets/jquery/jquery.min.js') }}"></script>
+    @stack('css')
 </head>
 
 <body>

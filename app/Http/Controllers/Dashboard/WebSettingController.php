@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Post;
 use App\Models\WebSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -17,9 +18,7 @@ class WebSettingController extends Controller
      */
     public function index()
     {
-        $settings = WebSetting::find(1);
-
-        return view('dashboard.manage-webs.index', compact('settings'));
+        return view('dashboard.manage-webs.index');
     }
 
     /**

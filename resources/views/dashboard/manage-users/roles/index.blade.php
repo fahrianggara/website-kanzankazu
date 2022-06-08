@@ -19,7 +19,7 @@
                     {{-- search form --}}
                     <form action="{{ route('roles.index') }}" method="GET" class="float-left">
                         <div class="input-group">
-                            <input type="search" id="keyword" name="keyword" class="form-control"
+                            <input autocomplete="off" type="search" id="keyword" name="keyword" class="form-control"
                                 placeholder="Search Roles.." value="{{ request()->get('keyword') }}">
                             {{-- buton submit --}}
                             <div class="input-group-append">
@@ -31,8 +31,10 @@
                     </form>
                     @can('role_create')
                         {{-- button create --}}
-                        <a href="{{ route('roles.create') }}" class="btn btn-primary float-right"><i
-                                class="uil uil-plus"></i></a>
+                        <a href="{{ route('roles.create') }}" class="btn btn-primary float-right" data-toggle="tooltip"
+                            data-placement="bottom" title="Role Create">
+                            <i class="uil uil-plus"></i>
+                        </a>
                     @endcan
                 </div>
 
@@ -49,14 +51,18 @@
                                 <div>
                                     @can('role_detail')
                                         {{-- DETAIL --}}
-                                        <a href="{{ route('roles.show', ['role' => $role]) }}" class="btn btn-info btn-sm"><i
-                                                class="uil uil-eye"></i></a>
+                                        <a href="{{ route('roles.show', ['role' => $role]) }}" class="btn btn-info btn-sm"
+                                            data-toggle="tooltip" data-placement="bottom" title="Role Show">
+                                            <i class="uil uil-eye"></i>
+                                        </a>
                                     @endcan
 
                                     @can('role_update')
                                         {{-- EDIT --}}
-                                        <a href="{{ route('roles.edit', ['role' => $role]) }}"
-                                            class="btn btn-warning btn-sm"><i class="uil uil-pen"></i></a>
+                                        <a href="{{ route('roles.edit', ['role' => $role]) }}" class="btn btn-warning btn-sm"
+                                            data-toggle="tooltip" data-placement="bottom" title="Role Edit">
+                                            <i class="uil uil-pen"></i>
+                                        </a>
                                     @endcan
 
                                     @can('role_delete')
@@ -67,7 +73,8 @@
                                             @csrf
                                             @method('DELETE')
 
-                                            <button type="submit" class="btn btn-sm btn-danger">
+                                            <button type="submit" class="btn btn-sm btn-danger" data-toggle="tooltip"
+                                                data-placement="bottom" title="Role Delete">
                                                 <i class="uil uil-trash"></i>
                                             </button>
                                         </form>

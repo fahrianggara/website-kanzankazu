@@ -30,6 +30,35 @@
                     </ul>
                 </li>
 
+                {{-- HAS LOGIN --}}
+                @if (Route::has('login'))
+                    @auth
+                        <li class="drop-down">
+                            <a href="#">{{ Auth::user()->slug }}</a>
+                            <ul>
+                                <li>
+                                    <a href="{{ route('dashboard.index') }}">DASHBOARD</a>
+                                </li>
+                                <li>
+                                    <a href="" data-toggle="modal" data-target="#logModal">LOG OUT</a>
+                                </li>
+                            </ul>
+                        </li>
+                    @else
+                        <li class="drop-down">
+                            <a href="#">JOIN US</a>
+                            <ul>
+                                <li class="">
+                                    <a href="{{ route('login') }}">LOG IN</a>
+                                </li>
+                                <li class="">
+                                    <a href=" {{ route('register') }}">SIGN UP</a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endauth
+                @endif
+
             </ul>
         </nav>
 
@@ -56,6 +85,25 @@
 
     </div>
 </header>
+
+<div class="modal fade" id="logModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                Apakah kamu ingin Logout?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a href="{{ route('logout') }}" type="button" class="btn btn-danger" onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();">Logout
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 
 @push('js-internal')
     <script type="text/javascript">

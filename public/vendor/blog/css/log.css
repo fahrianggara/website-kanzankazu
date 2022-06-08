@@ -5,6 +5,7 @@
     --container-color: #fff;
     --containerSec-color: #fff;
     --text-color: #000;
+    --header-color: #d2d6d5;
 }
 
 body.dark-theme {
@@ -12,6 +13,7 @@ body.dark-theme {
     --container-color: #121212;
     --containerSec-color: #1e1e1e;
     --text-color: #fff;
+    --header-color: #171717fe;
 }
 
 * {
@@ -39,7 +41,7 @@ body {
     cursor: pointer;
 }
 
-.change-theme > i {
+.change-theme>i {
     font-size: 26px;
     position: relative;
     top: -1px;
@@ -48,7 +50,7 @@ body {
     transition: 0.3s all ease-in-out;
 }
 
-.change-theme > i:hover {
+.change-theme>i:hover {
     color: #60e4ff;
     transition: 0.3s all ease-in-out;
 }
@@ -64,6 +66,12 @@ body {
     width: 45%;
     background: url("https://source.unsplash.com/414x512?nature=1");
     background-size: cover;
+}
+
+.card-header {
+    background: var(--header-color);
+    color: var(--text-color);
+    transition: 0.3s all ease-in-out;
 }
 
 .card-body {
@@ -111,7 +119,7 @@ body {
     color: var(--primary-color);
 }
 
-.form-input .iconForm > i {
+.form-input .iconForm>i {
     color: var(--primary-color);
     font-size: 19px;
 }
@@ -123,12 +131,12 @@ body {
     cursor: pointer;
 }
 
-.form-input .passTog > i {
+.form-input .passTog>i {
     color: var(--primary-color);
     font-size: 21px;
 }
 
-.form-input .passTog > i.bi::before {
+.form-input .passTog>i.bi::before {
     font-weight: 500;
 }
 
@@ -136,7 +144,7 @@ body {
     border: 2px solid var(--primary-color);
 }
 
-.form-input > .is-invalid {
+.form-input>.is-invalid {
     border: 2px solid #d63444;
 }
 
@@ -151,7 +159,7 @@ body {
     cursor: text;
 }
 
-.form_control:focus ~ label {
+.form_control:focus~label {
     top: -12px;
     left: 37px;
     background: var(--containerSec-color);
@@ -171,15 +179,15 @@ label.active {
     font-weight: 500;
 }
 
-.is-invalid.form_control:focus ~ label.active {
+.is-invalid.form_control:focus~label.active {
     color: var(--primary-color);
 }
 
-.is-invalid ~ label.active {
+.is-invalid~label.active {
     color: #d63444;
 }
 
-.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
     background-color: var(--primary-color) !important;
     border: 0px;
 }
@@ -249,6 +257,7 @@ label.active {
 }
 
 @media (hover: hover) and (pointer: fine) {
+
     .forget-link:hover::before,
     .register-link:hover::before {
         left: 0;

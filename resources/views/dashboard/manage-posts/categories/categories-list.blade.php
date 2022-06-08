@@ -7,8 +7,10 @@
         <div>
             @can('category_update')
                 {{-- edit --}}
-                <a href="{{ route('categories.edit', ['category' => $category]) }}" class="btn btn-warning btn-sm">
-                    <i class="uil uil-pen"></i></a>
+                <a href="{{ route('categories.edit', ['category' => $category]) }}" class="btn btn-warning btn-sm"
+                    data-toggle="tooltip" data-placement="bottom" title="Category Edit">
+                    <i class="uil uil-pen"></i>
+                </a>
             @endcan
 
             @can('category_delete')
@@ -19,7 +21,8 @@
                     @csrf
                     @method('DELETE')
 
-                    <button type="submit" class="btn btn-sm btn-danger">
+                    <button type="submit" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="bottom"
+                        title="Category Delete">
                         <i class="uil uil-trash"></i>
                     </button>
                 </form>

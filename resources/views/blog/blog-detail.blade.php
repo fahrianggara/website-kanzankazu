@@ -117,8 +117,8 @@
                         <img src="{{ asset('vendor/dashboard/image/picture-profiles/' . $post->user->user_image) }}"
                             alt="{{ $post->user->name }}" class="rounded-circle float-left" />
                     @else
-                        <img src="{{ asset('vendor/dashboard/image/picture-profiles/default.png') }}"
-                            class="rounded-circle float-left" alt="">
+                        <img src="{{ asset('vendor/dashboard/image/avatar.png') }}" class="rounded-circle float-left"
+                            alt="">
                     @endif
                     <div>
                         <a class="nameAuthor" href="{{ route('blog.author', ['author' => $post->user->slug]) }}">

@@ -32,19 +32,6 @@ class NewsletterController extends Controller
         } else {
             $query = Newsletter::create(['email' => $request->email]);
 
-            $mailController = new EmailController;
-
-            $subsMessage = EmailMessage::where('action', 'NEWSLETTER_SUBSCRIPTION_COSTUMER')->first();
-
-            if ($subsMessage) {
-                $mailController->sendEmail(
-                    $subsMessage->title,
-                    $subsMessage->subject,
-                    $subsMessage->body,
-                    $request->email
-                );
-            }
-
             if ($query) {
                 return response()->json([
                     'status' => 200,

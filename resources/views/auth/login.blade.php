@@ -1,5 +1,7 @@
 @extends('layouts.auth')
 
+@section('title', 'Login')
+
 @section('content')
     <div class="container">
         <div class="row px-3">
@@ -66,17 +68,15 @@
                             </button>
                         </div>
 
-                        {{-- <div class="text-right">
-                            <a href="#" class="forget-link">
-                                Forget Password?
-                            </a>
-                        </div> --}}
-
                         <hr class="my-4 hr">
 
                         <div class="text-center mb-2">
-                            <a href="{{ route('homepage') }}" class="register-link">
-                                Kembali ke Halaman Utama
+                            <a href="{{ route('homepage') }}" class="mr-1 register-link">
+                                Back to homepage
+                            </a>
+                            |
+                            <a href="{{ route('register') }}" class="ml-1 register-link">
+                                Sign Up !
                             </a>
                         </div>
                     </form>

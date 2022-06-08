@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Post;
 use App\Models\User;
 use App\Models\WebSetting;
 use Illuminate\Http\Request;
@@ -19,9 +20,6 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $setting = WebSetting::find(1);
-        View::share('setting', $setting);
-
         $this->middleware('permission:user_show', ['only' => 'index']);
         $this->middleware('permission:user_create', ['only' => ['create', 'store']]);
         $this->middleware('permission:user_update', ['only' => ['edit', 'update']]);
@@ -39,7 +37,7 @@ class UserController extends Controller
         $q = $request->get('keyword');
 
         $users = $request->get('keyword') ? User::where('name', 'LIKE', '%' . $q . '%')
-            ->orWhere('email', 'LIKE', '%' . $q . '%')->paginate(6) : User::paginate(6);
+            ->orWhere('email', 'LIKE', '%' . $q . '%')->paginate(10) : User::paginate(10);
 
         return view('dashboard.manage-users.users.index', [
             'users' => $users->appends(['keyword' => $request->keyword]),
@@ -102,6 +100,7 @@ class UserController extends Controller
                     'email' => $request->email,
                     'password' => Hash::make($request->password),
                     'user_image' => $newPict ?? "avatar.png",
+                    'email_verified_at' => now(),
                 ]);
                 $user->assignRole($request->role);
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Post;
 use App\Models\WebSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -16,9 +17,6 @@ class CategoryController extends Controller
 {
     public function __construct()
     {
-        $setting = WebSetting::find(1);
-        View::share('setting', $setting);
-
         $this->middleware('permission:category_show', ['only' => 'index']);
         $this->middleware('permission:category_create', ['only' => ['create', 'store']]);
         $this->middleware('permission:category_update', ['only' => ['edit', 'update']]);
@@ -40,7 +38,7 @@ class CategoryController extends Controller
         }
 
         return view('dashboard.manage-posts.categories.index', [
-            'categories' => $categories->latest()->paginate(5)->appends(['keyword' => $request->get('keyword')])
+            'categories' => $categories->latest()->paginate(10)->appends(['keyword' => $request->get('keyword')])
         ]);
     }
 

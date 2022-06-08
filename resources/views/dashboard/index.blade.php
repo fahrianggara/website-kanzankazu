@@ -291,52 +291,48 @@
                     <div class="card-header">
                         User Today
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            @if ($userToday->count() >= 1)
-                @foreach ($userToday as $user)
-                    <div class="col-md-4">
-                        <div class="card m-b-30">
-                            <div class="card-body">
-                                <div class="media">
-                                    @if (file_exists('vendor/dashboard/image/picture-profiles/' . $user->user_image))
-                                        <img src="{{ asset('vendor/dashboard/image/picture-profiles/' . $user->user_image) }}"
-                                            alt="{{ $user->name }}" height="64"
-                                            class="d-flex mr-3 rounded-circle userImage">
-                                    @else
-                                        <img src="{{ asset('vendor/dashboard/image/avatar.png') }}" height="64"
-                                            alt="{{ $user->name }}" class="d-flex mr-3 rounded-circle userImage">
-                                    @endif
+                    <div class="card-body">
+                        @if ($userToday->count() >= 1)
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th>No</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Role</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php $no = 1; @endphp
+                                        @foreach ($userToday as $user)
+                                            <tr class="text-center">
+                                                <td>{{ $no++ }}</td>
+                                                <td>{{ $user->name }}</td>
+                                                <td>{{ $user->email }}</td>
+                                                <td>{{ $user->roles->first()->name }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
 
-                                    <div class="media-body">
-                                        <h5 class="mt-0 font-14">User Information</h5>
-                                        Name : {{ $user->name }} <br>
-                                        Email : {{ $user->email }}
+                                @if ($userToday->hasPages())
+                                    <div class="card-footer">
+                                        <div class="page-footer">
+                                            {{ $userToday->links('vendor.pagination.bootstrap-4') }}
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
                             </div>
-                        </div>
+                        @else
+                            <div class="text-center">
+                                You don't have today's latest users
+                            </div>
+                        @endif
                     </div>
-                @endforeach
-            @else
-                <div class="col-12">
-                    <div class="text-center m-b-30" role="alert">
-                        You don't have today's latest users
-                    </div>
-                </div>
-            @endif
-        </div>
-        @if ($userToday->count() >= 1)
-            <div class="row">
-                <div class="col-12 m-b-30">
-                    @if ($userToday->hasPages())
-                        {{ $userToday->links('vendor.pagination.bootstrap-4') }}
-                    @endif
                 </div>
             </div>
-        @endif
+        </div>
     @endcan
 
     {{-- ROLE TODAY --}}

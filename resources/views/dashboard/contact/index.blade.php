@@ -17,7 +17,7 @@
                     <form action="{{ route('contact.index') }}" method="GET" class="float-left">
                         <div class="input-group">
                             <input type="search" id="keyword" name="keyword" class="form-control"
-                                placeholder="Search inbox.." value="{{ request()->get('keyword') }}">
+                                placeholder="Search inbox.." autocomplete="off" value="{{ request()->get('keyword') }}">
                             {{-- buton submit --}}
                             <div class="input-group-append">
                                 <button class="btn btn-info" type="submit">
@@ -31,7 +31,7 @@
                     @if (count($contact))
                         <div class="table-responsive">
 
-                            <table class="table table-bordered">
+                            <table class="table">
                                 <thead>
                                     <tr class="text-center">
                                         <th>Name</th>
@@ -60,10 +60,16 @@
                                                         @csrf
                                                         @method('DELETE')
 
-                                                        <button type="submit" class="btn btn-sm btn-danger">
+                                                        <button type="submit" data-toggle="tooltip" data-placement="bottom"
+                                                            title="Delete Inbox" class="btn btn-sm btn-danger">
                                                             <i class="uil uil-trash"></i>
                                                         </button>
                                                     </form>
+
+                                                    <a href="mailto:{{ $c->email }}" class="btn mt-1 btn-sm btn-primary"
+                                                        data-toggle="tooltip" data-placement="bottom" title="Reply Inbox">
+                                                        <i class="uil uil-envelope-upload"></i>
+                                                    </a>
                                                 </th>
                                             @endcan
                                         </tr>
@@ -99,6 +105,12 @@
 @push('js-internal')
     <script>
         $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
             $("form[role='alert']").submit(function(e) {
                 e.preventDefault();
 
@@ -118,6 +130,7 @@
                     }
                 });
             });
+
         });
     </script>
 @endpush

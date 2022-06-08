@@ -29,7 +29,7 @@
     <link href="{{ asset('vendor/blog/assets/fontawesome/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('vendor/dashboard/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('vendor/dashboard/css/icons.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('vendor/dashboard/css/style.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('vendor/dashboard/css/st.css') }}" rel="stylesheet" type="text/css">
     {{-- CALL CSS --}}
     @stack('css-external')
     @stack('css-internal')
@@ -38,29 +38,18 @@
 
 <body class="fixed-left">
 
-    <!-- Loader -->
-    {{-- <div id="preloader">
-        <div id="status">
-            <div class="spinner"></div>
-        </div>
-    </div> --}}
+    {{-- Session message status --}}
+    <div class="notif-success" data-notif="{{ Session::get('status') }}"></div>
 
-    <!-- Begin page -->
     <div id="wrapper">
 
-        <!-- ========== Left Sidebar Start ========== -->
         @include('layouts._dashboard.sidebar')
-        <!-- Left Sidebar End -->
-
-        <!-- Start right Content here -->
 
         <div class="content-page">
-            <!-- Start content -->
+
             <div class="content">
 
-                <!-- Top Bar Start -->
                 @include('layouts._dashboard.topbar')
-                <!-- Top Bar End -->
 
                 <div class="page-content-wrapper ">
 
@@ -76,15 +65,14 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- end page title end breadcrumb -->
 
                         @yield('content')
 
-                    </div><!-- container -->
+                    </div>
 
-                </div> <!-- Page content Wrapper -->
+                </div>
 
-            </div> <!-- content -->
+            </div>
 
             {{-- footer --}}
             <footer class="footer site_footer">
@@ -92,12 +80,9 @@
             </footer>
 
         </div>
-        <!-- End Right content here -->
 
     </div>
-    <!-- END wrapper -->
 
-    <!-- jQuery  -->
     <script src="{{ asset('vendor/dashboard/js/jquery.min.js') }}"></script>
     <script src="{{ asset('vendor/dashboard/js/popper.min.js') }}"></script>
     <script src="{{ asset('vendor/dashboard/js/bootstrap.min.js') }}"></script>
@@ -127,6 +112,20 @@
                 localStorage.setItem("justOnce", "true");
                 window.location.reload();
             }
+        }
+
+        $(function() {
+            $("[data-toggle='tooltip']").tooltip().on("click", function() {
+                $(this).tooltip("hide")
+            });
+        });
+
+        // Notif status
+        const notif = $('.notif-success').data('notif');
+        if (notif) {
+            alertify
+                .delay(5000)
+                .log(notif);
         }
     </script>
 

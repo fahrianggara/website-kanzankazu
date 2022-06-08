@@ -19,7 +19,8 @@
                     <div class="card-body">
                         <div class="form-group">
 
-                            <label for="check_category" class="font-weight-bold">Choose Categories</label>
+                            <label for="check_category" class="font-weight-bold">Choose Categories <span
+                                    class="star-required">*</span></label>
 
                             <div class="form-control overflow-auto @error('category') is-invalid @enderror"
                                 style="height: auto;">
@@ -47,7 +48,7 @@
 
                         {{-- TITLE --}}
                         <div class="form-group">
-                            <label for="input_post_title">Title</label>
+                            <label for="input_post_title">Title <span class="star-required">*</span></label>
 
                             <input type="text" id="input_post_title" name="title"
                                 class="form-control @error('title') is-invalid @enderror" placeholder="Enter your Title"
@@ -77,7 +78,7 @@
 
                         {{-- KEYWORDS --}}
                         <div class="form-group">
-                            <label for="input_post_keywords">Keywords</label>
+                            <label for="input_post_keywords">Keywords <span class="star-required">*</span></label>
 
                             <input type="text" id="input_post_keywords" name="keywords"
                                 class="form-control @error('keywords') is-invalid @enderror"
@@ -108,7 +109,7 @@
 
                         {{-- THUMBNAIL --}}
                         <div class="form-group">
-                            <label for="input_post_thumbnail">Thumbnail</label>
+                            <label for="input_post_thumbnail">Thumbnail <span class="star-required">*</span></label>
 
                             <div class="input-group">
 
@@ -129,7 +130,8 @@
 
                         {{-- SELECT TAG --}}
                         <div class="form-group">
-                            <label for="select_post_tag" class="">Select Tag
+                            <label for="select_post_tag" class="">Select Tag <span
+                                    class="star-required">*</span>
                             </label>
 
                             <select name="tag[]" id="select_post_tag" data-placeholder="Choose Tags"
@@ -187,11 +189,10 @@
 
                         {{-- DESCRIPTION --}}
                         <div class="form-group">
-                            <label for="input_post_desc">Description</label>
+                            <label for="input_post_desc">Description <span class="star-required">*</span></label>
 
                             <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="input_post_desc"
-                                onkeyup="countCharBlog(this)" cols="2" rows="6"
-                                placeholder="Enter your description..">{{ old('description') }}</textarea>
+                                onkeyup="countCharBlog(this)" cols="2" rows="6" placeholder="Enter your description..">{{ old('description') }}</textarea>
 
                             <span class="float-right" id="charNumBlog"></span>
 
@@ -204,12 +205,11 @@
 
                         <div class="form-group">
                             <label for="input_post_content">
-                                Content
+                                Content <span class="star-required">*</span>
                             </label>
 
                             <textarea name="content" id="input_post_content" cols="30" rows="30"
-                                class="form-control @error('content') is-invalid @enderror"
-                                placeholder="Enter your content article">{{ old('content') }}</textarea>
+                                class="form-control @error('content') is-invalid @enderror" placeholder="Enter your content article">{{ old('content') }}</textarea>
 
                             @error('content')
                                 <span class="invalid-feedback" role="alert">

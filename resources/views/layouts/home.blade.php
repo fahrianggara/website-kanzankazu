@@ -46,6 +46,8 @@
 </head>
 
 <body>
+    <div class="notif-success" data-notif="{{ Session::get('status') }}"></div>
+
     {{-- SLIDE --}}
     {{-- @include('home.slide') --}}
 
@@ -113,6 +115,14 @@
         $(".btn-tooltip-hide").tooltip().on("click", function() {
             $(this).tooltip("hide")
         });
+
+        // Notif status
+        const notif = $('.notif-success').data('notif');
+        if (notif) {
+            alertify
+                .delay(5000)
+                .log(notif);
+        }
     </script>
 </body>
 

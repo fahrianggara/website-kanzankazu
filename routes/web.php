@@ -55,11 +55,11 @@ Route::post('newsletter', [\App\Http\Controllers\NewsletterController::class, 's
 
 Route::group(['middleware' => 'prevent-back-history'], function () {
     Auth::routes([
-        "register" => false
+        "verify" => true
     ]);
 
     // auth middleware (login)
-    Route::group(['prefix' => 'dashboard', 'middleware' => ['web', 'auth']], function () {
+    Route::group(['prefix' => 'dashboard', 'middleware' => ['web', 'auth', 'verified']], function () {
         // Dashboard
         Route::get('/', [\App\Http\Controllers\Dashboard\DashboardController::class, 'dashboard'])->name('dashboard.index');
         // Setting website
@@ -96,5 +96,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
             Route::get('/index', [\App\Http\Controllers\Dashboard\FileManagerController::class, 'index'])->name('filemanager.index');
             \UniSharp\LaravelFilemanager\Lfm::routes();
         });
+        // Notification
+        Route::get('/notify', [\App\Http\Controllers\Dashboard\NotificationController::class, 'notify'])->name('notify');
+        Route::get('/markasread/{id}', [\App\Http\Controllers\Dashboard\NotificationController::class, 'markAsRead'])->name('markasread');
     });
 });

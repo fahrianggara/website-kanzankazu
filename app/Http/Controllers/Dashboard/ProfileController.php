@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\WebSetting;
@@ -16,9 +17,6 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        $setting = WebSetting::find(1);
-        View::share('setting', $setting);
-
         return view('dashboard.manage-users.profiles.index');
     }
 

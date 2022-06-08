@@ -82,7 +82,6 @@
     @stack('js-internal')
     {{-- Script --}}
     <script>
-        // Window location reload
         window.onload = function() {
             if (!localStorage.justOnce) {
                 localStorage.setItem("justOnce", "true");

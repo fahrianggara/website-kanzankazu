@@ -16,6 +16,11 @@ class Controller extends BaseController
 
     public function __construct()
     {
+        // $this->middleware([
+        //     'auth',
+        //     'verified'
+        // ]);
+
         $setting = WebSetting::find(1);
 
         $footerPost = Post::publish()

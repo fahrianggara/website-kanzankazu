@@ -19,9 +19,6 @@ class DashboardController extends Controller
 {
     public function __construct()
     {
-        $setting = WebSetting::find(1);
-        View::share('setting', $setting);
-
         $this->middleware('permission:website_show', ['only' => 'index']);
         $this->middleware('permission:website_update', ['only' => ['update']]);
     }
@@ -43,7 +40,7 @@ class DashboardController extends Controller
         $cateToday = Category::select('title', 'thumbnail', 'description')->whereDate('created_at', $Today)->paginate(4);
         $tagToday = Tag::select('title')->whereDate('created_at', $Today)->get();
         $inboxToday = Contact::select('name', 'email', 'subject', 'message')->whereDate('created_at', $Today)->get();
-        $userToday = User::select('name', 'email', 'user_image')->whereDate('created_at', $Today)->paginate(3);
+        $userToday = User::whereDate('created_at', $Today)->paginate(3);
         $roleToday = Role::select('name')->whereDate('created_at', $Today)->get();
 
         return view('dashboard.index', compact(

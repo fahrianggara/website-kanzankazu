@@ -23,7 +23,8 @@
                                 <div class="col-6">
                                     <div class="input-group mx-1">
                                         <select id="statusPost" name="status" class="custom-select"
-                                            style="border-radius: 4px">
+                                            style="border-radius: 4px" data-toggle="tooltip" data-placement="bottom"
+                                            title="Post Status">
                                             <option value="publish"
                                                 {{ $statusSelected == 'publish' ? 'selected' : null }}>
                                                 Publish
@@ -46,8 +47,9 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="input-group mx-1">
-                                        <input name="keyword" type="search" value="{{ request()->get('keyword') }}"
-                                            class="form-control" placeholder="Search post...">
+                                        <input autocomplete="off" name="keyword" type="search"
+                                            value="{{ request()->get('keyword') }}" class="form-control"
+                                            placeholder="Search post...">
                                         <div class="input-group-append">
                                             <button class="btn btn-primary" type="submit">
                                                 <i class="uil uil-search"></i>
@@ -60,9 +62,10 @@
 
                         @can('post_create')
                             <div class="col-md-6">
-                                <a href="{{ route('posts.create') }}" class="btn btn-primary float-right"><i
-                                        class="uil uil-plus "></i></a>
-
+                                <a href="{{ route('posts.create') }}" class="btn btn-primary float-right"
+                                    data-toggle="tooltip" data-placement="bottom" title="Post Create">
+                                    <i class="uil uil-plus"></i>
+                                </a>
                             </div>
                         @endcan
                     </div>
@@ -87,14 +90,19 @@
                             {{-- detail --}}
                             @can('post_detail')
                                 <a href="{{ route('posts.show', ['post' => $post]) }}"
-                                    class="btn btn-primary btn-sm waves-effect waves-light"><i class="uil uil-eye"></i></a>
+                                    class="btn btn-primary btn-sm waves-effect waves-light" data-toggle="tooltip"
+                                    data-placement="bottom" title="Post Show">
+                                    <i class="uil uil-eye"></i>
+                                </a>
                             @endcan
                             @if ($post->user_id == Auth::user()->id)
                                 {{-- edit --}}
                                 @can('post_update')
                                     <a href="{{ route('posts.edit', ['post' => $post]) }}"
-                                        class="btn btn-warning btn-sm waves-effect waves-light"><i
-                                            class="uil uil-pen"></i></a>
+                                        class="btn btn-warning btn-sm waves-effect waves-light" data-toggle="tooltip"
+                                        data-placement="bottom" title="Post Edit">
+                                        <i class="uil uil-pen"></i>
+                                    </a>
                                 @endcan
 
                                 @can('post_delete')
@@ -105,7 +113,8 @@
                                         @csrf
                                         @method('DELETE')
 
-                                        <button type="submit" class="btn btn-danger btn-sm waves-effect waves-light">
+                                        <button type="submit" class="btn btn-danger btn-sm waves-effect waves-light"
+                                            data-toggle="tooltip" data-placement="bottom" title="Delete Post">
                                             <i class="uil uil-trash"></i>
                                         </button>
                                     </form>
@@ -119,7 +128,7 @@
                                         @csrf
                                         @method('PUT')
 
-                                        <button type="submit" title="Draft"
+                                        <button type="submit" data-toggle="tooltip" data-placement="bottom" title="Archive"
                                             class="float-right btn btn-secondary btn-sm waves-effect waves-light">
                                             <i class="uil uil-archive"></i>
                                         </button>
@@ -132,7 +141,7 @@
                                         @csrf
                                         @method('PUT')
 
-                                        <button type="submit" title="Publish"
+                                        <button type="submit" data-toggle="tooltip" data-placement="bottom" title="Publish"
                                             class="float-right btn btn-secondary btn-sm waves-effect waves-light">
                                             <i class="uil uil-upload-alt"></i>
                                         </button>
@@ -148,7 +157,7 @@
                                         @csrf
                                         @method('PUT')
 
-                                        <button type="submit"
+                                        <button type="submit" data-toggle="tooltip" data-placement="bottom" title="Approve"
                                             class="float-right btn btn-success btn-sm waves-effect waves-light">
                                             <i class="uil uil-upload"></i>
                                         </button>

@@ -20,7 +20,7 @@
 
                     <form action="{{ route('tags.index') }}" method="GET" class="float-left">
                         <div class="input-group">
-                            <input type="search" id="keyword" name="keyword" class="form-control"
+                            <input autocomplete="off" type="search" id="keyword" name="keyword" class="form-control"
                                 placeholder="Search Tag.." value="{{ request()->get('keyword') }}">
                             {{-- buton submit --}}
                             <div class="input-group-append">
@@ -32,8 +32,10 @@
                     </form>
                     @can('tag_create')
                         {{-- button create --}}
-                        <a href="{{ route('tags.create') }}" class="btn btn-primary float-right"><i
-                                class="uil uil-plus"></i></a>
+                        <a href="{{ route('tags.create') }}" class="btn btn-primary float-right" data-toggle="tooltip"
+                            data-placement="bottom" title="Tag Create">
+                            <i class="uil uil-plus"></i>
+                        </a>
                     @endcan
 
                 </div>
@@ -52,8 +54,10 @@
                                     <div>
                                         @can('tag_update')
                                             {{-- EDIT --}}
-                                            <a href="{{ route('tags.edit', ['tag' => $tag]) }}"
-                                                class="btn btn-warning btn-sm"><i class="uil uil-pen"></i></a>
+                                            <a href="{{ route('tags.edit', ['tag' => $tag]) }}" class="btn btn-warning btn-sm"
+                                                data-toggle="tooltip" data-placement="bottom" title="Tag Edit">
+                                                <i class="uil uil-pen"></i>
+                                            </a>
                                         @endcan
                                         @can('tag_delete')
                                             {{-- DELETE --}}
@@ -63,7 +67,8 @@
                                                 @csrf
                                                 @method('DELETE')
 
-                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                <button type="submit" class="btn btn-sm btn-danger" data-toggle="tooltip"
+                                                    data-placement="bottom" title="Tag Delete">
                                                     <i class="uil uil-trash"></i>
                                                 </button>
                                             </form>

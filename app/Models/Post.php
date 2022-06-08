@@ -78,6 +78,10 @@ class Post extends Model
         return $query->orderBy('views', 'DESC');
     }
 
+    public function scopeUserWithApprove($query)
+    {
+        return $query->where('status', "approve")->where('user_id', Auth::id());
+    }
 
     public function scopeFilter($query, $filters)
     {

@@ -6,6 +6,7 @@ use App\Models\Contact;
 use App\Models\WebSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\View;
@@ -29,7 +30,6 @@ class ContactController extends Controller
      */
     public function index(Request $request)
     {
-
         $q = $request->get('keyword');
 
         $contact = $request->get('keyword') ? Contact::where('name', 'LIKE', '%' . $q . '%')
@@ -38,20 +38,6 @@ class ContactController extends Controller
         return view('dashboard.contact.index', [
             'contact' => $contact->appends(['keyword' => $request->keyword])
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
-    {
-        if (request()->ajax()) {
-            return view('home.form.form-contact');
-        } else {
-            return redirect()->back();
-        }
     }
 
     function save(Request $request)
@@ -89,70 +75,32 @@ class ContactController extends Controller
                 ]
             );
         } else {
-            $values = [
+            $data = [
                 'name' => $request->name,
                 'email' => $request->email,
                 'subject' => $request->subject,
                 'message' => $request->messages,
             ];
 
-            $query = Contact::create($values);
+            $setting = WebSetting::find(1);
+
+
+            $query = Contact::create($data);
 
             if ($query) {
                 return response()->json(
                     [
                         'status' => 200,
-                        'msg' => 'Terimakasih atas pesan-mu ~Zex'
+                        'msg' => 'Terimakasih atas pesan-mu'
                     ]
                 );
             }
-        }
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        if (request()->ajax()) {
-            $validator = Validator::make([
-                $request->all(),
-                [
-                    'name' => 'required|string|min:3',
-                    "email" => 'required|email',
-                    'subject' => 'required|string|max:100',
-                    'message' => 'required|max:300',
-                ],
-                [],
-                $this->attributes()
-            ]);
-
-            if (!$validator) {
-                $msg = [
-                    "error" => [
-                        'name' => $validator->message()->get('name'),
-                        'email' => $validator->message()->get('email'),
-                        'subject' => $validator->message()->get('subject'),
-                        'message' => $validator->message()->get('message'),
-                    ]
-                ];
-            } else {
-                $saveContact = Contact::create([
-                    'name' => $request->name,
-                    'email' => $request->email,
-                    'subject' => $request->subject,
-                    'message' => $request->message,
-                ]);
-
-                $msg = [
-                    'sukses' => trans('home.alert.create.message.success')
-                ];
-            }
-
-            echo json_encode($msg);
+            Mail::send('mails.contact-us', $data, function ($message) use ($data, $setting) {
+                $message->from($data['email']);
+                $message->to($setting->site_email);
+                $message->subject($data['subject']);
+            });
         }
     }
 

@@ -8,6 +8,8 @@ use App\Models\Category;
 use App\Models\Tag;
 use App\Models\User;
 use App\Models\WebSetting;
+use App\Notifications\UserPostApproved;
+use App\Notifications\UserPostApprovedEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -23,15 +25,11 @@ class PostController extends Controller
 {
     public function __construct()
     {
-        $setting = WebSetting::find(1);
-        View::share('setting', $setting);
-
         $this->middleware('permission:post_show', ['only' => 'index']);
         $this->middleware('permission:post_create', ['only' => ['create', 'store']]);
         $this->middleware('permission:post_update', ['only' => ['edit', 'update']]);
         $this->middleware('permission:post_detail', ['only' => 'show']);
         $this->middleware('permission:post_delete', ['only' => 'destroy']);
-        // $this->middleware('permission:post_approval', ['only' => 'updateApproval']);
     }
 
     /**
@@ -41,7 +39,6 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        // $statusSelected = in_array($request->get('status'), ['publish', 'draft']) ? $request->get('status') : "publish";
         if (in_array($request->get('status'), ['publish', 'draft', 'approve'])) {
             if ($request->get('status') == "approve") {
                 if (Auth::user()->roles->pluck('name')->contains('Editor')) {
@@ -59,12 +56,10 @@ class PostController extends Controller
         if ($statusSelected == "publish") {
             $posts = Post::publish()->where('user_id', Auth::id())->latest();
         } else if ($statusSelected == "draft") {
-            $posts = Post::draft()->where('user_id', Auth::id())->latest();;
+            $posts = Post::draft()->where('user_id', Auth::id())->latest();
         } else {
             $posts = Post::approve()->latest();
         }
-
-        // $posts = $statusSelected == "publish" ? Post::publish()->latest() : Post::draft();
 
         if ($request->get('keyword')) {
             $posts->search($request->get('keyword'));
@@ -72,7 +67,6 @@ class PostController extends Controller
 
         return view('dashboard.manage-posts.posts.index', [
             'posts' => $posts->paginate(8)->withQueryString(),
-            'statuses'  => $this->statuses(),
             'statusSelected' => $statusSelected,
         ]);
     }
@@ -96,6 +90,17 @@ class PostController extends Controller
     public function approve(Post $post)
     {
         $post->status = 'publish';
+
+        if (auth()->user()) {
+            $postUserId = $post->user_id;
+            $user = User::find($postUserId);
+            $user->notify(new UserPostApproved($post));
+        }
+
+        $postUserId = $post->user_id;
+        $user = User::find($postUserId);
+        $user->notify(new UserPostApprovedEmail($user));
+
         $post->update();
 
         return redirect()->route('posts.index')->with('success', 'Post has been Published!');
@@ -108,7 +113,6 @@ class PostController extends Controller
      */
     public function create()
     {
-
         return view('dashboard.manage-posts.posts.create', [
             'categories' => Category::with('generation')->onlyParent()->get(),
             'statuses'   => $this->statuses(),
@@ -126,7 +130,7 @@ class PostController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'title'         => 'required|string|max:80|min:10',
+                'title'         => 'required|string|max:80|min:5',
                 'slug'          => 'required|string|unique:posts,slug',
                 'thumbnail'     => 'required|image|mimes:jpg,png,jpeg,gif|max:2048',
                 'description'   => 'required|max:500|min:10',
@@ -225,6 +229,7 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         if ($post->user_id == Auth::user()->id) {
+
             return view('dashboard.manage-posts.posts.edit', [
                 'post' => $post,
                 'categories' => Category::with('generation')->onlyParent()->get(),
@@ -238,12 +243,6 @@ class PostController extends Controller
 
             return redirect()->route('posts.index');
         }
-
-        // return view('dashboard.manage-posts.posts.edit', [
-        //     'post'          => $post,
-        //     'categories'    => Category::with('generation')->onlyParent()->get(),
-        //     'statuses'      => $this->statuses(),
-        // ]);
     }
 
     /**
@@ -258,7 +257,7 @@ class PostController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'title'         => 'required|string|max:80|min:10',
+                'title'         => 'required|string|max:80|min:5',
                 'slug'          => 'required|string|unique:posts,slug,' . $post->id,
                 'thumbnail'     => 'image|mimes:jpg,png,jpeg,gif|max:2048',
                 'description'   => 'required|max:500|min:10',
