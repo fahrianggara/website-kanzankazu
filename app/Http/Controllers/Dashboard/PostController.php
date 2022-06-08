@@ -179,7 +179,7 @@ class PostController extends Controller
                 $post->categories()->attach($request->category);
 
                 if (Auth::user()->roles->pluck('name')->contains('Editor')) {
-                    return redirect()->route('posts.index')->with('success', 'Your post waiting for approval!');
+                    return redirect()->route('posts.index')->with('success', 'Your post waiting for approval.');
                 } else {
                     if ($post->status == 'publish') {
                         return redirect()->route('posts.index')->with('success', 'New post created successfully!');
