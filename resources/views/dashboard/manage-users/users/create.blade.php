@@ -16,6 +16,8 @@
                     @csrf
                     <div class="card-body">
 
+                        <input type="hidden" name="email_verified_at">
+                        <input type="hidden" name="remember_token">
 
                         <div class="row">
                             <div class="col-lg-6 form-group">

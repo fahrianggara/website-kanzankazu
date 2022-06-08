@@ -15,6 +15,7 @@ use Spatie\Permission\Models\Role;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -99,8 +100,9 @@ class UserController extends Controller
                     'slug' => $request->slug,
                     'email' => $request->email,
                     'password' => Hash::make($request->password),
-                    'user_image' => $newPict ?? "avatar.png",
                     'email_verified_at' => now(),
+                    'remember_token' => Str::random(10),
+                    'user_image' => $newPict ?? "default.png",
                 ]);
                 $user->assignRole($request->role);
 
