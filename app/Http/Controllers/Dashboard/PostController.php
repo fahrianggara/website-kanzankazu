@@ -178,7 +178,7 @@ class PostController extends Controller
                 $post->tags()->attach($request->tag);
                 $post->categories()->attach($request->category);
 
-                if (Role::where('name', 'Editor')->first()) {
+                if (Auth::user()->roles->pluck('name')->contains('Editor')) {
                     return redirect()->route('posts.index')->with('success', 'Your post waiting for approval!');
                 } else {
                     if ($post->status == 'publish') {
