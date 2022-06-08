@@ -29,8 +29,8 @@ class TagController extends Controller
     public function index(Request $request)
     {
         $tags = $request->get('keyword')
-            ? Tag::search($request->keyword)->paginate(5)
-            : Tag::paginate(5);
+            ? Tag::search($request->keyword)->paginate(10)
+            : Tag::paginate(10);
 
         return view('dashboard.manage-posts.tags.index', [
             'tags' => $tags->appends(['keyword' => $request->keyword])
