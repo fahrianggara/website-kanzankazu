@@ -10,8 +10,7 @@
                 </a>
             </li>
 
-            <li class="list-inline-item dropdown notification-list" data-toggle="tooltip" data-placement="bottom"
-                title="Notification">
+            <li class="list-inline-item dropdown notification-list">
 
                 @if (!Auth::user()->editorRole())
                     {{-- Mimin / ADMIN --}}
@@ -130,8 +129,7 @@
 
             </li>
 
-            <li class="list-inline-item dropdown notification-list" data-toggle="tooltip" data-placement="bottom"
-                title="Menu Profile">
+            <li class="list-inline-item dropdown notification-list">
                 <a class="nav-link dropdown-toggle arrow-none waves-effect nav-user" data-toggle="dropdown" href="#"
                     role="button" aria-haspopup="false" aria-expanded="false">
                     @if (file_exists('vendor/dashboard/image/picture-profiles/' . Auth::user()->user_image))
