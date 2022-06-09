@@ -48,7 +48,7 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        return redirect()->route('dashboard.index')->with('success', 'Welcome Back, ' . $user->name);
+        return redirect()->route('dashboard.index')->with('success', 'Selamat datang kembali, ' . $user->name . '!');
     }
 
     /**
@@ -62,6 +62,6 @@ class LoginController extends Controller
         $this->guard()->logout();
         $request->session()->flush();
         $request->session()->regenerate();
-        return redirect()->route('homepage')->with('success', 'Bye! See you next time.');
+        return redirect()->route('homepage')->with('success', 'Jangan pergii :(');
     }
 }
