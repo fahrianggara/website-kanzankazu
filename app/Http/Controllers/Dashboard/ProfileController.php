@@ -22,11 +22,23 @@ class ProfileController extends Controller
 
     public function updateProfile(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|alpha_spaces|min:3|max:8',
-            'bio'  => 'nullable|min:10|max:500',
-            'slug' => 'string|unique:users,slug,' . Auth::user()->id,
-        ]);
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required|alpha_spaces|min:3|max:8',
+                'bio'  => 'nullable|min:10|max:500',
+                'slug' => 'string|unique:users,slug,' . Auth::user()->id,
+            ],
+            [
+                'name.required' => 'Masukkan nama kamu',
+                'name.alpha_spaces' => 'Hanya boleh berisi huruf dan spasi',
+                'name.min' => 'Minimal 3 karakter',
+                'name.max' => 'Maksimal 8 karakter',
+                'bio.min' => 'Minimal 10 karakter',
+                'bio.max' => 'Maksimal 500 karakter',
+                'slug.unique' => 'Nama ini sudah digunakan',
+            ]
+        );
 
         if ($validator->fails()) {
             return response()->json([
@@ -46,18 +58,18 @@ class ProfileController extends Controller
 
                     return response()->json([
                         'status' => 200,
-                        'msg'    => 'Your Profile Info has been updated!',
+                        'msg'    => 'Profile kamu berhasil diperbarui!',
                     ]);
                 } else {
                     return response()->json([
                         'status' => 200,
-                        'msg'    => "Oops.. nothing seems to be updated!",
+                        'msg'    => "Oops.. tidak ada perubahan",
                     ]);
                 }
             } else {
                 return response()->json([
                     'status' => 404,
-                    'msg'    => "Your data not found!"
+                    'msg'    => "Data kamu tidak ditemukan",
                 ]);
             }
         }
@@ -76,7 +88,7 @@ class ProfileController extends Controller
         if (!$upload) {
             return response()->json([
                 "status" => 0,
-                "msg"    => "Oops.. something went wrong, upload new picture failed."
+                "msg"    => "Oops.. terjadi kesalahan saat menyimpan foto profile kamu."
             ]);
         } else {
             $oldPicture = User::find(Auth::user()->id)->getAttributes()['user_image'];
@@ -94,12 +106,12 @@ class ProfileController extends Controller
             if (!$updateImageProfile) {
                 return response()->json([
                     "status" => 0,
-                    "msg"    => "Oops.. something went wrong, updating your picture."
+                    "msg"    => "Oops.. terjadi kesalahan saat memperbarui foto profile kamu."
                 ]);
             } else {
                 return response()->json([
                     "status" => 1,
-                    "msg"    => "Your Picture Profile has been updated."
+                    "msg"    => "Foto profile kamu berhasil diperbarui."
                 ]);
             }
         }
@@ -133,15 +145,16 @@ class ProfileController extends Controller
                 'same:newpass',
             ],
         ], [
-            'oldpass.required' => 'Enter your current password.',
-            'oldpass.min'      => 'Your current password must be at least 8 characters.',
-            'oldpass.max'      => 'Your current password must be at most 16 characters.',
-            'newpass.required' => 'Enter your new password.',
-            'newpass.min'      => 'Your current password must be at least 8 characters.',
-            'newpass.max'      => 'Your current password must be at most 16 characters.',
-            'confirmpass.required' => 'Enter your confirm password.',
-            'confirmpass.min'      => 'Your current password must be at least 8 characters.',
-            'confirmpass.max'      => 'Your current password must be at most 16 characters.',
+            'oldpass.required' => 'Masukkan password yang sekarang',
+            'oldpass.min'      => 'Minimal 8 karakter',
+            'oldpass.max'      => 'Maksimal 16 karakter',
+            'newpass.required' => 'Masukkan password baru',
+            'newpass.min'      => 'Minimal 8 karakter',
+            'newpass.max'      => 'Maksimal 16 karakter',
+            'confirmpass.required' => 'Masukkan konfirmasi password',
+            'confirmpass.min'      => 'Minimal 8 karakter',
+            'confirmpass.max'      => 'Maksimal 16 karakter',
+            'confirmpass.same'     => 'Konfirmasi password harus sama dengan password baru',
         ]);
 
         if ($validator->fails()) {
@@ -160,18 +173,18 @@ class ProfileController extends Controller
 
                     return response()->json([
                         'status' => 200,
-                        'msg'    => 'Your Password has been updated!',
+                        'msg'    => 'Password kamu berhasil diperbarui!',
                     ]);
                 } else {
                     return response()->json([
                         'status' => 200,
-                        'msg'    => "Oops.. nothing seems to be updated!",
+                        'msg'    => "Oops.. tidak ada perubahan!",
                     ]);
                 }
             } else {
                 return response()->json([
                     'status' => 404,
-                    'msg'    => "Your data not found!"
+                    'msg'    => "Data kamu tidak ditemukan",
                 ]);
             }
         }
@@ -179,12 +192,21 @@ class ProfileController extends Controller
 
     public function updateSocial(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'facebook' => 'nullable|url_www',
-            'twitter'  => 'nullable|url_www',
-            'instagram' => 'nullable|url_www',
-            'github'  => 'nullable|url_www',
-        ]);
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'facebook' => 'nullable|url_www',
+                'twitter'  => 'nullable|url_www',
+                'instagram' => 'nullable|url_www',
+                'github'  => 'nullable|url_www',
+            ],
+            [
+                'facebook.url_www' => 'URL tidak valid',
+                'twitter.url_www'  => 'URL tidak valid',
+                'instagram.url_www' => 'URL tidak valid',
+                'github.url_www'  => 'URL tidak valid',
+            ]
+        );
 
         if ($validator->fails()) {
             return response()->json([
@@ -205,18 +227,18 @@ class ProfileController extends Controller
 
                     return response()->json([
                         'status' => 200,
-                        'msg'    => 'Your Social Media has been updated!',
+                        'msg'    => 'Sosial media kamu berhasil diperbarui!',
                     ]);
                 } else {
                     return response()->json([
                         'status' => 200,
-                        'msg'    => "Oops.. nothing seems to be updated!",
+                        'msg'    => "Oops.. tidak ada perubahan!",
                     ]);
                 }
             } else {
                 return response()->json([
                     'status' => 404,
-                    'msg'    => "Your data not found!"
+                    'msg'    => "data kamu tidak ditemukan!"
                 ]);
             }
         }

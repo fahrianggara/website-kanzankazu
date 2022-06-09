@@ -75,12 +75,27 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         // validate the data
-        $validator = Validator::make($request->all(), [
-            'title'         => 'required|string|max:20|min:3',
-            'slug'          => 'unique:categories,slug',
-            'thumbnail'     => 'image|mimes:jpg,png,jpeg,gif|max:2048',
-            'description'   => 'nullable|max:400|min:10'
-        ]);
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'title'         => 'required|alpha_spaces|string|max:20|min:3',
+                'slug'          => 'unique:categories,slug',
+                'thumbnail'     => 'image|mimes:jpg,png,jpeg,gif|max:2048',
+                'description'   => 'nullable|max:400|min:10'
+            ],
+            [
+                'title.required'         => 'Wajib di isi',
+                'title.alpha_spaces'     => 'Hanya boleh berupa alphabet dan spasi',
+                'title.max'              => 'Maksimal hanya 20 karakter',
+                'title.min'              => 'Minimal hanya 3 karakter',
+                'slug.unique'            => 'Kategori ini sudah ada',
+                'thumbnail.image'        => 'Harus berupa gambar',
+                'thumbnail.mimes'        => 'Harus bertype jpg, png, jpeg dan gif',
+                'thumbnail.max'          => 'Ukuran maksimal harus 2 MB',
+                'description.max'        => 'Maksimal hanya 400 karakter',
+                'description.min'        => 'Minimal hanya 10 karakter',
+            ]
+        );
 
         if ($validator->fails()) {
             if ($request->has('parent_category')) {
@@ -112,7 +127,7 @@ class CategoryController extends Controller
                 // Alert success
                 return redirect()->route('categories.index')->with(
                     'success',
-                    'New Category has been saved!'
+                    'Kategori baru berhasil disimpan!'
                 );
             } else {
                 // Jika gagal
@@ -149,11 +164,23 @@ class CategoryController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'title'         => 'required|string|max:50',
-                'slug'          => 'required|string|unique:categories,slug,' . $category->id,
+                'title'         => 'required|alpha_spaces|max:50|min:3',
+                'slug'          => 'unique:categories,slug,' . $category->id,
                 'thumbnail'     => 'image|mimes:jpg,png,jpeg,gif|max:2048',
                 'description'   => 'nullable|max:400|min:10'
             ],
+            [
+                'title.required'         => 'Wajib di isi',
+                'title.alpha_spaces'     => 'Hanya boleh berupa alphabet dan spasi',
+                'title.max'              => 'Maksimal hanya 50 karakter',
+                'title.min'              => 'Minimal hanya 3 karakter',
+                'slug.unique'            => 'Kategori ini sudah ada',
+                'thumbnail.image'        => 'Harus berupa gambar',
+                'thumbnail.mimes'        => 'Harus bertype jpg, png, jpeg dan gif',
+                'thumbnail.max'          => 'Ukuran maksimal harus 2 MB',
+                'description.max'        => 'Maksimal hanya 400 karakter',
+                'description.min'        => 'Minimal hanya 10 karakter',
+            ]
         );
 
         if ($validator->fails()) {
@@ -190,7 +217,7 @@ class CategoryController extends Controller
                 if ($cateUpdate) {
                     return redirect()->route('categories.index')->with(
                         'success',
-                        'Category successfully updated!'
+                        'Kategori berhasil diperbarui!'
                     );
                 } else {
                     if ($request->has('parent_category')) {
@@ -201,7 +228,7 @@ class CategoryController extends Controller
             } else {
                 return redirect()->route('categories.index')->with(
                     'success',
-                    'Oops.. nothing seems to be updated!'
+                    'Tidak ada perubahan'
                 );
             }
         }
@@ -233,7 +260,7 @@ class CategoryController extends Controller
 
         return redirect()->back()->with(
             'success',
-            $category->title . ' category successfully Deleted!'
+            'Kategori ' . $category->title . ' berhasil dihapus!'
         );
     }
 }

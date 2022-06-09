@@ -114,25 +114,15 @@ class ContactController extends Controller
     {
         try {
             $contact->delete();
-            Alert::success('Success', 'Inbox with title ' . $contact->subject . ', Deleted successfully');
+            Alert::success('Success', 'Kontak dengan subjek ' . $contact->subject . ' berhasil dihapus');
         } catch (\Throwable $th) {
             Alert::error(
                 'Error',
-                'Failed during data input process.
-                Message: ' . $th->getMessage()
+                'Terjadi kesalahan saat menghapus kontak.
+                Pesan: ' . $th->getMessage()
             );
         }
 
         return redirect()->back();
-    }
-
-    private function attributes()
-    {
-        return [
-            'name' => trans('home.contact.form.name.attribute'),
-            'email' => trans('home.contact.form.email.attribute'),
-            'subject' => trans('home.contact.form.subject.attribute'),
-            'message' => trans('home.contact.form.message.attribute'),
-        ];
     }
 }

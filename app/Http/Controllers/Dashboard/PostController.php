@@ -42,7 +42,7 @@ class PostController extends Controller
         if (in_array($request->get('status'), ['publish', 'draft', 'approve'])) {
             if ($request->get('status') == "approve") {
                 if (Auth::user()->roles->pluck('name')->contains('Editor')) {
-                    return redirect()->route('posts.index')->with('success', 'You are not authorized');
+                    return redirect()->route('posts.index')->with('success', 'Oops.. kamu tidak bisa mengakses halaman ini.');
                 } else {
                     $statusSelected = $request->get('status');
                 }
@@ -76,7 +76,7 @@ class PostController extends Controller
         $post->status = 'publish';
         $post->update();
 
-        return redirect()->route('posts.index')->with('success', 'Your post has been Published!');
+        return redirect()->route('posts.index')->with('success', 'Postingan kamu berhasil di publik!');
     }
 
     public function draft(Post $post)
@@ -84,7 +84,7 @@ class PostController extends Controller
         $post->status = 'draft';
         $post->update();
 
-        return redirect()->route('posts.index')->with('success', 'Your post has been Drafted!');
+        return redirect()->route('posts.index')->with('success', 'Postingan kamu telah disimpan ke arsip!');
     }
 
     public function approve(Post $post)
@@ -103,7 +103,7 @@ class PostController extends Controller
 
         $post->update();
 
-        return redirect()->route('posts.index')->with('success', 'Post has been Published!');
+        return redirect()->route('posts.index')->with('success', 'Postingan berhasil disetujui!');
     }
 
     /**
@@ -115,7 +115,6 @@ class PostController extends Controller
     {
         return view('dashboard.manage-posts.posts.create', [
             'categories' => Category::with('generation')->onlyParent()->get(),
-            'statuses'   => $this->statuses(),
         ]);
     }
 
@@ -131,16 +130,38 @@ class PostController extends Controller
             $request->all(),
             [
                 'title'         => 'required|string|max:80|min:5',
-                'slug'          => 'required|string|unique:posts,slug',
+                'slug'          => 'unique:posts,slug',
                 'thumbnail'     => 'required|image|mimes:jpg,png,jpeg,gif|max:2048',
                 'description'   => 'required|max:500|min:10',
                 'content'       => 'required|min:10',
                 'category'      => 'required',
-                'author'        => 'required',
                 'tag'           => 'required',
                 'status'        => 'required',
                 'keywords'      => 'required|string|min:3|max:100',
             ],
+            [
+                'title.required'         => 'Wajib harus diisi!',
+                'title.string'           => 'Harus berupa string!',
+                'title.max'              => 'Maksimal 80 karakter!',
+                'title.min'              => 'Minimal 5 karakter!',
+                'slug.unique'            => 'Postingan sudah ada!',
+                'thumbnail.required'     => 'Wajib harus diisi!',
+                'thumbnail.image'        => 'Harus berupa gambar!',
+                'thumbnail.mimes'        => 'Gambar harus berformat jpg, png, jpeg dan gif!',
+                'thumbnail.max'          => 'Ukuran gambar maksimal 2 MB!',
+                'description.required'   => 'Wajib harus diisi!',
+                'description.max'        => 'Maksimal 500 karakter!',
+                'description.min'        => 'Minimal 10 karakter!',
+                'content.required'       => 'Wajib harus diisi!',
+                'content.min'            => 'Minimal 10 karakter!',
+                'category.required'      => 'Wajib harus diisi!',
+                'tag.required'           => 'Wajib harus diisi!',
+                'status.required'        => 'Wajib harus diisi!',
+                'keywords.required'      => 'Wajib harus diisi!',
+                'keywords.string'        => 'Harus berupa string!',
+                'keywords.min'           => 'Minimal 3 karakter!',
+                'keywords.max'           => 'Maksimal 100 karakter!',
+            ]
         );
 
         if ($validator->fails()) {
@@ -179,12 +200,12 @@ class PostController extends Controller
                 $post->categories()->attach($request->category);
 
                 if (Auth::user()->roles->pluck('name')->contains('Editor')) {
-                    return redirect()->route('posts.index')->with('success', 'Your post waiting for approval.');
+                    return redirect()->route('posts.index')->with('success', 'Postingan kamu sedang menunggu untuk disetujui.');
                 } else {
                     if ($post->status == 'publish') {
-                        return redirect()->route('posts.index')->with('success', 'New post created successfully!');
+                        return redirect()->route('posts.index')->with('success', 'Postingan baru berhasil ditambahkan!');
                     } else {
-                        return redirect()->route('posts.index')->with('success', 'New post has been created in draft option!');
+                        return redirect()->route('posts.index')->with('success', 'Postingan baru berhasil ditambahkan didalam arsip kamu!');
                     }
                 }
             } catch (\Throwable $th) {
@@ -192,8 +213,8 @@ class PostController extends Controller
 
                 Alert::error(
                     'Error',
-                    'Failed during data input process.
-                    Message: ' . $th->getMessage()
+                    'Terjadi kesalahan saat menyimpan postingan.
+                    Pesan: ' . $th->getMessage()
                 );
 
                 if ($request['tag']) {
@@ -229,16 +250,14 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         if ($post->user_id == Auth::user()->id) {
-
             return view('dashboard.manage-posts.posts.edit', [
                 'post' => $post,
                 'categories' => Category::with('generation')->onlyParent()->get(),
-                'statuses'   => $this->statuses(),
             ]);
         } else {
             Alert::error(
                 'Error',
-                'You are not authorized to edit this post.'
+                'Oops.. Kamu tidak dapat mengedit postingan ini!'
             );
 
             return redirect()->route('posts.index');
@@ -258,7 +277,7 @@ class PostController extends Controller
             $request->all(),
             [
                 'title'         => 'required|string|max:80|min:5',
-                'slug'          => 'required|string|unique:posts,slug,' . $post->id,
+                'slug'          => 'unique:posts,slug,' . $post->id,
                 'thumbnail'     => 'image|mimes:jpg,png,jpeg,gif|max:2048',
                 'description'   => 'required|max:500|min:10',
                 'content'       => 'required|min:10',
@@ -266,6 +285,27 @@ class PostController extends Controller
                 'tag'           => 'required',
                 'keywords'      => 'required|string|min:3|max:100',
             ],
+            [
+                'title.required'         => 'Wajib harus diisi!',
+                'title.string'           => 'Harus berupa string!',
+                'title.max'              => 'Maksimal 80 karakter!',
+                'title.min'              => 'Minimal 5 karakter!',
+                'slug.unique'            => 'Postingan sudah ada!',
+                'thumbnail.image'        => 'Harus berupa gambar!',
+                'thumbnail.mimes'        => 'Gambar harus berformat jpg, png, jpeg dan gif!',
+                'thumbnail.max'          => 'Ukuran gambar maksimal 2 MB!',
+                'description.required'   => 'Wajib harus diisi!',
+                'description.max'        => 'Maksimal 500 karakter!',
+                'description.min'        => 'Minimal 10 karakter!',
+                'content.required'       => 'Wajib harus diisi!',
+                'content.min'            => 'Minimal 10 karakter!',
+                'category.required'      => 'Wajib harus diisi!',
+                'tag.required'           => 'Wajib harus diisi!',
+                'keywords.required'      => 'Wajib harus diisi!',
+                'keywords.string'        => 'Harus berupa string!',
+                'keywords.min'           => 'Minimal 3 karakter!',
+                'keywords.max'           => 'Maksimal 100 karakter!',
+            ]
         );
 
         if ($validator->fails()) {
@@ -306,15 +346,15 @@ class PostController extends Controller
             return redirect()->route('posts.index')
                 ->with(
                     'success',
-                    'Post updated successfully!'
+                    'Postingan berhasil diperbarui!'
                 );
         } catch (\Throwable $th) {
             DB::rollBack();
 
             Alert::error(
                 'Error',
-                'Failed during data input process.
-                Message: ' . $th->getMessage()
+                'Terjadi kesalahan saat memperbarui postingan.
+                Pesan: ' . $th->getMessage()
             );
 
             if ($request['tag']) {
@@ -349,34 +389,20 @@ class PostController extends Controller
 
             return redirect()->route('posts.index')->with(
                 'success',
-                "Post with \"" . $post->title . "\", Deleted Successfully"
+                "Postingan \"" . $post->title . "\", Berhasil dihapus!"
             );
         } catch (\Throwable $th) {
             DB::rollBack();
 
             Alert::error(
                 'Error',
-                'Failed during data input process.
-                Message: ' . $th->getMessage()
+                'Terjadi kesalahan saat menghapus postingan.
+                Pesan: ' . $th->getMessage()
             );
         } finally {
             DB::commit();
         }
 
         return redirect()->back();
-    }
-
-    private function statuses()
-    {
-        return [
-            'publish'   => "Publish",
-            'draft'     => "Draft",
-            'approve'   => "Approve"
-        ];
-    }
-
-    private function editorRole()
-    {
-        return $this->roles()->where('name', 'Editor')->first();
     }
 }

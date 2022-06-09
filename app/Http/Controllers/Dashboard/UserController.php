@@ -68,13 +68,29 @@ class UserController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'name' => 'required|string|max:50|min:3',
+                'name' => 'required|alpha_spaces|max:50|min:3',
                 'role' => 'required',
                 'email' => 'required|email|unique:users,email',
-                'password' => 'required|min:8|confirmed',
+                'password' => 'required|min:8|max:16|confirmed',
                 'user_image' => 'image|mimes:jpg,png,jpeg,gif|max:2048',
-                'slug' => 'required|unique:users,slug'
+                'slug' => 'unique:users,slug'
             ],
+            [
+                'name.required' => 'Wajib harus diisi!',
+                'name.alpha_spaces' => 'Hanya boleh huruf dan spasi!',
+                'role.required' => 'Wajib harus diisi!',
+                'email.required' => 'Wajib harus diisi!',
+                'email.email' => 'Harus berupa alamat email!',
+                'email.unique' => 'Email sudah terdaftar!',
+                'password.required' => 'Wajib harus diisi!',
+                'password.min' => 'Minimal 8 karakter!',
+                'password.max' => 'Maksimal 16 karakter!',
+                'password.confirmed' => 'Konfirmasi password tidak sama!',
+                'user_image.image' => 'Harus berupa gambar!',
+                'user_image.mimes' => 'Gambar harus berformat jpg, png, jpeg dan gif!',
+                'user_image.max' => 'Ukuran gambar maksimal 2 MB!',
+                'slug.unique' => 'Nama sudah ada!',
+            ]
         );
 
         if ($validator->fails()) {
@@ -106,14 +122,14 @@ class UserController extends Controller
                 ]);
                 $user->assignRole($request->role);
 
-                return redirect()->route('users.index')->with('success', 'New user successfully created!');
+                return redirect()->route('users.index')->with('success', 'Pengguna baru berhasil ditambahkan!');
             } catch (\Throwable $th) {
                 DB::rollBack();
 
                 Alert::error(
                     'Error',
-                    'Failed during data input process.
-                    Message: ' . $th->getMessage()
+                    'Terjadi kesalahan saat menyimpan data.
+                    Pesan: ' . $th->getMessage()
                 );
 
                 $request['role'] = Role::select('id', 'name')->find($request->role);
@@ -155,11 +171,22 @@ class UserController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'name' => 'required|string|max:50|min:3',
-                'slug'  => 'required|unique:users,slug,' . $user->id,
+                'name' => 'required|alpha_spaces|max:50|min:3',
+                'slug'  => 'unique:users,slug,' . $user->id,
                 'role' => 'required',
                 'user_image' => 'image|mimes:jpg,png,jpeg,gif|max:2048',
             ],
+            [
+                'name.required' => 'Wajib harus diisi!',
+                'name.alpha_spaces' => 'Hanya boleh huruf dan spasi!',
+                'name.max' => 'Maksimal 50 karakter!',
+                'name.min' => 'Minimal 3 karakter!',
+                'slug.unique' => 'Nama sudah ada!',
+                'role.required' => 'Wajib harus diisi!',
+                'user_image.image' => 'Harus berupa gambar!',
+                'user_image.mimes' => 'Gambar harus berformat jpg, png, jpeg dan gif!',
+                'user_image.max' => 'Ukuran gambar maksimal 2 MB!',
+            ]
         );
 
         if ($validator->fails()) {
@@ -194,15 +221,15 @@ class UserController extends Controller
 
                 return redirect()->route('users.index')->with(
                     'success',
-                    'User data successfully updated!'
+                    'Pengguna berhasil diperbarui!'
                 );
             } catch (\Throwable $th) {
                 DB::rollBack();
 
                 Alert::error(
                     'Error',
-                    'Failed during data input process.
-                    Message: ' . $th->getMessage()
+                    'Terjadi kesalahan saat memperbarui data.
+                    Pesan: ' . $th->getMessage()
                 );
 
                 $request['role'] = Role::select('id', 'name')->find($request->role);
@@ -237,12 +264,12 @@ class UserController extends Controller
 
             Alert::error(
                 'Error',
-                'Failed during data input process.
-                Message: ' . $th->getMessage()
+                'Terjadi kesalahan saat menghapus data.
+                    Pesan: ' . $th->getMessage()
             );
         } finally {
             DB::commit();
-            return redirect()->back()->with('success', $user->name . ' user, successfully Deleted!');
+            return redirect()->back()->with('success', 'Pengguna dengan nama' . $user->name . ' berhasil dihapus!');
         }
     }
 }

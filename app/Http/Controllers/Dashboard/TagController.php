@@ -71,9 +71,16 @@ class TagController extends Controller
         Validator::make(
             $request->all(),
             [
-                'title'         => 'required|string|max:50|min:3',
-                'slug'          => 'required|string|unique:tags,slug',
+                'title'         => 'required|alpha_spaces|max:50|min:3',
+                'slug'          => 'unique:tags,slug',
             ],
+            [
+                'title.required'         => 'Wajib harus diisi!',
+                'title.alpha_spaces'     => 'Hanya boleh huruf dan spasi!',
+                'title.max'              => 'Maksimal 50 karakter!',
+                'title.min'              => 'Minimal 3 karakter!',
+                'slug.unique'            => 'Tag sudah ada!',
+            ]
         )->validate();
 
         try {
@@ -84,12 +91,12 @@ class TagController extends Controller
                 ]
             );
 
-            return redirect()->route('tags.index')->with('success', 'New tag successfully created!');
+            return redirect()->route('tags.index')->with('success', 'Tag baru berhasil disimpan!');
         } catch (\Throwable $th) {
             Alert::error(
                 'Error',
-                'Failed during data input process.
-                Message: ' . $th->getMessage()
+                'Terjadi kesalahan saat menyimpan data.
+                Pesan: ' . $th->getMessage()
             );
 
             return redirect()->back()->withInput($request->all());
@@ -119,10 +126,16 @@ class TagController extends Controller
         Validator::make(
             $request->all(),
             [
-                'title'         => 'required|string|max:50|min:3',
-                'slug'          => 'required|string|unique:tags,slug,' . $tag->id,
+                'title'         => 'required|alpha_spaces|max:50|min:3',
+                'slug'          => 'unique:tags,slug,' . $tag->id,
             ],
-            [],
+            [
+                'title.required'         => 'Wajib harus diisi!',
+                'title.alpha_spaces'     => 'Hanya boleh huruf dan spasi!',
+                'title.max'              => 'Maksimal 50 karakter!',
+                'title.min'              => 'Minimal 3 karakter!',
+                'slug.unique'            => 'Tag sudah ada!',
+            ],
         )->validate();
 
         try {
@@ -136,20 +149,20 @@ class TagController extends Controller
                 return redirect()->route('tags.index')
                     ->with(
                         'success',
-                        'Tag successfully updated!'
+                        'Tag berhasil diperbarui!'
                     );
             } else {
                 return redirect()->route('tags.index')
                     ->with(
                         'success',
-                        'Oops.. nothing seems to be updated!'
+                        'Oops.. tidak ada perubahan!'
                     );
             }
         } catch (\Throwable $th) {
             Alert::error(
                 'Error',
-                'Failed during data input process.
-                Message: ' . $th->getMessage()
+                'Terjadi kesalahan saat memperbarui data.
+                Pesan: ' . $th->getMessage()
             );
 
             return redirect()->back()->withInput($request->all());
@@ -169,11 +182,11 @@ class TagController extends Controller
         } catch (\Throwable $th) {
             Alert::error(
                 'Error',
-                'Failed during data input process.
-                Message: ' . $th->getMessage()
+                'Terjadi kesalahan saat menghapus data.
+                Pesan: ' . $th->getMessage()
             );
         }
 
-        return redirect()->back()->with('success', $tag->title . '\'s Tag successfully deleted!');
+        return redirect()->back()->with('success', 'Tag ' . $tag->title . ' berhasil dihapus!');
     }
 }

@@ -76,8 +76,16 @@ class RoleController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                "name" => "required|string|max:100|unique:roles,name",
+                "name" => "required|alpha_spaces|max:100|min:3|unique:roles,name",
                 "permissions" => "required",
+            ],
+            [
+                "name.required" => "Wajib harus diisi",
+                "name.alpha_spaces" => "Hanya boleh berisi huruf dan spasi",
+                "name.max" => "Maksimal 100 karakter",
+                "name.min" => "Minimal 3 karakter",
+                "name.unique" => "Role ini sudah digunakan",
+                "permissions.required" => "Wajib harus diisi",
             ]
         );
 
@@ -92,14 +100,14 @@ class RoleController extends Controller
 
             // Alert::success('Success', 'New role permission, created successfully');
 
-            return redirect()->route('roles.index')->with('success', 'New role permission, created successfully');
+            return redirect()->route('roles.index')->with('success', 'Role baru berhasil ditambahkan!');
         } catch (\Throwable $th) {
             DB::rollBack();
 
             Alert::error(
                 'Error',
-                'Failed during data input process.
-                Message: ' . $th->getMessage()
+                'Terjadi kesalahan saat menyimpan data.
+                Pesan: ' . $th->getMessage()
             );
 
             return redirect()->back()->withInput($request->all());
@@ -150,8 +158,16 @@ class RoleController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                "name" => "required|string|max:100|unique:roles,name," . $role->id,
+                "name" => "required|alpha_spaces|max:100|min:3|unique:roles,name," . $role->id,
                 "permissions" => "required",
+            ],
+            [
+                "name.required" => "Wajib harus diisi",
+                "name.alpha_spaces" => "Hanya boleh berisi huruf dan spasi",
+                "name.max" => "Maksimal 100 karakter",
+                "name.min" => "Minimal 3 karakter",
+                "name.unique" => "Role ini sudah digunakan",
+                "permissions.required" => "Wajib harus diisi",
             ]
         );
 
@@ -168,15 +184,15 @@ class RoleController extends Controller
             return redirect()->route('roles.index')
                 ->with(
                     'success',
-                    $request->name . ' role, updated successfully!'
+                    'Role ' . $request->name . ' berhasil diperbarui!'
                 );
         } catch (\Throwable $th) {
             DB::rollBack();
 
             Alert::error(
                 'Error',
-                'Failed during data input process.
-                Message: ' . $th->getMessage()
+                'Terjadi kesalahan saat memperbarui data.
+                    Pesan: ' . $th->getMessage()
             );
 
             return redirect()->back()->withInput($request->all());
@@ -196,7 +212,7 @@ class RoleController extends Controller
         if (User::role($role->name)->count()) {
             Alert::warning(
                 'Warning',
-                "Sorry, the " . $role->name . " role cannot be deleted. Because it's still in use."
+                "Oops.. role " . $role->name . " tidak bisa hapus, karena role ini sedang digunakan."
             );
             return redirect()->route('roles.index');
         }
@@ -211,19 +227,19 @@ class RoleController extends Controller
             return redirect()->route('roles.index')
                 ->with(
                     'success',
-                    $role->name . ' role, deleted successfully!'
+                    'Role ' . $role->name . ' berhasil dihapus!'
                 );
         } catch (\Throwable $th) {
             DB::rollBack();
 
             Alert::error(
                 'Error',
-                'Failed during data input process.
-                Message: ' . $th->getMessage()
+                'Terjadi kesalahan saat menghapus data.
+                    Pesan: ' . $th->getMessage()
             );
         } finally {
             DB::commit();
         }
-        return redirect()->route('roles.index')->with('success', 'Failed to delete role');
+        return redirect()->route('roles.index')->with('success', 'Gagal saat menghapus role!');
     }
 }
