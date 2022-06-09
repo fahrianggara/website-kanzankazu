@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Inbox Contacts
+    Kontak Inbox
 @endsection
 
 @section('breadcrumbs')
@@ -17,10 +17,11 @@
                     <form action="{{ route('contact.index') }}" method="GET" class="float-left">
                         <div class="input-group">
                             <input type="search" id="keyword" name="keyword" class="form-control"
-                                placeholder="Search inbox.." autocomplete="off" value="{{ request()->get('keyword') }}">
+                                placeholder="Cari pesan.." autocomplete="off" value="{{ request()->get('keyword') }}">
                             {{-- buton submit --}}
                             <div class="input-group-append">
-                                <button class="btn btn-info" type="submit">
+                                <button class="btn btn-info" type="submit" data-toggle="tooltip" data-placement="bottom"
+                                    title="Telusuri">
                                     <i class="uil uil-search"></i>
                                 </button>
                             </div>
@@ -28,19 +29,19 @@
                     </form>
                 </div>
                 <div class="card-body">
-                    @if (count($contact))
+                    @if (count($contact) >= 1)
                         <div class="table-responsive">
 
                             <table class="table">
                                 <thead>
                                     <tr class="text-center">
-                                        <th>Name</th>
+                                        <th>Nama</th>
                                         <th>Email</th>
-                                        <th>Subject</th>
-                                        <th>Message</th>
-                                        <th>Time</th>
+                                        <th>Subjek</th>
+                                        <th>Pesan</th>
+                                        <th>Waktu Terkirim</th>
                                         @can('inbox_delete')
-                                            <th>Option</th>
+                                            <th>Opsi</th>
                                         @endcan
                                     </tr>
                                 </thead>
@@ -56,18 +57,18 @@
                                                 <th>
                                                     <form action="{{ route('contact.destroy', ['contact' => $c]) }}"
                                                         method="POST" class="d-inline" role="alert"
-                                                        alert-text="Are you sure you want to delete the {{ $c->subject }} inbox?">
+                                                        alert-text="Apakah kamu yakin? inbox dengan subjek ({{ $c->subject }}) akan dihapus permanen.">
                                                         @csrf
                                                         @method('DELETE')
 
                                                         <button type="submit" data-toggle="tooltip" data-placement="bottom"
-                                                            title="Delete Inbox" class="btn btn-sm btn-danger">
+                                                            title="Hapus Pesan" class="btn btn-sm btn-danger">
                                                             <i class="uil uil-trash"></i>
                                                         </button>
                                                     </form>
 
                                                     <a href="mailto:{{ $c->email }}" class="btn mt-1 btn-sm btn-primary"
-                                                        data-toggle="tooltip" data-placement="bottom" title="Reply Inbox">
+                                                        data-toggle="tooltip" data-placement="bottom" title="Balas Pesan">
                                                         <i class="uil uil-envelope-upload"></i>
                                                     </a>
                                                 </th>
@@ -81,9 +82,11 @@
                     @else
                         <b>
                             @if (request()->get('keyword'))
-                                Oops.. {{ strtoupper(request()->get('keyword')) }} inbox not found :(
+                                {{-- Oops.. {{ strtoupper(request()->get('keyword')) }} inbox not found :( --}}
+                                Oops.. sepertinya pesan dengan subjek {{ strtoupper(request()->get('keyword')) }} tidak
+                                ditemukan.
                             @else
-                                No inbox yet
+                                Oops.. sepertinya Inbox masih kosong :(
                             @endif
                         </b>
                     @endif
@@ -120,8 +123,8 @@
                     icon: "warning",
                     allowOutsideClick: false,
                     showCancelButton: true,
-                    cancelButtonText: "Cancel",
-                    confirmButtonText: "Delete",
+                    cancelButtonText: "Ga, batalkan!",
+                    confirmButtonText: "Ya, hapus!",
                     confirmButtonColor: '#d33',
                     reverseButtons: true,
                 }).then((result) => {

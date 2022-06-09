@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Edit user
+    {{ $user->name }}
 @endsection
 
 @section('breadcrumbs')
@@ -24,11 +24,11 @@
                         <div class="row">
                             <div class="col-lg-6 form-group">
                                 {{-- NAME --}}
-                                <label for="user_name">Name</label>
+                                <label for="user_name">Nama</label>
 
                                 <input type="text" id="user_name" name="name"
-                                    class="form-control @error('name') is-invalid @enderror" placeholder="Enter name user"
-                                    value="{{ old('name', $user->name) }}" autofocus>
+                                    class="form-control @error('name') is-invalid @enderror"
+                                    placeholder="Masukkan nama pengguna" value="{{ old('name', $user->name) }}" autofocus>
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -39,10 +39,10 @@
 
                             <div class="col-lg-6 form-group">
                                 {{-- Slug --}}
-                                <label for="user_slug">Slug Name</label>
+                                <label for="user_slug">Slug</label>
 
                                 <input type="text" id="user_slug" name="slug"
-                                    class="form-control @error('slug') is-invalid @enderror" placeholder="Auto Genrate"
+                                    class="form-control @error('slug') is-invalid @enderror" placeholder="Generate sendiri"
                                     value="{{ old('slug', $user->slug) }}" readonly>
 
                                 @error('slug')
@@ -57,7 +57,7 @@
                         <div class="row">
                             {{-- USER IMAGE --}}
                             <div class="col-lg-6 form-group">
-                                <label for="user_image">Image Profile</label>
+                                <label for="user_image">Foto profile</label>
 
                                 <div class="input-group">
                                     <div class="custom-file">
@@ -76,9 +76,9 @@
                             {{-- ROLE --}}
                             <div class="col-lg-6 form-group">
                                 <label for="select_user_role">
-                                    Role permissions
+                                    Role
                                 </label>
-                                <select id="select_user_role" name="role" data-placeholder="Choose role"
+                                <select id="select_user_role" name="role" data-placeholder="Pilih role pengguna"
                                     class="custom-select w-100 @error('role') is-invalid @enderror">
                                     @if (old('role', $roleOld))
                                         <option value="{{ old('role', $roleOld)->id }}">
@@ -99,8 +99,8 @@
                 </div>
                 <div class="card-footer">
                     <div class="float-right">
-                        <a class="btn btn-info px-4" href="{{ route('users.index') }}">Back</a>
-                        <button type="submit" class="btn btn-warning px-4">Edit user</button>
+                        <a class="btn btn-info px-4" href="{{ route('users.index') }}">Kembali</a>
+                        <button type="submit" class="btn btn-warning px-4">Perbarui pengguna</button>
                     </div>
                 </div>
                 </form>
@@ -108,10 +108,6 @@
         </div>
     </div>
 @endsection
-
-@push('js-external')
-    <script src="{{ asset('vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
-@endpush
 
 @push('js-internal')
     <script>
@@ -160,7 +156,7 @@
             let fileName = $(this).val();
 
             if (fileName == undefined || fileName == "") {
-                $(this).next('.custom-file-label').html('No image selected..')
+                $(this).next('.custom-file-label').html('tidak ada gambar yang dipilih');
             } else {
                 $(this).next('.custom-file-label').html(event.target.files[0].name);
             }

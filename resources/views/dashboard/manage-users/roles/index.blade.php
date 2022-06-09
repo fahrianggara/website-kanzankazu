@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Role Permissions
+    Role
 @endsection
 
 @section('breadcrumbs')
@@ -20,10 +20,11 @@
                     <form action="{{ route('roles.index') }}" method="GET" class="float-left">
                         <div class="input-group">
                             <input autocomplete="off" type="search" id="keyword" name="keyword" class="form-control"
-                                placeholder="Search Roles.." value="{{ request()->get('keyword') }}">
+                                placeholder="Cari role.." value="{{ request()->get('keyword') }}">
                             {{-- buton submit --}}
                             <div class="input-group-append">
-                                <button class="btn btn-info" type="submit">
+                                <button class="btn btn-info" type="submit" data-toggle="tooltip" data-placement="bottom"
+                                    title="Telusuri">
                                     <i class="uil uil-search"></i>
                                 </button>
                             </div>
@@ -32,7 +33,7 @@
                     @can('role_create')
                         {{-- button create --}}
                         <a href="{{ route('roles.create') }}" class="btn btn-primary float-right" data-toggle="tooltip"
-                            data-placement="bottom" title="Role Create">
+                            data-placement="bottom" title="Buat">
                             <i class="uil uil-plus"></i>
                         </a>
                     @endcan
@@ -52,7 +53,7 @@
                                     @can('role_detail')
                                         {{-- DETAIL --}}
                                         <a href="{{ route('roles.show', ['role' => $role]) }}" class="btn btn-info btn-sm"
-                                            data-toggle="tooltip" data-placement="bottom" title="Role Show">
+                                            data-toggle="tooltip" data-placement="bottom" title="Lihat">
                                             <i class="uil uil-eye"></i>
                                         </a>
                                     @endcan
@@ -60,7 +61,7 @@
                                     @can('role_update')
                                         {{-- EDIT --}}
                                         <a href="{{ route('roles.edit', ['role' => $role]) }}" class="btn btn-warning btn-sm"
-                                            data-toggle="tooltip" data-placement="bottom" title="Role Edit">
+                                            data-toggle="tooltip" data-placement="bottom" title="Edit">
                                             <i class="uil uil-pen"></i>
                                         </a>
                                     @endcan
@@ -69,12 +70,12 @@
                                         {{-- DELETE --}}
                                         <form action="{{ route('roles.destroy', ['role' => $role]) }}" method="POST"
                                             class="d-inline" role="alert"
-                                            alert-text="Are you sure you want to delete the {{ $role->name }} role?">
+                                            alert-text="Apakah kamu yakin? role {{ $role->name }} akan dihapus permanen.">
                                             @csrf
                                             @method('DELETE')
 
                                             <button type="submit" class="btn btn-sm btn-danger" data-toggle="tooltip"
-                                                data-placement="bottom" title="Role Delete">
+                                                data-placement="bottom" title="Hapus">
                                                 <i class="uil uil-trash"></i>
                                             </button>
                                         </form>
@@ -84,9 +85,10 @@
                         @empty
                             <b>
                                 @if (request()->get('keyword'))
-                                    Oops.. {{ strtoupper(request()->get('keyword')) }} role not found :(
+                                    {{-- Oops.. {{ strtoupper(request()->get('keyword')) }} role not found :( --}}
+                                    Oops.. sepertinya role {{ strtoupper(request()->get('keyword')) }} tidak ditemukan.
                                 @else
-                                    No role data yet
+                                    Hmm.. sepertinya role belum ada yang dibuat.
                                 @endif
                             </b>
                         @endforelse
@@ -122,8 +124,8 @@
                     icon: "warning",
                     allowOutsideClick: false,
                     showCancelButton: true,
-                    cancelButtonText: "Cancel",
-                    confirmButtonText: "Delete",
+                    cancelButtonText: "Ga, batalkan!",
+                    confirmButtonText: "Ya, hapus!",
                     confirmButtonColor: '#d33',
                     reverseButtons: true,
                 }).then((result) => {

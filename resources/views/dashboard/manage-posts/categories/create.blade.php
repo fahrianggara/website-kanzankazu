@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Create category
+    Buat kategori
 @endsection
 
 @section('breadcrumbs')
@@ -21,11 +21,11 @@
                         <div class="row">
                             {{-- TITLE --}}
                             <div class="col-lg-6 form-group">
-                                <label for="category_title">Title</label>
+                                <label for="category_title">Nama kategori</label>
 
                                 <input type="text" id="category_title" name="title"
-                                    class="form-control @error('title') is-invalid @enderror" placeholder="Enter your Title"
-                                    value="{{ old('title') }}" autofocus>
+                                    class="form-control @error('title') is-invalid @enderror"
+                                    placeholder="Masukkan nama kategori" value="{{ old('title') }}" autofocus>
 
                                 @error('title')
                                     <span class="invalid-feedback" role="alert">
@@ -52,7 +52,7 @@
                         <div class="row">
                             <div class="form-group col-lg-6">
                                 {{-- THUMBNAIL --}}
-                                <label for="category_thumbnail">Thumbnail</label>
+                                <label for="category_thumbnail">Gambar kategori</label>
 
                                 <div class="input-group">
 
@@ -60,7 +60,7 @@
                                         <input type="file" name="thumbnail"
                                             class="custom-file-input @error('thumbnail') is-invalid @enderror"
                                             id="thumbnail" value="{{ old('thumbnail') }}">
-                                        <label class="custom-file-label" for="thumbnail">Choose category thumbnail..</label>
+                                        <label class="custom-file-label" for="thumbnail">Cari gambar kategori..</label>
                                     </div>
 
                                     @error('thumbnail')
@@ -74,9 +74,10 @@
 
                             <div class="form-group col-lg-6 col-md-2">
                                 {{-- PARENT CATEGORY --}}
-                                <label for="select_category_parent">Parent Category</label>
+                                <label for="select_category_parent">Induk kategori</label>
                                 <select id="select_category_parent" name="parent_category"
-                                    data-placeholder="Select a Parent Category" class="form-control">
+                                    data-placeholder="Pilih induk kategori, jika tidak mau.. abaikan"
+                                    class="form-control">
 
                                     @if (old('parent_category'))
                                         <option value="{{ old('parent_category')->id }}" selected>
@@ -89,11 +90,10 @@
 
                         {{-- Description --}}
                         <div class="form-group">
-                            <label for="cate_desc">Description</label>
+                            <label for="cate_desc">Deskripsi</label>
 
                             <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="cate_desc"
-                                onkeyup="countCharBlog(this)" cols="2" rows="6"
-                                placeholder="Enter category description..">{{ old('description') }}</textarea>
+                                onkeyup="countCharBlog(this)" cols="2" rows="6" placeholder="Masukkan deskripsi kategori..">{{ old('description') }}</textarea>
 
                             <span class="float-right" id="charNumBlog"></span>
 
@@ -108,8 +108,8 @@
                     {{-- Card footer --}}
                     <div class="card-footer">
                         {{-- Button Save --}}
-                        <a class="btn btn-info px-4" href="{{ route('categories.index') }}">Back</a>
-                        <button type="submit" class="btn btn-success px-4">Save</button>
+                        <a class="btn btn-info px-4" href="{{ route('categories.index') }}">Kembali</a>
+                        <button type="submit" class="btn btn-success px-4">Simpan</button>
                     </div>
 
                 </form>
@@ -134,7 +134,7 @@
             $('#select_category_parent').select2({
                 theme: 'bootstrap4',
                 allowClear: true,
-                widht: "100%",
+                width: "100%",
                 ajax: {
                     url: "{{ url('dashboard/categories/select') }}",
                     dataType: 'json',
@@ -175,7 +175,7 @@
                 let fileName = $(this).val();
 
                 if (fileName == undefined || fileName == "") {
-                    $(this).next('.custom-file-label').html('No image selected..')
+                    $(this).next('.custom-file-label').html('Tidak ada gambar yang dipilih');
                 } else {
                     $(this).next('.custom-file-label').html(event.target.files[0].name);
                 }
@@ -187,10 +187,10 @@
             let limit = val.value.length;
             if (limit >= max) {
                 val.value = val.value.substring(0, max);
-                $('#charNumBlog').text('You have reached the limit');
+                $('#charNumBlog').text('Kamu sudah mencapai batas maksimal.');
             } else {
                 var char = max - limit;
-                $('#charNumBlog').text(char + ' Characters Left');
+                $('#charNumBlog').text(char + ' Karakter tersisa');
             };
         }
     </script>

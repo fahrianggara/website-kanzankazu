@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Create User
+    Buat pengguna
 @endsection
 
 @section('breadcrumbs')
@@ -22,11 +22,11 @@
                         <div class="row">
                             <div class="col-lg-6 form-group">
                                 {{-- NAME --}}
-                                <label for="user_name">Name</label>
+                                <label for="user_name">Nama</label>
 
                                 <input type="text" id="user_name" name="name"
-                                    class="form-control @error('name') is-invalid @enderror" placeholder="Enter name user"
-                                    value="{{ old('name') }}" autofocus>
+                                    class="form-control @error('name') is-invalid @enderror"
+                                    placeholder="Masukkan nama pengguna" value="{{ old('name') }}" autofocus>
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -37,10 +37,10 @@
 
                             <div class="col-lg-6 form-group">
                                 {{-- SLUG --}}
-                                <label for="user_slug">Slug Name</label>
+                                <label for="user_slug">Slug</label>
 
                                 <input type="text" id="user_slug" name="slug"
-                                    class="form-control @error('slug') is-invalid @enderror" placeholder="Auto generate"
+                                    class="form-control @error('slug') is-invalid @enderror" placeholder="Generate sendiri"
                                     value="{{ old('slug') }}" readonly>
 
                                 @error('slug')
@@ -55,8 +55,8 @@
                                 <label for="user_email">Email</label>
 
                                 <input type="text" id="user_email" name="email"
-                                    class="form-control @error('email') is-invalid @enderror" placeholder="Enter email user"
-                                    value="{{ old('email') }}">
+                                    class="form-control @error('email') is-invalid @enderror"
+                                    placeholder="Masukkan alamat email pengguna" value="{{ old('email') }}">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -67,14 +67,15 @@
 
                             <div class="form-group col-lg-6">
 
-                                <label for="user_image">Image Profile</label>
+                                <label for="user_image">Foto profile</label>
 
                                 <div class="input-group">
                                     <div class="custom-file">
                                         <input type="file" name="user_image" value="{{ old('user_image') }}"
-                                            id="user_image" placeholder="Choose image.."
+                                            id="user_image"
                                             class="@error('user_image') is-invalid @enderror custom-file-input">
-                                        <label class="custom-file-label" for="thumbnail">Choose user profile photo..</label>
+                                        <label class="custom-file-label" for="thumbnail">Cari foto profile
+                                            pengguna..</label>
                                     </div>
                                     @error('user_image')
                                         <span class="invalid-feedback d-block" role="alert">
@@ -90,9 +91,9 @@
                             {{-- ROLE --}}
                             <div class="form-group col-lg-6">
                                 <label for="select_user_role">
-                                    Role permissions
+                                    Role
                                 </label>
-                                <select id="select_user_role" name="role" data-placeholder="Choose role"
+                                <select id="select_user_role" name="role" data-placeholder="Pilih role pengguna"
                                     class="custom-select w-100 @error('role') is-invalid @enderror">
                                     @if (old('role'))
                                         <option value="{{ old('role')->id }}">
@@ -116,7 +117,7 @@
                                 </label>
                                 <input id="input_user_password" name="password" type="password"
                                     class="form-control @error('password') is-invalid @enderror"
-                                    placeholder="Enter password" autocomplete="new-password" />
+                                    placeholder="Masukkan password pengguna" autocomplete="new-password" />
                                 <!-- error message -->
                                 <input type="hidden" class="@error('password') is-invalid @enderror">
                                 @error('password')
@@ -128,18 +129,18 @@
 
                             <div class="form-group col-md-6">
                                 <label for="input_user_password_confirmation" class="font-weight-bold">
-                                    Confirm
+                                    Konfirmasi
                                 </label>
                                 <input id="input_user_password_confirmation" name="password_confirmation" type="password"
                                     class="form-control @error('password') is-invalid @enderror"
-                                    placeholder="Confirm password" autocomplete="new-password" />
+                                    placeholder="Masukkan password yang sudah dibuat tadi" autocomplete="new-password" />
                             </div>
                         </div>
 
                     </div>
                     <div class="card-footer">
-                        <a class="btn btn-info px-4" href="{{ route('users.index') }}">Back</a>
-                        <button type="submit" class="btn btn-success px-4">Create user</button>
+                        <a class="btn btn-info px-4" href="{{ route('users.index') }}">Kembali</a>
+                        <button type="submit" class="btn btn-success px-4">Simpan</button>
                     </div>
                 </form>
             </div>

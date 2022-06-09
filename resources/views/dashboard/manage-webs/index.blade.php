@@ -1,11 +1,11 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Your Profile
+    Setelan Website
 @endsection
 
 @section('breadcrumbs')
-    {{ Breadcrumbs::render('dash-profile') }}
+    {{ Breadcrumbs::render('web_settings') }}
 @endsection
 
 @section('content')
@@ -18,11 +18,12 @@
 
                     <ul class="nav nav-pills nav-justified" role="tablist">
                         <li class="nav-item waves-effect waves-light">
-                            <a class="nav-link active" data-toggle="tab" href="#information-1" role="tab">Site
-                                Informations</a>
+                            <a class="nav-link active" data-toggle="tab" href="#information-1" role="tab">
+                                Informasi Website
+                            </a>
                         </li>
                         <li class="nav-item waves-effect waves-light">
-                            <a class="nav-link" data-toggle="tab" href="#setting-1" role="tab">Site Settings</a>
+                            <a class="nav-link" data-toggle="tab" href="#setting-1" role="tab">Pengaturan Website</a>
                         </li>
                     </ul>
 
@@ -31,28 +32,28 @@
 
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
-                                    <strong class="font-18 mr-1">SITE NAME :</strong>
+                                    <strong class="font-18 mr-1">NAMA WEBSITE :</strong>
                                     <span class="font-18 site_name">
                                         {{ $setting->site_name }}
                                     </span>
                                 </li>
 
                                 <li class="list-group-item">
-                                    <strong class="font-18 mr-1">SITE EMAIL :</strong>
+                                    <strong class="font-18 mr-1">WEBSITE EMAIL :</strong>
                                     <span class="font-18 site_">
                                         {{ $setting->site_email }}
                                     </span>
                                 </li>
 
                                 <li class="list-group-item">
-                                    <strong class="font-18 mr-1">SITE DESCRIPTION :</strong>
+                                    <strong class="font-18 mr-1">WEBSITE DESKRIPSI :</strong>
                                     <span class="font-18 site_description">
                                         {{ $setting->site_description }}
                                     </span>
                                 </li>
 
                                 <li class="list-group-item">
-                                    <strong class="font-18 mr-1">SITE FOOTER :</strong>
+                                    <strong class="font-18 mr-1">WEBSITE FOOTER :</strong>
                                     <span class="font-18 site_footer">
                                         {{ $setting->site_footer }}
                                     </span>
@@ -66,7 +67,7 @@
                                 </li>
 
                                 <li class="list-group-item">
-                                    <strong class="font-18 mr-1">IMAGE BANNER :</strong>
+                                    <strong class="font-18 mr-1">GAMBAR BANNER :</strong>
                                     <span class="font-18">
                                         @if (file_exists('vendor/blog/img/home-img/' . $setting->image_banner))
                                             <img width="100" height="100"
@@ -105,40 +106,40 @@
                                 @method('put')
 
                                 <div class="form-group row">
-                                    <label for="site_name" class="col-sm-2 col-form-label">Site Name</label>
+                                    <label for="site_name" class="col-sm-2 col-form-label">Nama Website</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control site_name" id="site_name"
-                                            placeholder="Enter your site name" value="{{ $setting->site_name }}"
-                                            name="site_name">
+                                            placeholder="Masukkan nama situs website kamu"
+                                            value="{{ $setting->site_name }}" name="site_name">
                                         <span class="invalid-feedback d-block error-text site_name_error"></span>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="site_footer" class="col-sm-2 col-form-label">Site Footer</label>
+                                    <label for="site_footer" class="col-sm-2 col-form-label">Website Footer</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control site_footer" id="site_footer"
-                                            placeholder="Enter your site footer" value="{{ $setting->site_footer }}"
-                                            name="site_footer">
+                                            placeholder="Masukkan nama footer website kamu"
+                                            value="{{ $setting->site_footer }}" name="site_footer">
                                         <span class="invalid-feedback d-block error-text site_footer_error"></span>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="site_email" class="col-sm-2 col-form-label">Site Email</label>
+                                    <label for="site_email" class="col-sm-2 col-form-label">Website Email</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control site_email" id="site_email"
-                                            placeholder="Enter your site email" value="{{ $setting->site_email }}"
+                                            placeholder="Masukkan email website kamu" value="{{ $setting->site_email }}"
                                             name="site_email">
                                         <span class="invalid-feedback d-block error-text site_email_error"></span>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="site_description" class="col-sm-2 col-form-label">Site Description</label>
+                                    <label for="site_description" class="col-sm-2 col-form-label">Website Deskripsi</label>
                                     <div class="col-sm-10">
                                         <textarea class="form-control site_description" id="site_description" name="site_description"
-                                            placeholder="enter your site description" onkeyup="countChar(this)" cols="2" rows="6">{{ $setting->site_description }}</textarea>
+                                            placeholder="Masukkan deskripsi website kamu" onkeyup="countChar(this)" cols="2" rows="6">{{ $setting->site_description }}</textarea>
                                         <span class="float-right" id="charNum"></span>
                                         <span class="invalid-feedback d-block error-text site_description_error"></span>
                                     </div>
@@ -148,14 +149,14 @@
                                     <label for="meta_keywords" class="col-sm-2 col-form-label">Meta Keywords</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control meta_keywords" id="meta_keywords"
-                                            placeholder="Enter meta keywords for your website"
+                                            placeholder="Masukkan kata kunci website kamu"
                                             value="{{ $setting->meta_keywords }}" name="meta_keywords">
                                         <span class="invalid-feedback d-block error-text meta_keywords_error"></span>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="image_banner" class="col-sm-2 col-form-label">Image Banner</label>
+                                    <label for="image_banner" class="col-sm-2 col-form-label">Gambar Banner</label>
                                     <div class="col-sm-10">
                                         <div class="custom-file">
                                             <input type="file" name="image_banner" class="custom-file-input image_banner"
@@ -190,7 +191,7 @@
                                 <div class="form-group row">
                                     <div class="offset-sm-2 col-sm-10">
                                         <button type="submit" id="buttonWebsetting" class="btn btn-primary">
-                                            Update Site
+                                            Update Website
                                         </button>
                                     </div>
                                 </div>
@@ -218,10 +219,10 @@
             let limit = val.value.length;
             if (limit >= max) {
                 val.value = val.value.substring(0, max);
-                $('#charNum').text('You have reached the limit');
+                $('#charNum').text('Oops.. kamu telah mencapai batas maksimal');
             } else {
                 var char = max - limit;
-                $('#charNum').text(char + ' Characters Left');
+                $('#charNum').text(char + ' Karakter tersisa');
             };
         }
 
@@ -231,7 +232,7 @@
                 let fileName = $(this).val();
 
                 if (fileName == undefined || fileName == "") {
-                    $(this).next('.custom-file-label').html('No image selected..')
+                    $(this).next('.custom-file-label').html('Tidak ada gambar yang dipilih..')
                 } else {
                     $(this).next('.custom-file-label').html(event.target.files[0].name);
                 }
@@ -264,7 +265,7 @@
                     complete: function() {
                         $('#buttonWebsetting').attr('disabled', false);
                         $('#buttonWebsetting').html(
-                            'Update Site');
+                            'Update Website');
                     },
                     success: function(response) {
                         if (response.status == 400) {

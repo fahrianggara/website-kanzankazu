@@ -15,12 +15,12 @@
             <div class="card m-b-30">
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="input_role_name">Name Role</label>
+                        <label for="input_role_name">Nama Role</label>
                         <input type="text" name="name" value="{{ $role->name }}" class="form-control" readonly>
                     </div>
                     <div class="form-group">
                         <label for="input_role_permission">
-                            Role Permissions
+                            Daftar Role
                         </label>
                         <div class="row" style="margin-left: -2px">
                             @forelse ($authorities as $manageName => $permissions)
@@ -45,14 +45,14 @@
                                 </ul>
                             @empty
                                 <b>
-                                    No role permissions data yet
+                                    Oops.. sepertinya data role tidak ada.
                                 </b>
                             @endforelse
                         </div>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a href="{{ route('roles.index') }}" class="btn btn-info">Back</a>
+                    <a href="{{ route('roles.index') }}" class="btn btn-info">Kembali</a>
                 </div>
             </div>
         </div>

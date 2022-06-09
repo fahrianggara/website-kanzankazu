@@ -9,7 +9,6 @@
 @endsection
 
 @section('content')
-
     <div class="row">
         <div class="col-12">
             <div class="card m-b-30">
@@ -19,11 +18,11 @@
                         @csrf
 
                         <div class="form-group">
-                            <label for="input_role_name">Name Role</label>
+                            <label for="input_role_name">Nama Role</label>
 
                             <input id="input_role_name" name="name" type="text" name="name"
                                 value="{{ old('role', $role->name) }}"
-                                class="form-control @error('name') is-invalid @enderror" placeholder="Enter role name"
+                                class="form-control @error('name') is-invalid @enderror" placeholder="masukkan nama role"
                                 autofocus>
 
                             @error('name')
@@ -35,7 +34,7 @@
 
                         <div class="form-group">
 
-                            <label for="input_role_permission">Role Permissions
+                            <label for="input_role_permission">Daftar Role
                                 <input type="checkbox" value="" class=" ml-1" id="centangAll">
                             </label>
 
@@ -85,8 +84,8 @@
                 </div>
                 <div class="card-footer">
                     <div class="float-right">
-                        <a href="{{ route('roles.index') }}" class="btn btn-info">Back</a>
-                        <button type="submit" class="btn btn-warning">Update</button>
+                        <a href="{{ route('roles.index') }}" class="btn btn-info">Kembali</a>
+                        <button type="submit" class="btn btn-warning">Perbarui</button>
                     </div>
                 </div>
 
@@ -94,7 +93,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 @push('js-internal')

@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Create Tag
+    Buat tag
 @endsection
 
 @section('breadcrumbs')
@@ -20,10 +20,10 @@
                         <div class="row">
                             {{-- title --}}
                             <div class="col-lg-6 form-group">
-                                <label for="tag_title">Title</label>
+                                <label for="tag_title">Nama Tag</label>
 
                                 <input type="text" id="tag_title" name="title"
-                                    class="form-control @error('title') is-invalid @enderror" placeholder="Enter your Title"
+                                    class="form-control @error('title') is-invalid @enderror" placeholder="Masukkan Nama tag"
                                     value="{{ old('title') }}" autofocus>
 
                                 @error('title')
@@ -37,7 +37,7 @@
                                 <label for="tag_slug">Slug</label>
 
                                 <input type="text" name="slug" id="tag_slug"
-                                    class="form-control @error('slug') is-invalid @enderror" placeholder="Auto Generate"
+                                    class="form-control @error('slug') is-invalid @enderror" placeholder="Generate sendiri"
                                     value="{{ old('slug') }}" readonly>
 
                                 @error('slug')
@@ -50,8 +50,8 @@
                 </div>
                 <div class="card-footer">
                     <div class="float-right">
-                        <a class="btn btn-info px-4" href="{{ route('tags.index') }}">Back</a>
-                        <button type="submit" class="btn btn-success px-4">Save</button>
+                        <a class="btn btn-info px-4" href="{{ route('tags.index') }}">Kembali</a>
+                        <button type="submit" class="btn btn-success px-4">Simpan</button>
                     </div>
                 </div>
                 </form>

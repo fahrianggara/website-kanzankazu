@@ -8,7 +8,7 @@
             @can('category_update')
                 {{-- edit --}}
                 <a href="{{ route('categories.edit', ['category' => $category]) }}" class="btn btn-warning btn-sm"
-                    data-toggle="tooltip" data-placement="bottom" title="Category Edit">
+                    data-toggle="tooltip" data-placement="bottom" title="Edit">
                     <i class="uil uil-pen"></i>
                 </a>
             @endcan
@@ -17,12 +17,12 @@
                 {{-- delete --}}
                 <form action="{{ route('categories.destroy', ['category' => $category]) }}" class="d-inline"
                     role="alert" method="POST"
-                    alert-text="Are you sure you want to delete the {{ $category->title }} category?">
+                    alert-text="Apakah kamu yakin? kategori {{ $category->title }} akan dihapus permanen?">
                     @csrf
                     @method('DELETE')
 
                     <button type="submit" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="bottom"
-                        title="Category Delete">
+                        title="Hapus">
                         <i class="uil uil-trash"></i>
                     </button>
                 </form>

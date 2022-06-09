@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Posts Edit
+    Edit postingan
 @endsection
 
 @section('breadcrumbs')
@@ -21,7 +21,7 @@
                     <div class="card-body">
                         <div class="form-group">
 
-                            <label for="check_category" class="font-weight-bold">Choose Categories</label>
+                            <label for="check_category" class="font-weight-bold">Pilih kategori</label>
 
                             <div class="form-control overflow-auto @error('category') is-invalid @enderror"
                                 style="height: auto;">
@@ -49,11 +49,12 @@
 
                         {{-- TITLE --}}
                         <div class="form-group">
-                            <label for="input_post_title">Title</label>
+                            <label for="input_post_title">Judul</label>
 
                             <input type="text" id="input_post_title" name="title"
-                                class="form-control @error('title') is-invalid @enderror" placeholder="Enter your Title"
-                                value="{{ old('title', $post->title) }}" autofocus>
+                                class="form-control @error('title') is-invalid @enderror"
+                                placeholder="Masukkan judul postingan kamu" value="{{ old('title', $post->title) }}"
+                                autofocus>
 
                             @error('title')
                                 <span class="invalid-feedback" role="alert">
@@ -79,11 +80,11 @@
 
                         {{-- KEYWORDS --}}
                         <div class="form-group">
-                            <label for="input_post_keywords">Keywords</label>
+                            <label for="input_post_keywords">Kata Kunci</label>
 
                             <input type="text" id="input_post_keywords" name="keywords"
                                 class="form-control @error('keywords') is-invalid @enderror"
-                                placeholder="Enter your post keywords: yourtitlepost, yourcategorypost, blablabla"
+                                placeholder="Masukkan kata kunci postingan kamu. cth: tutorial, php"
                                 value="{{ old('keywords', $post->keywords) }}">
 
                             @error('keywords')
@@ -110,7 +111,7 @@
 
                         {{-- THUMBNAIL --}}
                         <div class="form-group">
-                            <label for="thumbnail">Thumbnail</label>
+                            <label for="thumbnail">Gambar Postingan</label>
 
                             <div class="input-group">
 
@@ -131,7 +132,7 @@
 
                         {{-- SELECT TAG --}}
                         <div class="form-group">
-                            <label for="select_post_tag" class="">Select Tag
+                            <label for="select_post_tag" class="">Pilih tag postingan
                             </label>
 
                             <select name="tag[]" id="select_post_tag" data-placeholder="Choose Tags"
@@ -152,11 +153,10 @@
 
                         {{-- DESCRIPTION --}}
                         <div class="form-group">
-                            <label for="input_post_desc">Description</label>
+                            <label for="input_post_desc">Deskripsi</label>
 
                             <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="input_post_desc"
-                                cols="30" rows="5"
-                                placeholder="Enter your description">{{ old('description', $post->description) }}</textarea>
+                                cols="30" rows="5" placeholder="Masukkan deskripsi postingan kamu..">{{ old('description', $post->description) }}</textarea>
 
                             @error('description')
                                 <span class="invalid-feedback" role="alert">
@@ -168,12 +168,11 @@
                         {{-- Content --}}
                         <div class="form-group">
                             <label for="input_post_content">
-                                Content
+                                Konten
                             </label>
 
                             <textarea name="content" id="input_post_content" cols="30" rows="30"
-                                class="form-control @error('content') is-invalid @enderror"
-                                placeholder="Enter your content article">{{ old('content', $post->content) }}</textarea>
+                                class="form-control @error('content') is-invalid @enderror" placeholder="Masukkan isi konten kamu disini..">{{ old('content', $post->content) }}</textarea>
 
                             @error('content')
                                 <span class="invalid-feedback" role="alert">
@@ -184,8 +183,8 @@
                     </div>
                     <div class="card-footer">
                         <div class="float-right">
-                            <a class="btn btn-info px-4" href="{{ route('posts.index') }}">Back</a>
-                            <button type="submit" class="btn btn-warning px-4">Edit</button>
+                            <a class="btn btn-info px-4" href="{{ route('posts.index') }}">Kembali</a>
+                            <button type="submit" class="btn btn-warning px-4">Update</button>
                         </div>
                     </div>
                 </div>
@@ -235,17 +234,54 @@
                 relative_urls: false,
                 language: "en",
                 selector: 'textarea',
-                content_css: 'dark',
-                skin: "oxide-dark",
+                // content_css: 'dark',
+                // skin: "oxide-dark",
                 height: 500,
                 plugins: [
                     "advlist autolink lists link image charmap print preview hr anchor pagebreak",
                     "searchreplace wordcount visualblocks visualchars code fullscreen",
                     "insertdatetime media nonbreaking save table directionality",
                     "emoticons template paste textpattern",
+                    "tabfocus",
+                    "codesample"
                 ],
-                toolbar1: "fullscreen preview",
-                toolbar2: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
+                font_formats: "Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Oswald=oswald; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Terminal=terminal,monaco; Times New Roman=times new roman,times; Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva; Webdings=webdings; Wingdings=wingdings,zapf dingbats",
+                codesample_languages: [{
+                        text: 'HTML/XML',
+                        value: 'markup'
+                    },
+                    {
+                        text: 'Javascript',
+                        value: 'javascript'
+                    },
+                    {
+                        text: 'CSS',
+                        value: 'css'
+                    },
+                    {
+                        text: 'PHP',
+                        value: 'php'
+                    },
+                    {
+                        text: 'Python',
+                        value: 'python'
+                    },
+                    {
+                        text: 'C++',
+                        value: 'cpp'
+                    },
+                    {
+                        text: "JSON",
+                        value: "json"
+                    },
+                    {
+                        text: "bash",
+                        value: "bash"
+                    },
+                ],
+                toolbar1: "fullscreen preview | codesample",
+                toolbar2: "insertfile undo redo | styleselect | fontselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media ",
+                codesample_content_css: "{{ asset('vendor/blog/css/main.css') }}",
 
                 // MENGKONEKKAN CONTENT GAMBAR KE FILE MANAGER
                 file_picker_callback: function(callback, value, meta) {

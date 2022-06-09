@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Your Profile
+    Profile kamu
 @endsection
 
 @section('breadcrumbs')
@@ -28,7 +28,7 @@
 
                     <input type="file" name="user_image" id="user_image" class="user-update">
                     <a href="javascript:void(0)" class="btn btn-primary btn-block" id="changeImageBtn">
-                        <b>Change Picture</b>
+                        <b>Ganti Foto Profile</b>
                     </a>
                 </div>
             </div>
@@ -43,13 +43,13 @@
                             <a class="nav-link active" data-toggle="tab" href="#profile-1" role="tab">Profile Info</a>
                         </li>
                         <li class="nav-item waves-effect waves-light">
-                            <a class="nav-link" data-toggle="tab" href="#setting-1" role="tab">Setting Profile</a>
+                            <a class="nav-link" data-toggle="tab" href="#setting-1" role="tab">Setelan</a>
                         </li>
                         <li class="nav-item waves-effect waves-light">
-                            <a class="nav-link" data-toggle="tab" href="#setting-2" role="tab">Social Media</a>
+                            <a class="nav-link" data-toggle="tab" href="#setting-2" role="tab">Sosial Media</a>
                         </li>
                         <li class="nav-item waves-effect waves-light">
-                            <a class="nav-link" data-toggle="tab" href="#setting-3" role="tab">Change Password</a>
+                            <a class="nav-link" data-toggle="tab" href="#setting-3" role="tab">Ganti Password</a>
                         </li>
                     </ul>
 
@@ -88,9 +88,9 @@
                                 @method('put')
 
                                 <div class="form-group row">
-                                    <label for="name" class="col-sm-2 col-form-label">Name</label>
+                                    <label for="name" class="col-sm-2 col-form-label">Nama</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="name" placeholder="Name"
+                                        <input type="text" class="form-control" id="name" placeholder="Masukkan nama kamu"
                                             value="{{ Auth::user()->name }}" name="name">
                                         <span class="text-danger error-text name_error"></span>
                                     </div>
@@ -191,28 +191,28 @@
                                 @method('put')
 
                                 <div class="form-group row">
-                                    <label for="oldpass" class="col-sm-2 col-form-label">Old Password</label>
+                                    <label for="oldpass" class="col-sm-2 col-form-label">Password Lama</label>
                                     <div class="col-sm-10">
                                         <input type="password" class="form-control" id="oldpass"
-                                            placeholder="Enter current password" name="oldpass">
+                                            placeholder="Masukkan password yang sekarang" name="oldpass">
                                         <span class="text-danger error-text oldpass_error"></span>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="newpass" class="col-sm-2 col-form-label">New Password</label>
+                                    <label for="newpass" class="col-sm-2 col-form-label">Password Baru</label>
                                     <div class="col-sm-10">
                                         <input type="password" class="form-control" id="newpass"
-                                            placeholder="Enter new password" name="newpass">
+                                            placeholder="Masukkan password yang baru" name="newpass">
                                         <span class="text-danger error-text newpass_error"></span>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="confirmpass" class="col-sm-2 col-form-label">Confirm</label>
+                                    <label for="confirmpass" class="col-sm-2 col-form-label">Konfimasi</label>
                                     <div class="col-sm-10">
                                         <input type="password" class="form-control" id="confirmpass"
-                                            placeholder="Enter confirm password" name="confirmpass">
+                                            placeholder="Masukkan password yang dibuat baru tadi" name="confirmpass">
                                         <span class="text-danger error-text confirmpass_error"></span>
                                     </div>
                                 </div>
@@ -249,10 +249,10 @@
             let limit = val.value.length;
             if (limit >= max) {
                 val.value = val.value.substring(0, max);
-                $('#charNum').text('You have reached the limit');
+                $('#charNum').text('Kamu telah mencapai batas');
             } else {
                 var char = max - limit;
-                $('#charNum').text(char + ' Characters Left');
+                $('#charNum').text(char + ' Karakter tersisa');
             };
         }
 
@@ -374,7 +374,7 @@
                     },
                     complete: function() {
                         $('#buttonSosmed').removeAttr('disable');
-                        $('#buttonSosmed').html('Update Sosmed');
+                        $('#buttonSosmed').html('Update Sosial Media');
                     },
                     success: function(data) {
                         if (data.status == 400) {

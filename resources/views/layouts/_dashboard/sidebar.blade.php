@@ -14,7 +14,7 @@
 
         <div id="sidebar-menu">
             <ul>
-                <li class="menu-title">Main Page</li>
+                <li class="menu-title">Halaman Utama</li>
                 {{-- DASHBOARD --}}
                 <li>
                     <a href="{{ route('dashboard.index') }}"
@@ -27,11 +27,11 @@
                 <li>
                     <a href="{{ route('homepage') }}" target="_blank" class="waves-effect">
                         <i class="uil uil-estate"></i>
-                        <span>Home</span>
+                        <span>Beranda</span>
                     </a>
                 </li>
                 {{-- Profile --}}
-                <li class="menu-title">Manage Profile</li>
+                <li class="menu-title">Kelola Profile</li>
                 <li>
                     <a href="{{ route('profile.index') }}" class="{{ set_active('profile.index') }}waves-effect">
                         <i class="uil uil-user"></i>
@@ -41,24 +41,24 @@
 
                 @can('manage_website')
                     {{-- Settings website --}}
-                    <li class="menu-title">Setting Website</li>
+                    <li class="menu-title">Setelan Website</li>
                     <li>
                         <a href="{{ route('dashboard.setting') }}"
                             class="waves-effect {{ set_active('dashboard.setting') }}">
                             <i class="uil uil-setting"></i>
-                            <span> Settings</span>
+                            <span>Pengaturan</span>
                         </a>
                     </li>
                 @endcan
 
                 {{-- POSTS --}}
                 @can('manage_posts')
-                    <li class="menu-title">Manage Articles</li>
+                    <li class="menu-title">Kelola Blog</li>
                     <li>
                         <a href="{{ route('posts.index') }}"
                             class="waves-effect {{ set_active(['posts.index', 'posts.create', 'posts.edit', 'posts.show', 'posts.delete']) }}">
                             <i class="uil uil-book-medical"></i>
-                            <span> Posts</span>
+                            <span>Postingan</span>
                         </a>
                     </li>
                 @endcan
@@ -68,7 +68,7 @@
                         <a href="{{ route('categories.index') }}"
                             class="waves-effect {{ set_active(['categories.index', 'categories.create', 'categories.edit']) }}">
                             <i class="uil uil-bookmark"></i>
-                            <span> Categories</span>
+                            <span>Kategori</span>
                         </a>
                     </li>
                 @endcan
@@ -78,19 +78,19 @@
                         <a href="{{ route('tags.index') }}"
                             class="waves-effect {{ set_active(['tags.index', 'tags.create', 'tags.edit']) }}">
                             <i class="uil uil-tag-alt"></i>
-                            <span> Tags</span>
+                            <span>Tag</span>
                         </a>
                     </li>
                 @endcan
 
                 {{-- USERS --}}
                 @can('manage_users')
-                    <li class="menu-title">Manage Users</li>
+                    <li class="menu-title">Kelola Pengguna</li>
                     <li>
                         <a href="{{ route('users.index') }}"
                             class="waves-effect {{ set_active(['users.index', 'users.create', 'users.edit']) }}">
                             <i class="uil uil-users-alt"></i>
-                            <span> Users</span>
+                            <span>Pengguna</span>
                         </a>
                     </li>
                 @endcan
@@ -100,7 +100,7 @@
                         <a href="{{ route('roles.index') }}"
                             class="waves-effect {{ set_active(['roles.index', 'roles.create', 'roles.edit', 'roles.show']) }}">
                             <i class="uil uil-user-arrows"></i>
-                            <span> Roles</span>
+                            <span>Role</span>
                         </a>
                     </li>
                 @endcan
@@ -111,7 +111,7 @@
                     <li>
                         <a href="{{ route('contact.index') }}" class="waves-effect {{ set_active('contact.index') }}">
                             <i class="uil uil-inbox"></i>
-                            <span> Contact</span>
+                            <span>Pesan Kontak</span>
                         </a>
                     </li>
                 @endcan

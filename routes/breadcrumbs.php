@@ -19,7 +19,7 @@ Breadcrumbs::for('filemanager', function (BreadcrumbTrail $trail) {
 
 Breadcrumbs::for('list-contact', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard');
-    $trail->push('Contacts', route('contact.index'));
+    $trail->push('Inbox', route('contact.index'));
 });
 
 // Dashboard > Profile
@@ -31,19 +31,19 @@ Breadcrumbs::for('dash-profile', function (BreadcrumbTrail $trail) {
 // Dashboard > Website Settings
 Breadcrumbs::for('web_settings', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard');
-    $trail->push('Settings', route('dashboard.setting'));
+    $trail->push('Setelan Website', route('dashboard.setting'));
 });
 
 // =================================================================
 
 Breadcrumbs::for('categories', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard');
-    $trail->push('Categories', route('categories.index'));
+    $trail->push('Kategori', route('categories.index'));
 });
 
 Breadcrumbs::for('add_category', function (BreadcrumbTrail $trail) {
     $trail->parent('categories');
-    $trail->push('Create', route('categories.index'));
+    $trail->push('Buat', route('categories.index'));
 });
 
 // Dashboard > Categories > Edit
@@ -56,12 +56,12 @@ Breadcrumbs::for('edit_category', function (BreadcrumbTrail $trail, $category) {
 
 Breadcrumbs::for('tags', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard');
-    $trail->push('Tags', route('tags.index'));
+    $trail->push('Tag', route('tags.index'));
 });
 
 Breadcrumbs::for('add_tags', function (BreadcrumbTrail $trail) {
     $trail->parent('tags');
-    $trail->push('Create', route('tags.index'));
+    $trail->push('Buat', route('tags.index'));
 });
 
 Breadcrumbs::for('edit_tag', function (BreadcrumbTrail $trail, $tag) {
@@ -73,7 +73,7 @@ Breadcrumbs::for('edit_tag', function (BreadcrumbTrail $trail, $tag) {
 
 Breadcrumbs::for('posts', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard');
-    $trail->push('Posts', route('posts.index'));
+    $trail->push('Postingan blog', route('posts.index'));
 });
 
 Breadcrumbs::for('deleted_posts', function (BreadcrumbTrail $trail) {
@@ -83,7 +83,7 @@ Breadcrumbs::for('deleted_posts', function (BreadcrumbTrail $trail) {
 
 Breadcrumbs::for('add_posts', function (BreadcrumbTrail $trail) {
     $trail->parent('posts');
-    $trail->push('Create', route('posts.index'));
+    $trail->push('Buat postingan', route('posts.index'));
 });
 
 Breadcrumbs::for('detail_post', function (BreadcrumbTrail $trail, $post) {
@@ -100,7 +100,7 @@ Breadcrumbs::for('edit_post', function (BreadcrumbTrail $trail, $post) {
 
 Breadcrumbs::for('roles', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard');
-    $trail->push('Roles', route('roles.index'));
+    $trail->push('Role', route('roles.index'));
 });
 
 Breadcrumbs::for('detail_role', function (BreadcrumbTrail $trail, $role) {
@@ -110,7 +110,7 @@ Breadcrumbs::for('detail_role', function (BreadcrumbTrail $trail, $role) {
 
 Breadcrumbs::for('add_roles', function (BreadcrumbTrail $trail) {
     $trail->parent('roles');
-    $trail->push('Create', route('roles.create'));
+    $trail->push('Buat', route('roles.create'));
 });
 
 Breadcrumbs::for('edit_role', function (BreadcrumbTrail $trail, $role) {
@@ -122,12 +122,12 @@ Breadcrumbs::for('edit_role', function (BreadcrumbTrail $trail, $role) {
 
 Breadcrumbs::for('users', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard');
-    $trail->push('Users', route('users.index'));
+    $trail->push('Pengguna', route('users.index'));
 });
 
 Breadcrumbs::for('add_users', function (BreadcrumbTrail $trail) {
     $trail->parent('users');
-    $trail->push('Create', route('users.create'));
+    $trail->push('Buat', route('users.create'));
 });
 
 Breadcrumbs::for('edit_user', function (BreadcrumbTrail $trail, $user) {

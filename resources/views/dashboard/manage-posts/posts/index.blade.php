@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Posts Article
+    Postingan blog
 @endsection
 
 @section('breadcrumbs')
@@ -24,18 +24,18 @@
                                     <div class="input-group mx-1">
                                         <select id="statusPost" name="status" class="custom-select"
                                             style="border-radius: 4px" data-toggle="tooltip" data-placement="bottom"
-                                            title="Post Status">
+                                            title="Status">
                                             <option value="publish"
                                                 {{ $statusSelected == 'publish' ? 'selected' : null }}>
-                                                Publish
+                                                Publik
                                             </option>
                                             <option value="draft" {{ $statusSelected == 'draft' ? 'selected' : null }}>
-                                                Draft
+                                                Arsip
                                             </option>
                                             @if (!Auth::user()->editorRole())
                                                 <option value="approve"
                                                     {{ $statusSelected == 'approve' ? 'selected' : null }}>
-                                                    Approve
+                                                    Persetujuan
                                                 </option>
                                             @endif
                                         </select>
@@ -49,9 +49,10 @@
                                     <div class="input-group mx-1">
                                         <input autocomplete="off" name="keyword" type="search"
                                             value="{{ request()->get('keyword') }}" class="form-control"
-                                            placeholder="Search post...">
+                                            placeholder="Cari postingan kamu..">
                                         <div class="input-group-append">
-                                            <button class="btn btn-primary" type="submit">
+                                            <button class="btn btn-primary" type="submit" data-toggle="tooltip"
+                                                data-placement="bottom" title="Telusuri">
                                                 <i class="uil uil-search"></i>
                                             </button>
                                         </div>
@@ -63,7 +64,7 @@
                         @can('post_create')
                             <div class="col-md-6">
                                 <a href="{{ route('posts.create') }}" class="btn btn-primary float-right"
-                                    data-toggle="tooltip" data-placement="bottom" title="Post Create">
+                                    data-toggle="tooltip" data-placement="bottom" title="Buat">
                                     <i class="uil uil-plus"></i>
                                 </a>
                             </div>
@@ -91,7 +92,7 @@
                             @can('post_detail')
                                 <a href="{{ route('posts.show', ['post' => $post]) }}"
                                     class="btn btn-primary btn-sm waves-effect waves-light" data-toggle="tooltip"
-                                    data-placement="bottom" title="Post Show">
+                                    data-placement="bottom" title="Lihat">
                                     <i class="uil uil-eye"></i>
                                 </a>
                             @endcan
@@ -100,7 +101,7 @@
                                 @can('post_update')
                                     <a href="{{ route('posts.edit', ['post' => $post]) }}"
                                         class="btn btn-warning btn-sm waves-effect waves-light" data-toggle="tooltip"
-                                        data-placement="bottom" title="Post Edit">
+                                        data-placement="bottom" title="Edit">
                                         <i class="uil uil-pen"></i>
                                     </a>
                                 @endcan
@@ -109,12 +110,12 @@
                                     {{-- delete --}}
                                     <form action="{{ route('posts.destroy', ['post' => $post]) }}" method="POST"
                                         class="d-inline" role="alertDelete"
-                                        alert-text="Are you sure you want to delete the {{ $post->title }} post?">
+                                        alert-text='Hmm.. apakah kamu yakin? postingan kamu dengan judul "{{ $post->title }}" akan dihapus permanen?'>
                                         @csrf
                                         @method('DELETE')
 
                                         <button type="submit" class="btn btn-danger btn-sm waves-effect waves-light"
-                                            data-toggle="tooltip" data-placement="bottom" title="Delete Post">
+                                            data-toggle="tooltip" data-placement="bottom" title="Hapus">
                                             <i class="uil uil-trash"></i>
                                         </button>
                                     </form>
@@ -122,26 +123,22 @@
 
                                 @if ($post->status == 'publish')
                                     <form action="{{ route('posts.draft', ['post' => $post]) }}" method="POST"
-                                        class="d-inline" role="alertPublish"
-                                        alert-text="Are you sure you want to archive the {{ $post->title }} post?"
-                                        alert-button="Archive">
+                                        class="d-inline">
                                         @csrf
                                         @method('PUT')
 
-                                        <button type="submit" data-toggle="tooltip" data-placement="bottom" title="Archive"
+                                        <button type="submit" data-toggle="tooltip" data-placement="bottom" title="Arsip"
                                             class="float-right btn btn-secondary btn-sm waves-effect waves-light">
                                             <i class="uil uil-archive"></i>
                                         </button>
                                     </form>
                                 @elseif ($post->status == 'draft')
                                     <form action="{{ route('posts.publish', ['post' => $post]) }}" method="POST"
-                                        class="d-inline" role="alertPublish"
-                                        alert-text="Are you sure you want to publish the {{ $post->title }} post?"
-                                        alert-button="Publish">
+                                        class="d-inline">
                                         @csrf
                                         @method('PUT')
 
-                                        <button type="submit" data-toggle="tooltip" data-placement="bottom" title="Publish"
+                                        <button type="submit" data-toggle="tooltip" data-placement="bottom" title="Publik"
                                             class="float-right btn btn-secondary btn-sm waves-effect waves-light">
                                             <i class="uil uil-upload-alt"></i>
                                         </button>
@@ -152,12 +149,12 @@
                             @if ($post->status == 'approve')
                                 @if (!Auth::user()->editorRole())
                                     <form action="{{ route('posts.approval', ['post' => $post]) }}" method="POST"
-                                        class="d-inline" role="alertPublish" alert-button="Approve"
-                                        alert-text="Are you sure you want to approve the {{ $post->title }} post?">
+                                        class="d-inline" role="alertPublish" alert-button="Ya Setuju"
+                                        alert-text="Apakah kamu ingin mensetujui postingan {{ $post->title }}?">
                                         @csrf
                                         @method('PUT')
 
-                                        <button type="submit" data-toggle="tooltip" data-placement="bottom" title="Approve"
+                                        <button type="submit" data-toggle="tooltip" data-placement="bottom" title="Setujui"
                                             class="float-right btn btn-success btn-sm waves-effect waves-light">
                                             <i class="uil uil-upload"></i>
                                         </button>
@@ -171,9 +168,10 @@
             @empty
                 <b class="ml-5">
                     @if (request()->get('keyword'))
-                        Oops.. {{ strtoupper(request()->get('keyword')) }} post not found :(
+                        Oops.. sepertinya postingan kamu dengan kata kunci {{ strtoupper(request()->get('keyword')) }}
+                        tidak ditemukan.
                     @else
-                        No posts data yet
+                        Oops.. sepertinya disini tidak ada postingan blog.
                     @endif
                 </b>
             @endforelse
@@ -216,8 +214,8 @@
                     icon: "warning",
                     allowOutsideClick: false,
                     showCancelButton: true,
-                    cancelButtonText: "Cancel",
-                    confirmButtonText: "Delete",
+                    cancelButtonText: "Ga, batalkan!",
+                    confirmButtonText: "Ya, hapus!",
                     confirmButtonColor: '#d33',
                     reverseButtons: true,
                 }).then((result) => {
@@ -236,7 +234,7 @@
                     icon: "warning",
                     allowOutsideClick: false,
                     showCancelButton: true,
-                    cancelButtonText: "Cancel",
+                    cancelButtonText: "Gajadi",
                     confirmButtonText: $(this).attr('alert-button'),
                     confirmButtonColor: '#00829b',
                     reverseButtons: true,

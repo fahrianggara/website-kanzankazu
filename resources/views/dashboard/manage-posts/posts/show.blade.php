@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Post Detail
+    {{ $post->title }}
 @endsection
 
 @section('breadcrumbs')
@@ -27,35 +27,39 @@
                     </svg>
                 @endif
                 <div class="card-body">
-                    <h4 class="card-title font-20 mt-0" style="margin: 0">{{ $post->title }}</h4>
-                    <span class="card-text">
-                        <i class="uil uil-user"></i> {{ $post->author }}
-                    </span>
-                    |
-                    <span class="card-text">
-                        <i class="uil uil-calendar-alt"></i> {{ $post->created_at->format('d/m/Y') }}
-                    </span>
-                    |
-                    <span class="card-text">
-                        <i class="uil uil-eye"></i> {{ $post->views }}
-                    </span>
-                    |
-                    @foreach ($categories as $category)
-                        <span class="badge badge-primary">{{ $category->title }} </span>
-                    @endforeach
-                    /
-                    @foreach ($tags as $tag)
-                        <span class="badge badge-info">{{ $tag->title }}</span>
-                    @endforeach
+                    <h3 class="card-title mt-0" style="margin: 0">{{ $post->title }}</h3>
+                    <div class="mb-2 mt-2">
+                        <span class="card-text">
+                            <i class="uil uil-user"></i> {{ $post->author }}
+                        </span>
+                        |
+                        <span class="card-text">
+                            <i class="uil uil-calendar-alt"></i> {{ $post->created_at->format('d/m/Y') }}
+                        </span>
+                        |
+                        <span class="card-text">
+                            <i class="uil uil-eye"></i> {{ $post->views }}
+                        </span>
+                        |
+                        @foreach ($categories as $category)
+                            <span class="badge badge-primary">{{ $category->title }} </span>
+                        @endforeach
+                        /
+                        @foreach ($tags as $tag)
+                            <span class="badge badge-info">{{ $tag->title }}</span>
+                        @endforeach
+                    </div>
 
                     <div class="py-1 card-text">
                         {!! $post->content !!}
                     </div>
+
                     <hr>
 
                     <div class="">
                         <a href=" {{ route('posts.index') }}" class="btn btn-info">
-                            Back</a>
+                            Kembali
+                        </a>
                     </div>
                 </div>
             </div>

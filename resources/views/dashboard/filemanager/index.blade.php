@@ -16,16 +16,13 @@
                 <div class="card-header d-flex justify-content-end">
                     <form action="" method="GET" style="width: 240px">
                         <div class="input-group">
-                            <select name="type" class="custom-select">
-                                @foreach ($types as $value => $label)
-                                    <option value="{{ $value }}"
-                                        {{ $typesSelected == $value ? 'selected' : null }}>
-                                        {{ $label }}</option>
-                                @endforeach
+                            <select id="selectType" name="type" class="custom-select" style="border-radius: 4px">
+                                <option value="image" {{ $typesSelected == 'image' ? 'selected' : null }}>Gambar</option>
+                                <option value="file" {{ $typesSelected == 'file' ? 'selected' : null }}>File</option>
                             </select>
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit">
-                                    Apply
+                                <button id="selectButton" class="btn btn-primary d-none" type="submit">
+                                    Terapkan
                                 </button>
                             </div>
                         </div>
@@ -40,3 +37,11 @@
         </div>
     </div>
 @endsection
+
+@push('js-internal')
+    <script>
+        $('#selectType').on('change', function() {
+            $('#selectButton').click();
+        });
+    </script>
+@endpush

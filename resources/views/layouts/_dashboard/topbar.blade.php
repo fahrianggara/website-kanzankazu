@@ -4,7 +4,7 @@
         <ul class="list-inline float-right mb-0">
 
             <li class="list-inline-item dropdown notification-list" data-toggle="tooltip" data-placement="bottom"
-                title="Change theme">
+                title="Ganti Tema">
                 <a class="nav-link dropdown-toggle arrow-none waves-effect" role="button">
                     <i id="theme-toggle" class="uil uil-moon noti-icon"></i>
                 </a>
@@ -26,7 +26,7 @@
 
                             <div class="dropdown-item noti-title">
                                 <h5>
-                                    Notification
+                                    Notifikasi
                                     @if ($postApprove->count() >= 1)
                                         <span class="badge badge-danger float-right">
                                             {{ $postApprove->count() }}
@@ -40,9 +40,10 @@
                                     class="dropdown-item notify-item">
                                     <div class="notify-icon bg-primary"><i class="uil uil-file-check-alt"></i></div>
                                     <p class="notify-details">
-                                        <b>Approved</b>
+                                        <b>Persetujuan</b>
                                         <small class="text-muted">
-                                            Posts with the title "{{ $post->title }}" are waiting to be approved
+                                            Postingan dengan judul "{{ $post->title }}" menunggu persetujuan dari
+                                            {{ Auth::user()->name }}
                                         </small>
                                     </p>
                                 </a>
@@ -50,7 +51,7 @@
                                 <a href="javascript:void(0);" class="dropdown-item notify-item">
                                     <div class="notify-icon bg-primary"><i class="uil uil-bell-slash"></i></div>
                                     <p class="notify-details text-center" style="margin-top: 5px">
-                                        <b>no notification.</b>
+                                        <b>Tidak ada notifikasi.</b>
                                     </p>
                                 </a>
                             @endforelse
@@ -58,7 +59,7 @@
                             @if ($postApprove->count() >= 3)
                                 <a href="{{ url('dashboard/posts') }}?status=approve"
                                     class="dropdown-item notify-item">
-                                    View All
+                                    Lihat Semua
                                 </a>
                             @endif
                         </div>
@@ -80,7 +81,7 @@
                     <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-menu-lg">
                         <div class="dropdown-item noti-title">
                             <h5>
-                                Notification
+                                Notifikasi
                                 @if ($postUserApprove->count() ||
                                     auth()->user()->unreadNotifications->count() >= 1)
                                     <span class="badge badge-danger float-right">
@@ -106,10 +107,10 @@
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
                                 <div class="notify-icon bg-primary"><i class="uil uil-clock"></i></div>
                                 <p class="notify-details">
-                                    <b>Waiting Approved..</b>
+                                    <b>Menunggu Disetujui</b>
                                     <small class="text-muted">
-                                        Your post with the title "{{ $post->title }}" is waiting to be
-                                        approved.
+                                        Postingan kamu dengan judul "{{ $post->title }}" menunggu persetujuan dari
+                                        Admin/Mimin.
                                     </small>
                                 </p>
                             </a>
@@ -120,7 +121,7 @@
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
                                 <div class="notify-icon bg-primary"><i class="uil uil-bell-slash"></i></div>
                                 <p class="notify-details text-center" style="margin-top: 5px">
-                                    <b>no notification.</b>
+                                    <b>Tidak ada notifikasi.</b>
                                 </p>
                             </a>
                         @endif
@@ -178,10 +179,10 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                Do you really want to logout?
+                Apakah kamu ingin logout?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                 <a href="{{ route('logout') }}" type="button" class="btn btn-danger" onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">Logout
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

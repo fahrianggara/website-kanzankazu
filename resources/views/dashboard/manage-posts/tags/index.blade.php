@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Tags
+    Tag postingan
 @endsection
 
 @section('breadcrumbs')
@@ -21,10 +21,11 @@
                     <form action="{{ route('tags.index') }}" method="GET" class="float-left">
                         <div class="input-group">
                             <input autocomplete="off" type="search" id="keyword" name="keyword" class="form-control"
-                                placeholder="Search Tag.." value="{{ request()->get('keyword') }}">
+                                placeholder="Cari tag.." value="{{ request()->get('keyword') }}">
                             {{-- buton submit --}}
                             <div class="input-group-append">
-                                <button class="btn btn-info" type="submit">
+                                <button class="btn btn-info" type="submit" data-toggle="tooltip" data-placement="bottom"
+                                    title="Telusuri">
                                     <i class="uil uil-search"></i>
                                 </button>
                             </div>
@@ -33,7 +34,7 @@
                     @can('tag_create')
                         {{-- button create --}}
                         <a href="{{ route('tags.create') }}" class="btn btn-primary float-right" data-toggle="tooltip"
-                            data-placement="bottom" title="Tag Create">
+                            data-placement="bottom" title="Buat">
                             <i class="uil uil-plus"></i>
                         </a>
                     @endcan
@@ -42,7 +43,7 @@
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
 
-                        @if (count($tags))
+                        @if (count($tags) >= 1)
                             @foreach ($tags as $tag)
                                 <li
                                     class="list-group-item list-group-item-action d-flex justify-content-between align-items-center pr-0">
@@ -55,7 +56,7 @@
                                         @can('tag_update')
                                             {{-- EDIT --}}
                                             <a href="{{ route('tags.edit', ['tag' => $tag]) }}" class="btn btn-warning btn-sm"
-                                                data-toggle="tooltip" data-placement="bottom" title="Tag Edit">
+                                                data-toggle="tooltip" data-placement="bottom" title="Edit">
                                                 <i class="uil uil-pen"></i>
                                             </a>
                                         @endcan
@@ -63,12 +64,12 @@
                                             {{-- DELETE --}}
                                             <form action="{{ route('tags.destroy', ['tag' => $tag]) }}" method="POST"
                                                 class="d-inline" role="alert"
-                                                alert-text="Are you sure you want to delete the {{ $tag->title }} tag?">
+                                                alert-text="Apakah kamu yakin? tag {{ $tag->title }} akan dihapus permanen?">
                                                 @csrf
                                                 @method('DELETE')
 
                                                 <button type="submit" class="btn btn-sm btn-danger" data-toggle="tooltip"
-                                                    data-placement="bottom" title="Tag Delete">
+                                                    data-placement="bottom" title="Hapus">
                                                     <i class="uil uil-trash"></i>
                                                 </button>
                                             </form>
@@ -79,9 +80,11 @@
                         @else
                             <b>
                                 @if (request()->get('keyword'))
-                                    Oops.. {{ strtoupper(request()->get('keyword')) }} tag not found :(
+                                    Oops.. sepertinya tag {{ strtoupper(request()->get('keyword')) }}
+                                    tidak ditemukan.
                                 @else
-                                    No tag data yet
+                                    Hmm.. sepertinya belum ada tag yang dibuat. <a
+                                        href="{{ route('tags.create') }}">Buat?</a>
                                 @endif
                             </b>
                         @endif
@@ -121,8 +124,8 @@
                     icon: "warning",
                     allowOutsideClick: false,
                     showCancelButton: true,
-                    cancelButtonText: "Cancel",
-                    confirmButtonText: "Delete",
+                    cancelButtonText: "Ga, batalkan!",
+                    confirmButtonText: "Ya, hapus!",
                     confirmButtonColor: '#d33',
                     reverseButtons: true,
                 }).then((result) => {

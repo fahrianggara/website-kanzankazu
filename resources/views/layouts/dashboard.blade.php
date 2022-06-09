@@ -33,6 +33,12 @@
     {{-- CALL CSS --}}
     @stack('css-external')
     @stack('css-internal')
+
+    <style>
+        .tox:not([dir=rtl]) .tox-statusbar__branding {
+            display: none
+        }
+    </style>
 </head>
 
 

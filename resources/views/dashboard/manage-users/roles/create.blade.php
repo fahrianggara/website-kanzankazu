@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Create Role
+    Buat role
 @endsection
 
 @section('breadcrumbs')
@@ -17,10 +17,10 @@
                         @csrf
 
                         <div class="form-group">
-                            <label for="input_role_name">Name Role</label>
+                            <label for="input_role_name">Nama</label>
 
                             <input id="input_role_name" name="name" type="text" name="name" value="{{ old('role') }}"
-                                class="form-control @error('name') is-invalid @enderror" placeholder="Enter role name"
+                                class="form-control @error('name') is-invalid @enderror" placeholder="Masukkan nama role"
                                 autofocus>
 
                             @error('name')
@@ -32,7 +32,7 @@
 
                         <div class="form-group">
 
-                            <label for="input_role_permission">Role Permissions
+                            <label for="input_role_permission">Daftar Role
                                 <input type="checkbox" value="" class=" ml-1" id="centangAll">
                             </label>
 
@@ -78,12 +78,12 @@
                                 </span>
                             @enderror
                         </div>
-
+                    </form>
                 </div>
                 <div class="card-footer">
                     <div class="float-right">
-                        <a href="{{ route('roles.index') }}" class="btn btn-info">Back</a>
-                        <button type="submit" class="btn btn-success">Save</button>
+                        <a href="{{ route('roles.index') }}" class="btn btn-info">Kembali</a>
+                        <button type="submit" class="btn btn-success">Simpan</button>
                     </div>
                 </div>
 

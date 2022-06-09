@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Categories
+    Kategori postingan
 @endsection
 
 @section('breadcrumbs')
@@ -14,7 +14,7 @@
     <div class="notif-success" data-notif="{{ Session::get('success') }}"></div>
 
     <div class="row">
-        <div class="col-12">
+        <div class="col-md-12">
             <div class="card m-b-30">
 
                 <div class="card-header">
@@ -22,11 +22,11 @@
                     <form action="{{ route('categories.index') }}" method="GET" class="float-left">
                         <div class="input-group">
                             <input autocomplete="off" type="search" id="keyword" name="keyword" class="form-control"
-                                placeholder="Search Category.." value="{{ request()->get('keyword') }}"
-                                autocomplete="off">
+                                placeholder="Cari kategori.." value="{{ request()->get('keyword') }}" autocomplete="off">
                             {{-- buton submit --}}
                             <div class="input-group-append">
-                                <button class="btn btn-info" type="submit">
+                                <button class="btn btn-info" type="submit" data-toggle="tooltip" data-placement="bottom"
+                                    title="Telusuri">
                                     <i class="uil uil-search"></i>
                                 </button>
                             </div>
@@ -35,7 +35,7 @@
                     @can('category_create')
                         {{-- button create --}}
                         <a href="{{ route('categories.create') }}" class="btn btn-primary float-right" data-toggle="tooltip"
-                            data-placement="bottom" title="Category Create">
+                            data-placement="bottom" title="Buat">
                             <i class="uil uil-plus"></i>
                         </a>
                     @endcan
@@ -52,9 +52,12 @@
                         @else
                             <b>
                                 @if (request()->get('keyword'))
-                                    Oops.. {{ strtoupper(request()->get('keyword')) }} category not found :(
+                                    {{-- Oops.. {{ strtoupper(request()->get('keyword')) }} category not found :( --}}
+                                    Oops.. sepertinya kategori {{ strtoupper(request()->get('keyword')) }}
+                                    tidak ditemukan.
                                 @else
-                                    No category data yet
+                                    Hmm.. sepertinya belum ada kategori yang dibuat. <a
+                                        href="{{ route('categories.create') }}">Buat?</a>
                                 @endif
                             </b>
                         @endif
@@ -97,8 +100,8 @@
                     icon: "warning",
                     allowOutsideClick: false,
                     showCancelButton: true,
-                    cancelButtonText: "Cancel",
-                    confirmButtonText: "Delete",
+                    cancelButtonText: "Ga, batalkan!",
+                    confirmButtonText: "Ya, hapus!",
                     confirmButtonColor: '#d33',
                     reverseButtons: true,
                 }).then((result) => {

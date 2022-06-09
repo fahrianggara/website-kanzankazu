@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Posts Create
+    Buat postingan
 @endsection
 
 @section('breadcrumbs')
@@ -14,12 +14,12 @@
         @csrf
 
         <div class="row">
-            <div class="col-lg-4" style="margin: 0">
+            <div class="col-lg-3">
                 <div class="card m-b-30">
                     <div class="card-body">
                         <div class="form-group">
 
-                            <label for="check_category" class="font-weight-bold">Choose Categories <span
+                            <label for="check_category" class="font-weight-bold">Pilih kategori<span
                                     class="star-required">*</span></label>
 
                             <div class="form-control overflow-auto @error('category') is-invalid @enderror"
@@ -42,17 +42,17 @@
                 </div>
             </div>
 
-            <div class="col-lg-8">
+            <div class="col-lg-9">
                 <div class="card m-b-30">
                     <div class="card-body">
 
                         {{-- TITLE --}}
                         <div class="form-group">
-                            <label for="input_post_title">Title <span class="star-required">*</span></label>
+                            <label for="input_post_title">Judul <span class="star-required">*</span></label>
 
                             <input type="text" id="input_post_title" name="title"
-                                class="form-control @error('title') is-invalid @enderror" placeholder="Enter your Title"
-                                value="{{ old('title') }}" autofocus>
+                                class="form-control @error('title') is-invalid @enderror"
+                                placeholder="Masukkan judul postingan kamu" value="{{ old('title') }}" autofocus>
 
                             @error('title')
                                 <span class="invalid-feedback" role="alert">
@@ -78,11 +78,11 @@
 
                         {{-- KEYWORDS --}}
                         <div class="form-group">
-                            <label for="input_post_keywords">Keywords <span class="star-required">*</span></label>
+                            <label for="input_post_keywords">Kata Kunci <span class="star-required">*</span></label>
 
                             <input type="text" id="input_post_keywords" name="keywords"
                                 class="form-control @error('keywords') is-invalid @enderror"
-                                placeholder="Enter your post keywords: yourtitlepost, yourcategorypost, blablabla"
+                                placeholder="Masukkan kata kunci postingan kamu. cth: tutorial, php"
                                 value="{{ old('keywords') }}">
 
                             @error('keywords')
@@ -97,7 +97,7 @@
                             <label for="input_post_author">Author</label>
 
                             <input type="text" id="input_post_author" name="author"
-                                class="form-control @error('author') is-invalid @enderror" placeholder="Name"
+                                class="form-control @error('author') is-invalid @enderror" placeholder="Author"
                                 value="{{ Auth::user()->name }}" readonly>
 
                             @error('author')
@@ -109,7 +109,7 @@
 
                         {{-- THUMBNAIL --}}
                         <div class="form-group">
-                            <label for="input_post_thumbnail">Thumbnail <span class="star-required">*</span></label>
+                            <label for="input_post_thumbnail">Gambar Postingan <span class="star-required">*</span></label>
 
                             <div class="input-group">
 
@@ -117,7 +117,7 @@
                                     <input type="file" name="thumbnail"
                                         class="custom-file-input @error('thumbnail') is-invalid @enderror" id="thumbnail"
                                         value="{{ old('thumbnail') }}">
-                                    <label class="custom-file-label" for="thumbnail">Choose post thumbnail..</label>
+                                    <label class="custom-file-label" for="thumbnail">Pilih gambar postingan kamu..</label>
                                 </div>
 
                                 @error('thumbnail')
@@ -130,7 +130,7 @@
 
                         {{-- SELECT TAG --}}
                         <div class="form-group">
-                            <label for="select_post_tag" class="">Select Tag <span
+                            <label for="select_post_tag" class="">Pilih tag postingan<span
                                     class="star-required">*</span>
                             </label>
 
@@ -158,7 +158,7 @@
 
                                 <select name="status" id="select_post_status"
                                     class="custom-select w-100 @error('status') is-invalid @enderror">
-                                    <option value="approve" @if (old('status') == 'approve') selected @endif>Approve
+                                    <option value="approve" @if (old('status') == 'approve') selected @endif>Persetujuan
                                     </option>
                                 </select>
 
@@ -174,9 +174,9 @@
 
                                 <select name="status" id="select_post_status"
                                     class="custom-select w-100 @error('status') is-invalid @enderror">
-                                    <option value="publish" @if (old('status') == 'publish') selected @endif>Publish
+                                    <option value="publish" @if (old('status') == 'publish') selected @endif>Publik
                                     </option>
-                                    <option value="draft" @if (old('status') == 'draft') selected @endif>Draft</option>
+                                    <option value="draft" @if (old('status') == 'draft') selected @endif>Arsip</option>
 
                                     @error('status')
                                         <span class="invalid-feedback" role="alert">
@@ -189,10 +189,10 @@
 
                         {{-- DESCRIPTION --}}
                         <div class="form-group">
-                            <label for="input_post_desc">Description <span class="star-required">*</span></label>
+                            <label for="input_post_desc">Deskripsi <span class="star-required">*</span></label>
 
                             <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="input_post_desc"
-                                onkeyup="countCharBlog(this)" cols="2" rows="6" placeholder="Enter your description..">{{ old('description') }}</textarea>
+                                onkeyup="countCharBlog(this)" cols="2" rows="6" placeholder="Masukkan deskripsi postingan kamu..">{{ old('description') }}</textarea>
 
                             <span class="float-right" id="charNumBlog"></span>
 
@@ -205,11 +205,11 @@
 
                         <div class="form-group">
                             <label for="input_post_content">
-                                Content <span class="star-required">*</span>
+                                Konten <span class="star-required">*</span>
                             </label>
 
                             <textarea name="content" id="input_post_content" cols="30" rows="30"
-                                class="form-control @error('content') is-invalid @enderror" placeholder="Enter your content article">{{ old('content') }}</textarea>
+                                class="form-control @error('content') is-invalid @enderror" placeholder="Masukkan isi konten kamu disini">{{ old('content') }}</textarea>
 
                             @error('content')
                                 <span class="invalid-feedback" role="alert">
@@ -220,7 +220,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="float-right">
-                            <a class="btn btn-info px-4" href="{{ route('posts.index') }}">Back</a>
+                            <a class="btn btn-info px-4" href="{{ route('posts.index') }}">Kembali</a>
                             <button type="submit" class="btn btn-success px-4">Posting</button>
                         </div>
                     </div>
@@ -273,18 +273,58 @@
                 relative_urls: false,
                 language: "en",
                 selector: 'textarea',
-                content_css: 'dark',
-                skin: "oxide-dark",
+                // content_css: 'dark',
+                // skin: "oxide-dark",
                 height: 300,
                 plugins: [
                     "advlist autolink lists link image charmap print preview hr anchor pagebreak",
                     "searchreplace wordcount visualblocks visualchars code fullscreen",
                     "insertdatetime media nonbreaking save table directionality",
                     "emoticons template paste textpattern",
-                    "tabfocus"
+                    "tabfocus",
+                    "codesample"
                 ],
-                toolbar1: "fullscreen preview",
-                toolbar2: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
+                font_formats: "Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Oswald=oswald; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Terminal=terminal,monaco; Times New Roman=times new roman,times; Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva; Webdings=webdings; Wingdings=wingdings,zapf dingbats",
+                codesample_languages: [{
+                        text: 'HTML/XML',
+                        value: 'markup'
+                    },
+                    {
+                        text: 'Javascript',
+                        value: 'javascript'
+                    },
+                    {
+                        text: 'CSS',
+                        value: 'css'
+                    },
+                    {
+                        text: 'PHP',
+                        value: 'php'
+                    },
+                    {
+                        text: 'Python',
+                        value: 'python'
+                    },
+                    {
+                        text: 'C++',
+                        value: 'cpp'
+                    },
+                    {
+                        text: "JSON",
+                        value: "json"
+                    },
+                    {
+                        text: "bash",
+                        value: "bash"
+                    },
+                    {
+                        text: "Mel",
+                        value: "mel"
+                    },
+                ],
+                toolbar1: "fullscreen preview | codesample",
+                toolbar2: "insertfile undo redo | styleselect | fontselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media ",
+                codesample_content_css: "{{ asset('vendor/blog/css/main.css') }}",
 
                 // MENGKONEKKAN CONTENT GAMBAR KE FILE MANAGER
                 file_picker_callback: function(callback, value, meta) {
@@ -343,7 +383,7 @@
                 let fileName = $(this).val();
 
                 if (fileName == undefined || fileName == "") {
-                    $(this).next('.custom-file-label').html('No image selected..')
+                    $(this).next('.custom-file-label').html('Tidak ada gambar yang dipilih..')
                 } else {
                     $(this).next('.custom-file-label').html(event.target.files[0].name);
                 }
@@ -357,10 +397,10 @@
             let limit = val.value.length;
             if (limit >= max) {
                 val.value = val.value.substring(0, max);
-                $('#charNumBlog').text('You have reached the limit');
+                $('#charNumBlog').text('Kamu sudah mencapai batas maksimal');
             } else {
                 var char = max - limit;
-                $('#charNumBlog').text(char + ' Characters Left');
+                $('#charNumBlog').text(char + ' Karakter tersisa');
             };
         }
     </script>

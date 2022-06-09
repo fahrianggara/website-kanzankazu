@@ -25,7 +25,7 @@
                                 <div class="col-9 align-self-center text-center">
                                     <div class="m-l-10">
                                         <h5 class="mt-0 round-inner">{{ $countPost }}</h5>
-                                        <p class="mb-0 text-muted">Posts</p>
+                                        <p class="mb-0 text-muted">Postingan</p>
                                     </div>
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
                                 <div class="col-9 align-self-center text-center">
                                     <div class="m-l-10">
                                         <h5 class="mt-0 round-inner">{{ $countCategory }}</h5>
-                                        <p class="mb-0 text-muted">Categories </p>
+                                        <p class="mb-0 text-muted">Kategori</p>
                                     </div>
                                 </div>
                             </div>
@@ -73,7 +73,7 @@
                                 <div class="col-9 align-self-center text-center">
                                     <div class="m-l-10">
                                         <h5 class="mt-0 round-inner">{{ $countTag }}</h5>
-                                        <p class="mb-0 text-muted">Tags</p>
+                                        <p class="mb-0 text-muted">Tag</p>
                                     </div>
                                 </div>
                             </div>
@@ -163,7 +163,7 @@
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-header">
-                        Post Today
+                        Postingan hari ini
                     </div>
                 </div>
             </div>
@@ -193,7 +193,8 @@
             @else
                 <div class="col-12">
                     <div class="text-center m-b-30" role="alert">
-                        You don't have today's latest post
+                        Sepertinya kamu belum membuat postingan dihari ini.
+                        <a href="{{ route('posts.create') }}">buat postingan?</a>
                     </div>
                 </div>
             @endif
@@ -215,7 +216,7 @@
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-header">
-                        Category Today
+                        Kategori hari ini
                     </div>
                 </div>
             </div>
@@ -243,7 +244,7 @@
             @else
                 <div class="col-12">
                     <div class="text-center m-b-30" role="alert">
-                        You don't have today's newest category
+                        Tidak ada kategori yang dibuat hari ini
                     </div>
                 </div>
             @endif
@@ -265,7 +266,7 @@
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-header">
-                        Tag Today
+                        Tag hari ini
                     </div>
                     <div class="card-body">
                         @if ($tagToday->count() >= 1)
@@ -274,7 +275,7 @@
                             @endforeach
                         @else
                             <div class="text-center" role="alert">
-                                You don't have today's latest tags
+                                Tidak ada tag yang dibuat hari ini
                             </div>
                         @endif
                     </div>
@@ -289,7 +290,7 @@
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-header">
-                        User Today
+                        Pengguna hari ini
                     </div>
                     <div class="card-body">
                         @if ($userToday->count() >= 1)
@@ -326,7 +327,7 @@
                             </div>
                         @else
                             <div class="text-center">
-                                You don't have today's latest users
+                                Belum ada yang mendaftar hari ini
                             </div>
                         @endif
                     </div>
@@ -341,7 +342,7 @@
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-header">
-                        Role Today
+                        Role hari ini
                     </div>
                     <div class="card-body">
                         @if ($roleToday->count() >= 1)
@@ -352,7 +353,7 @@
                             @endforeach
                         @else
                             <div class="text-center" role="alert">
-                                You don't have today's latest roles
+                                Tidak ada role yang dibuat hari ini
                             </div>
                         @endif
                     </div>
@@ -367,7 +368,7 @@
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-header">
-                        Inbox Today
+                        Pesan masuk hari ini
                     </div>
                     <div class="card-body">
                         @if ($inboxToday->count() >= 1)
@@ -395,7 +396,7 @@
                             </div>
                         @else
                             <div class="text-center" role="alert">
-                                You don't have the newest inbox today
+                                Belum ada pesan yang masuk hari ini
                             </div>
                         @endif
                     </div>

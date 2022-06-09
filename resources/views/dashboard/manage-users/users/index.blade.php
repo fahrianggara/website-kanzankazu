@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Manage Users
+    Daftar Pengguna
 @endsection
 
 @section('breadcrumbs')
@@ -19,10 +19,11 @@
                     <form action="{{ route('users.index') }}" method="GET" class="float-left">
                         <div class="input-group">
                             <input autocomplete="off" type="search" id="keyword" name="keyword" class="form-control"
-                                placeholder="Search user.." value="{{ request()->get('keyword') }}">
+                                placeholder="Cari pengguna.." value="{{ request()->get('keyword') }}">
                             {{-- buton submit --}}
                             <div class="input-group-append">
-                                <button class="btn btn-info" type="submit">
+                                <button class="btn btn-info" type="submit" data-toggle="tooltip" data-placement="bottom"
+                                    title="Telusuri">
                                     <i class="uil uil-search"></i>
                                 </button>
                             </div>
@@ -31,7 +32,7 @@
                     @can('user_create')
                         {{-- button create --}}
                         <a href="{{ route('users.create') }}" class="btn btn-primary float-right" data-toggle="tooltip"
-                            data-placement="bottom" title="User Create">
+                            data-placement="bottom" title="Buat">
                             <i class="uil uil-plus"></i>
                         </a>
                     @endcan
@@ -41,61 +42,63 @@
                         <div class="col-12">
 
                             <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr class="text-center">
-                                            <th>No</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Role</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @php $no = 1 @endphp
-                                        @forelse ($users as $user)
+                                @if (count($users) >= 1)
+                                    <table class="table">
+                                        <thead>
                                             <tr class="text-center">
-                                                <td>{{ $no++ }}</td>
-                                                <td>{{ $user->name }}</td>
-                                                <td>{{ $user->email }}</td>
-                                                <td>{{ $user->roles->first()->name }}</td>
-                                                <td>
-                                                    {{-- Edit user --}}
-                                                    @can('user_update')
-                                                        <a href="{{ route('users.edit', ['user' => $user]) }}"
-                                                            class="btn btn-sm btn-warning" data-toggle="tooltip"
-                                                            data-placement="bottom" title="User Edit">
-                                                            <i class="uil uil-pen"></i>
-                                                        </a>
-                                                    @endcan
-                                                    {{-- Delete user --}}
-                                                    @can('user_delete')
-                                                        <form action="{{ route('users.destroy', ['user' => $user]) }}"
-                                                            method="POST" class="d-inline" role="alert"
-                                                            alert-text="Are you sure? user with the {{ $user->name }} name will be deleted">
-                                                            @csrf
-                                                            @method('DELETE')
-
-                                                            <button type="submit" class="btn btn-sm btn-danger"
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="User Delete">
-                                                                <i class="uil uil-trash"></i>
-                                                            </button>
-                                                        </form>
-                                                    @endcan
-                                                </td>
+                                                <th>No</th>
+                                                <th>Nama</th>
+                                                <th>Email</th>
+                                                <th>Role</th>
+                                                <th>Opsi</th>
                                             </tr>
-                                        @empty
-                                            <b>
-                                                @if (request()->get('keyword'))
-                                                    Oops.. {{ strtoupper(request()->get('keyword')) }} user not found :(
-                                                @else
-                                                    No user data yet
-                                                @endif
-                                            </b>
-                                        @endforelse
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($users as $user)
+                                                <tr class="text-center">
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $user->name }}</td>
+                                                    <td>{{ $user->email }}</td>
+                                                    <td>{{ $user->roles->first()->name }}</td>
+                                                    <td>
+                                                        {{-- Edit user --}}
+                                                        @can('user_update')
+                                                            <a href="{{ route('users.edit', ['user' => $user]) }}"
+                                                                class="btn btn-sm btn-warning" data-toggle="tooltip"
+                                                                data-placement="bottom" title="Edit">
+                                                                <i class="uil uil-pen"></i>
+                                                            </a>
+                                                        @endcan
+                                                        {{-- Delete user --}}
+                                                        @can('user_delete')
+                                                            <form action="{{ route('users.destroy', ['user' => $user]) }}"
+                                                                method="POST" class="d-inline" role="alert"
+                                                                alert-text="Apakah kamu yakin? pengguna dengan nama {{ $user->name }} akan dihapus permanen.">
+                                                                @csrf
+                                                                @method('DELETE')
+
+                                                                <button type="submit" class="btn btn-sm btn-danger"
+                                                                    data-toggle="tooltip" data-placement="bottom" title="Hapus">
+                                                                    <i class="uil uil-trash"></i>
+                                                                </button>
+                                                            </form>
+                                                        @endcan
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                @else
+                                    <b>
+                                        @if (request()->get('keyword'))
+                                            Oops.. sepertinya pengguna dengan nama
+                                            {{ strtoupper(request()->get('keyword')) }} tidak ditemukan.
+                                        @else
+                                            Hmm.. belum ada pengguna diwebsite {{ $setting->site_name }}.
+                                        @endif
+                                    </b>
+                                @endif
+
                                 {{-- paginate --}}
                                 @if ($users->hasPages())
                                     <div class="card-footer">
@@ -133,8 +136,8 @@
                     icon: "warning",
                     allowOutsideClick: false,
                     showCancelButton: true,
-                    cancelButtonText: "Cancel",
-                    confirmButtonText: "Delete",
+                    cancelButtonText: "Ga, batalkan!",
+                    confirmButtonText: "Ya, hapus!",
                     confirmButtonColor: '#d33',
                     reverseButtons: true,
                 }).then((result) => {
