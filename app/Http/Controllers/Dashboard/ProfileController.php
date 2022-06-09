@@ -49,6 +49,7 @@ class ProfileController extends Controller
             $query = User::find(Auth::user()->id);
 
             if ($query) {
+
                 $query->name  = $request->input('name');
                 $query->bio   = $request->input('bio');
                 $query->slug  = $request->input('slug');
