@@ -106,6 +106,8 @@ class CategoryController extends Controller
 
             // INSERT DATA
             if ($request->hasFile('thumbnail')) {
+                // $public_path = '../../public_html/blog/';
+                // $path = $public_path . "vendor/dashboard/image/thumbnail-categories/";
                 $path = public_path("vendor/dashboard/image/thumbnail-categories/");
                 $image = $request->file('thumbnail');
                 $newImage = uniqid('CateIMG-', true) . '.' . $image->extension();
@@ -196,6 +198,8 @@ class CategoryController extends Controller
             $category->parent_id    = $request->input('parent_category');
 
             if ($request->hasFile('thumbnail')) {
+                // $public_path = '../../public_html/blog/';
+                // $path = $public_path . "vendor/dashboard/image/thumbnail-categories/";
                 $path = "vendor/dashboard/image/thumbnail-categories/";
                 if (File::exists($path . $category->thumbnail)) {
                     File::delete($path . $category->thumbnail);
@@ -244,6 +248,8 @@ class CategoryController extends Controller
     {
         try {
             // Delete image data category
+            // $public_path = '../../public_html/blog/';
+            // $path = $public_path . "vendor/dashboard/image/thumbnail-categories/";
             $path = "vendor/dashboard/image/thumbnail-categories/";
             if (File::exists($path . $category->thumbnail)) {
                 File::delete($path . $category->thumbnail);

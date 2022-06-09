@@ -96,7 +96,9 @@ class WebSettingController extends Controller
                 $webSetting->site_twitter = $request->link_twitter;
 
                 if ($request->hasFile('image_banner')) {
-                    $path = "vendor/blog/img/home-img/";
+                    // $public_path = '../../public_html/blog/';
+                    // $path = $public_path . "vendor/blog/img/home-img/";
+                    $path =  "vendor/blog/img/home-img/";
                     if (File::exists($path . $webSetting->image_banner)) {
                         File::delete($path . $webSetting->image_banner);
                     }
@@ -133,6 +135,8 @@ class WebSettingController extends Controller
                 $webSetting->site_twitter = $request->link_twitter;
 
                 if ($request->hasFile('image_banner')) {
+                    // $public_path = '../../public_html/blog/';
+                    // $path = $public_path . "vendor/blog/img/home-img/";
                     $path = "vendor/blog/img/home-img/";
                     $image = $request->file('image_banner');
                     $newImage = uniqid('BANNER-', true) . '.' . $image->extension();

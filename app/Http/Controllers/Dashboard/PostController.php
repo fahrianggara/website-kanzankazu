@@ -175,6 +175,8 @@ class PostController extends Controller
             DB::beginTransaction();
             try {
                 if ($request->hasFile('thumbnail')) {
+                    // $public_path = '../../public_html/blog/';
+                    // $path = $public_path . "vendor/dashboard/image/thumbnail-posts/";
                     $path = public_path("vendor/dashboard/image/thumbnail-posts/");
                     $thumbnail = $request->file('thumbnail');
                     $newThumbnail = uniqid('POST-', true) . '.' . $thumbnail->extension();
@@ -320,6 +322,8 @@ class PostController extends Controller
         DB::beginTransaction();
         try {
             if ($request->hasFile('thumbnail')) {
+                // $public_path = '../../public_html/blog/';
+                // $path = $public_path . "vendor/dashboard/image/thumbnail-posts/";
                 $path = "vendor/dashboard/image/thumbnail-posts/";
                 if (File::exists($path . $post->thumbnail)) {
                     File::delete($path . $post->thumbnail);
@@ -380,6 +384,8 @@ class PostController extends Controller
             $post->tags()->detach();
             $post->categories()->detach();
 
+            // $public_path = '../../public_html/blog/';
+            // $path = $public_path . "vendor/dashboard/image/thumbnail-posts/";
             $path = "vendor/dashboard/image/thumbnail-posts/";
             if (File::exists($path . $post->thumbnail)) {
                 File::delete($path . $post->thumbnail);

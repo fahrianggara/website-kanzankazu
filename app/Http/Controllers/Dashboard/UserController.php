@@ -103,6 +103,8 @@ class UserController extends Controller
             DB::beginTransaction();
             try {
                 if ($request->hasFile('user_image')) {
+                    // $public_path = '../../public_html/blog/';
+                    // $path = $public_path . "vendor/dashboard/image/picture-profiles/";
                     $path = public_path("vendor/dashboard/image/picture-profiles/");
                     $picture = $request->file('user_image');
                     $newPict = uniqid('USER-', true) . '.' . $picture->extension();
@@ -200,6 +202,8 @@ class UserController extends Controller
             try {
 
                 if ($request->hasFile('user_image')) {
+                    // $public_path = '../../public_html/blog/';
+                    // $path = $public_path . "vendor/dashboard/image/picture-profiles/";
                     $path = "vendor/dashboard/image/picture-profiles/";
                     if (File::exists($path . $user->user_image)) {
                         File::delete($path . $user->user_image);
@@ -253,6 +257,8 @@ class UserController extends Controller
     {
         DB::beginTransaction();
         try {
+            // $public_path = '../../public_html/blog/';
+            // $path = $public_path . "vendor/dashboard/image/picture-profiles/";
             $path = "vendor/dashboard/image/picture-profiles/";
             if (File::exists($path . $user->user_image)) {
                 File::delete($path . $user->user_image);
