@@ -72,11 +72,11 @@
 
                         <div class="text-center mb-2">
                             <a href="{{ route('homepage') }}" class="mr-1 register-link">
-                                Back to homepage
+                                Beranda
                             </a>
                             |
                             <a href="{{ route('register') }}" class="ml-1 register-link">
-                                Sign Up !
+                                Belum punya akun?
                             </a>
                         </div>
                     </form>

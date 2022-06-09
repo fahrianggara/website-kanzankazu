@@ -11,8 +11,8 @@
                 <div class="card-body">
 
                     <div class="change-theme">
-                        <i class="uil uil-moon btn-tooltip-hide" data-toggle="tooltip" data-placement="left" title="Darkmode"
-                            id="theme-toggle">
+                        <i class="uil uil-moon btn-tooltip-hide" data-toggle="tooltip" data-placement="left"
+                            title="Ganti Tema" id="theme-toggle">
                         </i>
                     </div>
 
@@ -61,6 +61,8 @@
                                 id="password" type="password" name="password" autocomplete="new-password">
                             <label for="password">Password</label>
 
+                            <div class="passTog"><i class="bi bi-eye-slash-fill" id="togglePass"></i></div>
+
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -77,11 +79,13 @@
                                 autocomplete="new-password">
                             <label for="password">Confirm Password</label>
 
+                            <div class="passTog"><i class="bi bi-eye-slash-fill" id="toggleNewPass"></i></div>
+
                         </div>
 
                         <div class="mb-3">
                             <button type="submit" class="btn btn-block text-uppercase">
-                                Register
+                                Sign Up
                             </button>
                         </div>
 
@@ -89,7 +93,7 @@
 
                         <div class="text-center mb-2">
                             <a href="{{ route('login') }}" class="register-link">
-                                Already have account?
+                                Sudah punya akun?
                             </a>
                         </div>
                     </form>
@@ -113,6 +117,26 @@
 
                     let title = $(this).val();
                     $('#slugName').val(generateSlug(title));
+                });
+
+                const togglePassword = document.querySelector('#togglePass');
+                const password = document.querySelector('#password');
+
+                togglePassword.addEventListener('click', function(e) {
+                    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                    password.setAttribute('type', type);
+
+                    this.classList.toggle("bi-eye");
+                });
+
+                const toggleNewPassword = document.querySelector('#toggleNewPass');
+                const newPassword = document.querySelector('#password-confirm');
+
+                toggleNewPassword.addEventListener('click', function(e) {
+                    const type = newPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+                    newPassword.setAttribute('type', type);
+
+                    this.classList.toggle("bi-eye");
                 });
             });
         </script>
