@@ -133,7 +133,7 @@
                     setInterval(() => {
                         $('#buttonSubmit').attr('disabled', false);
                         $('#buttonSubmit').html('<i class="uil uil-search"></i>');
-                    }, 1000);
+                    }, 2000);
                 },
                 select: function(event, ui) {
                     window.location.href = ui.item.url;
