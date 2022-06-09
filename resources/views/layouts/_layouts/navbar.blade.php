@@ -79,7 +79,7 @@
             <form action="{{ route('blog.search') }}" method="GET">
                 <input id="search" type="search" name="keyword" value="{{ request()->get('keyword') }}"
                     class="search-blog" placeholder="Cari blog apapun disini..." autocomplete="off">
-                <button type="submit" class="uil uil-search"></button>
+                <button id="buttonSubmit" type="submit" class="uil"><i class="uil uil-search"></i></button>
             </form>
         </div>
 
@@ -117,23 +117,26 @@
                         .title);
                     return false;
                 },
+                search: function() {
+                    $('#buttonSubmit').attr('disabled', true);
+                    $('#buttonSubmit').html('<i class="fa fa-spin fa-spinner"></i>');
+                },
                 open: function() {
                     $(".ui-autocomplete:visible").css({
                         top: "+=10.6",
                         left: "+=1"
                     });
+
+                    $('#buttonSubmit').attr('disabled', false);
+                    $('#buttonSubmit').html('<i class="uil uil-search"></i>');
+
+                    setInterval(() => {
+                        $('#buttonSubmit').attr('disabled', false);
+                        $('#buttonSubmit').html('<i class="uil uil-search"></i>');
+                    }, 1000);
                 },
                 select: function(event, ui) {
                     window.location.href = ui.item.url;
-                },
-                response: function(event, ui) {
-                    if (!ui.content.length) {
-                        $(".empty-search").delay(100).show();
-                        $("#textEmpty").text("{{ trans('blog.no-data.result_search') }}");
-                    } else {
-                        $("#textEmpty").empty();
-                        $(".empty-search").hide();
-                    }
                 }
             }).data("ui-autocomplete")._renderItem = function(ul, item) {
                 var inner_html = '<a class="align-self-center" href="' + item.url +

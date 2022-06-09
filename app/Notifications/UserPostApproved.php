@@ -45,7 +45,7 @@ class UserPostApproved extends Notification
     {
         return (new MailMessage)
             ->greeting('Haloo, ' . $this->user->name)
-            ->line('Postingan kamu sudah di approve oleh ' . Auth::user()->roles->first()->name . '.')
+            ->line('Postingan kamu sudah disetujui oleh ' . Auth::user()->roles->first()->name . '.')
             ->action('Lihat Postingan', route('posts.index'))
             ->line('Terima kasih sudah berkonstribusi di website kami!');
     }
@@ -61,8 +61,8 @@ class UserPostApproved extends Notification
         return [
             'user_id' => Auth::user()->id,
             'approvedBy' => Auth::user()->name,
-            'title' => 'Post Published',
-            'message' => 'Your post has been approved by ' . Auth::user()->roles->first()->name,
+            'title' => 'Postingan Disetujui',
+            'message' => 'Postingan kamu telah disetujui oleh ' . Auth::user()->roles->first()->name . '.',
         ];
     }
 }

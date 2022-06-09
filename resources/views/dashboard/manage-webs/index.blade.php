@@ -283,6 +283,9 @@
                             }), 980);
                         }
                     },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                    }
                 });
             });
         });

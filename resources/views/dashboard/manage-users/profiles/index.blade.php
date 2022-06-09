@@ -305,8 +305,8 @@
                                 .log(response.msg);
                         }
                     },
-                    error: function(response) {
-                        alert(response.status + "\n" + response.errors + "\n" + thrownError);
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
                     }
                 });
             });
@@ -348,8 +348,8 @@
                                 .log(data.msg);
                         }
                     },
-                    error: function(response) {
-                        alert(response.status + "\n" + response.errors + "\n" + thrownError);
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
                     }
                 });
             })
@@ -405,8 +405,8 @@
                                 .log(data.msg);
                         }
                     },
-                    error: function(response) {
-                        alert(response.status + "\n" + response.errors + "\n" + thrownError);
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
                     }
                 });
             })

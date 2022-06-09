@@ -14,6 +14,7 @@
             autocomplete="off">
             @csrf
             @honeypot
+            @method('POST')
             <input type="hidden" name="commentable_type" value="\{{ get_class($model) }}" />
             <input type="hidden" name="commentable_id" value="{{ $model->getKey() }}" />
 
@@ -115,8 +116,8 @@
 
                         }
                     },
-                    error: function(response) {
-                        alert(response.status + "\n" + response.errors + "\n" + thrownError);
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
                     }
                 })
             });

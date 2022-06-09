@@ -156,7 +156,7 @@
 
                                         <button type="submit" data-toggle="tooltip" data-placement="bottom" title="Setujui"
                                             class="float-right btn btn-success btn-sm waves-effect waves-light">
-                                            <i class="uil uil-upload"></i>
+                                            <i class="uil uil-check-circle"></i>
                                         </button>
                                     </form>
                                 @endif
