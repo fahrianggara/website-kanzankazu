@@ -67,7 +67,7 @@
                                                         </button>
                                                     </form>
 
-                                                    <a href="mailto:{{ $c->email }}" class="btn mt-1 btn-sm btn-primary"
+                                                    <a href="mailto:{{ $c->email }}" class="btn btn-sm btn-primary"
                                                         data-toggle="tooltip" data-placement="bottom" title="Balas Pesan">
                                                         <i class="uil uil-envelope-upload"></i>
                                                     </a>
