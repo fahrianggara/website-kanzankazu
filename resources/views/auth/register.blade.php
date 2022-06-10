@@ -24,7 +24,7 @@
                     <form action="{{ route('register') }}" method="POST" class="form-box px-3" autocomplete="off">
                         @csrf
 
-                        <input id="slugName" type="hidden" name="slug" value="{{ old('name') }}">
+                        <input id="slugName" type="hidden" name="slug" value="{{ old('slug') }}">
 
                         {{-- Name --}}
                         <div class="form-input">
