@@ -275,7 +275,7 @@ class UserController extends Controller
             );
         } finally {
             DB::commit();
-            return redirect()->back()->with('success', 'Pengguna dengan nama' . $user->name . ' berhasil dihapus!');
+            return redirect()->back()->with('success', 'Pengguna dengan nama ' . $user->name . ' berhasil dihapus!');
         }
     }
 }

@@ -31,7 +31,7 @@
                             <div class="iconForm"><i class="uil uil-user"></i></div>
                             <input type="text" id="name" class="form_control @error('name') is-invalid @enderror"
                                 name="name" value="{{ old('name') }}" autofocus>
-                            <label for="name">Name</label>
+                            <label for="name">User Name</label>
 
                             @error('name')
                                 <span class="invalid-feedback" role="alert">

@@ -91,10 +91,8 @@ class RegisterController extends Controller
      * @param  mixed  $user
      * @return mixed
      */
-    protected function registered(Request $request, $user)
+    protected function registered(Request $request)
     {
-        $setting = WebSetting::find(1);
-        return redirect()->route('dashboard.index')
-            ->with('success', 'Selamat datang di ' . $setting->site_name . ', ' . $user->name . '!');
+        //
     }
 }
