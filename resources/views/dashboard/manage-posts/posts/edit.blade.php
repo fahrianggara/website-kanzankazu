@@ -16,34 +16,39 @@
         @csrf
 
         <div class="row">
-            <div class="col-lg-4" style="margin: 0;">
-                <div class="card m-b-30">
-                    <div class="card-body">
-                        <div class="form-group">
+            <div class="col-lg-3">
+                <div class="sticky">
+                    <div class="card m-b-30">
+                        <div class="card-body">
+                            <div class="form-group">
 
-                            <label for="check_category" class="font-weight-bold">Pilih kategori</label>
+                                <label for="check_category" class="font-weight-bold">Pilih kategori</label>
 
-                            <div class="form-control overflow-auto @error('category') is-invalid @enderror"
-                                style="height: auto;">
-                                @include('dashboard.manage-posts.posts.categories-check', [
-                                    'categories' => $categories,
-                                    'cateChecked' => old('category', $post->categories->pluck('id')->toArray()),
-                                ])
+                                <div class="form-control overflow-auto @error('category') is-invalid @enderror"
+                                    style="height: auto;">
+                                    @include('dashboard.manage-posts.posts.categories-check', [
+                                        'categories' => $categories,
+                                        'cateChecked' => old(
+                                            'category',
+                                            $post->categories->pluck('id')->toArray()
+                                        ),
+                                    ])
+                                </div>
+
+                                @error('category')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+
                             </div>
 
-                            @error('category')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-
                         </div>
-
                     </div>
                 </div>
             </div>
 
-            <div class="col-lg-8">
+            <div class="col-lg-9">
                 <div class="card m-b-30">
                     <div class="card-body">
 

@@ -27,7 +27,7 @@
             <p>
                 {{ trans('error.404-description') }}
             </p>
-            <a id="buttonBack" class="buttonError" href="#">Back</a>
+            <a id="buttonBack" class="buttonError" href="">Back</a>
         </div>
     </div>
 </body>

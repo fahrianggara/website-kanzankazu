@@ -10,59 +10,151 @@
 
 @section('content')
     <div class="row">
-        <div class="col-lg-8">
-            <div class="card m-b-30">
-                @if (file_exists('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail))
-                    <img class="card-img-top img-fluid"
-                        src="{{ asset('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail) }}"
-                        alt="{{ $post->title }}">
-                @else
-                    <svg class="img-fluid" width="100%" height="400" xmlns="http://www.w3.org/2000/svg"
-                        preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
-                        <rect width="100%" height="100%" fill="#868e96"></rect>
-                        <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#dee2e6" dy=".3em"
-                            font-size="24">
-                            {{ $post->title }}
-                        </text>
-                    </svg>
-                @endif
-                <div class="card-body">
-                    <h3 class="card-title mt-0" style="margin: 0">{{ $post->title }}</h3>
-                    <div class="mb-2 mt-2">
-                        <span class="card-text">
-                            <i class="uil uil-user"></i> {{ $post->author }}
-                        </span>
-                        |
-                        <span class="card-text">
-                            <i class="uil uil-calendar-alt"></i> {{ $post->created_at->format('d/m/Y') }}
-                        </span>
-                        |
-                        <span class="card-text">
-                            <i class="uil uil-eye"></i> {{ $post->views }}
-                        </span>
-                        |
-                        @foreach ($categories as $category)
-                            <span class="badge badge-primary">{{ $category->title }} </span>
-                        @endforeach
-                        /
-                        @foreach ($tags as $tag)
-                            <span class="badge badge-info">{{ $tag->title }}</span>
-                        @endforeach
-                    </div>
+        <div class="col-lg-8 entries">
+            <article class="entry entry-single">
 
-                    <div class="py-1 card-text">
+                <div class="entry-img loading">
+                    @if (file_exists('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail))
+                        <img src="{{ asset('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail) }}"
+                            alt="{{ $post->title }}" class="img-fluid" />
+                    @else
+                        <img class="img-fluid" src="{{ asset('vendor/blog/img/default.png') }}"
+                            alt="{{ $post->title }}">
+                    @endif
+                </div>
+
+                <h1 class="entry-title loading">
+                    <span>{{ $post->title }}</span>
+                </h1>
+
+                <div class="entry-meta">
+                    <ul>
+                        <li class="d-flex align-items-center">
+                            <div class="loading">
+                                <i class="uil uil-user"></i>
+                                <span>{{ $post->user->name }}</span>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-center">
+                            <div class="loading">
+                                <i class="uil uil-calendar-alt"></i>
+                                <span>{{ $post->created_at->format('j F Y') }}</span>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-center">
+                            <div class="loading">
+                                <i class="uil uil-eye"></i>
+                                <span> {{ $post->views }}</span>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-center">
+                            <div class="loading">
+                                <i class="uil uil-file-info-alt"></i>
+                                <span> {{ $post->status }}</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="entry-content">
+                    <div>
                         {!! $post->content !!}
                     </div>
+                </div>
 
-                    <hr>
+                <div class="entry-footer clearfix">
+                    <div class="float-left d-flex">
+                        <div class="tagCats loading">
+                            <i class="uil uil-tag-alt"></i>
+                            <ul class="tags">
+                                @foreach ($tags as $tag)
+                                    <li>
+                                        <span class="link-tagCats">
+                                            {{ $tag->title }}
+                                        </span>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
 
-                    <div class="">
-                        <a href=" {{ route('posts.index') }}" class="btn btn-info">
-                            Kembali
+                        <div class="ml-1 tagCats loading">
+                            <i class="uil uil-folder"></i>
+                            <ul class="tags">
+                                @foreach ($categories as $category)
+                                    <li>
+                                        <span class="link-tagCats">
+                                            {{ $category->title }}
+                                        </span>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </article>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="sticky">
+
+                {{-- PREV & NEXT STATUS PUBLISH --}}
+                @if ($nextPublish != null || $prevPublish != null)
+                    @if ($post->status == 'publish')
+                        <div class="entry-bottom">
+                            @if ($nextPublish)
+                                <div class="float-left">
+                                    <a href="{{ route('posts.show', ['slug' => $nextPublish->slug]) }}"
+                                        class="btn-Prev">
+                                        <i class="uil uil-angle-double-left"></i> Sebelumnya
+                                    </a>
+                                </div>
+                            @endif
+                            @if ($prevPublish)
+                                <div class="float-right">
+                                    <a href="{{ route('posts.show', ['slug' => $prevPublish->slug]) }}"
+                                        class="btn-Next">
+                                        Berikutnya <i class="uil uil-angle-double-right"></i>
+                                    </a>
+                                </div>
+                            @endif
+                        </div>
+                    @endif
+                @endif
+
+                {{-- PREV & NEXT STATUS DRAFT --}}
+                @if ($post->status == 'draft')
+                    @if ($nextDraft != null || $prevDraft != null)
+                        <div class="entry-bottom">
+                            @if ($nextDraft)
+                                <div class="float-left">
+                                    <a href="{{ route('posts.show', ['slug' => $nextDraft->slug]) }}"
+                                        class="btn-Prev">
+                                        <i class="uil uil-angle-double-left"></i> Sebelumnya
+                                    </a>
+                                </div>
+                            @endif
+                            @if ($prevDraft)
+                                <div class="float-right">
+                                    <a href="{{ route('posts.show', ['slug' => $prevDraft->slug]) }}"
+                                        class="btn-Next">
+                                        Berikutnya <i class="uil uil-angle-double-right"></i>
+                                    </a>
+                                </div>
+                            @endif
+                        </div>
+                    @endif
+                @endif
+
+                <div class="entry-bottom">
+                    <div class="float-left">
+                        <a href="{{ route('posts.index') }}" class="btn-Prev">
+                            <i class="uil uil-angle-double-left"></i> Kembali ke Postingan
                         </a>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 @endsection

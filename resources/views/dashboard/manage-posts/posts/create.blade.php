@@ -15,29 +15,31 @@
 
         <div class="row">
             <div class="col-lg-3">
-                <div class="card m-b-30">
-                    <div class="card-body">
-                        <div class="form-group">
+                <div class="sticky">
+                    <div class="card m-b-30">
+                        <div class="card-body">
+                            <div class="form-group">
 
-                            <label for="check_category" class="font-weight-bold">Pilih kategori<span
-                                    class="star-required">*</span></label>
+                                <label for="check_category" class="font-weight-bold">Pilih kategori<span
+                                        class="star-required">*</span></label>
 
-                            <div class="form-control overflow-auto @error('category') is-invalid @enderror"
-                                style="height: auto;">
-                                @include('dashboard.manage-posts.posts.categories-check', [
-                                    'categories' => $categories,
-                                    'cateChecked' => old('category'),
-                                ])
+                                <div class="form-control overflow-auto @error('category') is-invalid @enderror"
+                                    style="height: auto;">
+                                    @include('dashboard.manage-posts.posts.categories-check', [
+                                        'categories' => $categories,
+                                        'cateChecked' => old('category'),
+                                    ])
+                                </div>
+
+                                @error('category')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+
                             </div>
 
-                            @error('category')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -273,6 +275,7 @@
                 relative_urls: false,
                 language: "en",
                 selector: 'textarea',
+                content_css: 'vendor/dashboard/css/sty.css',
                 // content_css: 'dark',
                 // skin: "oxide-dark",
                 height: 300,

@@ -46,7 +46,7 @@ class BlogController extends Controller
         $post = Post::publish()->with('categories', 'tags')->where('slug', $slug)->first();
 
         if (!$post) {
-            return redirect()->route('blog.home');
+            return redirect()->route('blog.home')->with('success', 'Oops.. blog tidak ditemukan :(');
         }
 
         // next,prev button
@@ -233,7 +233,7 @@ class BlogController extends Controller
     public function showAuthors()
     {
         return view('blog.blog-author', [
-            'authors' => User::orderBy('created_at', 'desc')->paginate(9),
+            'authors' => User::orderBy('created_at', 'desc')->paginate(12),
         ]);
     }
 }

@@ -29,7 +29,7 @@
     <link href="{{ asset('vendor/blog/assets/fontawesome/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('vendor/dashboard/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('vendor/dashboard/css/icons.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('vendor/dashboard/css/st.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('vendor/dashboard/css/styl.css') }}" rel="stylesheet" type="text/css">
     {{-- CALL CSS --}}
     @stack('css-external')
     @stack('css-internal')
@@ -103,6 +103,7 @@
     <script src="{{ asset('vendor/dashboard/plugins/alertify/js/alerts.js') }}"></script>
     <script src="{{ asset('vendor/dashboard/plugins/ijabocroptool/ijaboCropTool.min.js') }}"></script>
     <script src="{{ asset('vendor/blog/assets/sweetalert2/sweetalert2.js') }}"></script>
+    <script src="{{ asset('vendor/blog/assets/prehighlight/prehighlights.js') }}"></script>
     {{-- select2 --}}
     <script src="{{ asset('vendor/dashboard/plugins/select2/js/select2.min.js') }}"></script>
     <script src="{{ asset('vendor/dashboard/plugins/select2/js/i18n/' . app()->getLocale() . '.js') }}"></script>

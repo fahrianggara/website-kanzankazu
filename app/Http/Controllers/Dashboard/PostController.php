@@ -71,6 +71,47 @@ class PostController extends Controller
         ]);
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Post  $post
+     * @return \Illuminate\Http\Response
+     */
+
+    public function show(Request $request, $slug)
+    {
+        $post = Post::with('categories', 'tags')->where('slug', $slug)->first();
+
+        $statusSelected = in_array($request->get('status'), ['publish', 'draft']) ? $request->get('status') : "publish";
+
+
+        $nextPublish = Post::publish()->where('user_id', Auth::id())
+            ->where('id', '>', $post->id)
+            ->min('id');
+        $prevPublish = Post::publish()->where('user_id', Auth::id())
+            ->where('id', '<', $post->id)
+            ->max('id');
+
+        $nextDraft = Post::draft()->where('user_id', Auth::id())
+            ->where('id', '>', $post->id)
+            ->min('id');
+        $prevDraft = Post::draft()->where('user_id', Auth::id())
+            ->where('id', '<', $post->id)
+            ->max('id');
+
+
+
+        return view('dashboard.manage-posts.posts.show', [
+            'post' => $post,
+            'tags' => $post->tags,
+            'categories' => $post->categories,
+            'nextPublish' => Post::find($nextPublish),
+            'prevPublish' => Post::find($prevPublish),
+            'nextDraft' => Post::find($nextDraft),
+            'prevDraft' => Post::find($prevDraft),
+        ]);
+    }
+
     public function publish(Post $post)
     {
         $post->status = 'publish';
@@ -84,7 +125,7 @@ class PostController extends Controller
         $post->status = 'draft';
         $post->update();
 
-        return redirect()->route('posts.index')->with('success', 'Postingan kamu telah disimpan ke arsip!');
+        return redirect()->route('posts.index')->with('success', 'Postingan kamu telah disimpan ke dalam arsip!');
     }
 
     public function approve(Post $post)
@@ -231,26 +272,15 @@ class PostController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Post $post)
-    {
-        $categories = $post->categories;
-        $tags = $post->tags;
-        return view('dashboard.manage-posts.posts.show', compact('post', 'tags', 'categories'));
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit($slug)
     {
+        $post = Post::with('categories', 'tags')->where('slug', $slug)->first();
+
         if ($post->user_id == Auth::user()->id) {
             return view('dashboard.manage-posts.posts.edit', [
                 'post' => $post,

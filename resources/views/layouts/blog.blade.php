@@ -49,6 +49,7 @@
 </head>
 
 <body>
+    <div class="notif-success" data-notif="{{ Session::get('success') }}"></div>
 
     @include('layouts._layouts.navbar')
 
@@ -87,6 +88,13 @@
                 localStorage.setItem("justOnce", "true");
                 window.location.reload();
             }
+        }
+
+        const notif = $('.notif-success').data('notif');
+        if (notif) {
+            alertify
+                .delay(5000)
+                .log(notif);
         }
 
         document.getElementById('buttonBack').onclick = function() {

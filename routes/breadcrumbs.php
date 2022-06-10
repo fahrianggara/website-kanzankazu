@@ -73,7 +73,7 @@ Breadcrumbs::for('edit_tag', function (BreadcrumbTrail $trail, $tag) {
 
 Breadcrumbs::for('posts', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard');
-    $trail->push('Postingan blog', route('posts.index'));
+    $trail->push('Postingan', route('posts.index'));
 });
 
 Breadcrumbs::for('deleted_posts', function (BreadcrumbTrail $trail) {
@@ -83,17 +83,17 @@ Breadcrumbs::for('deleted_posts', function (BreadcrumbTrail $trail) {
 
 Breadcrumbs::for('add_posts', function (BreadcrumbTrail $trail) {
     $trail->parent('posts');
-    $trail->push('Buat postingan', route('posts.index'));
+    $trail->push('Buat', route('posts.index'));
 });
 
 Breadcrumbs::for('detail_post', function (BreadcrumbTrail $trail, $post) {
     $trail->parent('posts', $post);
-    $trail->push($post->title, route('posts.show', ['post' => $post]));
+    $trail->push($post->title, route('posts.show', ['slug' => $post->slug]));
 });
 
 Breadcrumbs::for('edit_post', function (BreadcrumbTrail $trail, $post) {
     $trail->parent('posts', $post);
-    $trail->push($post->title, route('posts.edit', ['post' => $post]));
+    $trail->push($post->title, route('posts.edit', ['slug' => $post->slug]));
 });
 
 // =================================================================

@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Postingan blog
+    Postingan
 @endsection
 
 @section('breadcrumbs')
@@ -90,7 +90,7 @@
                             <p class="card-text">{{ substr($post->description, 0, 100) }}...</p>
                             {{-- detail --}}
                             @can('post_detail')
-                                <a href="{{ route('posts.show', ['post' => $post]) }}"
+                                <a href="{{ route('posts.show', ['slug' => $post->slug]) }}"
                                     class="btn btn-primary btn-sm waves-effect waves-light" data-toggle="tooltip"
                                     data-placement="bottom" title="Lihat">
                                     <i class="uil uil-eye"></i>
@@ -99,7 +99,7 @@
                             @if ($post->user_id == Auth::user()->id)
                                 {{-- edit --}}
                                 @can('post_update')
-                                    <a href="{{ route('posts.edit', ['post' => $post]) }}"
+                                    <a href="{{ route('posts.edit', ['slug' => $post->slug]) }}"
                                         class="btn btn-warning btn-sm waves-effect waves-light" data-toggle="tooltip"
                                         data-placement="bottom" title="Edit">
                                         <i class="uil uil-pen"></i>

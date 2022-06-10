@@ -30,7 +30,7 @@ Route::get('/related-post', [\App\Http\Controllers\BlogController::class, 'blogD
 Route::get('autocompleteajax', [\App\Http\Controllers\BlogController::class, 'autocompleteajax'])->name('blog.autocomplete');
 // AUTHORS
 Route::get('/authors', [\App\Http\Controllers\BlogController::class, 'showAuthors'])->name('blog.authors');
-Route::get('/author/{author}', [\App\Http\Controllers\BlogController::class, 'showPostsByAuthor'])->name('blog.author');
+Route::get('/@{author}', [\App\Http\Controllers\BlogController::class, 'showPostsByAuthor'])->name('blog.author');
 // Filter blog by Month and year
 Route::get('blog/{year}/{month}', [\App\Http\Controllers\BlogController::class, 'showPostsbyMonthYear'])->name('blog.monthYear');
 // CATEGORIES
@@ -85,7 +85,9 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::put('/posts/publish/{post}', [\App\Http\Controllers\Dashboard\PostController::class, 'publish'])->name('posts.publish');
         Route::put('/posts/draft/{post}', [\App\Http\Controllers\Dashboard\PostController::class, 'draft'])->name('posts.draft');
         Route::put('/posts/approved/{post}', [\App\Http\Controllers\Dashboard\PostController::class, 'approve'])->name('posts.approval');
-        Route::resource('/posts', \App\Http\Controllers\Dashboard\PostController::class);
+        Route::resource('/posts', \App\Http\Controllers\Dashboard\PostController::class)->except('show', 'edit');
+        Route::get('/posts/{slug}/edit', [\App\Http\Controllers\Dashboard\PostController::class, 'edit'])->name('posts.edit');
+        Route::get('/posts/{slug}', [\App\Http\Controllers\Dashboard\PostController::class, 'show'])->name('posts.show');
         // Role
         Route::get('/roles/select', [\App\Http\Controllers\Dashboard\RoleController::class, 'select'])->name('roles.select');
         Route::resource('/roles', \App\Http\Controllers\Dashboard\RoleController::class);
