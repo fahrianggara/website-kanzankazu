@@ -8,6 +8,7 @@ use App\Models\WebSetting;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VerificationController extends Controller
 {
@@ -53,6 +54,6 @@ class VerificationController extends Controller
     {
         $setting = WebSetting::find(1);
         return redirect()->route('dashboard.index')
-            ->with('success', 'Selamat datang di ' . $setting->site_name . '.');
+            ->with('success', 'Selamat datang di ' . $setting->site_name . ', ' . Auth::user()->name . '!');
     }
 }
