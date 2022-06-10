@@ -67,7 +67,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::put('/update-site', [\App\Http\Controllers\Dashboard\WebSettingController::class, 'updateSite'])->name('dashboard.setting.update');
         // Profiles
         Route::get('/profiles', [App\Http\Controllers\Dashboard\ProfileController::class, 'index'])->name('profile.index');
-        Route::put('/update-profile', [App\http\Controllers\Dashboard\ProfileController::class, 'updateProfile'])->name('profile.updateInfo');
+        Route::put('/update-profile', [App\Http\Controllers\Dashboard\ProfileController::class, 'updateProfile'])->name('profile.updateInfo');
         Route::post('/update-image', [App\Http\Controllers\Dashboard\ProfileController::class, 'updateImage'])->name('profile.updateImage');
         Route::put('/change-password', [App\Http\Controllers\Dashboard\ProfileController::class, 'changePassword'])->name('profile.changePassword');
         Route::put('/update-social', [App\Http\Controllers\Dashboard\ProfileController::class, 'updateSocial'])->name('profile.updateSocial');
