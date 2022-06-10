@@ -55,6 +55,11 @@
                                             <th>{{ $c->created_at->format('d-m-Y / H:i:s a') }}</th>
                                             @can('inbox_delete')
                                                 <th>
+                                                    <a href="mailto:{{ $c->email }}" class="btn btn-sm btn-primary"
+                                                        data-toggle="tooltip" data-placement="bottom" title="Balas Pesan">
+                                                        <i class="uil uil-envelope-upload"></i>
+                                                    </a>
+
                                                     <form action="{{ route('contact.destroy', ['contact' => $c]) }}"
                                                         method="POST" class="d-inline" role="alert"
                                                         alert-text="Apakah kamu yakin? inbox dengan subjek ({{ $c->subject }}) akan dihapus permanen.">
@@ -66,11 +71,6 @@
                                                             <i class="uil uil-trash"></i>
                                                         </button>
                                                     </form>
-
-                                                    <a href="mailto:{{ $c->email }}" class="btn btn-sm btn-primary"
-                                                        data-toggle="tooltip" data-placement="bottom" title="Balas Pesan">
-                                                        <i class="uil uil-envelope-upload"></i>
-                                                    </a>
                                                 </th>
                                             @endcan
                                         </tr>
