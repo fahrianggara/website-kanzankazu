@@ -35,12 +35,20 @@ return [
             'root' => storage_path('app'),
         ],
 
+        // 'public' => [
+        //     'driver' => 'local',
+        //     'root' => storage_path('app/public'),
+        //     'url' => env('APP_URL') . '/blog/storage',
+        //     'visibility' => 'public',
+        // ],
+
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
+            'root' => '/home/kanzanka/public_html/blog/storage',
             'url' => env('APP_URL') . '/blog/storage',
             'visibility' => 'public',
         ],
+
 
         's3' => [
             'driver' => 's3',

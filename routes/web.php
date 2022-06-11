@@ -53,6 +53,10 @@ Route::post('savecontact', [\App\Http\Controllers\ContactController::class, 'sav
 // Newsletter
 Route::post('newsletter', [\App\Http\Controllers\NewsletterController::class, 'storeEmail'])->name('newsletter.store');
 
+Route::get('/foo', function () {
+    Artisan::call('storage:link');
+});
+
 Route::group(['middleware' => 'prevent-back-history'], function () {
     Auth::routes([
         "verify" => true
