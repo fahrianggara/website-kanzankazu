@@ -45,7 +45,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => '/home/kanzanka/public_html/blog/storage',
-            'url' => env('APP_URL') . '/blog/storage',
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
         ],
 

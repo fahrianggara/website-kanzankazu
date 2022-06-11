@@ -131,7 +131,7 @@ return [
 
     'thumb_img_height'         => 200, // px
 
-    'base_directory' => '../public_html/mysite.com',
+    'base_directory' => '../../public_html/blog',
 
     /*
     |--------------------------------------------------------------------------
