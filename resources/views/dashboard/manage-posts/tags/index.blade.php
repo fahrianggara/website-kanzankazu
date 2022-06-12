@@ -23,7 +23,7 @@
                                 placeholder="Cari tag.." value="{{ request()->get('keyword') }}">
                             {{-- buton submit --}}
                             <div class="input-group-append">
-                                <button class="btn btn-info" type="submit" data-toggle="tooltip" data-placement="bottom"
+                                <button class="btn btn-primary" type="submit" data-toggle="tooltip" data-placement="bottom"
                                     title="Telusuri">
                                     <i class="uil uil-search"></i>
                                 </button>
@@ -100,55 +100,6 @@
                             </div>
                         </div>
                     </div>
-                    {{-- <ul class="list-group list-group-flush">
-
-                        @if (count($tags) >= 1)
-                            @foreach ($tags as $tag)
-                                <li
-                                    class="list-group-item list-group-item-action d-flex justify-content-between align-items-center pr-0">
-
-                                    <label class="mt-auto mb-auto">
-                                        {{ $tag->title }}
-                                    </label>
-
-                                    <div>
-                                        @can('tag_update')
-
-                                            <a href="{{ route('tags.edit', ['tag' => $tag]) }}" class="btn btn-warning btn-sm"
-                                                data-toggle="tooltip" data-placement="bottom" title="Edit">
-                                                <i class="uil uil-pen"></i>
-                                            </a>
-                                        @endcan
-                                        @can('tag_delete')
-
-                                            <form action="{{ route('tags.destroy', ['tag' => $tag]) }}" method="POST"
-                                                class="d-inline" role="alert"
-                                                alert-text="Apakah kamu yakin? tag {{ $tag->title }} akan dihapus permanen?">
-                                                @csrf
-                                                @method('DELETE')
-
-                                                <button type="submit" class="btn btn-sm btn-danger" data-toggle="tooltip"
-                                                    data-placement="bottom" title="Hapus">
-                                                    <i class="uil uil-trash"></i>
-                                                </button>
-                                            </form>
-                                        @endcan
-                                    </div>
-                                </li>
-                            @endforeach
-                        @else
-                            <b>
-                                @if (request()->get('keyword'))
-                                    Oops.. sepertinya tag {{ strtoupper(request()->get('keyword')) }}
-                                    tidak ditemukan.
-                                @else
-                                    Hmm.. sepertinya belum ada tag yang dibuat. <a
-                                        href="{{ route('tags.create') }}">Buat?</a>
-                                @endif
-                            </b>
-                        @endif
-
-                    </ul> --}}
                 </div>
                 @if ($tags->hasPages())
                     <div class="card-footer">

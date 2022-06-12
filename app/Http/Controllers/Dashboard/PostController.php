@@ -54,18 +54,19 @@ class PostController extends Controller
             $statusSelected = "publish";
         }
 
+        // Main view
         if ($statusSelected == "publish") {
             $posts = Post::publish()
                 ->where('user_id', Auth::id())
                 ->orderBy(RecommendationPost::select('post_id')->whereColumn('post_id', 'posts.id'), 'desc')
-                ->latest();
+                ->latest()->paginate(8)->withQueryString();
         } else if ($statusSelected == "draft") {
             $posts = Post::draft()
                 ->where('user_id', Auth::id())
                 ->orderBy(RecommendationPost::select('post_id')->whereColumn('post_id', 'posts.id'), 'desc')
-                ->latest();
+                ->latest()->paginate(8)->withQueryString();
         } else {
-            $posts = Post::approve();
+            $posts = Post::approve()->paginate(8)->withQueryString();
         }
 
         if ($request->get('keyword')) {
@@ -73,7 +74,7 @@ class PostController extends Controller
         }
 
         return view('dashboard.manage-posts.posts.index', [
-            'posts' => $posts->paginate(8)->withQueryString(),
+            'posts' => $posts,
             'statusSelected' => $statusSelected,
         ]);
     }

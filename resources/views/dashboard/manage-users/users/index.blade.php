@@ -23,7 +23,7 @@
                                 placeholder="Cari pengguna.." value="{{ request()->get('keyword') }}">
                             {{-- buton submit --}}
                             <div class="input-group-append">
-                                <button class="btn btn-info" type="submit" data-toggle="tooltip" data-placement="bottom"
+                                <button class="btn btn-primary" type="submit" data-toggle="tooltip" data-placement="bottom"
                                     title="Telusuri">
                                     <i class="uil uil-search"></i>
                                 </button>
