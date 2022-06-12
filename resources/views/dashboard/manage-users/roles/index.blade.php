@@ -63,7 +63,7 @@
                                                     <td>
                                                         @can('role_detail')
                                                             <a href="{{ route('roles.show', ['role' => $role]) }}"
-                                                                class="btn btn-info btn-sm" data-toggle="tooltip"
+                                                                class="btn btn-primary btn-sm" data-toggle="tooltip"
                                                                 data-placement="bottom" title="Lihat">
                                                                 <i class="uil uil-eye"></i>
                                                             </a>
