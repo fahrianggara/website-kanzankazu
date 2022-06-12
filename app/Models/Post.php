@@ -23,6 +23,11 @@ class Post extends Model
         'deleted_at'
     ];
 
+    public function recommendedPost()
+    {
+        return $this->hasOne(RecommendationPost::class, 'post_id');
+    }
+
     public function tags()
     {
         return $this->belongsToMany(Tag::class)->withTimestamps();

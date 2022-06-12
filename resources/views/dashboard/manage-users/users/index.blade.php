@@ -10,7 +10,8 @@
 
 @section('content')
     {{-- Alert success --}}
-    <div class="notif-success" data-notif="{{ Session::get('success') }}"></div>
+    <div class="notif-success" data-notif="{{ Session::get('success') }}">
+    </div>
 
     <div class="row">
         <div class="col-12">
@@ -50,16 +51,26 @@
                                                 <th>Nama</th>
                                                 <th>Email</th>
                                                 <th>Role</th>
+                                                <th>Status</th>
                                                 <th>Opsi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @php $no = 1; @endphp
                                             @foreach ($users as $user)
                                                 <tr class="text-center">
-                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $users->perPage() * ($users->currentPage() - 1) + $no }}</td>
+                                                    @php $no++; @endphp
                                                     <td>{{ $user->name }}</td>
                                                     <td>{{ $user->email }}</td>
                                                     <td>{{ $user->roles->first()->name }}</td>
+                                                    <td>
+                                                        @if (Cache::has('user-is-online-' . $user->id))
+                                                            <span class="text-success">Online</span>
+                                                        @else
+                                                            <span class="text-secondary">Offline</span>
+                                                        @endif
+                                                    </td>
                                                     <td>
                                                         {{-- Edit user --}}
                                                         @can('user_update')

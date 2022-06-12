@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\WebSetting;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -38,7 +40,7 @@ class UserController extends Controller
         $q = $request->get('keyword');
 
         $users = $request->get('keyword') ? User::where('name', 'LIKE', '%' . $q . '%')
-            ->orWhere('email', 'LIKE', '%' . $q . '%')->paginate(10) : User::paginate(10);
+            ->orWhere('email', 'LIKE', '%' . $q . '%')->paginate(10) : User::paginate(50);
 
         return view('dashboard.manage-users.users.index', [
             'users' => $users->appends(['keyword' => $request->keyword]),
@@ -72,7 +74,7 @@ class UserController extends Controller
                 'role' => 'required',
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required|min:8|max:16|confirmed',
-                'user_image' => 'image|mimes:jpg,png,jpeg,gif|max:2048',
+                'user_image' => 'image|mimes:jpg,png,jpeg,gif|max:1024',
                 'slug' => 'unique:users,slug'
             ],
             [
@@ -88,7 +90,7 @@ class UserController extends Controller
                 'password.confirmed' => 'Konfirmasi password tidak sama!',
                 'user_image.image' => 'Harus berupa gambar!',
                 'user_image.mimes' => 'Gambar harus berformat jpg, png, jpeg dan gif!',
-                'user_image.max' => 'Ukuran gambar maksimal 2 MB!',
+                'user_image.max' => 'Ukuran gambar maksimal 1 MB!',
                 'slug.unique' => 'Nama sudah ada!',
             ]
         );
@@ -176,7 +178,7 @@ class UserController extends Controller
                 'name' => 'required|alpha_spaces|max:50|min:3',
                 'slug'  => 'unique:users,slug,' . $user->id,
                 'role' => 'required',
-                'user_image' => 'image|mimes:jpg,png,jpeg,gif|max:2048',
+                'user_image' => 'image|mimes:jpg,png,jpeg,gif|max:1024',
             ],
             [
                 'name.required' => 'Wajib harus diisi!',
@@ -187,7 +189,7 @@ class UserController extends Controller
                 'role.required' => 'Wajib harus diisi!',
                 'user_image.image' => 'Harus berupa gambar!',
                 'user_image.mimes' => 'Gambar harus berformat jpg, png, jpeg dan gif!',
-                'user_image.max' => 'Ukuran gambar maksimal 2 MB!',
+                'user_image.max' => 'Ukuran gambar maksimal 1 MB!',
             ]
         );
 

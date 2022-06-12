@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\RecommendationPost;
 use App\Models\Tag;
 use App\Models\User;
 use App\Models\WebSetting;
@@ -37,7 +38,7 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, Post $post)
     {
         if (in_array($request->get('status'), ['publish', 'draft', 'approve'])) {
             if ($request->get('status') == "approve") {
@@ -54,11 +55,17 @@ class PostController extends Controller
         }
 
         if ($statusSelected == "publish") {
-            $posts = Post::publish()->where('user_id', Auth::id())->latest();
+            $posts = Post::publish()
+                ->where('user_id', Auth::id())
+                ->orderBy(RecommendationPost::select('post_id')->whereColumn('post_id', 'posts.id'), 'desc')
+                ->latest();
         } else if ($statusSelected == "draft") {
-            $posts = Post::draft()->where('user_id', Auth::id())->latest();
+            $posts = Post::draft()
+                ->where('user_id', Auth::id())
+                ->orderBy(RecommendationPost::select('post_id')->whereColumn('post_id', 'posts.id'), 'desc')
+                ->latest();
         } else {
-            $posts = Post::approve()->latest();
+            $posts = Post::approve();
         }
 
         if ($request->get('keyword')) {
@@ -77,13 +84,9 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-
     public function show(Request $request, $slug)
     {
         $post = Post::with('categories', 'tags')->where('slug', $slug)->first();
-
-        $statusSelected = in_array($request->get('status'), ['publish', 'draft']) ? $request->get('status') : "publish";
-
 
         $nextPublish = Post::publish()->where('user_id', Auth::id())
             ->where('id', '>', $post->id)
@@ -99,8 +102,6 @@ class PostController extends Controller
             ->where('id', '<', $post->id)
             ->max('id');
 
-
-
         return view('dashboard.manage-posts.posts.show', [
             'post' => $post,
             'tags' => $post->tags,
@@ -112,12 +113,42 @@ class PostController extends Controller
         ]);
     }
 
+    public function recommend(Request $request, $id)
+    {
+        $post = Post::join('recommendation_posts', 'posts.id', '=', 'recommendation_posts.post_id')
+            ->where('post_id', $id)
+            ->get();
+
+        $recommendPost = RecommendationPost::where('user_id', Auth::id())->get();
+
+        if ($post->isEmpty()) {
+            // validation max 3
+            if ($recommendPost->count() >= 3) {
+                RecommendationPost::where('post_id', $id)
+                    ->where('user_id', Auth::id())
+                    ->delete();
+                return redirect()->back()->with('success', 'Rekomendasi maksimal 3 postingan.');
+            } else {
+                RecommendationPost::create([
+                    'post_id' => $id,
+                    'user_id' => Auth::id(),
+                ]);
+                return redirect()->back()->with('success', 'Postingan kamu telah direkomendasikan.');
+            }
+        } else {
+            RecommendationPost::where('post_id', $id)
+                ->where('user_id', Auth::id())
+                ->delete();
+            return redirect()->back()->with('success', 'Postingan kamu batal direkomendasikan.');
+        }
+    }
+
     public function publish(Post $post)
     {
         $post->status = 'publish';
         $post->update();
 
-        return redirect()->route('posts.index')->with('success', 'Postingan kamu berhasil di publik!');
+        return redirect()->back()->with('success', 'Postingan kamu berhasil di publik!');
     }
 
     public function draft(Post $post)
@@ -125,7 +156,7 @@ class PostController extends Controller
         $post->status = 'draft';
         $post->update();
 
-        return redirect()->route('posts.index')->with('success', 'Postingan kamu telah disimpan ke dalam arsip!');
+        return redirect()->back()->with('success', 'Postingan kamu telah disimpan ke dalam arsip!');
     }
 
     public function approve(Post $post)
@@ -144,7 +175,7 @@ class PostController extends Controller
 
         $post->update();
 
-        return redirect()->route('posts.index')->with('success', 'Postingan berhasil disetujui!');
+        return redirect()->back()->with('success', 'Postingan berhasil disetujui!');
     }
 
     /**
@@ -172,7 +203,7 @@ class PostController extends Controller
             [
                 'title'         => 'required|string|max:80|min:5',
                 'slug'          => 'unique:posts,slug',
-                'thumbnail'     => 'required|image|mimes:jpg,png,jpeg,gif|max:2048',
+                'thumbnail'     => 'required|image|mimes:jpg,png,jpeg,gif|max:1024',
                 'description'   => 'required|max:500|min:10',
                 'content'       => 'required|min:10',
                 'category'      => 'required',
@@ -189,7 +220,7 @@ class PostController extends Controller
                 'thumbnail.required'     => 'Wajib harus diisi!',
                 'thumbnail.image'        => 'Harus berupa gambar!',
                 'thumbnail.mimes'        => 'Gambar harus berformat jpg, png, jpeg dan gif!',
-                'thumbnail.max'          => 'Ukuran gambar maksimal 2 MB!',
+                'thumbnail.max'          => 'Ukuran gambar maksimal 1 MB!',
                 'description.required'   => 'Wajib harus diisi!',
                 'description.max'        => 'Maksimal 500 karakter!',
                 'description.min'        => 'Minimal 10 karakter!',
@@ -218,7 +249,7 @@ class PostController extends Controller
                 if ($request->hasFile('thumbnail')) {
                     // $public_path = '../../public_html/blog/';
                     // $path = $public_path . "vendor/dashboard/image/thumbnail-posts/";
-                    $path = public_path("vendor/dashboard/image/thumbnail-posts/");
+                    $path = "vendor/dashboard/image/thumbnail-posts/";
                     $thumbnail = $request->file('thumbnail');
                     $newThumbnail = uniqid('POST-', true) . '.' . $thumbnail->extension();
                     // Resize Image
@@ -310,7 +341,7 @@ class PostController extends Controller
             [
                 'title'         => 'required|string|max:80|min:5',
                 'slug'          => 'unique:posts,slug,' . $post->id,
-                'thumbnail'     => 'image|mimes:jpg,png,jpeg,gif|max:2048',
+                'thumbnail'     => 'image|mimes:jpg,png,jpeg,gif|max:1024',
                 'description'   => 'required|max:500|min:10',
                 'content'       => 'required|min:10',
                 'category'      => 'required',
@@ -325,7 +356,7 @@ class PostController extends Controller
                 'slug.unique'            => 'Postingan sudah ada!',
                 'thumbnail.image'        => 'Harus berupa gambar!',
                 'thumbnail.mimes'        => 'Gambar harus berformat jpg, png, jpeg dan gif!',
-                'thumbnail.max'          => 'Ukuran gambar maksimal 2 MB!',
+                'thumbnail.max'          => 'Ukuran gambar maksimal 1 MB!',
                 'description.required'   => 'Wajib harus diisi!',
                 'description.max'        => 'Maksimal 500 karakter!',
                 'description.min'        => 'Minimal 10 karakter!',

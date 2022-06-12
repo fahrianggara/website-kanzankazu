@@ -9,7 +9,6 @@
 @endsection
 
 @section('content')
-
     {{-- Alert success --}}
     <div class="notif-success" data-notif="{{ Session::get('success') }}"></div>
 
@@ -42,27 +41,69 @@
                 </div>
 
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                @if (count($categories) >= 1)
+                                    <table class="table">
+                                        <thead>
+                                            <tr class="text-center">
+                                                <th>No</th>
+                                                <th>Nama Kategori</th>
+                                                <th>Opsi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php $no = 1; @endphp
+                                            @foreach ($categories as $category)
+                                                <tr class="text-center">
+                                                    <td>{{ $categories->perPage() * ($categories->currentPage() - 1) + $no }}
+                                                    </td>
+                                                    @php $no++; @endphp
+                                                    <td>{{ $category->title }}</td>
+                                                    <td>
+                                                        @can('category_update')
+                                                            {{-- edit --}}
+                                                            <a href="{{ route('categories.edit', ['category' => $category]) }}"
+                                                                class="btn btn-warning btn-sm" data-toggle="tooltip"
+                                                                data-placement="bottom" title="Edit">
+                                                                <i class="uil uil-pen"></i>
+                                                            </a>
+                                                        @endcan
+                                                        @can('category_delete')
+                                                            {{-- delete --}}
+                                                            <form
+                                                                action="{{ route('categories.destroy', ['category' => $category]) }}"
+                                                                class="d-inline" role="alert" method="POST"
+                                                                alert-text="Apakah kamu yakin? kategori {{ $category->title }} akan dihapus permanen?">
+                                                                @csrf
+                                                                @method('DELETE')
 
-                    <ul class="list-group list-group-flush">
-                        @if (count($categories))
-                            @include('dashboard.manage-posts.categories.categories-list', [
-                                'categories' => $categories,
-                                'count' => 0,
-                            ])
-                        @else
-                            <b>
-                                @if (request()->get('keyword'))
-                                    {{-- Oops.. {{ strtoupper(request()->get('keyword')) }} category not found :( --}}
-                                    Oops.. sepertinya kategori {{ strtoupper(request()->get('keyword')) }}
-                                    tidak ditemukan.
+                                                                <button type="submit" class="btn btn-sm btn-danger"
+                                                                    data-toggle="tooltip" data-placement="bottom" title="Hapus">
+                                                                    <i class="uil uil-trash"></i>
+                                                                </button>
+                                                            </form>
+                                                        @endcan
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 @else
-                                    Hmm.. sepertinya belum ada kategori yang dibuat. <a
-                                        href="{{ route('categories.create') }}">Buat?</a>
+                                    <b>
+                                        @if (request()->get('keyword'))
+                                            Oops.. sepertinya kategori dengan title
+                                            {{ strtoupper(request()->get('keyword')) }} tidak ditemukan.
+                                        @else
+                                            Hmm.. sepertinya kategori belum dibuat. <a
+                                                href="{{ route('categories.create') }}">Buat?</a>
+                                        @endif
+                                    </b>
                                 @endif
-                            </b>
-                        @endif
-                    </ul>
-
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 @if ($categories->hasPages())
@@ -76,7 +117,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 @push('js-internal')

@@ -74,8 +74,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group col-lg-6">
-                                {{-- PARENT CATEGORY --}}
+                            {{-- <div class="form-group col-lg-6">
                                 <label for="select_category_parent">Induk kategori</label>
                                 <select id="select_category_parent" name="parent_category"
                                     data-placeholder="Pilih induk kategori, jika tidak mau.. abaikan"
@@ -87,7 +86,7 @@
                                         </option>
                                     @endif
                                 </select>
-                            </div>
+                            </div> --}}
                         </div>
 
                         {{-- DESCRIPTION --}}

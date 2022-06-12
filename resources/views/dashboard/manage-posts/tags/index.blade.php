@@ -9,7 +9,6 @@
 @endsection
 
 @section('content')
-
     {{-- Alert success --}}
     <div class="notif-success" data-notif="{{ Session::get('success') }}"></div>
 
@@ -41,7 +40,67 @@
 
                 </div>
                 <div class="card-body">
-                    <ul class="list-group list-group-flush">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                @if (count($tags) >= 1)
+                                    <table class="table">
+                                        <thead>
+                                            <tr class="text-center">
+                                                <th>No</th>
+                                                <th>Nama Tag</th>
+                                                <th>Opsi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php $no = 1; @endphp
+                                            @foreach ($tags as $tag)
+                                                <tr class="text-center">
+                                                    <td>{{ $tags->perPage() * ($tags->currentPage() - 1) + $no }}
+                                                    </td>
+                                                    @php $no++; @endphp
+                                                    <td>{{ $tag->title }}</td>
+                                                    <td>
+                                                        @can('tag_update')
+                                                            <a href="{{ route('tags.edit', ['tag' => $tag]) }}"
+                                                                class="btn btn-warning btn-sm" data-toggle="tooltip"
+                                                                data-placement="bottom" title="Edit">
+                                                                <i class="uil uil-pen"></i>
+                                                            </a>
+                                                        @endcan
+                                                        @can('tag_delete')
+                                                            <form action="{{ route('tags.destroy', ['tag' => $tag]) }}"
+                                                                method="POST" class="d-inline" role="alert"
+                                                                alert-text="Apakah kamu yakin? tag {{ $tag->title }} akan dihapus permanen?">
+                                                                @csrf
+                                                                @method('DELETE')
+
+                                                                <button type="submit" class="btn btn-sm btn-danger"
+                                                                    data-toggle="tooltip" data-placement="bottom" title="Hapus">
+                                                                    <i class="uil uil-trash"></i>
+                                                                </button>
+                                                            </form>
+                                                        @endcan
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                @else
+                                    <b>
+                                        @if (request()->get('keyword'))
+                                            Oops.. sepertinya tag {{ strtoupper(request()->get('keyword')) }}
+                                            tidak ditemukan.
+                                        @else
+                                            Hmm.. sepertinya belum ada tag yang dibuat. <a
+                                                href="{{ route('tags.create') }}">Buat?</a>
+                                        @endif
+                                    </b>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    {{-- <ul class="list-group list-group-flush">
 
                         @if (count($tags) >= 1)
                             @foreach ($tags as $tag)
@@ -54,14 +113,14 @@
 
                                     <div>
                                         @can('tag_update')
-                                            {{-- EDIT --}}
+
                                             <a href="{{ route('tags.edit', ['tag' => $tag]) }}" class="btn btn-warning btn-sm"
                                                 data-toggle="tooltip" data-placement="bottom" title="Edit">
                                                 <i class="uil uil-pen"></i>
                                             </a>
                                         @endcan
                                         @can('tag_delete')
-                                            {{-- DELETE --}}
+
                                             <form action="{{ route('tags.destroy', ['tag' => $tag]) }}" method="POST"
                                                 class="d-inline" role="alert"
                                                 alert-text="Apakah kamu yakin? tag {{ $tag->title }} akan dihapus permanen?">
@@ -89,7 +148,7 @@
                             </b>
                         @endif
 
-                    </ul>
+                    </ul> --}}
                 </div>
                 @if ($tags->hasPages())
                     <div class="card-footer">
@@ -101,7 +160,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 @push('js-internal')

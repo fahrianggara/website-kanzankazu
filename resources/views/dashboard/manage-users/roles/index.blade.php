@@ -40,59 +40,75 @@
                 </div>
 
                 <div class="card-body">
-                    <ul class="list-group list-group-flush">
-                        @forelse ($roles as $role)
-                            <li
-                                class="list-group-item list-group-item-action d-flex justify-content-between align-items-center pr-0">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                @if ($roles->count() >= 1)
+                                    <table class="table">
+                                        <thead>
+                                            <tr class="text-center">
+                                                <th>No</th>
+                                                <th>Role</th>
+                                                <th>Opsi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php $no = 1; @endphp
+                                            @foreach ($roles as $role)
+                                                <tr class="text-center">
+                                                    <td>{{ $roles->perPage() * ($roles->currentPage() - 1) + $no }}
+                                                    </td>
+                                                    @php $no++; @endphp
+                                                    <td>{{ $role->name }}</td>
+                                                    <td>
+                                                        @can('role_detail')
+                                                            <a href="{{ route('roles.show', ['role' => $role]) }}"
+                                                                class="btn btn-info btn-sm" data-toggle="tooltip"
+                                                                data-placement="bottom" title="Lihat">
+                                                                <i class="uil uil-eye"></i>
+                                                            </a>
+                                                        @endcan
 
-                                <label class="mt-auto mb-auto">
-                                    {{ $role->name }}
-                                </label>
+                                                        @can('role_update')
+                                                            <a href="{{ route('roles.edit', ['role' => $role]) }}"
+                                                                class="btn btn-warning btn-sm" data-toggle="tooltip"
+                                                                data-placement="bottom" title="Edit">
+                                                                <i class="uil uil-pen"></i>
+                                                            </a>
+                                                        @endcan
 
-                                <div>
-                                    @can('role_detail')
-                                        {{-- DETAIL --}}
-                                        <a href="{{ route('roles.show', ['role' => $role]) }}" class="btn btn-info btn-sm"
-                                            data-toggle="tooltip" data-placement="bottom" title="Lihat">
-                                            <i class="uil uil-eye"></i>
-                                        </a>
-                                    @endcan
+                                                        @can('role_delete')
+                                                            <form action="{{ route('roles.destroy', ['role' => $role]) }}"
+                                                                method="POST" class="d-inline" role="alert"
+                                                                alert-text="Apakah kamu yakin? role {{ $role->name }} akan dihapus permanen.">
+                                                                @csrf
+                                                                @method('DELETE')
 
-                                    @can('role_update')
-                                        {{-- EDIT --}}
-                                        <a href="{{ route('roles.edit', ['role' => $role]) }}" class="btn btn-warning btn-sm"
-                                            data-toggle="tooltip" data-placement="bottom" title="Edit">
-                                            <i class="uil uil-pen"></i>
-                                        </a>
-                                    @endcan
-
-                                    @can('role_delete')
-                                        {{-- DELETE --}}
-                                        <form action="{{ route('roles.destroy', ['role' => $role]) }}" method="POST"
-                                            class="d-inline" role="alert"
-                                            alert-text="Apakah kamu yakin? role {{ $role->name }} akan dihapus permanen.">
-                                            @csrf
-                                            @method('DELETE')
-
-                                            <button type="submit" class="btn btn-sm btn-danger" data-toggle="tooltip"
-                                                data-placement="bottom" title="Hapus">
-                                                <i class="uil uil-trash"></i>
-                                            </button>
-                                        </form>
-                                    @endcan
-                                </div>
-                            </li>
-                        @empty
-                            <b>
-                                @if (request()->get('keyword'))
-                                    {{-- Oops.. {{ strtoupper(request()->get('keyword')) }} role not found :( --}}
-                                    Oops.. sepertinya role {{ strtoupper(request()->get('keyword')) }} tidak ditemukan.
+                                                                <button type="submit" class="btn btn-sm btn-danger"
+                                                                    data-toggle="tooltip" data-placement="bottom" title="Hapus">
+                                                                    <i class="uil uil-trash"></i>
+                                                                </button>
+                                                            </form>
+                                                        @endcan
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 @else
-                                    Hmm.. sepertinya role belum ada yang dibuat.
+                                    <b>
+                                        @if (request()->get('keyword'))
+                                            Oops.. sepertinya role {{ strtoupper(request()->get('keyword')) }} tidak
+                                            ditemukan.
+                                        @else
+                                            Hmm.. sepertinya role belum ada yang dibuat. <a
+                                                href="{{ route('roles.create') }}">Buat?</a>
+                                        @endif
+                                    </b>
                                 @endif
-                            </b>
-                        @endforelse
-                    </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 @if ($roles->hasPages())
                     <div class="card-footer">

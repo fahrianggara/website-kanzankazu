@@ -13,14 +13,22 @@
     <div class="notif-success" data-notif="{{ Session::get('success') }}"></div>
 
     <div class="row">
-        <div class="col-lg-12">
-            <div class="card m-b-30">
-                <div class="card-header">
-                    <div class="row">
 
-                        <div class="col-md-6">
+        <div class="col-12 m-b-20">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-header">
                             <form action="" method="GET" class="form-inline form-row">
-                                <div class="col-6">
+                                <div class="col-md-2 col-3">
+                                    @can('post_create')
+                                        <a href="{{ route('posts.create') }}" class="btn btn-primary" data-toggle="tooltip"
+                                            data-placement="bottom" title="Buat">
+                                            <i class="uil uil-plus"></i>
+                                        </a>
+                                    @endcan
+                                </div>
+                                <div class="col-md-10 col-9">
                                     <div class="input-group mx-1">
                                         <select id="statusPost" name="status" class="custom-select"
                                             style="border-radius: 4px" data-toggle="tooltip" data-placement="bottom"
@@ -39,13 +47,21 @@
                                                 </option>
                                             @endif
                                         </select>
-                                        <div class="">
-                                            <button id="submitStatus" class="btn btn-primary d-none"
-                                                type="submit">Apply</button>
-                                        </div>
+
+                                        <button id="submitStatus" class="btn btn-primary d-none"
+                                            type="submit">Apply</button>
                                     </div>
+
                                 </div>
-                                <div class="col-6">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <form action="" method="GET" class="form-inline form-row">
+                                <div class="col-12">
                                     <div class="input-group mx-1">
                                         <input autocomplete="off" name="keyword" type="search"
                                             value="{{ request()->get('keyword') }}" class="form-control"
@@ -60,15 +76,6 @@
                                 </div>
                             </form>
                         </div>
-
-                        @can('post_create')
-                            <div class="col-md-6">
-                                <a href="{{ route('posts.create') }}" class="btn btn-primary float-right"
-                                    data-toggle="tooltip" data-placement="bottom" title="Buat">
-                                    <i class="uil uil-plus"></i>
-                                </a>
-                            </div>
-                        @endcan
                     </div>
                 </div>
             </div>
@@ -79,9 +86,24 @@
                 <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
                     <div class="card m-b-30">
                         @if (file_exists('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail))
+                            @if ($post->recommendedPost)
+                                <div class="ribbon-wrapper ribbon-lg">
+                                    <div class="ribbon bg-primary">
+                                        Rekomendasi
+                                    </div>
+                                </div>
+                            @endif
+
                             <img src="{{ asset('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail) }}"
                                 alt="{{ $post->title }}" class="card-img-top img-fluid">
                         @else
+                            @if ($post->recommendedPost)
+                                <div class="ribbon-wrapper ribbon-lg">
+                                    <div class="ribbon bg-primary ">
+                                        Rekomendasi
+                                    </div>
+                                </div>
+                            @endif
                             <img src="{{ asset('vendor/blog/img/default.png') }}" alt="{{ $post->title }}"
                                 class="card-img-top img-fluid">
                         @endif
@@ -132,6 +154,18 @@
                                             <i class="uil uil-archive"></i>
                                         </button>
                                     </form>
+
+                                    <form action="{{ route('posts.recommend', ['id' => $post->id]) }}" method="POST"
+                                        class="d-inline">
+                                        @csrf
+                                        @method('POST')
+
+                                        <button type="submit" data-toggle="tooltip" data-placement="bottom"
+                                            title="{{ $post->recommendedPost ? 'Rekomendasi' : 'Rekomendasikan' }}"
+                                            class="float-right mr-1 btn btn-gold btn-sm waves-effect waves-light">
+                                            <i class="{{ $post->recommendedPost ? 'fas fa-star' : 'far fa-star' }}"></i>
+                                        </button>
+                                    </form>
                                 @elseif ($post->status == 'draft')
                                     <form action="{{ route('posts.publish', ['post' => $post]) }}" method="POST"
                                         class="d-inline">
@@ -141,6 +175,18 @@
                                         <button type="submit" data-toggle="tooltip" data-placement="bottom" title="Publik"
                                             class="float-right btn btn-secondary btn-sm waves-effect waves-light">
                                             <i class="uil uil-upload-alt"></i>
+                                        </button>
+                                    </form>
+
+                                    <form action="{{ route('posts.recommend', ['id' => $post->id]) }}" method="POST"
+                                        class="d-inline">
+                                        @csrf
+                                        @method('POST')
+
+                                        <button type="submit" data-toggle="tooltip" data-placement="bottom"
+                                            title="{{ $post->recommendedPost ? 'Rekomendasi' : 'Rekomendasikan' }}"
+                                            class="float-right mr-1 btn btn-warning btn-sm waves-effect waves-light">
+                                            <i class="{{ $post->recommendedPost ? 'fas fa-star' : 'far fa-star' }}"></i>
                                         </button>
                                     </form>
                                 @endif

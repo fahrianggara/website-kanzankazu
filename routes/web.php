@@ -88,6 +88,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::resource('/posts', \App\Http\Controllers\Dashboard\PostController::class)->except('show', 'edit');
         Route::get('/posts/{slug}/edit', [\App\Http\Controllers\Dashboard\PostController::class, 'edit'])->name('posts.edit');
         Route::get('/posts/{slug}', [\App\Http\Controllers\Dashboard\PostController::class, 'show'])->name('posts.show');
+        Route::post('/posts/{id}/recommend', [\App\Http\Controllers\Dashboard\PostController::class, 'recommend'])->name('posts.recommend');
         // Role
         Route::get('/roles/select', [\App\Http\Controllers\Dashboard\RoleController::class, 'select'])->name('roles.select');
         Route::resource('/roles', \App\Http\Controllers\Dashboard\RoleController::class);

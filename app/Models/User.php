@@ -92,6 +92,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $query->where('status', "publish");
     }
 
+    public function recommendedPosts()
+    {
+        return $this->hasMany(RecommendationPost::class, 'user_id');
+    }
+
     public function getRouteKeyName()
     {
         return 'slug';

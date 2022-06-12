@@ -149,7 +149,7 @@
                 <div class="entry-bottom">
                     <div class="float-left">
                         <a href="{{ route('posts.index') }}" class="btn-Prev">
-                            <i class="uil uil-angle-double-left"></i> Kembali ke Postingan
+                            <i class="uil uil-angle-double-left"></i> Kembali ke Menu
                         </a>
                     </div>
                 </div>

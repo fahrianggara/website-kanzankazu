@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\RecommendationPost;
 use App\Models\Tag;
 use App\Models\User;
 use App\Models\WebSetting;
@@ -73,8 +74,6 @@ class BlogController extends Controller
         $posts = Post::with('user')->publish()->where('id', '!=', $post->id)->whereHas('category', function ($q) use ($category_ids) {
             $q->whereIn('category_id', $category_ids);
         })->popular()->paginate(3);
-
-        // dd($posts);
 
         if (request()->ajax()) {
             return view('blog.sub-blog.related-post', compact('posts'));
@@ -181,13 +180,7 @@ class BlogController extends Controller
 
     public function showPostsByAuthor(User $author)
     {
-        $authorName = $author->name;
-        $authorImage = $author->user_image;
-        $authorBio = $author->bio;
-        $authorIg = $author->instagram;
-        $authorFb = $author->facebook;
-        $authorTw = $author->twitter;
-        $authorGh = $author->github;
+        $user = $author;
 
         $posts = $author
             ->post()
@@ -195,15 +188,18 @@ class BlogController extends Controller
             ->latest()
             ->paginate(6);
 
+        $recommendationPosts = RecommendationPost::select('post_id')
+            ->where('recommendation_posts.user_id', $author->id)
+            ->join('posts', 'posts.id', '=', 'recommendation_posts.post_id')
+            ->where('posts.status', 'publish')
+            ->orderBy('recommendation_posts.post_id', 'desc')
+            ->take(3)
+            ->get();
+
         return view('blog.authors', compact(
             'posts',
-            'authorName',
-            'authorImage',
-            'authorBio',
-            'authorIg',
-            'authorFb',
-            'authorTw',
-            'authorGh'
+            'recommendationPosts',
+            'user',
         ));
     }
 

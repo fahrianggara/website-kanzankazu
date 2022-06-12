@@ -290,7 +290,7 @@
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-header">
-                        Pengguna hari ini
+                        Pengguna yang mendaftar hari ini
                     </div>
                     <div class="card-body">
                         @if ($userToday->count() >= 1)
