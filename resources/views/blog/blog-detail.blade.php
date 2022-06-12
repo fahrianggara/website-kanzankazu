@@ -144,23 +144,25 @@
                     </div>
                 </div>
 
-                <article class="entry-bottom" style="margin-bottom: 20px">
-                    @if ($prev)
-                        <div class="float-right">
-                            <a href="{{ route('blog.detail', ['slug' => $prev->slug]) }}" class="btn-Next">
-                                Berikutnya <i class="icofont-rounded-right"></i>
-                            </a>
-                        </div>
-                    @endif
+                @if ($prev != null || $next != null)
+                    <article class="entry-bottom" style="margin-bottom: 20px">
+                        @if ($prev)
+                            <div class="float-right">
+                                <a href="{{ route('blog.detail', ['slug' => $prev->slug]) }}" class="btn-Next">
+                                    Berikutnya <i class="icofont-rounded-right"></i>
+                                </a>
+                            </div>
+                        @endif
 
-                    @if ($next)
-                        <div class="float-left">
-                            <a href="{{ route('blog.detail', ['slug' => $next->slug]) }}" class="btn-Prev">
-                                <i class="icofont-rounded-left"></i> Sebelumnya
-                            </a>
-                        </div>
-                    @endif
-                </article>
+                        @if ($next)
+                            <div class="float-left">
+                                <a href="{{ route('blog.detail', ['slug' => $next->slug]) }}" class="btn-Prev">
+                                    <i class="icofont-rounded-left"></i> Sebelumnya
+                                </a>
+                            </div>
+                        @endif
+                    </article>
+                @endif
 
                 {{-- RELATED POSTS --}}
                 <div id="relatedPost" class="related-post mb-4">
