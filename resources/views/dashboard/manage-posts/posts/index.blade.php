@@ -227,8 +227,14 @@
                                     Oops.. sepertinya postingan kamu dengan kata kunci
                                     {{ strtoupper(request()->get('keyword')) }}
                                     tidak ditemukan.
+                                @elseif (request()->get('status') == 'publish')
+                                    Hmm.. sepertinya postingan kamu belum dibuat.
+                                    <a href="{{ route('posts.create') }}">Buat?</a>
+                                @elseif (request()->get('status') == 'draft')
+                                    Hmm.. kelihatannya postingan kamu belum ada yang diarsip.
                                 @else
-                                    Hmm.. sepertinya disini tidak ada postingan blog..
+                                    Hmm.. kelihatannya pengguna belum ada yang buat
+                                    postingan..
                                 @endif
                             </b>
                         </div>
