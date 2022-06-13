@@ -188,6 +188,17 @@ class BlogController extends Controller
             ->latest()
             ->paginate(6);
 
+        if ($author->slug == 'admin') {
+            return redirect()->route('blog.authors')
+                ->with('success', 'kamu tidak bisa mengakses halaman ini');
+        } else if ($author->slug == 'mimin') {
+            return redirect()->route('blog.authors')
+                ->with('success', 'kamu tidak bisa mengakses halaman ini');
+        } else if ($author->slug == 'editor') {
+            return redirect()->route('blog.authors')
+                ->with('success', 'kamu tidak bisa mengakses halaman ini');
+        }
+
         $recommendationPosts = RecommendationPost::select('post_id')
             ->where('recommendation_posts.user_id', $author->id)
             ->join('posts', 'posts.id', '=', 'recommendation_posts.post_id')
