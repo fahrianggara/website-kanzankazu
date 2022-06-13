@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\WebSetting;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -39,8 +40,14 @@ class UserController extends Controller
 
         $q = $request->get('keyword');
 
-        $users = $request->get('keyword') ? User::where('name', 'LIKE', '%' . $q . '%')
-            ->orWhere('email', 'LIKE', '%' . $q . '%')->paginate(10) : User::paginate(50);
+        if ($q) {
+            $users = User::where('name', 'LIKE', '%' . $q . '%')
+                ->orWhere('email', 'LIKE', '%' . $q . '%')->paginate(50);
+        } else {
+            $users = User::join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
+                ->orderBy('model_has_roles.role_id', 'asc')
+                ->paginate(50);
+        }
 
         return view('dashboard.manage-users.users.index', [
             'users' => $users->appends(['keyword' => $request->keyword]),
