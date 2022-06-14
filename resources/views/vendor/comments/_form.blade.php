@@ -56,14 +56,6 @@
     </div>
 </div>
 
-@push('css-external')
-    <link rel="stylesheet" href="{{ asset('vendor/dashboard/plugins/alertify/css/alert.css') }}">
-@endpush
-
-@push('js-external')
-    <script src="{{ asset('vendor/dashboard/plugins/alertify/js/alert.js') }}"></script>
-@endpush
-
 @push('js-internal')
     <script>
         $.ajaxSetup({
