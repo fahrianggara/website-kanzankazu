@@ -169,7 +169,7 @@
                     @include('blog.sub-blog.related-post')
                 </div>
 
-                <article class="sect-coment">
+                <article class="sect-coment" id="sectComment">
                     @if ($post->comments->count() >= 1)
                         <h2 class="sect-title"> {{ $post->comments->count() }} Komentar</h2>
                         <hr class="hr" style="padding-bottom: 5px">

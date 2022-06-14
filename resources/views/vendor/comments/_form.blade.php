@@ -23,19 +23,19 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group ">
-                            <label for="message">@lang('comments::comments.enter_your_name_here')</label>
+                            <label for="message">Nama</label>
                             <input id="guest_name" type="text"
                                 class="form-control @if ($errors->has('guest_name')) is-invalid @endif"
-                                name="guest_name" placeholder="@lang('comments::comments.enter_your_name')" />
+                                name="guest_name" placeholder="Masukkan nama kamu" />
                             <span class="invalid-feedback d-block error-text guest_name_error"></span>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label for="message">@lang('comments::comments.enter_your_email_here')</label>
+                            <label for="message">Email</label>
                             <input id="guest_email" type="email"
                                 class="form-control @if ($errors->has('guest_email')) is-invalid @endif"
-                                name="guest_email" placeholder="@lang('comments::comments.enter_your_email')" />
+                                name="guest_email" placeholder="Masukkan alamat email kamu" />
                             <span class="invalid-feedback d-block error-text guest_email_error"></span>
                         </div>
                     </div>
@@ -43,15 +43,14 @@
             @endif
 
             <div class="form-group">
-                <label for="message">@lang('comments::comments.enter_your_message_here')</label>
+                <label for="message">Komentar</label>
                 <textarea id="message" class="form-control @if ($errors->has('comment')) is-invalid @endif" name="message" rows="3"
-                    placeholder="@lang('comments::comments.enter_your_message')"></textarea>
+                    placeholder="Masukkan komentar kamu"></textarea>
                 <span class="invalid-feedback d-block error-text message_error"></span>
 
-                {{-- <small class="form-text text-muted">@lang('comments::comments.markdown_cheatsheet', ['url' =>
-                    'https://help.github.com/articles/basic-writing-and-formatting-syntax'])</small> --}}
+                <small class="form-text text-muted">@lang('comments::comments.markdown_cheatsheet', ['url' => 'https://help.github.com/articles/basic-writing-and-formatting-syntax'])</small>
             </div>
-            <button id="submit-comment" type="submit" class="">@lang('comments::comments.submit')</button>
+            <button id="submit-comment" type="submit" class="">Posting</button>
 
         </form>
     </div>

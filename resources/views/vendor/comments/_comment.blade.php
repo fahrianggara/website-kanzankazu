@@ -31,16 +31,16 @@ $markdown->setSafeMode(true);
         <div style="margin-top: 2px">
             @can('reply-to-comment', $comment)
                 <button data-toggle="modal" data-target="#reply-modal-{{ $comment->getKey() }}"
-                    class="btn btn-sm btn-link text-uppercase">@lang('comments::comments.reply')</button>
+                    class="btn btn-sm btn-link text-uppercase">Balas</button>
             @endcan
             @can('edit-comment', $comment)
                 <button data-toggle="modal" data-target="#comment-modal-{{ $comment->getKey() }}"
-                    class="btn btn-sm btn-link text-uppercase">@lang('comments::comments.edit')</button>
+                    class="btn btn-sm btn-link text-uppercase">Edit</button>
             @endcan
             @can('delete-comment', $comment)
                 <a href="{{ route('comments.destroy', $comment->getKey()) }}"
                     onclick="event.preventDefault();document.getElementById('comment-delete-form-{{ $comment->getKey() }}').submit();"
-                    class="btn btn-sm btn-link text-danger text-uppercase">@lang('comments::comments.delete')</a>
+                    class="btn btn-sm btn-link text-danger text-uppercase">Hapus</a>
                 <form id="comment-delete-form-{{ $comment->getKey() }}"
                     action="{{ route('comments.destroy', $comment->getKey()) }}" method="POST" style="display: none;">
                     @method('DELETE')
@@ -61,23 +61,23 @@ $markdown->setSafeMode(true);
                             @csrf
 
                             <div class="modal-header">
-                                <h5 class="modal-title">@lang('comments::comments.edit_comment')</h5>
+                                <h5 class="modal-title">Edit komentar kamu</h5>
                                 <button type="button" class="close" data-dismiss="modal">
                                     <span>&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label for="message">@lang('comments::comments.update_your_message_here')</label>
-                                    <textarea required class="form-control" name="message" rows="3" autofocus>{{ $comment->comment }}</textarea>
+                                    <label for="message">Edit komentar kamu disini.</label>
+                                    <textarea class="form-control" required name="message" rows="3" autofocus>{{ $comment->comment }}</textarea>
                                     <small class="form-text text-muted">@lang('comments::comments.markdown_cheatsheet', ['url' => 'https://help.github.com/articles/basic-writing-and-formatting-syntax'])</small>
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-sm btn-outline-secondary text-uppercase"
-                                    data-dismiss="modal">@lang('comments::comments.cancel')</button>
-                                <button type="submit"
-                                    class="btn btn-sm btn-outline-success text-uppercase">@lang('comments::comments.update')</button>
+                                    data-dismiss="modal">Batal</button>
+                                <button type="submit" id="submit-comment-update"
+                                    class="btn btn-sm btn-outline-success text-uppercase">Ubah</button>
                             </div>
                         </form>
                     </div>
@@ -89,26 +89,28 @@ $markdown->setSafeMode(true);
             <div class="modal fade" id="reply-modal-{{ $comment->getKey() }}" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <form method="POST" action="{{ route('comments.reply', $comment->getKey()) }}">
+                        <form id="formCommentReply" method="POST"
+                            action="{{ route('comments.reply', $comment->getKey()) }}">
                             @csrf
                             <div class="modal-header">
-                                <h5 class="modal-title">@lang('comments::comments.reply_to_comment')</h5>
+                                <h5 class="modal-title">Balas komentar</h5>
                                 <button type="button" class="close" data-dismiss="modal">
                                     <span>&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label for="message">@lang('comments::comments.enter_your_message_here')</label>
+                                    <label for="message">Masukkan komentar kamu disini</label>
                                     <textarea required class="form-control" name="message" rows="3"></textarea>
+                                    <span class="invalid-feedback d-block error-text message_error"></span>
                                     <small class="form-text text-muted">@lang('comments::comments.markdown_cheatsheet', ['url' => 'https://help.github.com/articles/basic-writing-and-formatting-syntax'])</small>
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-sm btn-outline-secondary text-uppercase"
-                                    data-dismiss="modal">@lang('comments::comments.cancel')</button>
-                                <button type="submit"
-                                    class="btn btn-sm btn-outline-success text-uppercase">@lang('comments::comments.reply')</button>
+                                    data-dismiss="modal">Batal</button>
+                                <button id="submit-comment-reply" type="submit"
+                                    class="btn btn-sm btn-outline-success text-uppercase">Balas</button>
                             </div>
                         </form>
                     </div>

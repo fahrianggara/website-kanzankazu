@@ -90,6 +90,12 @@
             }
         }
 
+        setTimeout(() => {
+            history.replaceState('', document.title, window.location.origin + window
+                .location.pathname + window
+                .location.search);
+        }, 100);
+
         const notif = $('.notif-success').data('notif');
         if (notif) {
             alertify
