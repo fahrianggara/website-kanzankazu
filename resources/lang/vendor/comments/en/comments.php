@@ -1,14 +1,14 @@
 <?php
 
 return [
-    'there_are_no_comments' => 'Be the first comments!',
-    'authentication_required' => 'Authentication required',
-    'you_must_login_to_post_a_comment' => 'You must log in to post a comment.',
+    'there_are_no_comments' => 'Jadilah komentar yang pertama!',
+    'authentication_required' => 'Autentikasi diperlukan',
+    'you_must_login_to_post_a_comment' => 'Kamu harus login dulu sebelum meng-komentar.',
     'log_in' => 'Log in',
-    'reply' => 'Reply',
+    'reply' => 'Balas',
     'edit' => 'Edit',
-    'delete' => 'Delete',
-    'edit_comment' => 'Edit comment',
+    'delete' => 'Hapus',
+    'edit_comment' => 'Edit Komentar',
     'update_your_message_here' => 'Update your message here:',
     'update' => 'Update',
     'cancel' => 'Cancel',
