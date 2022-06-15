@@ -28,6 +28,7 @@
                         </div>
                     </form>
                 </div>
+
                 <div class="card-body">
                     @if (count($contact) >= 1)
                         <div class="table-responsive">
@@ -55,8 +56,15 @@
                                             <th>{{ $c->created_at->format('d-m-Y / H:i:s a') }}</th>
                                             @can('inbox_delete')
                                                 <th>
-                                                    <a href="mailto:{{ $c->email }}" class="btn btn-sm btn-primary"
+                                                    {{-- <a href="{{ route('contact.replay', $c->id) }}" class="btn btn-sm btn-primary"
                                                         data-toggle="tooltip" data-placement="bottom" title="Balas Pesan">
+                                                        <i class="uil uil-envelope-upload"></i>
+                                                    </a> --}}
+
+                                                    <a href="#" id="replayContact" class="replay_btn btn btn-sm btn-primary"
+                                                        data-id="{{ $c->id }}" data-toggle="tooltip"
+                                                        data-placement="bottom" title="Balas Pesan">
+
                                                         <i class="uil uil-envelope-upload"></i>
                                                     </a>
 
@@ -103,15 +111,81 @@
         </div>
     </div>
 
+    {{-- Modal replay --}}
+    <div class="modal fade" id="replayInboxModal" tabindex="-1" role="dialog" aria-labelledby="replayTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-centered">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="replayTitle">Balas inbox</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="formReplayComments" action="#" autocomplete="off" method="GET">
+                    <div class="modal-body">
+                        @csrf
+                        @method('GET')
+                        <input type="hidden" id="inbox_id" name="id" value="">
+
+                        <div class="form-group mb-3">
+                            <label for="email">Kirim ke</label>
+                            <input type="text" name="email" id="email" value="" class="form-control" placeholder="email"
+                                readonly>
+                            <span class="invalid-feedback d-block error-text email_error"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="message">Pesan</label>
+                            <input name="message" class="form-control" id="message" cols="2" rows="2"
+                                placeholder="Balas pesan" readonly>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="judul">Judul Pesan</label>
+                            <input type="text" name="judul" id="judul" value="" class="form-control" placeholder="Masukkan judul pesan">
+                            <span class="invalid-feedback d-block error-text judul_error"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="replay">Balas Pesan</label>
+                            <textarea name="replay" class="form-control" id="replay" onkeyup="countChar(this)" cols="2" rows="6"
+                                placeholder="Balas pesan"></textarea>
+
+                            <span class="float-right" id="charNumBlog"></span>
+                            <span class="invalid-feedback d-block error-text replay_error"></span>
+                        </div>
+
+                        <br>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                            <button type="submit" class="submitReply btn btn-primary">
+                                <i class="uil uil-message"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @push('js-internal')
     <script>
         $(document).ready(function() {
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
+            });
+
+            $('[data-dismiss="modal"]').on('click', function() {
+                $(document).find('span.error-text').text('');
+                $(document).find('input.form-control').removeClass(
+                    'is-invalid');
+                $(document).find('textarea.form-control').removeClass(
+                    'is-invalid');
+                $('#formReplayComments')[0].reset();
             });
 
             $("form[role='alert']").submit(function(e) {
@@ -134,6 +208,89 @@
                 });
             });
 
+            $(document).on('click', '#replayContact', function(e) {
+                e.preventDefault();
+
+                let inbox_id = $(this).data('id');
+                $("#replayInboxModal").modal('show');
+
+                $.ajax({
+                    type: "GET",
+                    url: "{{ url('dashboard/show-replay') }}/" + inbox_id,
+                    success: function(response) {
+                        if (response.status == 400) {
+                            alertify
+                                .delay(4500)
+                                .log(response.msg);
+                        } else {
+                            $("#inbox_id").val(inbox_id);
+                            $("#email").val(response.dataInbox.email);
+                            $("#message").val(response.dataInbox.message);
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                    }
+                });
+            });
+
+            $('#formReplayComments').on('submit', function(e) {
+                e.preventDefault();
+
+                let id = $('#inbox_id').val();
+                console.log(id);
+
+                $.ajax({
+                    method: "GET",
+                    url: "{{ url('dashboard/replay') }}/" + id,
+                    data: {
+                        'replay': $('#replay').val(),
+                        'judul': $('#judul').val(),
+                    },
+                    dataType: 'JSON',
+                    beforeSend: function() {
+                        $('.submitReply').attr('disable', 'disable');
+                        $('.submitReply').html('<i class="fas fa-spin fa-spinner"></i>');
+                        // Ketika benar sudah melewati validasi maka hilangkan error validasinya
+                        $(document).find('span.error-text').text('');
+                    },
+                    complete: function() {
+                        $('.submitReply').removeAttr('disable');
+                        $('.submitReply').html('<i class="uil uil-message"></i>');
+                    },
+                    success: function(response) {
+                        if (response.status == 400) {
+                            $.each(response.errors, function(key, val) {
+                                $('span.' + key + '_error').text(val[0]);
+                            });
+                        } else {
+                            alertify
+                                .delay(4500)
+                                .log(response.msg);
+
+                            $("#replayInboxModal").modal('hide');
+                            $('#formReplayComments')[0].reset();
+                            $(document).find('span.error-text').text('');
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                    }
+                });
+            });
+
         });
+
+        function countChar(val) {
+            let max = 500
+            let limit = val.value.length;
+            if (limit >= max) {
+                val.value = val.value.substring(0, max);
+                $('#charNumBlog').text('Kamu sudah mencapai batas maksimal');
+            } else {
+                var char = max - limit;
+                $('#charNumBlog').text(char + ' Karakter tersisa');
+            };
+        }
     </script>
 @endpush

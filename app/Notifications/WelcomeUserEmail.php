@@ -42,6 +42,7 @@ class WelcomeUserEmail extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+            ->subject('Selamat Datang di Website Kami')
             ->greeting('Haloo, ' . $this->user->name)
             ->line('Selamat datang di KanzanKazu.')
             ->action('Explore', route('homepage'))

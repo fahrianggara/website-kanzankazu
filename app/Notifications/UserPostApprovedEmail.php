@@ -43,6 +43,7 @@ class UserPostApprovedEmail extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+            ->subject('Postingan Kamu Telah Disetujui')
             ->greeting('Haloo, ' . $this->user->name)
             ->line('Postingan kamu sudah di approve oleh ' . Auth::user()->roles->first()->name . '.')
             ->action('Lihat Postingan', route('posts.index'))

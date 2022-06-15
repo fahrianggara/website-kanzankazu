@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ReplayInbox;
 use App\Models\Contact;
 use App\Models\WebSetting;
 use Illuminate\Http\Request;
@@ -95,12 +96,6 @@ class ContactController extends Controller
                     ]
                 );
             }
-
-            Mail::send('mails.contact-us', $data, function ($message) use ($data, $setting) {
-                $message->from($data['email']);
-                $message->to($setting->site_email);
-                $message->subject($data['subject']);
-            });
         }
     }
 
@@ -124,5 +119,73 @@ class ContactController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function showInbox($id)
+    {
+        $data = Contact::find($id);
+
+        if ($data) {
+            return response()->json([
+                'status' => 200,
+                'dataInbox' => $data
+            ]);
+        } else {
+            return response()->json([
+                'status' => 400,
+                'msg' => 'Data tidak ditemukan'
+            ]);
+        }
+    }
+
+    public function replay(Request $request, $id)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'replay' => 'required|max:500|min:5',
+                'judul' => 'required|string|max:50|min:3',
+            ],
+            [
+                'replay.required' => 'Masukkan isi pesan kamu',
+                'replay.max' => 'Isi pesan maksimal 500 karakter',
+                'replay.min' => 'Isi pesan minimal 5 karakter',
+                'judul.required' => 'Masukkan judul pesan kamu',
+                'judul.string' => 'Judul pesan tidak boleh mengandung angka dan lain-lain',
+                'judul.max' => 'Judul pesan maksimal 50 karakter',
+                'judul.min' => 'Judul pesan minimal 3 karakter',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(
+                [
+                    'status' => 400,
+                    'errors' => $validator->errors()->toArray()
+                ]
+            );
+        } else {
+            $data = Contact::find($id);
+
+            $contact = [
+                'name' => $data->name,
+                'email' => $data->email,
+                'subject' => $data->subject,
+                'message' => $data->message,
+                'judul' => $request->judul,
+                'replay' => $request->replay
+            ];
+
+            Mail::to($data->email)->send(new ReplayInbox($contact));
+
+            return response()->json(
+                [
+                    'status' => 200,
+                    'msg' => 'Email berhasil dikirim'
+                ]
+            );
+
+            // return new ReplayInbox($contact);
+        }
     }
 }
