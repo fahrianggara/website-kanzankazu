@@ -69,13 +69,13 @@
                                                     </a>
 
                                                     <form action="{{ route('contact.destroy', ['contact' => $c]) }}"
-                                                        method="POST" class="d-inline" role="alert"
+                                                        method="POST" role="alert"
                                                         alert-text="Apakah kamu yakin? inbox dengan subjek ({{ $c->subject }}) akan dihapus permanen.">
                                                         @csrf
                                                         @method('DELETE')
 
                                                         <button type="submit" data-toggle="tooltip" data-placement="bottom"
-                                                            title="Hapus Pesan" class="btn btn-sm btn-danger">
+                                                            title="Hapus Pesan" class="btn btn-sm btn-danger mt-1">
                                                             <i class="uil uil-trash"></i>
                                                         </button>
                                                     </form>
