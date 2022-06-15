@@ -143,12 +143,11 @@ class ContactController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'replay' => 'required|max:500|min:5',
                 'judul' => 'required|string|max:50|min:3',
+                'replay' => 'required|min:5',
             ],
             [
                 'replay.required' => 'Masukkan isi pesan kamu',
-                'replay.max' => 'Isi pesan maksimal 500 karakter',
                 'replay.min' => 'Isi pesan minimal 5 karakter',
                 'judul.required' => 'Masukkan judul pesan kamu',
                 'judul.string' => 'Judul pesan tidak boleh mengandung angka dan lain-lain',

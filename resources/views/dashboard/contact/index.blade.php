@@ -146,11 +146,11 @@
                         </div>
                         <div class="form-group mb-3">
                             <label for="replay">Balas Pesan</label>
-                            <textarea name="replay" class="form-control" id="replay" onkeyup="countChar(this)" cols="2" rows="6"
+                            <textarea name="replay" class="form-control" id="replay" cols="2" rows="6"
                                 placeholder="Balas pesan"></textarea>
 
-                            <span class="float-right" id="charNumBlog"></span>
                             <span class="invalid-feedback d-block error-text replay_error"></span>
+                            <small class="form-text text-muted">@lang('comments::comments.markdown_cheatsheet', ['url' => 'https://www.markdownguide.org/cheat-sheet/'])</small>
                         </div>
 
                         <br>
@@ -280,17 +280,5 @@
             });
 
         });
-
-        function countChar(val) {
-            let max = 500
-            let limit = val.value.length;
-            if (limit >= max) {
-                val.value = val.value.substring(0, max);
-                $('#charNumBlog').text('Kamu sudah mencapai batas maksimal');
-            } else {
-                var char = max - limit;
-                $('#charNumBlog').text(char + ' Karakter tersisa');
-            };
-        }
     </script>
 @endpush
