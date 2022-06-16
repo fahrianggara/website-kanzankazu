@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class CategorySeeder extends Seeder
+class TutorialSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,34 +14,31 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('categories')->insert([
+        DB::table('tutorials')->insert([
             [
-                'title' => 'Web Programming',
-                'slug' => 'web-programming',
+                'title' => 'HTML',
+                'slug' => 'html',
                 'description' => '',
                 'thumbnail' => 'default.png',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
-                'parent_id' => null
             ],
             [
-                'title' => 'Mobile Programming',
-                'slug' => 'mobil-programming',
+                'title' => 'PHP',
+                'slug' => 'php',
                 'description' => '',
                 'thumbnail' => 'default.png',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
-                'parent_id' => null
             ],
             [
-                'title' => 'Game Programming',
-                'slug' => 'game-programming',
+                'title' => 'Laravel',
+                'slug' => 'laravel',
                 'description' => '',
                 'thumbnail' => 'default.png',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
-                'parent_id' => null
-            ]
+            ],
         ]);
     }
 }

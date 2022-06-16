@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             WebSettingSeeder::class,
             EmailMessageSeeder::class,
+            TutorialSeeder::class,
         ]);
     }
 }

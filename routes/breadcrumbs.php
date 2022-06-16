@@ -142,10 +142,10 @@ Breadcrumbs::for('tutorials', function (BreadcrumbTrail $trail) {
     $trail->push('Tutorial', route('tutorials.index'));
 });
 
-// Breadcrumbs::for('add_category', function (BreadcrumbTrail $trail) {
-//     $trail->parent('tutorials');
-//     $trail->push('Buat', route('tutorials.index'));
-// });
+Breadcrumbs::for('add_tutorial', function (BreadcrumbTrail $trail) {
+    $trail->parent('tutorials');
+    $trail->push('Buat', route('tutorials.index'));
+});
 
 // // Dashboard > Categories > Edit
 // Breadcrumbs::for('edit_category', function (BreadcrumbTrail $trail, $category) {
