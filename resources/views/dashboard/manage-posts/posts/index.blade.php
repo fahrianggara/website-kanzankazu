@@ -157,8 +157,8 @@
                                             </button>
                                         </form>
 
-                                        <form action="{{ route('posts.recommend', ['id' => $post->id]) }}" method="POST"
-                                            class="d-inline">
+                                        <form action="{{ route('posts.recommend', ['id' => $post->id]) }}"
+                                            method="POST" class="d-inline">
                                             @csrf
                                             @method('POST')
 
@@ -182,8 +182,8 @@
                                             </button>
                                         </form>
 
-                                        <form action="{{ route('posts.recommend', ['id' => $post->id]) }}" method="POST"
-                                            class="d-inline">
+                                        <form action="{{ route('posts.recommend', ['id' => $post->id]) }}"
+                                            method="POST" class="d-inline">
                                             @csrf
                                             @method('POST')
 
@@ -232,9 +232,12 @@
                                     <a href="{{ route('posts.create') }}">Buat?</a>
                                 @elseif (request()->get('status') == 'draft')
                                     Hmm.. kelihatannya postingan kamu belum ada yang diarsip.
-                                @else
+                                @elseif (request()->get('status') == 'approve')
                                     Hmm.. kelihatannya pengguna belum ada yang buat
                                     postingan..
+                                @else
+                                    Hmm.. sepertinya postingan kamu belum dibuat.
+                                    <a href="{{ route('posts.create') }}">Buat?</a>
                                 @endif
                             </b>
                         </div>

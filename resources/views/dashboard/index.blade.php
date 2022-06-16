@@ -83,6 +83,30 @@
             </div>
         @endcan
 
+        @can('manage_categories')
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div class="card m-b-30">
+                    <a href="{{ route('tutorials.index') }}" class="waves-effect">
+                        <div class="card-body">
+                            <div class="d-flex flex-row">
+                                <div class="col-3 align-self-center">
+                                    <div class="round">
+                                        <i class="uil uil-layer-group"></i>
+                                    </div>
+                                </div>
+                                <div class="col-9 align-self-center text-center">
+                                    <div class="m-l-10">
+                                        <h5 class="mt-0 round-inner">{{ $countTutorial }}</h5>
+                                        <p class="mb-0 text-muted">Tutorial</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        @endcan
+
         @can('manage_roles')
             <div class="col-md-6 col-lg-6 col-xl-3">
                 <div class="card m-b-30">
@@ -282,6 +306,56 @@
                 </div>
             </div>
         </div>
+    @endcan
+
+    {{-- CATEGORY TODAY --}}
+    @can('manage_categories')
+        <div class="row">
+            <div class="col-12">
+                <div class="card m-b-30">
+                    <div class="card-header">
+                        Tutorial hari ini
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @if ($tutorToday->count() >= 1)
+                @foreach ($tutorToday as $tutor)
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                        <div class="card m-b-30">
+                            @if (file_exists('vendor/dashboard/image/thumbnail-tutorials/' . $tutor->thumbnail))
+                                <img src="{{ asset('vendor/dashboard/image/thumbnail-tutorials/' . $tutor->thumbnail) }}"
+                                    alt="{{ $tutor->title }}" class="card-img-top img-fluid">
+                            @else
+                                <img src="{{ asset('vendor/blog/img/default.png') }}" alt="{{ $tutor->title }}"
+                                    class="card-img-top img-fluid">
+                            @endif
+
+                            <div class="card-body">
+                                <h5 class="card-title font-20 mt-0">{{ $tutor->title }}</h5>
+                                <p class="card-text">{{ substr($tutor->description, 0, 150) }}...</p>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            @else
+                <div class="col-12">
+                    <div class="text-center m-b-30" role="alert">
+                        Tidak ada tutorial yang dibuat hari ini
+                    </div>
+                </div>
+            @endif
+        </div>
+        @if ($tutorToday->count() >= 1)
+            <div class="row">
+                <div class="col-12 m-b-30">
+                    @if ($tutorToday->hasPages())
+                        {{ $tutorToday->links('vendor.pagination.bootstrap-4') }}
+                    @endif
+                </div>
+            </div>
+        @endif
     @endcan
 
     {{-- USER TODAY --}}

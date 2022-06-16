@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="sticky">
-                    <div class="card m-b-30">
+                    <div class="card m-b-15">
                         <div class="card-body">
                             <div class="form-group">
 
@@ -41,6 +41,51 @@
 
                         </div>
                     </div>
+
+                    @if (!Auth::user()->editorRole())
+                        <div class="card m-b-30">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="check_tutorial" class="font-weight-bold">Pilih Tutorial
+                                        <span class="star-required">*</span>
+                                    </label>
+
+                                    <div class="form-control overflow-auto @error('tutorial') is-invalid @enderror"
+                                        style="height: auto;">
+
+                                        @foreach ($tutorials as $tutorial)
+                                            <div class="checkbox my-2">
+                                                <div class="custom-control custom-checkbox">
+                                                    @if (old('tutorial') == $tutorial->id)
+                                                        <input type="radio" name="tutorial"
+                                                            value="{{ $tutorial->id }}" class="custom-control-input"
+                                                            id="tutorial-{{ $tutorial->id }}" checked>
+                                                    @else
+                                                        <input type="radio" name="tutorial"
+                                                            value="{{ $tutorial->id }}" class="custom-control-input"
+                                                            id="tutorial-{{ $tutorial->id }}">
+                                                    @endif
+
+                                                    <label class="custom-control-label"
+                                                        for="tutorial-{{ $tutorial->id }}">
+                                                        {{ $tutorial->title }}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        @endforeach
+
+                                    </div>
+
+                                    @error('tutorial')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
                 </div>
             </div>
 
@@ -132,11 +177,11 @@
 
                         {{-- SELECT TAG --}}
                         <div class="form-group">
-                            <label for="select_post_tag" class="">Pilih tag postingan<span
-                                    class="star-required">*</span>
+                            <label for="select_post_tag" class="">Tag postingan<span class="star-required">*</span>
                             </label>
 
-                            <select name="tag[]" id="select_post_tag" data-placeholder="Choose Tags"
+                            <select name="tag[]" id="select_post_tag"
+                                data-placeholder="Cari tag sesuai postingan kamu.."
                                 class="custom-select w-100 @error('tag') is-invalid @enderror" multiple>
                                 @if (old('tag'))
                                     @foreach (old('tag') as $tag)
@@ -178,7 +223,8 @@
                                     class="custom-select w-100 @error('status') is-invalid @enderror">
                                     <option value="publish" @if (old('status') == 'publish') selected @endif>Publik
                                     </option>
-                                    <option value="draft" @if (old('status') == 'draft') selected @endif>Arsip</option>
+                                    <option value="draft" @if (old('status') == 'draft') selected @endif>Arsip
+                                    </option>
 
                                     @error('status')
                                         <span class="invalid-feedback" role="alert">

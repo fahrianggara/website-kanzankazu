@@ -43,6 +43,11 @@ class Post extends Model
         return $this->belongsToMany(Tutorial::class)->withTimestamps();
     }
 
+    public function tutorial()
+    {
+        return $this->belongsToMany(Tutorial::class);
+    }
+
     public function category()
     {
         return $this->belongsToMany(Category::class, 'category_post');

@@ -147,11 +147,11 @@ Breadcrumbs::for('add_tutorial', function (BreadcrumbTrail $trail) {
     $trail->push('Buat', route('tutorials.index'));
 });
 
-// // Dashboard > Categories > Edit
-// Breadcrumbs::for('edit_category', function (BreadcrumbTrail $trail, $category) {
-//     $trail->parent('tutorials');
-//     $trail->push($category->title, route('tutorials.edit', ['category' => $category]));
-// });
+// Dashboard > Categories > Edit
+Breadcrumbs::for('edit_tutorial', function (BreadcrumbTrail $trail, $tutorial) {
+    $trail->parent('tutorials');
+    $trail->push($tutorial->title, route('tutorials.edit', ['tutorial' => $tutorial]));
+});
 
 // // Home > Blog
 // Breadcrumbs::for('blog', function (BreadcrumbTrail $trail) {

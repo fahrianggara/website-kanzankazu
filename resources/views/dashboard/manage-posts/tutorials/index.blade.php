@@ -50,18 +50,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($tutorials as $tutor)
+                                    @foreach ($tutorials as $tutorial)
                                         <tr class="text-center">
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $tutor->title }}</td>
+                                            <td>{{ $tutorial->title }}</td>
                                             <td>
-                                                <a href="#" class="btn btn-warning btn-sm" data-toggle="tooltip"
+                                                <a href="{{ route('tutorials.edit', ['tutorial' => $tutorial]) }}"
+                                                    class="btn btn-warning btn-sm" data-toggle="tooltip"
                                                     data-placement="bottom" title="Edit">
                                                     <i class="uil uil-pen"></i>
                                                 </a>
 
-                                                <form action="#" class="d-inline" role="alert" method="POST"
-                                                    alert-text="Apakah kamu yakin? kategori  akan dihapus permanen?">
+                                                <form action="{{ route('tutorials.destroy', ['tutorial' => $tutorial]) }}"
+                                                    class="d-inline" role="alert" method="POST"
+                                                    alert-text="Apakah kamu yakin? tutorial {{ $tutorial->title }} akan dihapus permanen?">
                                                     @csrf
                                                     @method('DELETE')
 
@@ -88,6 +90,13 @@
                         </table>
                     </div>
                 </div>
+                @if ($tutorials->hasPages())
+                    <div class="card-footer">
+                        <div class="page-footer">
+                            {{ $tutorials->links('vendor.pagination.bootstrap-4') }}
+                        </div>
+                    </div>
+                @endif
             </div>
 
         </div>
@@ -102,5 +111,27 @@
                 .delay(3500)
                 .log(notif);
         }
+
+        $(document).ready(function() {
+            $("form[role='alert']").submit(function(e) {
+                e.preventDefault();
+
+                Swal.fire({
+                    title: "Warning",
+                    text: $(this).attr('alert-text'),
+                    icon: "warning",
+                    allowOutsideClick: false,
+                    showCancelButton: true,
+                    cancelButtonText: "Ga, batalkan!",
+                    confirmButtonText: "Ya, hapus!",
+                    confirmButtonColor: '#d33',
+                    reverseButtons: true,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        e.target.submit();
+                    }
+                });
+            });
+        });
     </script>
 @endpush

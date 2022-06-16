@@ -46,6 +46,13 @@
         .tox:not([dir=rtl]) .tox-statusbar__branding {
             display: none
         }
+
+        a {
+            color: #00b2cc;
+        }
+        a:hover {
+            color: #00b2cc;
+        }
     </style>
 </head>
 

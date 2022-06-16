@@ -13,7 +13,7 @@ class CreateTutorialPostTable extends Migration
      */
     public function up()
     {
-        Schema::create('tutorial_post', function (Blueprint $table) {
+        Schema::create('post_tutorial', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('tutorial_id');
             $table->unsignedBigInteger('post_id');
@@ -31,6 +31,6 @@ class CreateTutorialPostTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tutorial_post');
+        Schema::dropIfExists('post_tutorial');
     }
 }

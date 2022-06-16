@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\Category;
 use App\Models\RecommendationPost;
 use App\Models\Tag;
+use App\Models\Tutorial;
 use App\Models\User;
 use App\Models\WebSetting;
 use App\Notifications\UserPostApproved;
@@ -188,6 +189,7 @@ class PostController extends Controller
     {
         return view('dashboard.manage-posts.posts.create', [
             'categories' => Category::with('generation')->onlyParent()->get(),
+            'tutorials' => Tutorial::all(),
         ]);
     }
 
@@ -199,106 +201,214 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make(
-            $request->all(),
-            [
-                'title'         => 'required|string|max:80|min:5',
-                'slug'          => 'unique:posts,slug',
-                'thumbnail'     => 'required|image|mimes:jpg,png,jpeg,gif|max:1024',
-                'description'   => 'required|max:500|min:10',
-                'content'       => 'required|min:10',
-                'category'      => 'required',
-                'tag'           => 'required',
-                'status'        => 'required',
-                'keywords'      => 'required|string|min:3|max:100',
-            ],
-            [
-                'title.required'         => 'Wajib harus diisi!',
-                'title.string'           => 'Harus berupa string!',
-                'title.max'              => 'Maksimal 80 karakter!',
-                'title.min'              => 'Minimal 5 karakter!',
-                'slug.unique'            => 'Postingan sudah ada!',
-                'thumbnail.required'     => 'Wajib harus diisi!',
-                'thumbnail.image'        => 'Harus berupa gambar!',
-                'thumbnail.mimes'        => 'Gambar harus berformat jpg, png, jpeg dan gif!',
-                'thumbnail.max'          => 'Ukuran gambar maksimal 1 MB!',
-                'description.required'   => 'Wajib harus diisi!',
-                'description.max'        => 'Maksimal 500 karakter!',
-                'description.min'        => 'Minimal 10 karakter!',
-                'content.required'       => 'Wajib harus diisi!',
-                'content.min'            => 'Minimal 10 karakter!',
-                'category.required'      => 'Wajib harus diisi!',
-                'tag.required'           => 'Wajib harus diisi!',
-                'status.required'        => 'Wajib harus diisi!',
-                'keywords.required'      => 'Wajib harus diisi!',
-                'keywords.string'        => 'Harus berupa string!',
-                'keywords.min'           => 'Minimal 3 karakter!',
-                'keywords.max'           => 'Maksimal 100 karakter!',
-            ]
-        );
+        if (Auth::user()->roles->pluck('name')->contains('Editor')) {
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'title'         => 'required|string|max:80|min:5',
+                    'slug'          => 'unique:posts,slug',
+                    'thumbnail'     => 'required|image|mimes:jpg,png,jpeg,gif|max:1024',
+                    'description'   => 'required|max:500|min:10',
+                    'content'       => 'required|min:10',
+                    'category'      => 'required',
+                    'tag'           => 'required',
+                    'status'        => 'required',
+                    'keywords'      => 'required|string|min:3|max:100',
+                ],
+                [
+                    'title.required'         => 'Wajib harus diisi!',
+                    'title.string'           => 'Harus berupa string!',
+                    'title.max'              => 'Maksimal 80 karakter!',
+                    'title.min'              => 'Minimal 5 karakter!',
+                    'slug.unique'            => 'Postingan sudah ada!',
+                    'thumbnail.required'     => 'Wajib harus diisi!',
+                    'thumbnail.image'        => 'Harus berupa gambar!',
+                    'thumbnail.mimes'        => 'Gambar harus berformat jpg, png, jpeg dan gif!',
+                    'thumbnail.max'          => 'Ukuran gambar maksimal 1 MB!',
+                    'description.required'   => 'Wajib harus diisi!',
+                    'description.max'        => 'Maksimal 500 karakter!',
+                    'description.min'        => 'Minimal 10 karakter!',
+                    'content.required'       => 'Wajib harus diisi!',
+                    'content.min'            => 'Minimal 10 karakter!',
+                    'category.required'      => 'Wajib harus diisi!',
+                    'tag.required'           => 'Wajib harus diisi!',
+                    'status.required'        => 'Wajib harus diisi!',
+                    'keywords.required'      => 'Wajib harus diisi!',
+                    'keywords.string'        => 'Harus berupa string!',
+                    'keywords.min'           => 'Minimal 3 karakter!',
+                    'keywords.max'           => 'Maksimal 100 karakter!',
+                ]
+            );
 
-        if ($validator->fails()) {
-            if ($request['tag']) {
-                $request['tag'] = Tag::select('id', 'title')->whereIn('id', $request->tag)->get();
-            }
-
-            return redirect()->back()->withInput($request->all())->withErrors($validator);
-        } else {
-            // PROSES INPUT DATA
-            DB::beginTransaction();
-            try {
-                if ($request->hasFile('thumbnail')) {
-                    // $public_path = '../../public_html/blog/';
-                    // $path = $public_path . "vendor/dashboard/image/thumbnail-posts/";
-                    $path = "vendor/dashboard/image/thumbnail-posts/";
-                    $thumbnail = $request->file('thumbnail');
-                    $newThumbnail = uniqid('POST-', true) . '.' . $thumbnail->extension();
-                    // Resize Image
-                    $reziseThumbnail = Image::make($thumbnail->path());
-                    $reziseThumbnail->resize(1280, 800)->save($path . '/' . $newThumbnail);
-                }
-
-                $post = Post::create([
-                    'title' => $request->title,
-                    'slug' => $request->slug,
-                    'thumbnail' => $newThumbnail,
-                    'description' => $request->description,
-                    'content' => $request->content,
-                    'author' => $request->author,
-                    'status' => $request->status,
-                    'keywords' => $request->keywords,
-                    'user_id' => Auth::user()->id,
-                    'views' => 0,
-                ]);
-
-                $post->tags()->attach($request->tag);
-                $post->categories()->attach($request->category);
-
-                if (Auth::user()->roles->pluck('name')->contains('Editor')) {
-                    return redirect()->route('posts.index')->with('success', 'Postingan kamu sedang menunggu untuk disetujui.');
-                } else {
-                    if ($post->status == 'publish') {
-                        return redirect()->route('posts.index')->with('success', 'Postingan baru berhasil ditambahkan!');
-                    } else {
-                        return redirect()->route('posts.index')->with('success', 'Postingan baru berhasil ditambahkan didalam arsip kamu!');
-                    }
-                }
-            } catch (\Throwable $th) {
-                DB::rollBack();
-
-                Alert::error(
-                    'Error',
-                    'Terjadi kesalahan saat menyimpan postingan.
-                    Pesan: ' . $th->getMessage()
-                );
-
+            if ($validator->fails()) {
                 if ($request['tag']) {
                     $request['tag'] = Tag::select('id', 'title')->whereIn('id', $request->tag)->get();
                 }
 
-                return redirect()->back()->withInput($request->all());
-            } finally {
-                DB::commit();
+                return redirect()->back()->withInput($request->all())->withErrors($validator);
+            } else {
+                // PROSES INPUT DATA
+                DB::beginTransaction();
+                try {
+                    if ($request->hasFile('thumbnail')) {
+                        // $public_path = '../../public_html/blog/';
+                        // $path = $public_path . "vendor/dashboard/image/thumbnail-posts/";
+                        $path = "vendor/dashboard/image/thumbnail-posts/";
+                        $thumbnail = $request->file('thumbnail');
+                        $newThumbnail = uniqid('POST-', true) . '.' . $thumbnail->extension();
+                        // Resize Image
+                        $reziseThumbnail = Image::make($thumbnail->path());
+                        $reziseThumbnail->resize(1280, 800)->save($path . '/' . $newThumbnail);
+                    }
+
+                    $post = Post::create([
+                        'title' => $request->title,
+                        'slug' => $request->slug,
+                        'thumbnail' => $newThumbnail,
+                        'description' => $request->description,
+                        'content' => $request->content,
+                        'author' => $request->author,
+                        'status' => $request->status,
+                        'keywords' => $request->keywords,
+                        'user_id' => Auth::user()->id,
+                        'views' => 0,
+                    ]);
+
+                    $post->tags()->attach($request->tag);
+                    $post->categories()->attach($request->category);
+
+                    if (Auth::user()->roles->pluck('name')->contains('Editor')) {
+                        return redirect()->route('posts.index')->with('success', 'Postingan kamu sedang menunggu untuk disetujui.');
+                    } else {
+                        if ($post->status == 'publish') {
+                            return redirect()->route('posts.index')->with('success', 'Postingan baru berhasil ditambahkan!');
+                        } else {
+                            return redirect()->route('posts.index')->with('success', 'Postingan baru berhasil ditambahkan didalam arsip kamu!');
+                        }
+                    }
+                } catch (\Throwable $th) {
+                    DB::rollBack();
+
+                    Alert::error(
+                        'Error',
+                        'Terjadi kesalahan saat menyimpan postingan.
+                    Pesan: ' . $th->getMessage()
+                    );
+
+                    if ($request['tag']) {
+                        $request['tag'] = Tag::select('id', 'title')->whereIn('id', $request->tag)->get();
+                    }
+
+                    return redirect()->back()->withInput($request->all());
+                } finally {
+                    DB::commit();
+                }
+            }
+        } else {
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'title'         => 'required|string|max:80|min:5',
+                    'slug'          => 'unique:posts,slug',
+                    'thumbnail'     => 'required|image|mimes:jpg,png,jpeg,gif|max:1024',
+                    'description'   => 'required|max:500|min:10',
+                    'content'       => 'required|min:10',
+                    'category'      => 'required',
+                    'tutorial'      => 'required',
+                    'tag'           => 'required',
+                    'status'        => 'required',
+                    'keywords'      => 'required|string|min:3|max:100',
+                ],
+                [
+                    'title.required'         => 'Wajib harus diisi!',
+                    'title.string'           => 'Harus berupa string!',
+                    'title.max'              => 'Maksimal 80 karakter!',
+                    'title.min'              => 'Minimal 5 karakter!',
+                    'slug.unique'            => 'Postingan sudah ada!',
+                    'thumbnail.required'     => 'Wajib harus diisi!',
+                    'thumbnail.image'        => 'Harus berupa gambar!',
+                    'thumbnail.mimes'        => 'Gambar harus berformat jpg, png, jpeg dan gif!',
+                    'thumbnail.max'          => 'Ukuran gambar maksimal 1 MB!',
+                    'description.required'   => 'Wajib harus diisi!',
+                    'description.max'        => 'Maksimal 500 karakter!',
+                    'description.min'        => 'Minimal 10 karakter!',
+                    'content.required'       => 'Wajib harus diisi!',
+                    'content.min'            => 'Minimal 10 karakter!',
+                    'category.required'      => 'Wajib harus diisi!',
+                    'tutorial.required'      => 'Wajib harus diisi!',
+                    'tag.required'           => 'Wajib harus diisi!',
+                    'status.required'        => 'Wajib harus diisi!',
+                    'keywords.required'      => 'Wajib harus diisi!',
+                    'keywords.string'        => 'Harus berupa string!',
+                    'keywords.min'           => 'Minimal 3 karakter!',
+                    'keywords.max'           => 'Maksimal 100 karakter!',
+                ]
+            );
+
+            if ($validator->fails()) {
+                if ($request['tag']) {
+                    $request['tag'] = Tag::select('id', 'title')->whereIn('id', $request->tag)->get();
+                }
+
+                return redirect()->back()->withInput($request->all())->withErrors($validator);
+            } else {
+                // PROSES INPUT DATA
+                DB::beginTransaction();
+                try {
+                    if ($request->hasFile('thumbnail')) {
+                        // $public_path = '../../public_html/blog/';
+                        // $path = $public_path . "vendor/dashboard/image/thumbnail-posts/";
+                        $path = "vendor/dashboard/image/thumbnail-posts/";
+                        $thumbnail = $request->file('thumbnail');
+                        $newThumbnail = uniqid('POST-', true) . '.' . $thumbnail->extension();
+                        // Resize Image
+                        $reziseThumbnail = Image::make($thumbnail->path());
+                        $reziseThumbnail->resize(1280, 800)->save($path . '/' . $newThumbnail);
+                    }
+
+                    $post = Post::create([
+                        'title' => $request->title,
+                        'slug' => $request->slug,
+                        'thumbnail' => $newThumbnail,
+                        'description' => $request->description,
+                        'content' => $request->content,
+                        'author' => $request->author,
+                        'status' => $request->status,
+                        'keywords' => $request->keywords,
+                        'user_id' => Auth::user()->id,
+                        'views' => 0,
+                    ]);
+
+                    $post->tags()->attach($request->tag);
+                    $post->categories()->attach($request->category);
+                    $post->tutorials()->attach($request->tutorial);
+
+                    if (Auth::user()->roles->pluck('name')->contains('Editor')) {
+                        return redirect()->route('posts.index')->with('success', 'Postingan kamu sedang menunggu untuk disetujui.');
+                    } else {
+                        if ($post->status == 'publish') {
+                            return redirect()->route('posts.index')->with('success', 'Postingan baru berhasil ditambahkan!');
+                        } else {
+                            return redirect()->route('posts.index')->with('success', 'Postingan baru berhasil ditambahkan didalam arsip kamu!');
+                        }
+                    }
+                } catch (\Throwable $th) {
+                    DB::rollBack();
+
+                    Alert::error(
+                        'Error',
+                        'Terjadi kesalahan saat menyimpan postingan.
+                        Pesan: ' . $th->getMessage()
+                    );
+
+                    if ($request['tag']) {
+                        $request['tag'] = Tag::select('id', 'title')->whereIn('id', $request->tag)->get();
+                    }
+
+                    return redirect()->back()->withInput($request->all());
+                } finally {
+                    DB::commit();
+                }
             }
         }
     }

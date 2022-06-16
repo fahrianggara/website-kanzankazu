@@ -152,6 +152,7 @@
 @push('js-internal')
     <script>
         $(document).ready(function() {
+
             // SELECT ROLE
             $('#select_user_role').select2({
                 theme: 'bootstrap4',

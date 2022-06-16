@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Contact;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\Tutorial;
 use App\Models\WebSetting;
 use Spatie\Permission\Models\Role;
 use Carbon\Carbon;
@@ -26,22 +27,37 @@ class DashboardController extends Controller
     public function dashboard()
     {
         $countUser = User::count();
-        $countPost = Post::publish()->where('user_id', Auth::id())->count();
+        $countPost = Post::publish()
+            ->where('user_id', Auth::id())
+            ->count();
         $countTag = Tag::count();
         $countCategory = Category::count();
         $countContact = Contact::count();
         $countRole = Role::count();
+        $countTutorial = Tutorial::count();
 
         // post today
         $Today = Carbon::today();
         $postToday = Post::publish()
             ->whereDate('created_at', $Today)
             ->paginate(4);
-        $cateToday = Category::select('title', 'thumbnail', 'description')->whereDate('created_at', $Today)->paginate(4);
-        $tagToday = Tag::select('title')->whereDate('created_at', $Today)->get();
-        $inboxToday = Contact::select('name', 'email', 'subject', 'message')->whereDate('created_at', $Today)->get();
-        $userToday = User::whereDate('created_at', $Today)->paginate(3);
-        $roleToday = Role::select('name')->whereDate('created_at', $Today)->get();
+        $cateToday = Category::select('title', 'thumbnail', 'description')
+            ->whereDate('created_at', $Today)
+            ->paginate(4);
+        $tutorToday = Tutorial::select('title', 'thumbnail', 'description')
+            ->whereDate('created_at', $Today)
+            ->paginate(4);
+        $tagToday = Tag::select('title')
+            ->whereDate('created_at', $Today)
+            ->get();
+        $inboxToday = Contact::select('name', 'email', 'subject', 'message')
+            ->whereDate('created_at', $Today)
+            ->get();
+        $userToday = User::whereDate('created_at', $Today)
+            ->paginate(3);
+        $roleToday = Role::select('name')
+            ->whereDate('created_at', $Today)
+            ->get();
 
         return view('dashboard.index', compact(
             'countUser',
@@ -50,12 +66,14 @@ class DashboardController extends Controller
             'countCategory',
             'countContact',
             'countRole',
+            'countTutorial',
             'postToday',
             'cateToday',
             'tagToday',
             'inboxToday',
             'userToday',
-            'roleToday'
+            'roleToday',
+            'tutorToday',
         ));
     }
 }
