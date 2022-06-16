@@ -37,23 +37,10 @@
     <link href="{{ asset('vendor/blog/assets/fontawesome/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('vendor/dashboard/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('vendor/dashboard/css/icons.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('vendor/dashboard/css/styl.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('vendor/dashboard/css/style.css') }}" rel="stylesheet" type="text/css">
     {{-- CALL CSS --}}
     @stack('css-external')
     @stack('css-internal')
-
-    <style>
-        .tox:not([dir=rtl]) .tox-statusbar__branding {
-            display: none
-        }
-
-        a {
-            color: #00b2cc;
-        }
-        a:hover {
-            color: #00b2cc;
-        }
-    </style>
 </head>
 
 

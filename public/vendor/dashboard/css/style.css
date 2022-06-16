@@ -149,9 +149,18 @@ b {
     outline: none !important;
 }
 
+.tox:not([dir=rtl]) .tox-statusbar__branding {
+    display: none
+}
+
+a {
+    color: var(--first-color);
+}
+
 a:hover {
     outline: 0;
-    text-decoration: none;
+    text-decoration: underline;
+    color: var(--primLight-color);
 }
 
 a:active {
@@ -2262,6 +2271,7 @@ label {
     font-size: 15px;
     height: 38px;
     background: var(--container-color);
+    border-color: var(--first-color);
 }
 
 .form-control:focus {
@@ -2272,6 +2282,10 @@ label {
     background: var(--container-color);
 }
 
+.custom-file-label {
+    border-color: var(--first-color);
+}
+
 select {
     background: var(--container-color) !important;
 }
@@ -2279,11 +2293,14 @@ select {
 .select2-search__field .mousetrap {
     color: var(--text-color) !important;
     padding: 0 !important;
+    border-color: var(--first-color) !important;
+    outline: none;
 }
 
 .custom-select {
     border: 1px solid var(--first-color);
     outline: none !important;
+    border-color: var(--first-color);
 }
 
 .custom-control-label::before,
@@ -2446,7 +2463,7 @@ pre[class*="language-"] {
 }
 
 .select2-container--default .select2-selection--single {
-    border: 1px solid #d8d8d8;
+    border: 1px solid var(--first-color);
     height: 38px;
 }
 
@@ -2478,8 +2495,13 @@ pre[class*="language-"] {
 }
 
 .select2-container--default.select2-container--focus .select2-selection--multiple {
-    border: solid 1px #d8d8d8;
+    border: solid 1px red;
     outline: 0;
+}
+
+.select2-dropdown {
+    background-color: var(--container-color) !important;
+    border: 1px solid var(--first-color);
 }
 
 /*---datetimepicker---*/
@@ -3518,6 +3540,54 @@ label.custom-file-label::after {
 span.select2-dropdown.select2-dropdown--below {
     background: var(--container-color);
     color: var(--text-color);
+    border: 1px solid var(--first-color);
+}
+
+.select2-container--bootstrap4.select2-container--focus .select2-selection{
+    border-color: var(--first-color) !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.select2-container--bootstrap4 .select2-results__option--highlighted, .select2-container--bootstrap4 .select2-results__option--highlighted.select2-results__option[aria-selected="true"] {
+    background-color: var(--containerSec-color) !important;
+    color: var(--text-color) !important;
+}
+
+.select2-container--below {
+    border: none !important;
+    border-radius: 4px !important;
+}
+
+.select2-container--bootstrap4 .select2-dropdown.select2-dropdown--above {
+    border-top: 1px solid var(--first-color) !important;
+    border-left: 1px solid var(--first-color);
+    border-right: 1px solid var(--first-color);
+}
+
+.select2-selection__choice {
+    border: 1px solid var(--first-color) !important;
+    color: var(--first-color) !important;
+    background-color: var(--container-color);
+}
+
+.select2-container--bootstrap4.select2-container--open.select2-container--above .select2-selection {
+    border-radius: 0 0 4px 4px !important;
+}
+
+.select2-container--bootstrap4 .select2-dropdown .select2-results__option[aria-selected="true"] {
+    background-color: var(--header-color) !important;
+    color: var(--first-color) !important;
+}
+
+.input.select2-search__field.mousetrap {
+    background-color: var(--container-color) !important;
+    color: var(--text-color) !important;
+}
+
+.select2  {
+    outline: none !important;
+    background-color: var(--container-color);
 }
 
 input.select2-search__field.mousetrap {
@@ -3531,10 +3601,14 @@ span.select2-selection__rendered {
     outline: none !important;
 }
 
+.select2-selection.select2-selection--multiple{
+    background-color: var(--container-color) !important;
+}
+
 .select2-container--bootstrap4 .select2-results__option--highlighted,
 .select2-container--bootstrap4 .select2-results__option--highlighted.select2-results__option[aria-selected="true"] {
-    color: #fff;
-    background-color: var(--first-color) !important;
+    color: var(--text-color);
+    background-color: var(--header-color) !important;
 }
 
 input.form-control:read-only {
@@ -3904,6 +3978,13 @@ File: Responsive
 
 .select2-container--bootstrap4 .select2-selection {
     background-color: var(--sectionBg-color) !important;
+    border: 1px solid var(--first-color) !important;
+    color: var(--text-color);
+}
+
+.select2-container--bootstrap4 .select2-selection--multiple .select2-search__field {
+    border: none !important;
+    color: var(--text-color) !important;
 }
 
 .social-links a {
