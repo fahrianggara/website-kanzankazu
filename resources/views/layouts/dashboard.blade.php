@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     {{-- Meta --}}
@@ -7,10 +7,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta content="Admin Dashboard" name="description" />
-    <meta content="{{ Auth::user()->name }}" name="author" />
-    <meta http-equiv="Pragma" CONTENT="no-cache">
-    <meta http-equiv="Expires" CONTENT="-1">
+    <meta name="title" content="@yield('title') - {{ $setting->site_name }}">
+    <meta name="description" content="@yield('description', $setting->site_description)">
+    <meta name="keywords" content="@yield('keywords', $setting->meta_keywords)">
+    <meta name="language" content="id">
+    <meta name="author" content="@yield('author', Auth::user()->name)">
+    {{-- Meta OG --}}
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="@yield('url', url()->current())">
+    <meta property="og:title" content="@yield('title') - {{ $setting->site_name }}">
+    <meta property="og:description" content="@yield('description', $setting->site_description)">
+    <meta property="og:image" content="@yield('image', asset('vendor/blog/img/default.png'))">
+    <meta property="og:site_name" content="{{ $setting->site_name }}">
     {{-- title --}}
     <title>@yield('title') - {{ $setting->site_name }}</title>
     {{-- Logo / icon --}}

@@ -38,6 +38,11 @@ class Post extends Model
         return $this->belongsToMany(Category::class)->withTimestamps();
     }
 
+    public function tutorials()
+    {
+        return $this->belongsToMany(Tutorial::class)->withTimestamps();
+    }
+
     public function category()
     {
         return $this->belongsToMany(Category::class, 'category_post');

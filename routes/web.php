@@ -75,6 +75,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::resource('/contact', \App\Http\Controllers\ContactController::class)->except('edit', 'show', 'update');
         Route::get('/show-replay/{id}', [\App\Http\Controllers\ContactController::class, 'showInbox'])->name('contact.showReplay');
         Route::get('/replay/{id}', [\App\Http\Controllers\ContactController::class, 'replay'])->name('contact.replay');
+        // Tutorial
+        Route::resource('/tutorials', \App\Http\Controllers\Dashboard\TutorialController::class)->except('show');
         // Category
         Route::get('/categories/select', [\App\Http\Controllers\Dashboard\CategoryController::class, 'select'])->name('categories.select');
         Route::resource('/categories', \App\Http\Controllers\Dashboard\CategoryController::class)->except('show');

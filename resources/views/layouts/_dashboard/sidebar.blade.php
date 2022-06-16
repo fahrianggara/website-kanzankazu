@@ -82,6 +82,16 @@
                         </a>
                     </li>
                 @endcan
+                {{-- Tutorials --}}
+                @can('manage_categories')
+                    <li>
+                        <a href="{{ route('tutorials.index') }}"
+                            class="waves-effect {{ set_active(['tutorials.index', 'tutorials.create', 'tutorials.edit']) }}">
+                            <i class="uil uil-layer-group"></i>
+                            <span>Tutorial</span>
+                        </a>
+                    </li>
+                @endcan
 
                 {{-- USERS --}}
                 @can('manage_users')
