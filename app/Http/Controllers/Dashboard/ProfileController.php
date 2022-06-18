@@ -85,7 +85,7 @@ class ProfileController extends Controller
         // $ext = $file->getClientOriginalExtension();
         $new_name = uniqid("USER-", true) . ".jpg";
 
-        $upload = $file->move(public_path($path), $new_name);
+        $upload = $file->move($path, $new_name);
 
         if (!$upload) {
             return response()->json([
@@ -96,8 +96,8 @@ class ProfileController extends Controller
             $oldPicture = User::find(Auth::user()->id)->getAttributes()['user_image'];
 
             if ($oldPicture != '') {
-                if (File::exists(public_path($path . $oldPicture))) {
-                    File::delete(public_path($path . $oldPicture));
+                if (File::exists($path . $oldPicture)) {
+                    File::delete($path . $oldPicture);
                 }
             }
 

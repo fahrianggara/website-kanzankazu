@@ -103,7 +103,7 @@ class WebSettingController extends Controller
                     }
                     $image = $request->file('image_banner');
                     $newImage = uniqid('BANNER-', true) . '.' . $image->extension();
-                    $image->move(public_path($path), $newImage);
+                    $image->move($path, $newImage);
                     $webSetting->image_banner = $newImage;
                 }
 
@@ -139,7 +139,7 @@ class WebSettingController extends Controller
                     $path = "vendor/blog/img/home-img/";
                     $image = $request->file('image_banner');
                     $newImage = uniqid('BANNER-', true) . '.' . $image->extension();
-                    $image->move(public_path($path), $newImage);
+                    $image->move($path, $newImage);
                     $webSetting->image_banner = $newImage;
                 }
 
