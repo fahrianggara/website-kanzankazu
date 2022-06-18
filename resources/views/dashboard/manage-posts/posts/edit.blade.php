@@ -215,6 +215,27 @@
                                             </span>
                                         @enderror
                                     </div>
+                                @elseif ($tutoOld == null)
+                                    <div class="form-group col-lg-6">
+                                        <label for="select_tutorial">
+                                            Tutorial <span class="star-required">*</span>
+                                        </label>
+                                        <select id="select_tutorial" name="tutorial"
+                                            data-placeholder="Pilih tutorial post"
+                                            class="custom-select w-100 @error('tutorial') is-invalid @enderror">
+                                            @if (old('tutorial'))
+                                                <option value="{{ old('tutorial')->id }}">
+                                                    {{ old('tutorial')->title }}
+                                                </option>
+                                            @endif
+                                        </select>
+
+                                        @error('tutorial')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
                                 @endif
                             </div>
 
