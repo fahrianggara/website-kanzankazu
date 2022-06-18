@@ -48,9 +48,9 @@ class CategoryController extends Controller
         $categories = [];
         if ($request->has('q')) {
             $search = $request->q;
-            $categories = Category::select('id', 'title')->where('title', 'LIKE', "%$search%")->limit(5)->get();
+            $categories = Category::select('id', 'title')->where('title', 'LIKE', "%$search%")->onlyParent()->get();
         } else {
-            $categories = Category::select('id', 'title')->onlyParent()->limit(5)->get();
+            $categories = Category::select('id', 'title')->onlyParent()->get();
         }
 
         return response()->json($categories);
@@ -246,8 +246,18 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        $usePostCategory = Post::join('category_post', 'posts.id', '=', 'category_post.post_id')
+        ->where('category_post.category_id', $category->id)->get();
+
+        if ($usePostCategory->count() >= 1) {
+            Alert::warning(
+                'Warning',
+                "Oops.. kategori " . $category->title . " tidak bisa hapus, karena kategori ini sedang digunakan."
+            )->autoClose(false);
+            return redirect()->back();
+        }
+
         try {
-            // Delete image data category
             // $public_path = '../../public_html/blog/';
             // $path = $public_path . "vendor/dashboard/image/thumbnail-categories/";
             $path = "vendor/dashboard/image/thumbnail-categories/";
@@ -261,7 +271,7 @@ class CategoryController extends Controller
                 'Error',
                 'Failed during data input process.
                 Message: ' . $th->getMessage()
-            );
+            )->autoClose(false);
         }
 
         return redirect()->back()->with(

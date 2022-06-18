@@ -108,7 +108,7 @@ class RoleController extends Controller
                 'Error',
                 'Terjadi kesalahan saat menyimpan data.
                 Pesan: ' . $th->getMessage()
-            );
+            )->autoClose(false);
 
             return redirect()->back()->withInput($request->all());
         } finally {
@@ -193,7 +193,7 @@ class RoleController extends Controller
                 'Error',
                 'Terjadi kesalahan saat memperbarui data.
                     Pesan: ' . $th->getMessage()
-            );
+            )->autoClose(false);
 
             return redirect()->back()->withInput($request->all());
         } finally {
@@ -213,7 +213,7 @@ class RoleController extends Controller
             Alert::warning(
                 'Warning',
                 "Oops.. role " . $role->name . " tidak bisa hapus, karena role ini sedang digunakan."
-            );
+            )->autoClose(false);
             return redirect()->route('roles.index');
         }
 
@@ -236,7 +236,7 @@ class RoleController extends Controller
                 'Error',
                 'Terjadi kesalahan saat menghapus data.
                     Pesan: ' . $th->getMessage()
-            );
+            )->autoClose(false);
         } finally {
             DB::commit();
         }

@@ -141,7 +141,7 @@ class UserController extends Controller
                     'Error',
                     'Terjadi kesalahan saat menyimpan data.
                     Pesan: ' . $th->getMessage()
-                );
+                )->autoClose(false);
 
                 $request['role'] = Role::select('id', 'name')->find($request->role);
                 return redirect()
@@ -243,7 +243,7 @@ class UserController extends Controller
                     'Error',
                     'Terjadi kesalahan saat memperbarui data.
                     Pesan: ' . $th->getMessage()
-                );
+                )->autoClose(false);
 
                 $request['role'] = Role::select('id', 'name')->find($request->role);
                 return redirect()
@@ -281,7 +281,7 @@ class UserController extends Controller
                 'Error',
                 'Terjadi kesalahan saat menghapus data.
                     Pesan: ' . $th->getMessage()
-            );
+            )->autoClose(false);
         } finally {
             DB::commit();
             return redirect()->back()->with('success', 'Pengguna dengan nama ' . $user->name . ' berhasil dihapus!');

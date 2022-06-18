@@ -45,7 +45,7 @@ class Post extends Model
 
     public function tutorial()
     {
-        return $this->belongsToMany(Tutorial::class);
+        return $this->belongsToMany(Tutorial::class, 'post_tutorial');
     }
 
     public function category()

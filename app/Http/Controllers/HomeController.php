@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Tutorial;
 use App\Models\WebSetting;
 use Illuminate\Support\Facades\View;
 
@@ -27,6 +28,7 @@ class HomeController extends Controller
         return view('layouts.home', [
             'posts' => Post::publish()->latest()->limit(3)->get(),
             'categories' =>  Category::onlyParent()->latest()->limit(3)->get(),
+            'tutorials' => Tutorial::latest()->limit(3)->get(),
         ]);
     }
 }

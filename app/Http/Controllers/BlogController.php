@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\Category;
 use App\Models\RecommendationPost;
 use App\Models\Tag;
+use App\Models\Tutorial;
 use App\Models\User;
 use App\Models\WebSetting;
 use Illuminate\Support\Facades\App;
@@ -214,6 +215,25 @@ class BlogController extends Controller
         ));
     }
 
+    public function showAuthors()
+    {
+        $authors = User::where('name', '!=', 'Editor')
+            ->where('name', '!=', 'Mimin')
+            ->where('name', '!=', 'Admin')
+            ->orderBy('created_at', 'desc')->paginate(12);
+
+        return view('blog.blog-author', [
+            'authors' => $authors,
+        ]);
+    }
+
+    public function showTutorial()
+    {
+        return view('blog.tutorials', [
+            'tutorials' => Tutorial::paginate(10),
+        ]);
+    }
+
     public function showPostsbyMonthYear($year, $month)
     {
         $post = Post::publish();
@@ -235,17 +255,5 @@ class BlogController extends Controller
             ->toArray();
 
         return view('blog.blog-year-month', compact('posts', 'archives', 'post'));
-    }
-
-    public function showAuthors()
-    {
-        $authors = User::where('name', '!=', 'Editor')
-            ->where('name', '!=', 'Mimin')
-            ->where('name', '!=', 'Admin')
-            ->orderBy('created_at', 'desc')->paginate(12);
-
-        return view('blog.blog-author', [
-            'authors' => $authors,
-        ]);
     }
 }

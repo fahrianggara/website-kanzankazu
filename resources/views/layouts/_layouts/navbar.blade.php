@@ -15,9 +15,12 @@
                 </li>
 
                 <li
-                    class="drop-down {{ set_active(['blog.categories', 'blog.posts.categories', 'blog.tags', 'blog.posts.tags', 'blog.author', 'blog.authors']) }}">
+                    class="drop-down {{ set_active(['blog.categories', 'blog.posts.categories', 'blog.tags', 'blog.posts.tags', 'blog.author', 'blog.authors', 'blog.tutorials', 'blog.posts.tutorials']) }}">
                     <a href="#">Filter Blog</a>
                     <ul>
+                        <li class="{{ set_active(['blog.tutorials', 'blog.posts.tutorials']) }}"><a
+                                href="{{ route('blog.tutorials') }}">Tutorial</a>
+                        </li>
                         <li class="{{ set_active(['blog.categories', 'blog.posts.categories']) }}"><a
                                 href="{{ route('blog.categories') }}">Kategori</a>
                         </li>
@@ -94,7 +97,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <a href="{{ route('logout') }}" type="button" class="btn btn-danger" onclick="event.preventDefault();
+                <a href="{{ route('logout') }}" type="button" class="btn btn-danger"
+                    onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">Logout
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf

@@ -13,7 +13,6 @@
         <div class="col-12">
             <div class="card m-b-30">
                 <div class="card-body">
-
                     <form action="{{ route('tags.store') }}" method="POST">
                         @csrf
 

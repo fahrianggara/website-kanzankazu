@@ -44,7 +44,7 @@ class TagController extends Controller
         if ($request->has('q')) {
             $tags = Tag::select('id', 'title')->search($request->q)->get();
         } else {
-            $tags = Tag::select('id', 'title')->limit(5)->get();
+            $tags = Tag::select('id', 'title')->get();
         }
 
         return response()->json($tags);
@@ -97,7 +97,7 @@ class TagController extends Controller
                 'Error',
                 'Terjadi kesalahan saat menyimpan data.
                 Pesan: ' . $th->getMessage()
-            );
+            )->autoClose(false);
 
             return redirect()->back()->withInput($request->all());
         }
@@ -163,7 +163,7 @@ class TagController extends Controller
                 'Error',
                 'Terjadi kesalahan saat memperbarui data.
                 Pesan: ' . $th->getMessage()
-            );
+            )->autoClose(false);
 
             return redirect()->back()->withInput($request->all());
         }
@@ -177,6 +177,17 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
+        $usePostTag = Post::join('post_tag', 'posts.id', '=', 'post_tag.post_id')
+        ->where('post_tag.tag_id', $tag->id)->get();
+
+        if ($usePostTag->count() >= 1) {
+            Alert::warning(
+                'Warning',
+                "Oops.. tag " . $tag->title . " tidak bisa hapus, karena tag ini sedang digunakan."
+            )->autoClose(false);
+            return redirect()->back();
+        }
+
         try {
             $tag->delete();
         } catch (\Throwable $th) {
@@ -184,7 +195,7 @@ class TagController extends Controller
                 'Error',
                 'Terjadi kesalahan saat menghapus data.
                 Pesan: ' . $th->getMessage()
-            );
+            )->autoClose(false);
         }
 
         return redirect()->back()->with('success', 'Tag ' . $tag->title . ' berhasil dihapus!');

@@ -33,6 +33,9 @@ Route::get('/authors', [\App\Http\Controllers\BlogController::class, 'showAuthor
 Route::get('/@{author}', [\App\Http\Controllers\BlogController::class, 'showPostsByAuthor'])->name('blog.author');
 // Filter blog by Month and year
 Route::get('blog/{year}/{month}', [\App\Http\Controllers\BlogController::class, 'showPostsbyMonthYear'])->name('blog.monthYear');
+// Tutorials
+Route::get('/tutorials', [\App\Http\Controllers\BlogController::class, 'showTutorial'])->name('blog.tutorials');
+Route::get('/tutorials/{slug}', [\App\Http\Controllers\BlogController::class, 'showPostsByTutorial'])->name('blog.posts.tutorials');
 // CATEGORIES
 Route::get('/categories', [\App\Http\Controllers\BlogController::class, 'showCategory'])->name('blog.categories');
 Route::get('/category/{slug}', [
@@ -76,6 +79,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::get('/show-replay/{id}', [\App\Http\Controllers\ContactController::class, 'showInbox'])->name('contact.showReplay');
         Route::get('/replay/{id}', [\App\Http\Controllers\ContactController::class, 'replay'])->name('contact.replay');
         // Tutorial
+        Route::get('/tutorials/select', [\App\Http\Controllers\Dashboard\TutorialController::class, 'select'])->name('tutorials.select');
         Route::resource('/tutorials', \App\Http\Controllers\Dashboard\TutorialController::class)->except('show');
         // Category
         Route::get('/categories/select', [\App\Http\Controllers\Dashboard\CategoryController::class, 'select'])->name('categories.select');

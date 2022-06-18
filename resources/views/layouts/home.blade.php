@@ -68,6 +68,9 @@
         {{-- BLOG --}}
         @include('home.blog')
 
+        {{-- TUTORIAL --}}
+        @include('home.tutorial')
+
         {{-- CATEGORIES --}}
         @include('home.category')
 

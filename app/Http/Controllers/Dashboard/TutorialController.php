@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Post;
 use App\Models\Tutorial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -32,6 +33,19 @@ class TutorialController extends Controller
         return view('dashboard.manage-posts.tutorials.index', [
             'tutorials' => $tutorials->appends(['keyword' => $request->keyword]),
         ]);
+    }
+
+    public function select(Request $request)
+    {
+        $tutorials = [];
+        if ($request->has('q')) {
+            $search = $request->q;
+            $tutorials = Tutorial::select('id', 'title')->where('title', 'LIKE', "%$search%")->get();
+        } else {
+            $tutorials = Tutorial::select('id', 'title')->get();
+        }
+
+        return response()->json($tutorials);
     }
 
     /**
@@ -95,7 +109,7 @@ class TutorialController extends Controller
                     'title' => $request->title,
                     'slug' => $request->slug,
                     'description' => $request->description,
-                    'thumbnail' => $newImage,
+                    'thumbnail' => $newImage ?? 'default.png',
                 ]);
 
                 return redirect()->route('tutorials.index')->with('success', 'Tutorial baru berhasil ditambahkan');
@@ -104,7 +118,7 @@ class TutorialController extends Controller
                     'Error',
                     'Terjadi kesalahan saat menyimpan data.
                     Pesan: ' . $th->getMessage()
-                );
+                )->autoClose(false);
                 return redirect()->back()->withInput($request->all());
             }
         }
@@ -192,7 +206,7 @@ class TutorialController extends Controller
                     'Error',
                     'Terjadi kesalahan saat memperbarui data.
                     Pesan: ' . $th->getMessage()
-                );
+                )->autoClose(false);
                 return redirect()->back()->withInput($request->all());
             }
         }
@@ -206,6 +220,17 @@ class TutorialController extends Controller
      */
     public function destroy(Tutorial $tutorial)
     {
+        $usePostTutorial = Post::join('post_tutorial', 'posts.id', '=', 'post_tutorial.post_id')
+        ->where('post_tutorial.tutorial_id', $tutorial->id)->get();
+
+        if ($usePostTutorial->count() >= 1) {
+            Alert::warning(
+                'Warning',
+                "Oops.. tutorial " . $tutorial->title . " tidak bisa hapus, karena tutorial ini sedang digunakan."
+            )->autoClose(false);
+            return redirect()->back();
+        }
+
         try {
             // $public_path = '../../public_html/blog/';
             // $path = $public_path . "vendor/dashboard/image/thumbnail-tutorials/";
@@ -220,10 +245,10 @@ class TutorialController extends Controller
                 'Error',
                 'Terjadi kesalahan saat menghapus data.
                 Pesan: ' . $th->getMessage()
-            );
+            )->autoClose(false);
         }
 
-        return redirect()->route('tutorials.index')
+        return redirect()->back()
             ->with('success', 'Tutorial ' . $tutorial->title . ' berhasil dihapus');
     }
 }

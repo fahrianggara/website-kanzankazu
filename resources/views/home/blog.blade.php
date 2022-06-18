@@ -1,5 +1,5 @@
 @if ($posts->count() >= 1)
-    <section id="blog" class="blog section-bg">
+    <section id="blog" class="blog">
         <div class="container">
             <div class="section-title">
                 <h2>Apa yang baru di {{ $setting->site_name }}?</h2>
