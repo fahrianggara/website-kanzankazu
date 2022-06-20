@@ -88,11 +88,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Post::class)->where('status', 'publish');
     }
 
-    // public function posts()
-    // {
-    //     return $this->belongsToMany(Post::class)->where('status', 'publish');
-    // }
-
     public function tutorials()
     {
         return $this->belongsToMany(Tutorial::class, 'post_tutorial')

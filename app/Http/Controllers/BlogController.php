@@ -240,13 +240,19 @@ class BlogController extends Controller
     {
         $tutorial = Tutorial::where('slug', $slug)->first();
 
-        $users = User::with(['tutorials' => function ($q) use ($slug) {
-            return $q->where('slug', $slug);
-        }])
-            ->where('name', '!=', 'Editor')
-            ->where('name', '!=', 'Mimin')
-            ->where('name', '!=', 'Admin')
-            ->get();
+        // $users = User::with(['tutorials' => function ($q) use ($slug) {
+        //     return $q->where('slug', $slug);
+        // }])
+        //     ->where('name', '!=', 'Editor')
+        //     ->where('name', '!=', 'Mimin')
+        //     ->where('name', '!=', 'Admin')
+        //     ->get();
+
+        $users = User::with(['tutorials' => fn ($query) => $query->where('slug', '=', $slug)])
+            ->whereHas(
+                'tutorials',
+                fn ($query) => $query->where('slug', '=', $slug)
+            )->get();
 
         return view('blog.blog-tutorial', [
             'users' => $users,
