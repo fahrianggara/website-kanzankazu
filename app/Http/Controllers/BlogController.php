@@ -236,23 +236,22 @@ class BlogController extends Controller
         ]);
     }
 
-    public function showPostsByTutorial(User $user, $slug)
+    public function showPostsByTutorial($slug)
     {
         $tutorial = Tutorial::where('slug', $slug)->first();
 
-        // $users = User::with(['tutorials' => function ($q) use ($slug) {
-        //     return $q->where('slug', $slug);
-        // }])
-        //     ->where('name', '!=', 'Editor')
-        //     ->where('name', '!=', 'Mimin')
-        //     ->where('name', '!=', 'Admin')
+        // $users = User::with(['tutorials' => fn ($query) => $query->where('slug', '=', $slug)])
+        //     ->whereHas('tutorials', fn ($query) => $query->where('slug', '=', $slug))
         //     ->get();
 
-        $users = User::with(['tutorials' => fn ($query) => $query->where('slug', '=', $slug)])
-            ->whereHas(
-                'tutorials',
-                fn ($query) => $query->where('slug', '=', $slug)
-            )->get();
+        $users = User::with(['posts' => fn ($query) => $query->where('status', 'publish')])
+            ->whereHas('posts', fn ($query) => $query->where('status', 'publish')
+                ->where('tutorial_id', $tutorial->id))
+            ->with(['tutorials' => fn ($query) => $query->where('slug', $slug)])
+            ->whereHas('tutorials', fn ($query) => $query->where('slug', $slug))
+            ->get();
+
+        // dd($users);
 
         return view('blog.blog-tutorial', [
             'users' => $users,
