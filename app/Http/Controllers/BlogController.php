@@ -236,7 +236,9 @@ class BlogController extends Controller
 
     public function showAuthors()
     {
-        $authors = User::where('name', '!=', 'Editor')
+        $authors = User::with(['posts' => fn ($query) => $query->where('status', 'publish')])
+            ->whereHas('posts', fn ($query) => $query->where('status', 'publish'))
+            ->where('name', '!=', 'Editor')
             ->where('name', '!=', 'Mimin')
             ->where('name', '!=', 'Admin')
             ->orderBy('created_at', 'desc')->paginate(12);
