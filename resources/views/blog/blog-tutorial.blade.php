@@ -8,8 +8,8 @@
     <div class="container">
         @if ($tutorial->posts->count() >= 1)
             <div class="section-title">
-                <h2>Pilih author</h2>
-                <p>Silahkan pilih author-nya terlebih dahulu</p>
+                <h2>Pilih Author</h2>
+                <p>Silahkan pilih author-nya terlebih dahulu yaa</p>
             </div>
         @endif
 

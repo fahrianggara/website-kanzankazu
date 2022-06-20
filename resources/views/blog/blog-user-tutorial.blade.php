@@ -1,7 +1,7 @@
 @extends('layouts.blog')
 
 @section('title')
-    Tutorial {{ $tutorial->title }}
+    Tutorial {{ $tutorial->title }} | by {{ $author->name }}
 @endsection
 
 @section('content')
