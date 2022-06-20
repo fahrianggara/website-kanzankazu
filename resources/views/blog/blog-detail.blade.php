@@ -115,7 +115,7 @@
                                         @foreach ($post->tutorials as $tutorial)
                                             <li>
                                                 <a class="link-tagCats"
-                                                    href="{{ route('blog.posts.tutorials', ['slug' => $tutorial->slug]) }}">{{ $tutorial->title }}
+                                                    href="{{ route('blog.posts.tutorials.author', ['slug' => $tutorial->slug, 'user' => $post->user->slug]) }}">{{ $tutorial->title }}
                                                 </a>
                                             </li>
                                         @endforeach
@@ -306,7 +306,7 @@
                                     </div>
                                     <h4 class="titleSidebar loading">
                                         <a class="underline"
-                                            href="{{ route('blog.posts.tutorials', ['slug' => $tutorial->slug]) }}">
+                                            href="{{ route('blog.posts.tutorials.author', ['slug' => $tutorial->slug, 'user' => $post->user->slug]) }}">
                                             {{ $tutorial->title }}
                                         </a>
                                     </h4>
