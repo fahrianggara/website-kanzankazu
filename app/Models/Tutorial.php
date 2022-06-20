@@ -19,7 +19,6 @@ class Tutorial extends Model
 
     public function user()
     {
-        return $this->belongsToMany(Tutorial::class)
-            ->withPivot('user_id');
+        return $this->belongsTo(User::class);
     }
 }

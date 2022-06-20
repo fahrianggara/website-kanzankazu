@@ -44,11 +44,6 @@ class Post extends Model
             ->withTimestamps();
     }
 
-    public function users()
-    {
-        return $this->belongsToMany(User::class)->withTimestamps();
-    }
-
     public function tutorial()
     {
         return $this->belongsToMany(Tutorial::class, 'post_tutorial');
