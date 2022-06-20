@@ -22,6 +22,7 @@
                     <div class="card-body">
 
                         <input type="hidden" name="old_title" value="{{ $post->title }}">
+                        <input type="hidden" name="tutorial_user_id" value="{{ Auth::id() }}">
 
                         <div class="row">
                             {{-- TITLE --}}
@@ -175,7 +176,7 @@
                                 {{-- Category --}}
                                 <div class="form-group col-lg-6">
                                     <label for="select_category">
-                                        Kategori <span class="star-required">*</span>
+                                        Kategori
                                     </label>
                                     <select id="select_category" name="category" data-placeholder="Pilih kategori post"
                                         class="custom-select w-100 @error('category') is-invalid @enderror">
@@ -197,7 +198,7 @@
                                 @if ($tutoOld != null)
                                     <div class="form-group col-lg-6">
                                         <label for="select_tutorial">
-                                            Tutorial <span class="star-required">*</span>
+                                            Tutorial
                                         </label>
                                         <select id="select_tutorial" name="tutorial"
                                             data-placeholder="Pilih tutorial post"
@@ -218,7 +219,7 @@
                                 @elseif ($tutoOld == null)
                                     <div class="form-group col-lg-6">
                                         <label for="select_tutorial">
-                                            Tutorial <span class="star-required">*</span>
+                                            Tutorial
                                         </label>
                                         <select id="select_tutorial" name="tutorial"
                                             data-placeholder="Pilih tutorial post"

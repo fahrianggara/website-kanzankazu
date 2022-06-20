@@ -9,10 +9,17 @@ class Tutorial extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'slug', 'thumbnail', 'description'];
+    protected $fillable = ['title', 'slug', 'thumbnail', 'description', 'user_id'];
 
     public function posts()
     {
-        return $this->belongsToMany(Post::class)->where('status', 'publish');
+        return $this->belongsToMany(Post::class)
+            ->where('status', 'publish');
+    }
+
+    public function user()
+    {
+        return $this->belongsToMany(Tutorial::class)
+            ->withPivot('user_id');
     }
 }

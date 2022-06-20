@@ -15,10 +15,10 @@
                 </li>
 
                 <li
-                    class="drop-down {{ set_active(['blog.categories', 'blog.posts.categories', 'blog.tags', 'blog.posts.tags', 'blog.author', 'blog.authors', 'blog.tutorials', 'blog.posts.tutorials']) }}">
+                    class="drop-down {{ set_active(['blog.categories', 'blog.posts.categories', 'blog.tags', 'blog.posts.tags', 'blog.author', 'blog.authors', 'blog.tutorials', 'blog.posts.tutorials', 'blog.posts.tutorials.author']) }}">
                     <a href="#">Filter Blog</a>
                     <ul>
-                        <li class="{{ set_active(['blog.tutorials', 'blog.posts.tutorials']) }}"><a
+                        <li class="{{ set_active(['blog.tutorials', 'blog.posts.tutorials', 'blog.posts.tutorials.author']) }}"><a
                                 href="{{ route('blog.tutorials') }}">Tutorial</a>
                         </li>
                         <li class="{{ set_active(['blog.categories', 'blog.posts.categories']) }}"><a

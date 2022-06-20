@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTutorialPostTable extends Migration
+class CreatePostTutorialTable extends Migration
 {
     /**
      * Run the migrations.
@@ -17,10 +17,12 @@ class CreateTutorialPostTable extends Migration
             $table->id();
             $table->unsignedBigInteger('tutorial_id');
             $table->unsignedBigInteger('post_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
             $table->foreign('tutorial_id')->references('id')->on('tutorials')->onDelete('cascade');
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

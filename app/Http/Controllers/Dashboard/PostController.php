@@ -321,7 +321,8 @@ class PostController extends Controller
                 $post->tags()->attach($request->tag);
                 $post->categories()->attach($request->category);
                 if (!Auth::user()->roles->pluck('name')->contains('Editor')) {
-                    $post->tutorials()->attach($request->tutorial);
+                    // $post->tutorials()->attach($request->tutorial, array('user_id' => Auth::user()->id));
+                    $post->tutorials()->attach($request->tutorial, ['user_id' => Auth::user()->id]);
                 }
 
                 if (Auth::user()->roles->pluck('name')->contains('Editor')) {
@@ -506,8 +507,13 @@ class PostController extends Controller
             $post->keywords = $request->keywords;
             $post->tags()->sync($request->tag);
             $post->categories()->sync($request->category);
+
             if (!Auth::user()->roles->pluck('name')->contains('Editor')) {
-                $post->tutorials()->sync($request->tutorial);
+                if ($post->tutorials()->first() != null) {
+                    $post->tutorials()->syncWithPivotValues($request->tutorial, ['user_id' => Auth::id()]);
+                } else if ($post->tutorials()->first() == null) {
+                    $post->tutorials()->attach($request->tutorial, ['user_id' => Auth::id()]);
+                }
             }
 
             $post->update();

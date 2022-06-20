@@ -13,6 +13,8 @@
     <form action="{{ route('posts.store') }}" method="post" enctype="multipart/form-data" autocomplete="off">
         @csrf
 
+        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+
         <div class="row">
 
             <div class="col-lg-12">
@@ -174,7 +176,7 @@
                                 </div>
                             @else
                                 <div class="col-lg-6 form-group">
-                                    <label for="select_post_status">Status <span class="star-required">*</span></label>
+                                    <label for="select_post_status">Status <span class="star-required"></span></label>
 
                                     <select name="status" id="select_post_status"
                                         class="custom-select w-100 @error('status') is-invalid @enderror">
@@ -214,7 +216,7 @@
                                 {{-- tutorial --}}
                                 <div class="form-group col-lg-6">
                                     <label for="select_tutorial">
-                                        Tutorial <span class="star-required">*</span>
+                                        Tutorial <span class="star-required"></span>
                                     </label>
                                     <select id="select_tutorial" name="tutorial" data-placeholder="Pilih tutorial post"
                                         class="custom-select w-100 @error('tutorial') is-invalid @enderror">

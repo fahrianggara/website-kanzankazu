@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -85,6 +86,17 @@ class User extends Authenticatable implements MustVerifyEmail
     public function posts()
     {
         return $this->hasMany(Post::class)->where('status', 'publish');
+    }
+
+    // public function posts()
+    // {
+    //     return $this->belongsToMany(Post::class)->where('status', 'publish');
+    // }
+
+    public function tutorials()
+    {
+        return $this->belongsToMany(Tutorial::class, 'post_tutorial')
+            ->withTimestamps();
     }
 
     public function publish($query)

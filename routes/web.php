@@ -36,6 +36,7 @@ Route::get('blog/{year}/{month}', [\App\Http\Controllers\BlogController::class, 
 // Tutorials
 Route::get('/tutorials', [\App\Http\Controllers\BlogController::class, 'showTutorial'])->name('blog.tutorials');
 Route::get('/tutorials/{slug}', [\App\Http\Controllers\BlogController::class, 'showPostsByTutorial'])->name('blog.posts.tutorials');
+Route::get('/tutorials/{slug}/by-{user}', [\App\Http\Controllers\BlogController::class, 'showPostsByTutorialByAuthor'])->name('blog.posts.tutorials.author');
 // CATEGORIES
 Route::get('/categories', [\App\Http\Controllers\BlogController::class, 'showCategory'])->name('blog.categories');
 Route::get('/category/{slug}', [

@@ -11,6 +11,8 @@ use App\Models\Tutorial;
 use App\Models\User;
 use App\Models\WebSetting;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 
@@ -120,7 +122,7 @@ class BlogController extends Controller
         $search =  $request->term;
 
         $posts = Post::publish()->where('title', 'LIKE', "%{$search}%")
-            ->latest()->limit(5)->get();
+            ->latest()->limit(8)->get();
 
         if (!$posts->isEmpty()) {
             foreach ($posts as $post) {
@@ -231,6 +233,49 @@ class BlogController extends Controller
     {
         return view('blog.tutorials', [
             'tutorials' => Tutorial::paginate(10),
+        ]);
+    }
+
+    public function showPostsByTutorial(User $user, $slug)
+    {
+        $tutorial = Tutorial::where('slug', $slug)->first();
+
+        $users = User::with(['tutorials' => function ($q) use ($slug) {
+            return $q->where('slug', $slug);
+        }])
+            ->where('name', '!=', 'Editor')
+            ->where('name', '!=', 'Mimin')
+            ->where('name', '!=', 'Admin')
+            ->get();
+
+        return view('blog.blog-tutorial', [
+            'users' => $users,
+            'tutorial' => $tutorial,
+        ]);
+    }
+
+    public function showPostsByTutorialByAuthor($slug, $user)
+    {
+        $author = User::where('name', $user)->firstOrFail();
+
+        $tutorial = Tutorial::with(['posts' => function ($q) use ($author) {
+            return $q->whereHas('user', function ($q) use ($author) {
+                return $q->where('name', $author->name);
+            });
+        }])
+            ->where('slug', $slug)
+            ->firstOrFail();
+
+        $posts = Post::publish()->whereHas('tutorials', function ($query) use ($slug) {
+            return $query->where('slug', $slug);
+        })->whereHas('user', function ($query) use ($user) {
+            return $query->where('name', $user);
+        })->orderBy('id', 'asc')->get();
+
+        return view('blog.blog-user-tutorial', [
+            'posts' => $posts,
+            'tutorial' => $tutorial,
+            'author' => $author,
         ]);
     }
 
