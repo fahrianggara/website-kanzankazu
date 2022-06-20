@@ -1,5 +1,5 @@
 @if ($paginator->hasPages())
-    <div id="related" class="simple-pagination" data-aos="fade-up">
+    <div id="tutorial" class="simple-pagination" data-aos="fade-up">
         <ul>
             @if ($paginator->onFirstPage())
                 <li class="disabled"><i class="icofont-rounded-left"></i></li>

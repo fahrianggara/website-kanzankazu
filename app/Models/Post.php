@@ -16,7 +16,7 @@ class Post extends Model
 {
     use HasFactory, Commentable;
     protected $table = "posts";
-    protected $fillable = ['title', 'slug', 'author', 'thumbnail', 'description', 'content', 'keywords', 'status', 'user_id', 'views', 'deleted_at'];
+    protected $fillable = ['title', 'slug', 'author', 'thumbnail', 'description', 'content', 'keywords', 'status', 'user_id', 'views', 'deleted_at', 'tutorial_id'];
     protected $hidden = [
         'created_at',
         'updated_at',

@@ -3368,9 +3368,9 @@ div.code-toolbar>.toolbar>.toolbar-item>span:hover {
     position: absolute;
     top: 0;
     left: 15px;
-    background: var(--first-color);
+    background: rgb(87, 87, 87);
     border-radius: 3px 0px 3px 3px;
-    padding: 1px 3px;
+    padding: 1px 6px;
 }
 
 .main-blog .post-related .img-moreBlog .img-infodate:hover {
@@ -3379,13 +3379,13 @@ div.code-toolbar>.toolbar>.toolbar-item>span:hover {
 
 .main-blog .post-related .img-moreBlog a {
     color: #fff;
-    font-size: 15px;
-    font-weight: 500;
+    font-size: 13px;
+    font-weight: 600;
 }
 
 .main-blog .post-related .img-moreBlog a:hover {
-    color: #000;
     text-decoration: none;
+    color: #fff;
 }
 
 .main-blog .post-related img {
@@ -3406,6 +3406,10 @@ div.code-toolbar>.toolbar>.toolbar-item>span:hover {
 }
 
 .main-blog .post-related a:hover {
+    color: var(--first-color);
+}
+
+.main-blog .post-related .link-moreblog a.active{
     color: var(--first-color);
 }
 
@@ -4048,6 +4052,20 @@ ul li.ui-menu-item p {
     font-weight: 600;
     margin-top: 12.5px;
     font-family: "Rubik", sans-serif;
+}
+
+@media (max-width: 432px) {
+    ul li.ui-menu-item p {
+        font-size: 12px;
+        font-weight: 500;
+    }
+}
+
+@media (max-width: 366px) {
+    ul li.ui-menu-item p {
+        font-size: 11px;
+        font-weight: 400;
+    }
 }
 
 ul li.ui-menu-item p:hover {

@@ -55,11 +55,11 @@ class BlogController extends Controller
 
         // next,prev button
         $next_id = Post::publish()
-            ->with('categories', 'tags')
+            ->where('user_id', $post->user->id)
             ->where('id', '>', $post->id)
             ->min('id');
         $prev_id = Post::publish()
-            ->with('categories', 'tags')
+            ->where('user_id', $post->user->id)
             ->where('id', '<', $post->id)
             ->max('id');
 
@@ -69,14 +69,30 @@ class BlogController extends Controller
             session::put('slug', $slug);
         }
 
+        // Related articles by tutorial
+        $tutorial_ids = [];
+        foreach ($post->tutorials as $tutorial) {
+            array_push($tutorial_ids, $tutorial->id);
+        }
+        $tutoPosts = Post::publish()
+            ->whereHas('tutorial', function ($query) use ($tutorial_ids) {
+                $query->whereIn('tutorial_id', $tutorial_ids);
+            })->whereHas('user', function ($query) use ($post) {
+                $query->where('id', $post->user->id);
+            })->orderBy('created_at', 'asc')->get();
+
         // Related article by category
         $category_ids = [];
         foreach ($post->category as $category) {
             array_push($category_ids, $category->id);
         }
-        $posts = Post::with('user')->publish()->where('id', '!=', $post->id)->whereHas('category', function ($q) use ($category_ids) {
-            $q->whereIn('category_id', $category_ids);
-        })->popular()->paginate(3);
+        $posts = Post::with('user')->publish()
+            ->where('id', '!=', $post->id)
+            ->whereHas('category', function ($q) use ($category_ids) {
+                $q->whereIn('category_id', $category_ids);
+            })->whereHas('user', function ($query) use ($post) {
+                $query->where('id', $post->user->id);
+            })->popular()->paginate(3);
 
         if (request()->ajax()) {
             return view('blog.sub-blog.related-post', compact('posts'));
@@ -85,11 +101,13 @@ class BlogController extends Controller
         return view('blog.blog-detail', [
             'post' => $post,
             'tags' => Tag::all(),
+            'tutorials' => Tutorial::all(),
             'categories' => Category::onlyParent()->withCount('posts')->get(),
             'next' => Post::find($next_id),
             'prev' => Post::find($prev_id),
             'recents' => Post::publish()->latest()->limit(3)->get(),
             'posts' => $posts,
+            'tutoPosts' => $tutoPosts,
         ]);
     }
 
@@ -128,7 +146,6 @@ class BlogController extends Controller
             foreach ($posts as $post) {
 
                 $new_row['title'] = $post->title;
-                // $new_row['url'] = url('blog/' . $post->slug);
                 $new_row['url'] = route('blog.detail', ['slug' => $post->slug]);
 
                 $row_set[] = $new_row;

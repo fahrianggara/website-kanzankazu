@@ -221,7 +221,7 @@
                                     <select id="select_tutorial" name="tutorial" data-placeholder="Pilih tutorial post"
                                         class="custom-select w-100 @error('tutorial') is-invalid @enderror">
                                         @if (old('tutorial'))
-                                            <option value="{{ old('tutorial')->id }}">
+                                            <option id="tutorial_id" value="{{ old('tutorial')->id }}">
                                                 {{ old('tutorial')->title }}
                                             </option>
                                         @endif
@@ -355,7 +355,7 @@
                     event.target.value
                     .trim()
                     .toLowerCase()
-                    .replace(/[^a-z\d-]/gi, "-")
+                    .replace(/[^a-z]/gi, "-")
                     .replace(/-+/g, "-")
                     .replace(/^-|-$/g, "")
                 );

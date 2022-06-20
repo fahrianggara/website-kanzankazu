@@ -12,7 +12,7 @@
 
                         <article class="entry-thumbnail">
                             <div class="entry-img loading">
-                                <a href="{{ route('blog.detail', ['slug' => $post->slug]) }}">
+                                <a href="{{ route('blog.detail', ['slug' => $post->slug ]) }}">
                                     @if (file_exists('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail))
                                         <img src="{{ asset('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail) }}"
                                             alt="{{ $post->title }}" class="img-fluid" />
@@ -25,7 +25,7 @@
 
                             <h2 class="entry-title loading">
                                 <a class="underline"
-                                    href="{{ route('blog.detail', ['slug' => $post->slug]) }}">{{ $post->title }}</a>
+                                    href="{{ route('blog.detail', ['slug' => $post->slug ]) }}">{{ $post->title }}</a>
                             </h2>
 
                             <div class="entry-meta">
@@ -53,7 +53,7 @@
                                     </p>
                                 </div>
                                 <div class="read-more loading">
-                                    <a href=" {{ route('blog.detail', ['slug' => $post->slug]) }}">
+                                    <a href=" {{ route('blog.detail', ['slug' => $post->slug ]) }}">
                                         Baca Selengkapnya
                                     </a>
                                 </div>

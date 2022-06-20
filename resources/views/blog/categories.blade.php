@@ -39,6 +39,13 @@
                             <ul>
                                 <li class="d-flex align-items-center">
                                     <div class="loading">
+                                        <i class="uil uil-file-info-alt"></i>
+                                        <span>{{ $category->posts->count() }}</span>
+                                    </div>
+                                </li>
+
+                                <li class="d-flex align-items-center">
+                                    <div class="loading">
                                         <i class="uil uil-calendar-alt"></i>
                                         <span>{{ $category->created_at->format('j M, Y') }}</span>
                                     </div>

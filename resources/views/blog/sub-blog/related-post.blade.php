@@ -19,12 +19,12 @@
                                 </div>
                             @endif
                         </a>
-                        {{-- @foreach ($post->category as $category)
-                        <div class="img-moredate loading">
-                            <a href="{{ route('blog.posts.categories', ['slug' => $category->slug]) }}"
-                                class="img-infodate">{{ $category->title }}</a>
-                        </div>
-                    @endforeach --}}
+                        @foreach ($post->tutorials as $tutorials)
+                            <div class="img-moredate loading">
+                                <a href="{{ route('blog.posts.categories', ['slug' => $tutorials->slug]) }}"
+                                    class="img-infodate">{{ $tutorials->title }}</a>
+                            </div>
+                        @endforeach
                     </div>
 
                     <div class="link-moreblog loading">

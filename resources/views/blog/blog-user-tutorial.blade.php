@@ -32,7 +32,7 @@
 
                         <h2 class="entry-title loading">
                             <a class="underline"
-                                href="{{ route('blog.detail', ['slug' => $post->slug]) }}">{{ '#' . $loop->iteration . ' - ' . $post->title }}</a>
+                                href="{{ route('blog.detail', ['slug' => $post->slug]) }}">{{ $post->title }}</a>
                         </h2>
 
                         <div class="entry-meta">

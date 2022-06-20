@@ -316,6 +316,7 @@ class PostController extends Controller
                     'keywords' => $request->keywords,
                     'user_id' => Auth::user()->id,
                     'views' => 0,
+                    'tutorial_id' => $request->tutorial,
                 ]);
 
                 $post->tags()->attach($request->tag);
@@ -505,6 +506,7 @@ class PostController extends Controller
             $post->description = $request->description;
             $post->content = $request->content;
             $post->keywords = $request->keywords;
+            $post->tutorial_id = $request->tutorial;
             $post->tags()->sync($request->tag);
             $post->categories()->sync($request->category);
 
@@ -572,7 +574,7 @@ class PostController extends Controller
 
             $post->delete();
 
-            return redirect()->route('posts.index')->with(
+            return redirect()->back()->with(
                 'success',
                 "Postingan \"" . $post->title . "\", Berhasil dihapus!"
             );

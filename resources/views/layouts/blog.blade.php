@@ -38,11 +38,70 @@
     {{-- jQuery Ui --}}
     <link rel="stylesheet" href="{{ asset('vendor/blog/assets/jquery-ui/jquery-ui.css') }}">
     {{-- Main CSS --}}
-    <link rel="stylesheet" href="{{ asset('vendor/blog/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/blog/css/mai.css') }}">
     {{-- CSS EXT --}}
     @stack('css-external')
     {{-- CSS INT --}}
     @stack('css-internal')
+
+    <style>
+        .ribbon-wrapper {
+            width: 85px;
+            height: 88px;
+            overflow: hidden;
+            position: absolute;
+            top: -3px;
+            right: -3px
+        }
+
+        .ribbon {
+            font-size: 12px;
+            color: #FFF;
+            text-transform: uppercase;
+            font-family: 'Montserrat Bold', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            letter-spacing: .05em;
+            line-height: 15px;
+            text-align: center;
+            text-shadow: 0 -1px 0 rgba(0, 0, 0, .4);
+            -webkit-transform: rotate(45deg);
+            -moz-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            -o-transform: rotate(45deg);
+            transform: rotate(45deg);
+            position: relative;
+            padding: 7px 0;
+            right: -11px;
+            top: 10px;
+            width: 100px;
+            height: 28px;
+            -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, .3);
+            box-shadow: 0 0 3px rgba(0, 0, 0, .3);
+            background-color: #dedede;
+            background-image: -webkit-linear-gradient(top, #ffffff 45%, #dedede 100%);
+            background-image: -o-linear-gradient(top, #ffffff 45%, #dedede 100%);
+            background-image: linear-gradient(to bottom, #ffffff 45%, #dedede 100%);
+            background-repeat: repeat-x;
+            filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffdedede', GradientType=0)
+        }
+
+        .ribbon:before,
+        .ribbon:after {
+            content: "";
+            border-top: 3px solid #9e9e9e;
+            border-left: 3px solid transparent;
+            border-right: 3px solid transparent;
+            position: absolute;
+            bottom: -3px
+        }
+
+        .ribbon:before {
+            left: 0
+        }
+
+        .ribbon:after {
+            right: 0
+        }
+    </style>
 </head>
 
 <body>

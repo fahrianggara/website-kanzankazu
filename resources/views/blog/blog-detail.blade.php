@@ -107,10 +107,31 @@
                                     @endforeach
                                 </ul>
                             </div>
+
+                            @if ($post->tutorials->isNotEmpty())
+                                <div class="ml-1 tagCats loading">
+                                    <i class="uil uil-books"></i>
+                                    <ul class="tags">
+                                        @foreach ($post->tutorials as $tutorial)
+                                            <li>
+                                                <a class="link-tagCats"
+                                                    href="{{ route('blog.posts.tutorials', ['slug' => $tutorial->slug]) }}">{{ $tutorial->title }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
                         </div>
 
                     </div>
                 </article>
+
+                {{-- Tutorial post --}}
+                <div id="tutorialPost" class="related-post mb-4">
+                    @include('blog.sub-blog.tutorial-post')
+                </div>
 
                 <div class="blog-author d-flex align-items-center">
                     @if (file_exists('vendor/dashboard/image/picture-profiles/' . $post->user->user_image))
@@ -254,6 +275,44 @@
                                     <time class="timeSidebar loading">
                                         <p>
                                             {{ $category->created_at->format('j M, Y') }}
+                                        </p>
+                                    </time>
+                                </div>
+                            @endforeach
+
+                        </div>
+
+                    </div>
+
+                    <div class="sidebar">
+
+                        <h3 class="sidebar-title">Tutorial</h3>
+                        <div class="sidebar-item categories">
+
+                            @foreach ($tutorials as $tutorial)
+                                <div class="category-item clearfix">
+                                    <div class="imgSidebar img-container">
+                                        <a href="{{ route('blog.posts.tutorials', ['slug' => $tutorial->slug]) }}">
+                                            @if (file_exists('vendor/dashboard/image/thumbnail-tutorials/' . $tutorial->thumbnail))
+                                                <img class="img-container"
+                                                    src="{{ asset('vendor/dashboard/image/thumbnail-tutorials/' . $tutorial->thumbnail) }}"
+                                                    alt="{{ $tutorial->title }}">
+                                            @else
+                                                <img class="img-container"
+                                                    src="{{ asset('vendor/blog/img/default.png') }}"
+                                                    alt="{{ $tutorial->title }}">
+                                            @endif
+                                        </a>
+                                    </div>
+                                    <h4 class="titleSidebar loading">
+                                        <a class="underline"
+                                            href="{{ route('blog.posts.tutorials', ['slug' => $tutorial->slug]) }}">
+                                            {{ $tutorial->title }}
+                                        </a>
+                                    </h4>
+                                    <time class="timeSidebar loading">
+                                        <p>
+                                            {{ $tutorial->created_at->format('j M, Y') }}
                                         </p>
                                     </time>
                                 </div>

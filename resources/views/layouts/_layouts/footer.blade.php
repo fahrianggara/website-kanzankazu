@@ -32,18 +32,18 @@
                             <div class="post-item clearfix">
                                 <div class="post-img loading">
                                     @if (file_exists('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail))
-                                        <a href="{{ route('blog.detail', ['slug' => $post->slug]) }}"
+                                        <a href="{{ route('blog.detail', ['slug' => $post->slug ]) }}"
                                             class="img"
                                             style="background-image: url({{ asset('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail) }})"></a>
                                     @else
-                                        <a href="{{ route('blog.detail', ['slug' => $post->slug]) }}"
+                                        <a href="{{ route('blog.detail', ['slug' => $post->slug ]) }}"
                                             class="img"
                                             style="background-image: url({{ asset('vendor/blog/img/default.png') }})"></a>
                                     @endif
                                 </div>
                                 <div class="post-info">
                                     <div class="post-title loading">
-                                        <a href="{{ route('blog.detail', ['slug' => $post->slug]) }}"
+                                        <a href="{{ route('blog.detail', ['slug' => $post->slug ]) }}"
                                             class="m-0 underline text-links {{ request()->is('blog/' . $post->slug) ? 'active' : '' }}">
                                             {{ $post->title . ' - ' . substr($post->description, 0, 50) }}...
                                         </a>
