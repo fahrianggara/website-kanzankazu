@@ -371,7 +371,7 @@
                 relative_urls: false,
                 language: "en",
                 selector: 'textarea',
-                extended_valid_elements: 'img[class="img-fluid popup"|id="popup-img"]',
+                // extended_valid_elements: 'img[class="img-fluid popup"|id="popup-img"]',
                 height: 500,
                 plugins: [
                     "advlist autolink lists link image charmap print preview hr anchor pagebreak",
