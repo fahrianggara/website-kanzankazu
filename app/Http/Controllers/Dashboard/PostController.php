@@ -521,9 +521,9 @@ class PostController extends Controller
             $post->update();
 
             if ($post->wasChanged('title')) {
-                return redirect()->back()->with('success', 'Postingan "' . $request->old_title . '" telah diganti namanya menjadi "' . $post->title . '".');
+                return redirect()->route('posts.index')->with('success', 'Postingan "' . $request->old_title . '" telah diganti namanya menjadi "' . $post->title . '".');
             } else {
-                return redirect()->back()->with('success', 'Postingan berhasil diperbarui!');
+                return redirect()->route('posts.index')->with('success', 'Postingan berhasil diperbarui!');
             }
         } catch (\Throwable $th) {
             DB::rollBack();
