@@ -32,18 +32,16 @@
                             <div class="post-item clearfix">
                                 <div class="post-img loading">
                                     @if (file_exists('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail))
-                                        <a href="{{ route('blog.detail', ['slug' => $post->slug ]) }}"
-                                            class="img"
+                                        <a href="{{ route('blog.detail', ['slug' => $post->slug]) }}" class="img"
                                             style="background-image: url({{ asset('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail) }})"></a>
                                     @else
-                                        <a href="{{ route('blog.detail', ['slug' => $post->slug ]) }}"
-                                            class="img"
+                                        <a href="{{ route('blog.detail', ['slug' => $post->slug]) }}" class="img"
                                             style="background-image: url({{ asset('vendor/blog/img/default.png') }})"></a>
                                     @endif
                                 </div>
                                 <div class="post-info">
                                     <div class="post-title loading">
-                                        <a href="{{ route('blog.detail', ['slug' => $post->slug ]) }}"
+                                        <a href="{{ route('blog.detail', ['slug' => $post->slug]) }}"
                                             class="m-0 underline text-links {{ request()->is('blog/' . $post->slug) ? 'active' : '' }}">
                                             {{ $post->title . ' - ' . substr($post->description, 0, 50) }}...
                                         </a>
@@ -79,7 +77,8 @@
                         </button>
                     </form>
 
-                    <p class="contact-us">atau <a href="#" data-toggle="modal" data-target="#modalContactUs">Kontak
+                    <p class="contact-us">atau <a href="#" data-toggle="modal"
+                            data-target="#modalContactUs">Kontak
                             Kami</a>.</p>
                 </div>
             </div>
@@ -110,6 +109,12 @@
                 @csrf
 
                 <div class="modal-body">
+                    {{-- alert warning --}}
+                    <div class="alert alert-warning">
+                        <div class="text-center">
+                            Mohon menggunakan email yang valid.
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <label for="name">Nama kamu</label>
@@ -146,6 +151,7 @@
 </div>
 
 @push('js-internal')
+
     <script>
         $(function() {
             $.ajaxSetup({

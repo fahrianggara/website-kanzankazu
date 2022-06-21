@@ -57,7 +57,7 @@ class ContactController extends Controller
                 'name' => 'required|string|alpha_spaces|min:3|max:40',
                 "email" => 'required|email',
                 'subject' => 'required|string|alpha_spaces|max:50|min:3',
-                'messages' => 'required|max:300|min:5',
+                'messages' => 'required|max:200|min:5',
             ],
             [
                 'name.required' => 'Masukkan nama kamu',
@@ -71,7 +71,7 @@ class ContactController extends Controller
                 'subject.max' => 'Judul pesan maksimal 50 karakter',
                 'subject.min' => 'Judul pesan minimal 3 karakter',
                 'messages.required' => 'Masukkan isi pesan kamu',
-                'messages.max' => 'Isi pesan maksimal 300 karakter',
+                'messages.max' => 'Isi pesan maksimal 200 karakter',
                 'messages.min' => 'Isi pesan minimal 5 karakter',
             ]
         );

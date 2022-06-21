@@ -140,7 +140,8 @@
                         <div class="text-center">
                             <p class="card-text">
                                 @if (request()->get('keyword'))
-                                    Oops.. sepertinya inbox dengan subjek "{{ request()->get('keyword') }}" tidak ditemukan.
+                                    Oops.. sepertinya inbox dengan subjek "{{ request()->get('keyword') }}" tidak
+                                    ditemukan.
                                 @elseif (request()->get('status') == 'answered')
                                     Oops.. sepertinya belum ada pesan yang dijawab.
                                 @elseif (request()->get('status') == 'unanswered')
