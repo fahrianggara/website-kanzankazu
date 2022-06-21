@@ -6,6 +6,7 @@ use App\Mail\ReplayInbox;
 use App\Models\Contact;
 use App\Models\WebSetting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -24,20 +25,27 @@ class ContactController extends Controller
         $this->middleware('permission:inbox_delete', ['only' => 'destroy']);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
-        $q = $request->get('keyword');
+        if (in_array($request->input('status'), ['unanswered', 'answered'])) {
+            $statusSelected = $request->get('status');
+        } else {
+            $statusSelected = 'unanswered';
+        }
 
-        $contact = $request->get('keyword') ? Contact::where('name', 'LIKE', '%' . $q . '%')
-            ->orWhere('subject', 'LIKE', '%' . $q . '%')->paginate(5) : Contact::paginate(5);
+        if ($statusSelected == 'unanswered') {
+            $contacts = Contact::unanswered()->latest();
+        } else if ($statusSelected == 'answered') {
+            $contacts = Contact::answered()->latest();
+        }
+
+        if ($request->keyword) {
+            $contacts->search($request->keyword)->latest();
+        }
 
         return view('dashboard.contact.index', [
-            'contact' => $contact->appends(['keyword' => $request->keyword])
+            'contacts' => $contacts->paginate(20)->withQueryString(),
+            'statusSelected' => $statusSelected,
         ]);
     }
 
@@ -174,6 +182,13 @@ class ContactController extends Controller
                 'judul' => $request->judul,
                 'replay' => $request->replay
             ];
+
+            $data->replay_subject = $request->judul;
+            $data->replay_message = $request->replay;
+            $data->status = "answered";
+            $data->answerer = Auth::user()->name;
+
+            $data->update();
 
             Mail::to($data->email)->send(new ReplayInbox($contact));
 

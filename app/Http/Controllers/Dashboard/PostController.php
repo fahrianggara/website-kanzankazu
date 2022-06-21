@@ -60,22 +60,22 @@ class PostController extends Controller
             $posts = Post::publish()
                 ->where('user_id', Auth::id())
                 ->orderBy(RecommendationPost::select('post_id')->whereColumn('post_id', 'posts.id'), 'desc')
-                ->latest()->paginate(8)->withQueryString();
+                ->latest();
         } else if ($statusSelected == "draft") {
             $posts = Post::draft()
                 ->where('user_id', Auth::id())
                 ->orderBy(RecommendationPost::select('post_id')->whereColumn('post_id', 'posts.id'), 'desc')
-                ->latest()->paginate(8)->withQueryString();
+                ->latest();
         } else {
-            $posts = Post::approve()->paginate(8)->withQueryString();
+            $posts = Post::approve()->latest();
         }
 
-        if ($request->get('keyword')) {
-            $posts->search($request->get('keyword'));
+        if ($request->keyword) {
+            $posts->search($request->keyword);
         }
 
         return view('dashboard.manage-posts.posts.index', [
-            'posts' => $posts,
+            'posts' => $posts->paginate(8)->withQueryString(),
             'statusSelected' => $statusSelected,
         ]);
     }

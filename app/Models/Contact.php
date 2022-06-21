@@ -24,8 +24,19 @@ class Contact extends Model
         'updated_at'
     ];
 
-    public function scopeSearch($query, $name)
+    public function scopeSearch($query, $inbox)
     {
-        return $query->where('name', 'LIKE', "%{$name}%");
+        return $query->where('subject', 'LIKE', "%{$inbox}%")
+            ->orWhere('name', 'LIKE', "%{$inbox}%");
+    }
+
+    public function scopeUnanswered($query)
+    {
+        return $query->where('status', 'unanswered');
+    }
+
+    public function scopeAnswered($query)
+    {
+        return $query->where('status', 'answered');
     }
 }

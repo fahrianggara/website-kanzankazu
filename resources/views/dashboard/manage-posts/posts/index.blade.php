@@ -15,52 +15,54 @@
     <div class="row">
 
         <div class="col-12 m-b-20">
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <div class="card">
-                        <div class="card-header">
-                            <form action="" method="GET" class="form-inline form-row">
-                                <div class="col-md-2 col-3">
-                                    @can('post_create')
-                                        <a href="{{ route('posts.create') }}" class="btn btn-primary" data-toggle="tooltip"
-                                            data-placement="bottom" title="Buat">
-                                            <i class="uil uil-plus"></i>
-                                        </a>
-                                    @endcan
-                                </div>
-                                <div class="col-md-10 col-9">
-                                    <div class="input-group mx-1">
-                                        <select id="statusPost" name="status" class="custom-select"
-                                            style="border-radius: 4px" data-toggle="tooltip" data-placement="bottom"
-                                            title="Status">
-                                            <option value="publish"
-                                                {{ $statusSelected == 'publish' ? 'selected' : null }}>
-                                                Publik
-                                            </option>
-                                            <option value="draft" {{ $statusSelected == 'draft' ? 'selected' : null }}>
-                                                Arsip
-                                            </option>
-                                            @if (!Auth::user()->editorRole())
-                                                <option value="approve"
-                                                    {{ $statusSelected == 'approve' ? 'selected' : null }}>
-                                                    Persetujuan
-                                                </option>
-                                            @endif
-                                        </select>
-
-                                        <button id="submitStatus" class="btn btn-primary d-none"
-                                            type="submit">Apply</button>
+            <form action="" method="GET" class="">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-lg-2 col-3">
+                                        @can('post_create')
+                                            <a href="{{ route('posts.create') }}" class="btn btn-primary"
+                                                data-toggle="tooltip" data-placement="bottom" title="Buat">
+                                                <i class="uil uil-plus"></i>
+                                            </a>
+                                        @endcan
                                     </div>
+                                    <div class="col-lg-10 col-9">
+                                        <div class="input-group mx-1">
+                                            <select id="statusPost" name="status" class="custom-select"
+                                                style="border-radius: 4px" data-toggle="tooltip" data-placement="bottom"
+                                                title="Status">
+                                                <option value="publish"
+                                                    {{ $statusSelected == 'publish' ? 'selected' : null }}>
+                                                    Publik
+                                                </option>
+                                                <option value="draft"
+                                                    {{ $statusSelected == 'draft' ? 'selected' : null }}>
+                                                    Arsip
+                                                </option>
+                                                @if (!Auth::user()->editorRole())
+                                                    <option value="approve"
+                                                        {{ $statusSelected == 'approve' ? 'selected' : null }}>
+                                                        Persetujuan
+                                                    </option>
+                                                @endif
+                                            </select>
 
+                                            <button id="submitStatus" class="btn btn-primary d-none" type="submit">Apply
+                                            </button>
+                                        </div>
+
+                                    </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="card">
-                        <div class="card-header">
-                            <form action="" method="GET" class="form-inline form-row">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header">
+
                                 <div class="col-12">
                                     <div class="input-group mx-1">
                                         <input autocomplete="off" name="keyword" type="search"
@@ -74,11 +76,12 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
 
         <div class="row">

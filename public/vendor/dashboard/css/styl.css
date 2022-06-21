@@ -3615,6 +3615,11 @@ input.form-control:read-only {
     background-color: var(--sectionBg-color);
 }
 
+textarea.form-control:read-only {
+    background-color: var(--sectionBg-color);
+    color: var(--text-color);
+}
+
 .app-search input.form-control::-webkit-input-placeholder {
     color: rgba(255, 255, 255, 0.7);
 }
