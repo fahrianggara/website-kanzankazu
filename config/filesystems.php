@@ -38,7 +38,7 @@ return [
         // 'public' => [
         //     'driver' => 'local',
         //     'root' => storage_path('app/public'),
-        //     'url' => env('APP_URL') . '/storage',
+        //     'url' => env('APP_URL') . '/blog/storage',
         //     'visibility' => 'public',
         // ],
 
@@ -75,6 +75,7 @@ return [
     */
 
     'links' => [
+        // base_path('public_html/blog/storage') => storage_path('app/public'),
         '/home/kanzanka/public_html/blog/storage' => storage_path('app/public'),
     ],
 
