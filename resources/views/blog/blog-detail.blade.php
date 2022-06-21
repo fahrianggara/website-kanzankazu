@@ -292,7 +292,8 @@
                             @foreach ($tutorials as $tutorial)
                                 <div class="category-item clearfix">
                                     <div class="imgSidebar img-container">
-                                        <a href="{{ route('blog.posts.tutorials.author', ['slug' => $tutorial->slug, 'user' => $post->user->slug]) }}">
+                                        <a
+                                            href="{{ route('blog.posts.tutorials.author', ['slug' => $tutorial->slug, 'user' => $post->user->slug]) }}">
                                             @if (file_exists('vendor/dashboard/image/thumbnail-tutorials/' . $tutorial->thumbnail))
                                                 <img class="img-container"
                                                     src="{{ asset('vendor/dashboard/image/thumbnail-tutorials/' . $tutorial->thumbnail) }}"
@@ -348,6 +349,10 @@
 
 @push('js-internal')
     <script>
-
+        mediumZoom('.popup', {
+            background: 'none',
+            scrollOffset: 100,
+            margin: 5,
+        })
     </script>
 @endpush

@@ -270,7 +270,7 @@
                     <div class="card-footer">
                         <div class="float-right">
                             <a class="btn btn-info px-4" href="{{ route('posts.index') }}">Kembali</a>
-                            <button type="submit" class="btn btn-success px-4">Posting</button>
+                            <button type="submit" name="submitbtn" class="btn btn-success px-4">Posting</button>
                         </div>
                     </div>
                 </div>
@@ -370,14 +370,15 @@
                 language: "en",
                 selector: 'textarea',
                 height: 300,
-                // extended_valid_elements: 'img[class="img-fluid popup"|id="popup-img"]',
+                extended_valid_elements: 'img[class=popup img-fluid|src|border=0|alt|title|width=1280|height=800|hspace|vspace|align|onmouseover|onmouseout|name]',
                 plugins: [
-                    "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+                    "advlist autolink lists link image charmap print preview hr anchor pagebreak emoticons",
                     "searchreplace wordcount visualblocks visualchars code fullscreen",
                     "insertdatetime media nonbreaking save table directionality",
                     "emoticons template paste textpattern",
                     "tabfocus",
-                    "codesample"
+                    "codesample",
+                    "autosave"
                 ],
                 font_formats: "Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Oswald=oswald; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Terminal=terminal,monaco; Times New Roman=times new roman,times; Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva; Webdings=webdings; Wingdings=wingdings,zapf dingbats",
                 codesample_languages: [{
@@ -417,9 +418,9 @@
                         value: "mel"
                     },
                 ],
-                toolbar1: "fullscreen preview | codesample",
-                toolbar2: "insertfile undo redo | styleselect | fontselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media ",
-                codesample_content_css: "{{ asset('vendor/blog/css/main.css') }}",
+                toolbar1: "fullscreen preview | codesample | emoticons",
+                toolbar2: "restoredraft | insertfile undo redo | styleselect | fontselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media ",
+                codesample_content_css: "/public/vendor/dashboard/css/sty.css",
 
                 // MENGKONEKKAN CONTENT GAMBAR KE FILE MANAGER
                 file_picker_callback: function(callback, value, meta) {
