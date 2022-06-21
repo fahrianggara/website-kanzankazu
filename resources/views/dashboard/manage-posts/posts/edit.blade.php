@@ -371,8 +371,7 @@
                 relative_urls: false,
                 language: "en",
                 selector: 'textarea',
-                // content_css: 'dark',
-                // skin: "oxide-dark",
+                extended_valid_elements: 'img[class="img-fluid popup"|id="popup-img"]',
                 height: 500,
                 plugins: [
                     "advlist autolink lists link image charmap print preview hr anchor pagebreak",

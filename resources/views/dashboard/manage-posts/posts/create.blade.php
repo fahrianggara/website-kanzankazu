@@ -369,9 +369,8 @@
                 relative_urls: false,
                 language: "en",
                 selector: 'textarea',
-                // content_css: 'dark',
-                // skin: "oxide-dark",
                 height: 300,
+                extended_valid_elements: 'img[class="img-fluid popup"|id="popup-img"]',
                 plugins: [
                     "advlist autolink lists link image charmap print preview hr anchor pagebreak",
                     "searchreplace wordcount visualblocks visualchars code fullscreen",
@@ -448,7 +447,6 @@
                         }
                     });
                 }
-
             });
 
             // POST SELECT

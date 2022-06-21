@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
@@ -521,9 +523,17 @@ class PostController extends Controller
             $post->update();
 
             if ($post->wasChanged('title')) {
-                return redirect()->route('posts.index')->with('success', 'Postingan "' . $request->old_title . '" telah diganti namanya menjadi "' . $post->title . '".');
+                if ($post->status == 'draft') {
+                    return Redirect::to(URL::route('posts.index') . '?status=draft')->with('success', 'Postingan "' . $request->old_title . '" telah diganti namanya menjadi "' . $post->title . '".');
+                } else {
+                    return Redirect::to(URL::route('posts.index'))->with('success', 'Postingan "' . $request->old_title . '" telah diganti namanya menjadi "' . $post->title . '".');
+                }
             } else {
-                return redirect()->route('posts.index')->with('success', 'Postingan berhasil diperbarui!');
+                if ($post->status == 'draft') {
+                    return Redirect::to(URL::route('posts.index') . '?status=draft')->with('success', 'Postingan berhasil diperbarui!');
+                } else {
+                    return Redirect::to(URL::route('posts.index'))->with('success', 'Postingan berhasil diperbarui!');
+                }
             }
         } catch (\Throwable $th) {
             DB::rollBack();

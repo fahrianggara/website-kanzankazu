@@ -345,3 +345,9 @@
         <br>
     </div>
 @endsection
+
+@push('js-internal')
+    <script>
+
+    </script>
+@endpush
