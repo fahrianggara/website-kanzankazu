@@ -378,7 +378,7 @@
                     "emoticons template paste textpattern",
                     "tabfocus",
                     "codesample",
-                    "autosave"
+                    "autosave",
                 ],
                 font_formats: "Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Oswald=oswald; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Terminal=terminal,monaco; Times New Roman=times new roman,times; Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva; Webdings=webdings; Wingdings=wingdings,zapf dingbats",
                 codesample_languages: [{
@@ -419,9 +419,8 @@
                     },
                 ],
                 toolbar1: "fullscreen preview | codesample | emoticons",
-                toolbar2: "restoredraft | insertfile undo redo | styleselect | fontselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media ",
+                toolbar2: "restoredraft | insertfile undo redo | styleselect | fontselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
                 codesample_content_css: "/public/vendor/dashboard/css/sty.css",
-
                 // MENGKONEKKAN CONTENT GAMBAR KE FILE MANAGER
                 file_picker_callback: function(callback, value, meta) {
                     let x = window.innerWidth || document.documentElement.clientWidth || document

@@ -114,7 +114,7 @@ class UserController extends Controller
                 if ($request->hasFile('user_image')) {
                     // $public_path = '../../public_html/blog/';
                     // $path = $public_path . "vendor/dashboard/image/picture-profiles/";
-                    $path = public_path("vendor/dashboard/image/picture-profiles/");
+                    $path = "vendor/dashboard/image/picture-profiles/";
                     $picture = $request->file('user_image');
                     $newPict = uniqid('USER-', true) . '.' . $picture->extension();
                     // resize
@@ -221,7 +221,7 @@ class UserController extends Controller
                     $newPict = uniqid('USER-', true) . '.' . $userPict->extension();
                     // resize
                     $resizeImg = Image::make($userPict->path());
-                    $resizeImg->resize(1080, 1080)->save(public_path($path) . '/' . $newPict);
+                    $resizeImg->resize(1080, 1080)->save($path . '/' . $newPict);
 
                     $user->user_image = $newPict;
                 }

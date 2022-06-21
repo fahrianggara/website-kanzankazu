@@ -208,7 +208,7 @@ class CategoryController extends Controller
                 $newImage = uniqid('CateIMG-', true) . '.' . $image->extension();
                 // Resize Img
                 $resizeImg = Image::make($image->path());
-                $resizeImg->resize(1280, 800)->save(public_path($path) . '/' . $newImage);
+                $resizeImg->resize(1280, 800)->save($path . '/' . $newImage);
 
                 $category->thumbnail = $newImage;
             }
