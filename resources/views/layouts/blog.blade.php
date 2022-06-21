@@ -43,6 +43,14 @@
     @stack('css-external')
     {{-- CSS INT --}}
     @stack('css-internal')
+    <!--
+    -- Credits --
+    <a href="https://www.flaticon.com/free-icons/search" title="search icons">Search icons created by Freepik - Flaticon</a>
+    <a href="https://www.flaticon.com/free-icons/video-game" title="video game icons">Video game icons created by juicy_fish - Flaticon</a>
+    <a href="https://www.flaticon.com/free-icons/code" title="code icons">Code icons created by Freepik - Flaticon</a>
+    <a href="https://www.flaticon.com/free-icons/app-development" title="app development icons">App development icons created by Assia Benkerroum  - Flaticon</a>
+    <a href="https://www.flaticon.com/free-icons/developer" title="developer icons">Developer icons created by Freepik - Flaticon</a>
+    -->
 </head>
 
 <body>
