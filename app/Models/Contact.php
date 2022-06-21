@@ -13,7 +13,11 @@ class Contact extends Model
         'name',
         'email',
         'subject',
-        'message'
+        'message',
+        'status',
+        'answerer',
+        'replay_subject',
+        'replay_message',
     ];
     protected $hidden = [
         'created_at',
