@@ -165,7 +165,11 @@
                             @endif
                         </div>
                         <p>
-                            " {{ $post->user->bio }} "
+                            @if ($post->user->bio != null)
+                                " {{ $post->user->bio }} "
+                            @else
+                                " KanzanKazu "
+                            @endif
                         </p>
                     </div>
                 </div>

@@ -24,7 +24,11 @@
                     </h3>
 
                     <p class="author-bio">
-                        {{ $user->bio }}
+                        @if ($user->bio != null)
+                            {{ $user->bio }}
+                        @else
+                            KanzanKazu
+                        @endif
                     </p>
 
                     <div class="author-sosmed">
