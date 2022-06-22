@@ -384,7 +384,7 @@
                 language: "en",
                 selector: 'textarea',
                 height: 300,
-                extended_valid_elements: 'img[class=popup img-fluid|src|width|height|style]',
+                extended_valid_elements: 'img[class=popup img-fluid|src|width|height|style=z-index:9999999]',
                 plugins: [
                     "advlist autolink lists link image charmap print preview hr anchor pagebreak emoticons",
                     "searchreplace wordcount visualblocks visualchars code fullscreen",
