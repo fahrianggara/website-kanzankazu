@@ -313,9 +313,9 @@ class PostController extends Controller
                     $reziseThumbnail->resize(1280, 800)->save($path . '/' . $newThumbnail);
                 }
 
-                $statusDraft = $data->title != null || $data->description != null || $data->keywords != null || $data->categories->first() != null || $data->tags->first() != null;
-
                 $randomStr = Str::random(5);
+
+                $statusDraft = $request->title == '' || $request->description == '' || $request->keywords == '';
 
                 if (Auth::user()->roles->pluck('name')->contains('Editor')) {
                     $post = Post::create([
@@ -338,7 +338,7 @@ class PostController extends Controller
                         'description' => $request->description,
                         'content' => $request->content,
                         'author' => $request->author,
-                        'status' => $request->status ?? $statusDraft ? 'draft' : 'publish',
+                        'status' => $statusDraft ? 'draft' : $request->status,
                         'keywords' => $request->keywords,
                         'user_id' => Auth::user()->id,
                         'views' => 0,
@@ -608,10 +608,19 @@ class PostController extends Controller
 
             $post->delete();
 
-            return redirect()->back()->with(
-                'success',
-                "Postingan \"" . $post->title . "\", Berhasil dihapus!"
-            );
+            if ($post->title == null) {
+                return redirect()->back()->with(
+                    'success',
+                    "Postingan \"" . $post->slug . "\", Berhasil dihapus!"
+                );
+            } else {
+                return redirect()->back()->with(
+                    'success',
+                    "Postingan \"" . $post->title . "\", Berhasil dihapus!"
+                );
+            }
+
+
         } catch (\Throwable $th) {
             DB::rollBack();
 
