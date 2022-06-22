@@ -3,6 +3,19 @@
 <html lang="id">
 
 <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TKJXQ59K5W"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-TKJXQ59K5W');
+    </script>
+
     {{-- Title website --}}
     <title>{{ $setting->site_name }}</title>
     {{-- Primary Meta Tags --}}

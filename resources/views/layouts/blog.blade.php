@@ -2,6 +2,19 @@
 <html lang="id">
 
 <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D507CJCC5K"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-D507CJCC5K');
+    </script>
+
     {{-- Title WEB --}}
     <title>@yield('title') - {{ $setting->site_name }}</title>
     {{-- Meta Tag --}}
