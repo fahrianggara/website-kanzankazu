@@ -100,9 +100,15 @@ class BlogController extends Controller
 
         return view('blog.blog-detail', [
             'post' => $post,
-            'tags' => Tag::all(),
-            'tutorials' => Tutorial::all(),
-            'categories' => Category::onlyParent()->withCount('posts')->get(),
+            'tags' => Tag::whereHas('posts', function ($query) use ($post) {
+                $query->publish();
+            })->get(),
+            'tutorials' => Tutorial::whereHas('posts', function ($query) {
+                $query->publish();
+            })->get(),
+            'categories' => Category::onlyParent()->whereHas('posts', function ($query) {
+                $query->publish();
+            })->get(),
             'next' => Post::find($next_id),
             'prev' => Post::find($prev_id),
             'recents' => Post::publish()->latest()->limit(3)->get(),

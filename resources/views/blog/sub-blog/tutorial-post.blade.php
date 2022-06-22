@@ -23,7 +23,7 @@
                         </a>
                         @if (request()->is('blog/' . $post->slug))
                             <div class="img-moredate loading">
-                                <span class="img-infodate" style="color: #60e4ff; font-weight: 600; cursor: default;">Sedang Dibaca</span>
+                                <span class="img-read">Sedang Dibaca</span>
                             </div>
                         @endif
                     </div>

@@ -249,7 +249,7 @@
                     <div class="sidebar">
 
                         <h3 class="sidebar-title">Kategori</h3>
-                        <div class="sidebar-item categories">
+                        <div class="sidebar-item categories @if ($categories->count() >= 3) height-195 @endif">
 
                             @foreach ($categories as $category)
                                 <div class="category-item clearfix">
@@ -287,7 +287,7 @@
                     <div class="sidebar">
 
                         <h3 class="sidebar-title">Tutorial</h3>
-                        <div class="sidebar-item categories">
+                        <div class="sidebar-item categories @if ($tutorials->count() >= 3) height-195 @endif">
 
                             @foreach ($tutorials as $tutorial)
                                 <div class="category-item clearfix">

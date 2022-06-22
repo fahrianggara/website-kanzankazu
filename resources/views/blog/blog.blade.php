@@ -60,7 +60,7 @@
                                     {{ substr($post->description, 0, 200) }}...
                                 </p>
                             </div>
-                            <div class="read-more ">
+                            <div class="read-more">
                                 <a href="{{ route('blog.detail', ['slug' => $post->slug ]) }}">
                                     Baca Selengkapnya
                                 </a>
