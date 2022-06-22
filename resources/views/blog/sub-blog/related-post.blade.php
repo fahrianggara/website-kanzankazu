@@ -21,7 +21,7 @@
                         </a>
                         @foreach ($post->tutorials as $tutorials)
                             <div class="img-moredate loading">
-                                <a href="{{ route('blog.posts.categories', ['slug' => $tutorials->slug]) }}"
+                                <a href="{{ route('blog.posts.tutorials.author', ['slug' => $tutorials->slug, 'user' => $post->user->slug]) }}"
                                     class="img-infodate">{{ $tutorials->title }}</a>
                             </div>
                         @endforeach
