@@ -11,8 +11,8 @@
                 <div class="col-md-12 text-center authorBlog" data-aos="fade-up">
                     <div class="entry-img loading">
                         @if (file_exists('vendor/dashboard/image/picture-profiles/' . $user->user_image))
-                            <img src="{{ asset('vendor/dashboard/image/picture-profiles/' . $user->user_image) }}" alt=""
-                                class="img-fluid img-round" />
+                            <img src="{{ asset('vendor/dashboard/image/picture-profiles/' . $user->user_image) }}"
+                                alt="" class="img-fluid img-round" />
                         @else
                             <img src="{{ asset('vendor/dashboard/image/avatar.png') }}" alt=""
                                 class="img-fluid img-round" />
@@ -28,18 +28,23 @@
                     </p>
 
                     <div class="author-sosmed">
-                        <a target="_blank" href="{{ $user->facebook }}">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a target="_blank" href="{{ $user->twitter }}">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a target="_blank" href="{{ $user->instagram }}">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a target="_blank" href="{{ $user->github }}">
-                            <i class="fab fa-github"></i>
-                        </a>
+                        @if ($user->facebook != null)
+                            <a target="_blank" href="{{ $user->facebook }}">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        @elseif ($user->twitter != null)
+                            <a target="_blank" href="{{ $user->twitter }}">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        @elseif ($user->instagram != null)
+                            <a target="_blank" href="{{ $user->instagram }}">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        @elseif ($user->github != null)
+                            <a target="_blank" href="{{ $user->github }}">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        @endif
                     </div>
                 </div>
             </div>

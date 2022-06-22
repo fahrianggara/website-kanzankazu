@@ -146,18 +146,23 @@
                             {{ $post->user->name }}
                         </a>
                         <div class="social-links">
-                            <a target="_blank" href="{{ $post->user->facebook }}">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                            <a target="_blank" href="{{ $post->user->twitter }}">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                            <a target="_blank" href="{{ $post->user->instagram }}">
-                                <i class="fab fa-instagram"></i>
-                            </a>
-                            <a target="_blank" href="{{ $post->user->github }}">
-                                <i class="fab fa-github"></i>
-                            </a>
+                            @if ($post->user->facebook != null)
+                                <a target="_blank" href="{{ $post->user->facebook }}">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                            @elseif ($post->user->twitter != null)
+                                <a target="_blank" href="{{ $post->user->twitter }}">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                            @elseif ($post->user->instagram != null)
+                                <a target="_blank" href="{{ $post->user->instagram }}">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            @elseif ($post->user->github != null)
+                                <a target="_blank" href="{{ $post->user->github }}">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            @endif
                         </div>
                         <p>
                             " {{ $post->user->bio }} "
