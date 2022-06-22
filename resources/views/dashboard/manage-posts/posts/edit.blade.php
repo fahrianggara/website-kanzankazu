@@ -15,6 +15,8 @@
         @method('PUT')
         @csrf
 
+        <input type="hidden" name="old_slug" value="{{ $post->slug }}">
+
         <div class="row">
 
             <div class="col-lg-12">
@@ -178,14 +180,28 @@
                                     <label for="select_category">
                                         Kategori
                                     </label>
-                                    <select id="select_category" name="category" data-placeholder="Pilih kategori post"
-                                        class="custom-select w-100 @error('category') is-invalid @enderror">
-                                        @if (old('category', $post->categories))
-                                            <option value="{{ old('category', $cateOld)->id }}">
-                                                {{ old('category', $cateOld)->title }}
-                                            </option>
-                                        @endif
-                                    </select>
+
+                                    @if ($cateOld != null)
+                                        <select id="select_category" name="category"
+                                            data-placeholder="Pilih kategori post"
+                                            class="custom-select w-100 @error('category') is-invalid @enderror">
+                                            @if (old('category', $post->categories))
+                                                <option value="{{ old('category', $cateOld)->id }}">
+                                                    {{ old('category', $cateOld)->title }}
+                                                </option>
+                                            @endif
+                                        </select>
+                                    @else
+                                        <select id="select_category" name="category"
+                                            data-placeholder="Pilih kategori post"
+                                            class="custom-select w-100 @error('category') is-invalid @enderror">
+                                            @if (old('category'))
+                                                <option value="{{ old('category')->id }}">
+                                                    {{ old('category')->title }}
+                                                </option>
+                                            @endif
+                                        </select>
+                                    @endif
 
                                     @error('category')
                                         <span class="invalid-feedback" role="alert">
@@ -244,9 +260,9 @@
                             <div class="form-group">
                                 <label for="input_post_desc">Deskripsi</label>
 
-                                <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="input_post_desc" onkeyup="countCharBlog(this)"
-                                    cols="30" rows="5" placeholder="Masukkan deskripsi postingan kamu..">{{ old('description', $post->description) }}</textarea>
-                                    <span class="float-right" id="charNumBlog"></span>
+                                <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="input_post_desc"
+                                    onkeyup="countCharBlog(this)" cols="30" rows="5" placeholder="Masukkan deskripsi postingan kamu..">{{ old('description', $post->description) }}</textarea>
+                                <span class="float-right" id="charNumBlog"></span>
                                 @error('description')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -272,7 +288,12 @@
                     </div>
                     <div class="card-footer">
                         <div class="float-right">
-                            <a class="btn btn-info px-4" href="{{ route('posts.index') }}">Kembali</a>
+                            @if ($post->status == 'draft')
+                                <a class="btn btn-info px-4"
+                                    href="{{ route('posts.index', 'status=draft') }}">Kembali</a>
+                            @else
+                                <a class="btn btn-info px-4" href="{{ route('posts.index') }}">Kembali</a>
+                            @endif
                             <button type="submit" class="btn btn-warning px-4">Update</button>
                         </div>
                     </div>
@@ -386,7 +407,7 @@
                 height: 300,
                 extended_valid_elements: 'img[class=popup img-fluid|src|width|height|style=z-index:9999999!important]',
                 plugins: [
-                    "advlist autolink lists link image charmap print preview hr anchor pagebreak emoticons",
+                    "advlist autolink lists link image charmap print preview hr anchor pagebreak emoticons save",
                     "searchreplace wordcount visualblocks visualchars code fullscreen",
                     "insertdatetime media nonbreaking save table directionality",
                     "emoticons template paste textpattern",
@@ -433,7 +454,7 @@
                     },
                 ],
                 toolbar1: "fullscreen preview | codesample | emoticons",
-                toolbar2: "restoredraft | insertfile undo redo | styleselect | fontselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media ",
+                toolbar2: "restoredraft | save | insertfile undo redo | styleselect | fontselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media ",
                 codesample_content_css: "/public/vendor/dashboard/css/sty.css",
 
                 // MENGKONEKKAN CONTENT GAMBAR KE FILE MANAGER

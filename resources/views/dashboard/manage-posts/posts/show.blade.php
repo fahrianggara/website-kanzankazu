@@ -18,8 +18,7 @@
                         <img src="{{ asset('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail) }}"
                             alt="{{ $post->title }}" class="img-fluid" />
                     @else
-                        <img class="img-fluid" src="{{ asset('vendor/blog/img/default.png') }}"
-                            alt="{{ $post->title }}">
+                        <img class="img-fluid" src="{{ asset('vendor/blog/img/default.png') }}" alt="{{ $post->title }}">
                     @endif
                 </div>
 
@@ -104,16 +103,14 @@
                         <div class="entry-bottom">
                             @if ($nextPublish)
                                 <div class="float-left">
-                                    <a href="{{ route('posts.show', ['slug' => $nextPublish->slug]) }}"
-                                        class="btn-Prev">
+                                    <a href="{{ route('posts.show', ['slug' => $nextPublish->slug]) }}" class="btn-Prev">
                                         <i class="uil uil-angle-double-left"></i> Sebelumnya
                                     </a>
                                 </div>
                             @endif
                             @if ($prevPublish)
                                 <div class="float-right">
-                                    <a href="{{ route('posts.show', ['slug' => $prevPublish->slug]) }}"
-                                        class="btn-Next">
+                                    <a href="{{ route('posts.show', ['slug' => $prevPublish->slug]) }}" class="btn-Next">
                                         Berikutnya <i class="uil uil-angle-double-right"></i>
                                     </a>
                                 </div>
@@ -128,16 +125,14 @@
                         <div class="entry-bottom">
                             @if ($nextDraft)
                                 <div class="float-left">
-                                    <a href="{{ route('posts.show', ['slug' => $nextDraft->slug]) }}"
-                                        class="btn-Prev">
+                                    <a href="{{ route('posts.show', ['slug' => $nextDraft->slug]) }}" class="btn-Prev">
                                         <i class="uil uil-angle-double-left"></i> Sebelumnya
                                     </a>
                                 </div>
                             @endif
                             @if ($prevDraft)
                                 <div class="float-right">
-                                    <a href="{{ route('posts.show', ['slug' => $prevDraft->slug]) }}"
-                                        class="btn-Next">
+                                    <a href="{{ route('posts.show', ['slug' => $prevDraft->slug]) }}" class="btn-Next">
                                         Berikutnya <i class="uil uil-angle-double-right"></i>
                                     </a>
                                 </div>
@@ -148,9 +143,15 @@
 
                 <div class="entry-bottom">
                     <div class="float-left">
-                        <a href="{{ route('posts.index') }}" class="btn-Prev">
-                            <i class="uil uil-angle-double-left"></i> Kembali ke Menu
-                        </a>
+                        @if ($post->status == 'draft')
+                            <a href="{{ route('posts.index', 'status=draft') }}" class="btn-Prev">
+                                <i class="uil uil-angle-double-left"></i> Kembali ke Menu
+                            </a>
+                        @else
+                            <a href="{{ route('posts.index') }}" class="btn-Prev">
+                                <i class="uil uil-angle-double-left"></i> Kembali ke Menu
+                            </a>
+                        @endif
                     </div>
                 </div>
             </div>

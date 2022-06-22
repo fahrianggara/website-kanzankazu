@@ -13,7 +13,11 @@
     <form action="{{ route('posts.store') }}" method="post" enctype="multipart/form-data" autocomplete="off">
         @csrf
 
-        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+        @if (!Auth::user()->editorRole())
+            @error('content')
+                <div class="notif-error" data-error="{{ $message }}"></div>
+            @enderror
+        @endif
 
         <div class="row">
 
@@ -24,8 +28,10 @@
                         <div class="row">
                             {{-- TITLE --}}
                             <div class="col-lg-6 form-group">
-                                <label for="input_post_title">Judul <span class="star-required">*</span></label>
-
+                                <label for="input_post_title">Judul @if (Auth::user()->editorRole())
+                                        <span class="star-required">*</span>
+                                    @endif
+                                </label>
                                 <input type="text" id="input_post_title" name="title"
                                     class="form-control @error('title') is-invalid @enderror"
                                     placeholder="Masukkan judul postingan kamu" value="{{ old('title') }}" autofocus>
@@ -55,8 +61,10 @@
                         <div class="row">
                             {{-- KEYWORDS --}}
                             <div class="col-lg-6 form-group">
-                                <label for="input_post_keywords">Kata Kunci <span class="star-required">*</span></label>
-
+                                <label for="input_post_keywords">Kata Kunci @if (Auth::user()->editorRole())
+                                        <span class="star-required">*</span>
+                                    @endif
+                                </label>
                                 <input type="text" id="input_post_keywords" name="keywords"
                                     class="form-control @error('keywords') is-invalid @enderror"
                                     placeholder="Masukkan kata kunci postingan kamu. cth: tutorial, php"
@@ -88,8 +96,10 @@
                         <div class="row">
                             {{-- THUMBNAIL --}}
                             <div class="col-lg-6 form-group">
-                                <label for="input_post_thumbnail">Gambar Postingan <span
-                                        class="star-required">*</span></label>
+                                <label for="input_post_thumbnail">Gambar Postingan @if (Auth::user()->editorRole())
+                                        <span class="star-required">*</span>
+                                    @endif
+                                </label>
 
                                 <div class="input-group">
 
@@ -111,8 +121,9 @@
 
                             {{-- SELECT TAG --}}
                             <div class="col-lg-6 form-group">
-                                <label for="select_post_tag" class="">Tag postingan<span
-                                        class="star-required">*</span>
+                                <label for="select_post_tag" class="">Tag postingan @if (Auth::user()->editorRole())
+                                        <span class="star-required">*</span>
+                                    @endif
                                 </label>
 
                                 <select name="tag[]" id="select_post_tag"
@@ -137,8 +148,11 @@
                             {{-- Category --}}
                             <div class="form-group col-lg-6">
                                 <label for="select_category">
-                                    Kategori <span class="star-required">*</span>
+                                    Kategori @if (Auth::user()->editorRole())
+                                        <span class="star-required">*</span>
+                                    @endif
                                 </label>
+
                                 <select id="select_category" name="category" data-placeholder="Pilih kategori post"
                                     class="custom-select w-100 @error('category') is-invalid @enderror">
                                     @if (old('category'))
@@ -198,8 +212,10 @@
                         @if (Auth::user()->editorRole())
                             {{-- DESCRIPTION --}}
                             <div class="form-group">
-                                <label for="input_post_desc">Deskripsi <span class="star-required">*</span></label>
-
+                                <label for="input_post_desc">Deskripsi @if (Auth::user()->editorRole())
+                                        <span class="star-required">*</span>
+                                    @endif
+                                </label>
                                 <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="input_post_desc"
                                     onkeyup="countCharBlog(this)" cols="2" rows="6" placeholder="Masukkan deskripsi postingan kamu..">{{ old('description') }}</textarea>
 
@@ -235,7 +251,10 @@
                                 </div>
                                 {{-- DESCRIPTION --}}
                                 <div class="form-group col-lg-6">
-                                    <label for="input_post_desc">Deskripsi <span class="star-required">*</span></label>
+                                    <label for="input_post_desc">Deskripsi @if (Auth::user()->editorRole())
+                                            <span class="star-required">*</span>
+                                        @endif
+                                    </label>
 
                                     <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="input_post_desc"
                                         onkeyup="countCharBlog(this)" cols="2" rows="6" placeholder="Masukkan deskripsi postingan kamu..">{{ old('description') }}</textarea>
@@ -254,7 +273,9 @@
                         {{-- Content --}}
                         <div class="form-group">
                             <label for="input_post_content">
-                                Konten Postingan<span class="star-required">*</span>
+                                Konten Postingan @if (Auth::user()->editorRole())
+                                    <span class="star-required">*</span>
+                                @endif
                             </label>
 
                             <textarea name="content" id="input_post_content" cols="30" rows="30"
@@ -300,6 +321,16 @@
 
 @push('js-internal')
     <script>
+        const alertError = $('.notif-error').data('error');
+        if (alertError) {
+            Swal.fire({
+                title: 'Gagal!',
+                text: 'Pesan : ' + alertError,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            });
+        }
+
         $(document).ready(function() {
             // SELECT CATEGORY
             $('#select_category').select2({
@@ -372,7 +403,7 @@
                 height: 300,
                 extended_valid_elements: 'img[class=popup img-fluid|src|width|height|style=z-index:9999999!important]',
                 plugins: [
-                    "advlist autolink lists link image charmap print preview hr anchor pagebreak emoticons",
+                    "advlist autolink lists link image charmap print preview hr anchor pagebreak emoticons save",
                     "searchreplace wordcount visualblocks visualchars code fullscreen",
                     "insertdatetime media nonbreaking save table directionality",
                     "emoticons template paste textpattern",
@@ -419,7 +450,7 @@
                     },
                 ],
                 toolbar1: "fullscreen preview | codesample | emoticons",
-                toolbar2: "restoredraft | insertfile undo redo | styleselect | fontselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
+                toolbar2: "restoredraft | save | insertfile undo redo | styleselect | fontselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
                 codesample_content_css: "/public/vendor/dashboard/css/sty.css",
                 // MENGKONEKKAN CONTENT GAMBAR KE FILE MANAGER
                 file_picker_callback: function(callback, value, meta) {

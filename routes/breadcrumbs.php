@@ -88,12 +88,20 @@ Breadcrumbs::for('add_posts', function (BreadcrumbTrail $trail) {
 
 Breadcrumbs::for('detail_post', function (BreadcrumbTrail $trail, $post) {
     $trail->parent('posts', $post);
-    $trail->push($post->title, route('posts.show', ['slug' => $post->slug]));
+    if ($post->title != null) {
+        $trail->push($post->title, route('posts.show', ['slug' => $post->slug]));
+    } else {
+        $trail->push('unknown', route('posts.show', ['slug' => $post->slug]));
+    }
 });
 
 Breadcrumbs::for('edit_post', function (BreadcrumbTrail $trail, $post) {
     $trail->parent('posts', $post);
-    $trail->push($post->title, route('posts.edit', ['slug' => $post->slug]));
+    if ($post->title != null) {
+        $trail->push($post->title, route('posts.edit', ['slug' => $post->slug]));
+    } else {
+        $trail->push('unknown', route('posts.edit', ['slug' => $post->slug]));
+    }
 });
 
 // =================================================================

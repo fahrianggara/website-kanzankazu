@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -60,25 +61,30 @@ class PostController extends Controller
         // Main view
         if ($statusSelected == "publish") {
             $posts = Post::publish()
-                ->where('user_id', Auth::id())
-                ->orderBy(RecommendationPost::select('post_id')->whereColumn('post_id', 'posts.id'), 'desc')
-                ->latest();
+                ->where('posts.user_id', Auth::id())
+                ->orderBy(RecommendationPost::select('post_id')->whereColumn('post_id', 'posts.id'), 'desc');
         } else if ($statusSelected == "draft") {
             $posts = Post::draft()
-                ->where('user_id', Auth::id())
-                ->orderBy(RecommendationPost::select('post_id')->whereColumn('post_id', 'posts.id'), 'desc')
-                ->latest();
+                ->where('posts.user_id', Auth::id())
+                ->orderBy(RecommendationPost::select('post_id')->whereColumn('post_id', 'posts.id'), 'desc');
         } else {
-            $posts = Post::approve()->latest();
+            $posts = Post::approve();
         }
 
-        if ($request->keyword) {
-            $posts->search($request->keyword);
+        $q = $request->keyword;
+
+        if ($q) {
+            $posts
+                ->search($q)
+                ->orWhere('tutorial_id', 'like', '%' . $q . '%');
         }
 
         return view('dashboard.manage-posts.posts.index', [
             'posts' => $posts->paginate(8)->withQueryString(),
             'statusSelected' => $statusSelected,
+            'cateOld' => $post->categories->first(),
+            'tutoOld' => $post->tutorials->first(),
+            'tagOld' => $post->tags->first(),
         ]);
     }
 
@@ -201,7 +207,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Post $data)
     {
         if (Auth::user()->roles->pluck('name')->contains('Editor')) {
             $validator = Validator::make(
@@ -245,16 +251,16 @@ class PostController extends Controller
             $validator = Validator::make(
                 $request->all(),
                 [
-                    'title'         => 'required|string|max:80|min:5',
+                    'title'         => 'nullable|string|max:80|min:5',
                     'slug'          => 'unique:posts,slug',
-                    'thumbnail'     => 'required|image|mimes:jpg,png,jpeg,gif|max:1024',
-                    'description'   => 'required|max:500|min:10',
+                    'thumbnail'     => 'nullable|image|mimes:jpg,png,jpeg,gif|max:1024',
+                    'description'   => 'nullable|max:500|min:10',
                     'content'       => 'required|min:10',
-                    'category'      => 'required',
+                    'category'      => 'nullable',
                     'tutorial'      => 'nullable',
-                    'tag'           => 'required',
-                    'status'        => 'required',
-                    'keywords'      => 'required|string|min:3|max:100',
+                    'tag'           => 'nullable',
+                    'status'        => 'nullable',
+                    'keywords'      => 'nullable|string|min:3|max:100',
                 ],
                 [
                     'title.required'         => 'Wajib harus diisi!',
@@ -269,7 +275,7 @@ class PostController extends Controller
                     'description.required'   => 'Wajib harus diisi!',
                     'description.max'        => 'Maksimal 500 karakter!',
                     'description.min'        => 'Minimal 10 karakter!',
-                    'content.required'       => 'Wajib harus diisi!',
+                    'content.required'       => 'Form konten postingan kamu wajib harus diisi !',
                     'content.min'            => 'Minimal 10 karakter!',
                     'category.required'      => 'Wajib harus diisi!',
                     'tag.required'           => 'Wajib harus diisi!',
@@ -307,19 +313,38 @@ class PostController extends Controller
                     $reziseThumbnail->resize(1280, 800)->save($path . '/' . $newThumbnail);
                 }
 
-                $post = Post::create([
-                    'title' => $request->title,
-                    'slug' => $request->slug,
-                    'thumbnail' => $newThumbnail,
-                    'description' => $request->description,
-                    'content' => $request->content,
-                    'author' => $request->author,
-                    'status' => $request->status,
-                    'keywords' => $request->keywords,
-                    'user_id' => Auth::user()->id,
-                    'views' => 0,
-                    'tutorial_id' => $request->tutorial,
-                ]);
+                $statusDraft = $data->title != null || $data->description != null || $data->keywords != null || $data->categories->first() != null || $data->tags->first() != null;
+
+                $randomStr = Str::random(5);
+
+                if (Auth::user()->roles->pluck('name')->contains('Editor')) {
+                    $post = Post::create([
+                        'title' => $request->title,
+                        'slug' => $request->slug,
+                        'thumbnail' => $newThumbnail,
+                        'description' => $request->description,
+                        'content' => $request->content,
+                        'author' => $request->author,
+                        'status' => $request->status,
+                        'keywords' => $request->keywords,
+                        'user_id' => Auth::user()->id,
+                        'views' => 0,
+                    ]);
+                } else {
+                    $post = Post::create([
+                        'title' => $request->title,
+                        'slug' => $request->slug ?? strtolower($randomStr),
+                        'thumbnail' => $newThumbnail ?? 'default.png',
+                        'description' => $request->description,
+                        'content' => $request->content,
+                        'author' => $request->author,
+                        'status' => $request->status ?? $statusDraft ? 'draft' : 'publish',
+                        'keywords' => $request->keywords,
+                        'user_id' => Auth::user()->id,
+                        'views' => 0,
+                        'tutorial_id' => $request->tutorial,
+                    ]);
+                }
 
                 $post->tags()->attach($request->tag);
                 $post->categories()->attach($request->category);
@@ -437,15 +462,15 @@ class PostController extends Controller
             $validator = Validator::make(
                 $request->all(),
                 [
-                    'title'         => 'required|string|max:80|min:5',
+                    'title'         => 'nullable|string|max:80|min:5',
                     'slug'          => 'unique:posts,slug,' . $post->id,
                     'thumbnail'     => 'image|mimes:jpg,png,jpeg,gif|max:1024',
-                    'description'   => 'required|max:500|min:10',
-                    'content'       => 'required|min:10',
-                    'category'      => 'required',
+                    'description'   => 'nullable|max:500|min:10',
+                    'content'       => 'nullable|min:10',
+                    'category'      => 'nullable',
                     'tutorial'      => 'nullable',
-                    'tag'           => 'required',
-                    'keywords'      => 'required|string|min:3|max:100',
+                    'tag'           => 'nullable',
+                    'keywords'      => 'nullable|string|min:3|max:100',
                 ],
                 [
                     'title.required'         => 'Wajib harus diisi!',
@@ -503,37 +528,36 @@ class PostController extends Controller
                 $post->thumbnail = $newThumbnail;
             }
 
+            $randomStr = Str::random(5);
+
             $post->title = $request->title;
-            $post->slug = $request->slug;
+            $post->slug = $request->slug ?? strtolower($randomStr);
             $post->description = $request->description;
             $post->content = $request->content;
             $post->keywords = $request->keywords;
             $post->tutorial_id = $request->tutorial;
             $post->tags()->sync($request->tag);
-            $post->categories()->sync($request->category);
+
+            if ($post->categories()->first() != null) {
+                $post->categories()->sync($request->category);
+            } else {
+                $post->categories()->attach($request->category);
+            }
 
             if (!Auth::user()->roles->pluck('name')->contains('Editor')) {
                 if ($post->tutorials()->first() != null) {
                     $post->tutorials()->syncWithPivotValues($request->tutorial, ['user_id' => Auth::id()]);
-                } else if ($post->tutorials()->first() == null) {
+                } else {
                     $post->tutorials()->attach($request->tutorial, ['user_id' => Auth::id()]);
                 }
             }
 
             $post->update();
 
-            if ($post->wasChanged('title')) {
-                if ($post->status == 'draft') {
-                    return Redirect::to(URL::route('posts.index') . '?status=draft')->with('success', 'Postingan "' . $request->old_title . '" telah diganti namanya menjadi "' . $post->title . '".');
-                } else {
-                    return Redirect::to(URL::route('posts.index'))->with('success', 'Postingan "' . $request->old_title . '" telah diganti namanya menjadi "' . $post->title . '".');
-                }
+            if ($post->status == 'draft') {
+                return Redirect::to(URL::route('posts.index') . '?status=draft')->with('success', 'Postingan berhasil diperbarui!');
             } else {
-                if ($post->status == 'draft') {
-                    return Redirect::to(URL::route('posts.index') . '?status=draft')->with('success', 'Postingan berhasil diperbarui!');
-                } else {
-                    return Redirect::to(URL::route('posts.index'))->with('success', 'Postingan berhasil diperbarui!');
-                }
+                return Redirect::to(URL::route('posts.index'))->with('success', 'Postingan berhasil diperbarui!');
             }
         } catch (\Throwable $th) {
             DB::rollBack();

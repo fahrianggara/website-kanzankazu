@@ -15,7 +15,7 @@
             <form action="" method="GET" class="">
                 <div class="row">
                     <div class="col-md-4 mb-3">
-                        <div class="card">
+                        <div class="card m-b-10">
                             <div class="card-header">
 
                                 <div class="col">
