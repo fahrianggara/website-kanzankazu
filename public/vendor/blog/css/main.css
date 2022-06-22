@@ -3409,7 +3409,7 @@ div.code-toolbar>.toolbar>.toolbar-item>span:hover {
     color: var(--first-color);
 }
 
-.main-blog .post-related .link-moreblog a.active{
+.main-blog .post-related .link-moreblog a.active {
     color: var(--first-color);
 }
 
@@ -4256,4 +4256,27 @@ ul li.ui-menu-item p:hover {
 
 .modal-content span[aria-hidden="true"] {
     color: var(--first-color);
+}
+
+.medium-zoom--opened .medium-zoom-overlay {
+    background: var(--container-color) !important;
+    z-index: 99999 !important;
+    opacity: 0.9 !important;
+}
+
+.medium-zoom-overlay {
+    background: var(--container-color) !important;
+    transition: background .3s;
+    will-change: background
+}
+
+.medium-zoom-image {
+    cursor: pointer;
+    cursor: zoom-in;
+    transition: none !important;
+    border-radius: 4px !important;
+}
+
+.modal {
+    z-index: 9999 !important;
 }

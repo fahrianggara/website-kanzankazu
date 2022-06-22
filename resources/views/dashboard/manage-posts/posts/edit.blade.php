@@ -244,9 +244,9 @@
                             <div class="form-group">
                                 <label for="input_post_desc">Deskripsi</label>
 
-                                <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="input_post_desc"
+                                <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="input_post_desc" onkeyup="countCharBlog(this)"
                                     cols="30" rows="5" placeholder="Masukkan deskripsi postingan kamu..">{{ old('description', $post->description) }}</textarea>
-
+                                    <span class="float-right" id="charNumBlog"></span>
                                 @error('description')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -302,6 +302,18 @@
 
 @push('js-internal')
     <script>
+        function countCharBlog(val) {
+            let max = 500
+            let limit = val.value.length;
+            if (limit >= max) {
+                val.value = val.value.substring(0, max);
+                $('#charNumBlog').text('Kamu sudah mencapai batas maksimal');
+            } else {
+                var char = max - limit;
+                $('#charNumBlog').text(char + ' Karakter tersisa');
+            };
+        }
+
         $(document).ready(function() {
             // SELECT CATEGORY
             $('#select_category').select2({
@@ -372,7 +384,7 @@
                 language: "en",
                 selector: 'textarea',
                 height: 300,
-                extended_valid_elements: 'img[class=popup img-fluid|src|border=0|alt|title|hspace|vspace|align|onmouseover|onmouseout|name]',
+                extended_valid_elements: 'img[class=popup img-fluid|src|width|height|style]',
                 plugins: [
                     "advlist autolink lists link image charmap print preview hr anchor pagebreak emoticons",
                     "searchreplace wordcount visualblocks visualchars code fullscreen",

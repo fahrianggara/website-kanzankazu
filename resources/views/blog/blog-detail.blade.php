@@ -350,8 +350,7 @@
 @push('js-internal')
     <script>
         mediumZoom('.popup', {
-            background: 'none',
-            scrollOffset: 100,
+            scrollOffset: 150,
             margin: 5,
         })
     </script>

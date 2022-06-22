@@ -117,7 +117,7 @@ class PostController extends Controller
         ]);
     }
 
-    public function recommend(Request $request, $id)
+    public function recommend($id)
     {
         $post = Post::join('recommendation_posts', 'posts.id', '=', 'recommendation_posts.post_id')
             ->where('post_id', $id)

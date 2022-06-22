@@ -370,7 +370,7 @@
                 language: "en",
                 selector: 'textarea',
                 height: 300,
-                extended_valid_elements: 'img[class=popup img-fluid|src|border=0|alt|title|width=1280|height=800|hspace|vspace|align|onmouseover|onmouseout|name]',
+                extended_valid_elements: 'img[class=popup img-fluid|src|width|height|style=z-index:9999999!important]',
                 plugins: [
                     "advlist autolink lists link image charmap print preview hr anchor pagebreak emoticons",
                     "searchreplace wordcount visualblocks visualchars code fullscreen",
