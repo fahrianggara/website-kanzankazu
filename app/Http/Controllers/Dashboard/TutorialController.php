@@ -72,7 +72,8 @@ class TutorialController extends Controller
                 'title'         => 'required|string|max:20|min:3',
                 'slug'          => 'unique:tutorials,slug',
                 'thumbnail'     => 'image|mimes:jpg,png,jpeg,gif|max:1024',
-                'description'   => 'nullable|max:400|min:5'
+                'description'   => 'nullable|max:400|min:5',
+                'bg_color'      => 'required',
             ],
             [
                 'title.required'         => 'Wajib diisi',
@@ -84,6 +85,7 @@ class TutorialController extends Controller
                 'thumbnail.max'          => 'Ukuran maksimal harus 1 MB',
                 'description.max'        => 'Maksimal hanya 400 karakter',
                 'description.min'        => 'Minimal hanya 5 karakter',
+                'bg_color.required'      => 'Wajib diisi',
             ]
         );
 
@@ -110,6 +112,7 @@ class TutorialController extends Controller
                     'slug' => $request->slug,
                     'description' => $request->description,
                     'thumbnail' => $newImage ?? 'default.png',
+                    'bg_color' => $request->bg_color,
                 ]);
 
                 return redirect()->route('tutorials.index')->with('success', 'Tutorial baru berhasil ditambahkan');
@@ -150,7 +153,8 @@ class TutorialController extends Controller
                 'title'         => 'required|string|max:20|min:3',
                 'slug'          => 'unique:tutorials,slug,' . $tutorial->id,
                 'thumbnail'     => 'image|mimes:jpg,png,jpeg,gif|max:1024',
-                'description'   => 'nullable|max:400|min:5'
+                'description'   => 'nullable|max:400|min:5',
+                'bg_color'      => 'required',
             ],
             [
                 'title.required'         => 'Wajib diisi',
@@ -162,6 +166,7 @@ class TutorialController extends Controller
                 'thumbnail.max'          => 'Ukuran maksimal harus 1 MB',
                 'description.max'        => 'Maksimal hanya 400 karakter',
                 'description.min'        => 'Minimal hanya 5 karakter',
+                'bg_color.required'      => 'Wajib diisi',
             ]
         );
 
@@ -174,6 +179,7 @@ class TutorialController extends Controller
                 $tutorial->title = $request->title;
                 $tutorial->slug = $request->slug;
                 $tutorial->description = $request->description;
+                $tutorial->bg_color = $request->bg_color;
 
                 if ($request->hasFile('thumbnail')) {
                     // $public_path = '../../public_html/blog/';

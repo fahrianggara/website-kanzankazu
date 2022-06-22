@@ -22,7 +22,8 @@
                         @foreach ($post->tutorials as $tutorials)
                             <div class="img-moredate">
                                 <a href="{{ route('blog.posts.tutorials.author', ['slug' => $tutorials->slug, 'user' => $post->user->slug]) }}"
-                                    class="img-infodate">{{ $tutorials->title }}</a>
+                                    class="img-infodate" style="background: {{$tutorials->bg_color}}">{{ $tutorials->title }}
+                                </a>
                             </div>
                         @endforeach
                     </div>

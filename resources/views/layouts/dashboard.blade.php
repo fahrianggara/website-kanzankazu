@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/blog/assets/sweetalert2/sweetalert2.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/dashboard/plugins/alertify/css/alerts.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/dashboard/plugins/ijabocroptool/ijaboCropTool.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/dashboard/plugins/colorpicker/jquery-asColorPicker/dist/css/asColorPicker.css') }}">
     {{-- icons --}}
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link href="{{ asset('vendor/blog/assets/fontawesome/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -92,6 +93,9 @@
     </div>
 
     <script src="{{ asset('vendor/dashboard/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/dashboard/plugins/colorpicker/jquery-asColor/dist/jquery-asColor.js') }}"></script>
+    <script src="{{ asset('vendor/dashboard/plugins/colorpicker/jquery-asGradient/dist/jquery-asGradient.js') }}"></script>
+    <script src="{{ asset('vendor/dashboard/plugins/colorpicker/jquery-asColorPicker/dist/jquery-asColorPicker.js') }}"></script>
     <script src="{{ asset('vendor/dashboard/js/popper.min.js') }}"></script>
     <script src="{{ asset('vendor/dashboard/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendor/dashboard/js/modernizr.min.js') }}"></script>
@@ -116,6 +120,8 @@
     @stack('js-internal')
 
     <script>
+        $(".complex-colorpicker").asColorPicker();
+
         window.onload = function() {
             if (!localStorage.justOnce) {
                 localStorage.setItem("justOnce", "true");

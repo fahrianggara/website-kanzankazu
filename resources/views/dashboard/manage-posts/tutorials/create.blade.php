@@ -12,8 +12,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card m-b-30">
-                <form action="{{ route('tutorials.store') }}" method="POST" enctype="multipart/form-data"
-                    autocomplete="off">
+                <form action="{{ route('tutorials.store') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
                     @csrf
                     <div class="card-body">
 
@@ -68,6 +67,22 @@
                                         </span>
                                     @enderror
 
+                                </div>
+                            </div>
+                            {{-- Color picker --}}
+                            <div class="form-group col-lg-6">
+                                <label for="bg-color">Background Warna</label>
+
+                                <div class="input-group">
+                                    <input type="text" name="bg_color"
+                                        class="complex-colorpicker @error('bg_color') is-invalid @enderror form-control asColorPicker-input"
+                                        placeholder="#xxxxxx" value="{{ old('bg_color') }}">
+
+                                    @error('bg_color')
+                                        <span class="invalid-feedback d-block" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>

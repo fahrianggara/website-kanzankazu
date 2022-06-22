@@ -12,8 +12,8 @@
     <div class="row">
         <div class="col-12">
             <div class="card m-b-30">
-                <form action="{{ route('tutorials.update', ['tutorial' => $tutorial]) }}" method="POST" enctype="multipart/form-data"
-                    autocomplete="off">
+                <form action="{{ route('tutorials.update', ['tutorial' => $tutorial]) }}" method="POST"
+                    enctype="multipart/form-data" autocomplete="off">
                     @csrf
                     @method('PUT')
 
@@ -26,7 +26,8 @@
 
                                 <input type="text" id="tutorial_title" name="title"
                                     class="form-control @error('title') is-invalid @enderror"
-                                    placeholder="Masukkan nama tutorial" value="{{ old('title', $tutorial->title) }}" autofocus>
+                                    placeholder="Masukkan nama tutorial" value="{{ old('title', $tutorial->title) }}"
+                                    autofocus>
 
                                 @error('title')
                                     <span class="invalid-feedback" role="alert">
@@ -61,7 +62,8 @@
                                         <input type="file" name="thumbnail"
                                             class="custom-file-input @error('thumbnail') is-invalid @enderror"
                                             id="thumbnail" value="{{ old('thumbnail') }}">
-                                        <label class="custom-file-label" for="thumbnail">{{ $tutorial->thumbnail }}</label>
+                                        <label class="custom-file-label"
+                                            for="thumbnail">{{ $tutorial->thumbnail }}</label>
                                     </div>
 
                                     @error('thumbnail')
@@ -70,6 +72,22 @@
                                         </span>
                                     @enderror
 
+                                </div>
+                            </div>
+                            {{-- Color picker --}}
+                            <div class="form-group col-lg-6">
+                                <label for="bg-color">Background Warna</label>
+
+                                <div class="input-group">
+                                    <input type="text" name="bg_color"
+                                        class="complex-colorpicker @error('bg_color') is-invalid @enderror form-control asColorPicker-input"
+                                        placeholder="#xxxxxx" value="{{ old('bg_color', $tutorial->bg_color) }}">
+
+                                    @error('bg_color')
+                                        <span class="invalid-feedback d-block" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
