@@ -315,7 +315,7 @@ class PostController extends Controller
 
                 $randomStr = Str::random(5);
 
-                $statusDraft = $request->title == '' || $request->description == '' || $request->keywords == '';
+                $statusDraft = $request->title == '' || $request->description == '' || $request->keywords == '' || $request->tag == '' || $request->category == '';
 
                 if (Auth::user()->roles->pluck('name')->contains('Editor')) {
                     $post = Post::create([
@@ -619,8 +619,6 @@ class PostController extends Controller
                     "Postingan \"" . $post->title . "\", Berhasil dihapus!"
                 );
             }
-
-
         } catch (\Throwable $th) {
             DB::rollBack();
 
