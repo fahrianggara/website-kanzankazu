@@ -10,7 +10,7 @@ class SitemapXmlController extends Controller
 {
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::publish()->get();
         return response()->view('sitemap', compact('posts'))
         ->header('Content-Type', 'text/xml');
     }
