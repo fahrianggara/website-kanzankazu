@@ -27,8 +27,13 @@ class HomeController extends Controller
     {
         return view('layouts.home', [
             'posts' => Post::publish()->latest()->limit(3)->get(),
-            'categories' =>  Category::onlyParent()->latest()->limit(3)->get(),
-            'tutorials' => Tutorial::latest()->limit(3)->get(),
+            'categories' =>  Category::onlyParent()
+                ->whereHas('posts', function ($query) {
+                    $query->publish();
+                })->latest()->limit(3)->get(),
+            'tutorials' => Tutorial::whereHas('posts', function ($query) {
+                $query->publish();
+            })->latest()->limit(3)->get(),
         ]);
     }
 }

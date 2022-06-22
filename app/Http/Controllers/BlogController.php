@@ -114,7 +114,11 @@ class BlogController extends Controller
     public function showCategory()
     {
         return view('blog.categories', [
-            'categories' => Category::onlyParent()->paginate(10),
+            'categories' => Category::onlyParent()
+                ->whereHas('posts', function ($query) {
+                    $query->publish();
+                })
+                ->paginate(10),
         ]);
     }
 
@@ -161,7 +165,7 @@ class BlogController extends Controller
 
         $posts = Post::publish()->whereHas('categories', function ($query) use ($slug) {
             return $query->where('slug', $slug);
-        })->latest()->paginate(10);
+        })->latest()->paginate(9);
 
         $categoryRoot = $category->root();
 
@@ -194,7 +198,9 @@ class BlogController extends Controller
     public function showTags()
     {
         return view('blog.tags', [
-            'tags' => Tag::paginate(20),
+            'tags' => Tag::whereHas('posts', function ($query) {
+                $query->publish();
+            })->paginate(20),
         ]);
     }
 
@@ -251,7 +257,9 @@ class BlogController extends Controller
     public function showTutorial()
     {
         return view('blog.tutorials', [
-            'tutorials' => Tutorial::paginate(10),
+            'tutorials' => Tutorial::whereHas('posts', function ($q) {
+                $q->publish();
+            })->paginate(10),
         ]);
     }
 
