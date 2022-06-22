@@ -26,6 +26,7 @@
 </head>
 
 <body>
+    <div class="notif-success" data-notif="{{ Session::get('success') }}"></div>
 
     @yield('content')
 
@@ -39,6 +40,14 @@
                 localStorage.setItem("justOnce", "true");
                 window.location.reload();
             }
+        }
+
+        // Notif status
+        const notif = $('.notif-success').data('notif');
+        if (notif) {
+            alertify
+                .delay(5000)
+                .log(notif);
         }
     </script>
 
