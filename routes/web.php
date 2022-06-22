@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Artisan;
 |
 */
 
+// SITEMAP XML
+Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapXmlController::class, 'index'])->name('sitemap');
+
 // LANGUAGE
 Route::get('/localization/{language}', [App\Http\Controllers\LocalizationController::class, 'switch'])
     ->name('localization.switch');
