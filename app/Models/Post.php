@@ -44,13 +44,9 @@ class Post extends Model
             ->withTimestamps();
     }
 
-    // public function tutorial()
-    // {
-    //     return $this->belongsToMany(Tutorial::class, 'post_tutorial');
-    // }
     public function tutorial()
     {
-        return $this->belongsTo(Tutorial::class, 'post_tutorial');
+        return $this->belongsToMany(Tutorial::class, 'post_tutorial');
     }
 
     public function category()
@@ -75,7 +71,7 @@ class Post extends Model
 
     public function scopeSearch($query, $data)
     {
-        return $query->where('posts.title', 'LIKE', "%{$data}%");
+        return $query->where('title', 'LIKE', "%{$data}%");
     }
 
     public function scopePublish($query)
