@@ -413,9 +413,11 @@
                     "emoticons template paste textpattern",
                     "tabfocus",
                     "codesample",
-                    "autosave"
+                    "autosave",
                 ],
-                font_formats: "Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Oswald=oswald; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Terminal=terminal,monaco; Times New Roman=times new roman,times; Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva; Webdings=webdings; Wingdings=wingdings,zapf dingbats",
+                content_style: "@import url('https://fonts.googleapis.com/css2?family=Anek+Latin:wght@300;500;700&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,700&family=Noto+Sans+JP:wght@300;400;700&family=Poppins:ital,wght@0,300;0,500;0,700;1,300;1,500&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,500&family=Rubik:ital,wght@0,300;0,500;0,600;1,300;1,500&display=swap');",
+                font_formats: "Anek Latin=Anek Latin,sans-serif;Lato Black=lato;Noto Sans JP=Noto Sans JP;Poppins=Poppins,poppins;Roboto=roboto;Rubik=Rubik; Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Terminal=terminal,monaco; Times New Roman=times new roman,times; Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva; Webdings=webdings; Wingdings=wingdings,zapf dingbats",
+                fontsize_formats: '8pt 10pt 12pt 14pt 16pt 18pt 24pt 36pt 48pt',
                 codesample_languages: [{
                         text: 'HTML/XML',
                         value: 'markup'
@@ -453,10 +455,9 @@
                         value: "mel"
                     },
                 ],
-                toolbar1: "fullscreen preview | codesample | emoticons",
-                toolbar2: "restoredraft | save | insertfile undo redo | styleselect | fontselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media ",
+                toolbar1: "fullscreen preview | codesample | emoticons | link image media",
+                toolbar2: "restoredraft | save | insertfile undo redo | styleselect | fontselect | fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
                 codesample_content_css: "/public/vendor/dashboard/css/sty.css",
-
                 // MENGKONEKKAN CONTENT GAMBAR KE FILE MANAGER
                 file_picker_callback: function(callback, value, meta) {
                     let x = window.innerWidth || document.documentElement.clientWidth || document
