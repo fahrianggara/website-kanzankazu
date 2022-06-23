@@ -4,6 +4,10 @@
     Kategori {{ $category->title }}
 @endsection
 
+@section('keywords')
+    {{ $setting->meta_keywords }} kategori {{ $category->title }}, {{ $setting->site_name }}
+@endsection
+
 @section('content')
     <div class="container">
         @if ($category->posts->count() >= 1)

@@ -4,6 +4,10 @@
     Tag
 @endsection
 
+@section('keywords')
+    {{ $setting->meta_keywords }} tag kanzankazu, {{ $setting->site_name }}
+@endsection
+
 @section('content')
     <div class="container">
         @if ($tags->count() >= 1)

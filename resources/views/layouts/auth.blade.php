@@ -3,11 +3,15 @@
 
 <head>
     {{-- Meta --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta content="Login" name="description">
-    <meta content="Fahri Anggara" name="author">
+    <meta name="title" content="@yield('title') - {{ $setting->site_name }}">
+    <meta name="description" content="@yield('description', $setting->site_description)">
+    <meta name="keywords" content="@yield('keywords', $setting->meta_keywords)">
+    <meta name="language" content="id">
+    <meta name="author" content="@yield('author', $setting->site_name)">
     {{-- Title --}}
     <title>@yield('title')</title>
     {{-- Logo / icon --}}

@@ -4,6 +4,10 @@
     Tag {{ $tag->title }}
 @endsection
 
+@section('keywords')
+    {{ $setting->meta_keywords }} tag {{ $tag->title }}, {{ $setting->site_name }}
+@endsection
+
 @section('content')
     <div class="container">
         @if ($tag->posts->count() >= 1)

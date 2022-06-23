@@ -4,6 +4,10 @@
     Tutorial
 @endsection
 
+@section('keywords')
+    {{ $setting->meta_keywords }} tutorial kanzankazu, {{ $setting->site_name }}
+@endsection
+
 @section('content')
     <div class="container">
         @if ($tutorials->count() >= 1)

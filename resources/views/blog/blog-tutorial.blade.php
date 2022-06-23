@@ -4,6 +4,10 @@
     Tutorial {{ $tutorial->title }}
 @endsection
 
+@section('keywords')
+    {{ $setting->meta_keywords }} tutorial {{ $tutorial->title }}, {{ $setting->site_name }}
+@endsection
+
 @section('content')
     <div class="container">
         @if ($tutorial->posts->count() >= 1)

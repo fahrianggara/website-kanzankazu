@@ -4,6 +4,11 @@
     Blog
 @endsection
 
+@section('keywords')
+    {{ $setting->meta_keywords }} blog kanzankazu, {{ $setting->site_name }}
+@endsection
+
+
 @section('content')
     <div class="container">
         @if ($posts->count() >= 1)

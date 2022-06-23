@@ -4,6 +4,10 @@
     {{ request()->get('keyword') }}
 @endsection
 
+@section('keywords')
+    {{ $setting->meta_keywords }} pencarian kanzankazu, {{ request()->get('keyword') }}, {{ $setting->site_name }}
+@endsection
+
 @section('content')
     <div class="container">
         @if ($posts->count() >= 1)

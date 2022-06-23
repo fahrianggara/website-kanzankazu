@@ -4,6 +4,10 @@
     Tutorial {{ $tutorial->title }} | by {{ $author->name }}
 @endsection
 
+@section('keywords')
+    {{ $setting->meta_keywords }} tutorial {{ $tutorial->title }}, tutorial kanzankazu, oleh {{ $author->name }}, {{ $setting->site_name }}
+@endsection
+
 @section('content')
     <div class="container">
         @if ($tutorial->posts->count() >= 1)

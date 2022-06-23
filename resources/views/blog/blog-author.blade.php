@@ -4,6 +4,10 @@
     Author
 @endsection
 
+@section('keywords')
+    {{ $setting->meta_keywords }} author, {{ $setting->site_name }}
+@endsection
+
 @section('content')
     <div class="container">
         @if ($authors->count() >= 1)

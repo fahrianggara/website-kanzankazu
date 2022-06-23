@@ -4,6 +4,10 @@
     Kategori
 @endsection
 
+@section('keywords')
+    {{ $setting->meta_keywords }} kategori kanzankazu, {{ $setting->site_name }}
+@endsection
+
 @section('content')
     <div class="container">
         @if ($categories->count() >= 1)

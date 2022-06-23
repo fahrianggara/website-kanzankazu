@@ -2,6 +2,10 @@
 
 @section('title', 'Register')
 
+@section('keywords')
+    {{ $setting->meta_keywords }} register kanzankazu, {{ $setting->site_name }}
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row px-3">
