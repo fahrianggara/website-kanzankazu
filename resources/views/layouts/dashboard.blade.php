@@ -173,7 +173,7 @@
             relative_urls: false,
             language: "en",
             selector: 'textarea',
-            height: 300,
+            height: 600,
             extended_valid_elements: 'img[class=popup img-fluid|src|width|height|style=z-index:9999999!important]',
             plugins: [
                 "advlist autolink lists link image charmap print preview hr anchor pagebreak emoticons save",
@@ -224,8 +224,9 @@
                     value: "mel"
                 },
             ],
-            toolbar1: "fullscreen preview | codesample | emoticons | link image media",
-            toolbar2: "restoredraft | save | insertfile undo redo | styleselect | fontselect | fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
+            toolbar1: "fullscreen preview | link image media",
+            toolbar2: "styleselect | fontselect | fontsizeselect | bold italic | codesample emoticons | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
+            toolbar3: "restoredraft | save | insertfile undo redo",
             codesample_content_css: "/public/vendor/dashboard/css/sty.css",
             // MENGKONEKKAN CONTENT GAMBAR KE FILE MANAGER
             file_picker_callback: function(callback, value, meta) {
