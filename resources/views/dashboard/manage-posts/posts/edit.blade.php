@@ -271,7 +271,7 @@
                             </div>
                         @endif
                         {{-- Content --}}
-                        <div class="form-group">
+                        <div class="form-group" id="content">
                             <label for="input_post_content">
                                 Konten Postingan
                             </label>

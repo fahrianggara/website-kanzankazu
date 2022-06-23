@@ -134,10 +134,15 @@ class PostController extends Controller
         if ($post->isEmpty()) {
             // validation max 3
             if ($recommendPost->count() >= 3) {
+                Alert::warning(
+                    'Oops..',
+                    'Rekomendasi maksimal 3 postingan! silahkan hapus rekomandasi yang lainnya untuk direkomendasikan.'
+                )->autoClose(false);
+
                 RecommendationPost::where('post_id', $id)
                     ->where('user_id', Auth::id())
                     ->delete();
-                return redirect()->back()->with('success', 'Rekomendasi maksimal 3 postingan.');
+                return redirect()->back();
             } else {
                 RecommendationPost::create([
                     'post_id' => $id,
@@ -217,7 +222,7 @@ class PostController extends Controller
                     'slug'          => 'unique:posts,slug',
                     'thumbnail'     => 'required|image|mimes:jpg,png,jpeg,gif|max:1024',
                     'description'   => 'required|max:500|min:10',
-                    'content'       => 'required|min:10',
+                    'content'       => 'required|min:3',
                     'category'      => 'required',
                     'tag'           => 'required',
                     'status'        => 'required',
@@ -237,7 +242,7 @@ class PostController extends Controller
                     'description.max'        => 'Maksimal 500 karakter!',
                     'description.min'        => 'Minimal 10 karakter!',
                     'content.required'       => 'Wajib harus diisi!',
-                    'content.min'            => 'Minimal 10 karakter!',
+                    'content.min'            => 'Minimal 3 karakter!',
                     'category.required'      => 'Wajib harus diisi!',
                     'tag.required'           => 'Wajib harus diisi!',
                     'status.required'        => 'Wajib harus diisi!',
@@ -289,12 +294,14 @@ class PostController extends Controller
         }
 
         if ($validator->fails()) {
+
             if (!Auth::user()->roles->pluck('name')->contains('Editor')) {
                 $request['tutorial'] = Tutorial::select('id', 'title')->find($request->tutorial);
             }
             if ($request['tag']) {
                 $request['tag'] = Tag::select('id', 'title')->whereIn('id', $request->tag)->get();
             }
+
             $request['category'] = Category::select('id', 'title')->find($request->category);
 
             return redirect()->back()->withInput($request->all())->withErrors($validator);
@@ -316,6 +323,20 @@ class PostController extends Controller
                 $randomStr = Str::random(5);
 
                 $statusDraft = $request->title == '' || $request->description == '' || $request->keywords == '' || $request->tag == '' || $request->category == '';
+
+                // Validation lebih dari 3 tag
+                if (count((array)$request['tag']) >= 4) {
+                    if ($request['tag']) {
+                        $request['tag'] = Tag::select('id', 'title')->whereIn('id', $request['tag'])->get();
+                    }
+
+                    Alert::warning(
+                        'Oops..',
+                        'kamu tidak bisa pilih tag postingan lebih dari 3 ! sedangkan kamu pilih ' . count($request['tag']) . ' tag postingan! silahkan hapus salah satunya.'
+                    )->autoClose(false);
+
+                    return redirect()->back()->withInput($request->all())->withErrors($validator);
+                }
 
                 if (Auth::user()->roles->pluck('name')->contains('Editor')) {
                     $post = Post::create([
@@ -349,7 +370,6 @@ class PostController extends Controller
                 $post->tags()->attach($request->tag);
                 $post->categories()->attach($request->category);
                 if (!Auth::user()->roles->pluck('name')->contains('Editor')) {
-                    // $post->tutorials()->attach($request->tutorial, array('user_id' => Auth::user()->id));
                     $post->tutorials()->attach($request->tutorial, ['user_id' => Auth::user()->id]);
                 }
 
@@ -552,7 +572,30 @@ class PostController extends Controller
                 }
             }
 
+            // Validasi 4 postingan
+            if (count((array)$request['tag']) >= 4) {
+                if ($request['tag']) {
+                    $request['tag'] = Tag::select('id', 'title')->whereIn('id', $request->tag)->get();
+                }
+                if (!Auth::user()->roles->pluck('name')->contains('Editor')) {
+                    $request['tutorial'] = Tutorial::select('id', 'title')->find($request->tutorial);
+                }
+                $request['category'] = Category::select('id', 'title')->find($request->category);
+
+                Alert::warning(
+                    'Oops..',
+                    'kamu tidak bisa pilih tag postingan lebih dari 3 ! sedangkan kamu pilih ' . count($request['tag']) . ' tag postingan! silahkan hapus salah satunya.'
+                )->autoClose(false);
+
+                return redirect()->back()->withInput($request->all())->withErrors($validator);
+            }
+
             $post->update();
+
+            if ($post->title === null || $post->description === null || $post->keywords === null || $post->categories->first() === null || $post->tags->first() === null) {
+                // return redirect()->back()->with('success', 'Postingan berhasil diperbarui.');
+                return Redirect::to(URL::route('posts.edit', ['slug' => $post->slug]) . '#content')->with('success', 'Postingan berhasil diperbarui.');
+            }
 
             if ($post->status == 'draft') {
                 return Redirect::to(URL::route('posts.index') . '?status=draft')->with('success', 'Postingan berhasil diperbarui!');

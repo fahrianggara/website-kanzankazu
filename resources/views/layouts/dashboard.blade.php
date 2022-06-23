@@ -144,6 +144,12 @@
             }
         }
 
+        setTimeout(() => {
+            history.replaceState('', document.title, window.location.origin + window
+                .location.pathname + window
+                .location.search);
+        }, 0);
+
         $(function() {
             $("[data-toggle='tooltip']").tooltip().on("click", function() {
                 $(this).tooltip("hide")
