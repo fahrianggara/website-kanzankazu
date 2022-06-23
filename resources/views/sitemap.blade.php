@@ -31,6 +31,12 @@
         <priority>0.8</priority>
     </url>
     <url>
+        <loc>{{ route('blog.search') }}</loc>
+        <lastmod>2022-06-23T11:09:30+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
         <loc>{{ route('login') }}</loc>
         <lastmod>2022-06-23T11:09:30+00:00</lastmod>
         <changefreq>weekly</changefreq>
