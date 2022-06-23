@@ -224,9 +224,9 @@
                     value: "mel"
                 },
             ],
-            toolbar1: "fullscreen preview | link image media",
-            toolbar2: "styleselect | fontselect | fontsizeselect | bold italic | codesample emoticons | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
-            toolbar3: "restoredraft | save | insertfile undo redo",
+            toolbar1: "restoredraft | save | insertfile undo redo | link image media",
+            toolbar2: "fullscreen preview | styleselect | fontselect | fontsizeselect | bold italic | codesample emoticons | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
+            // toolbar3: "",
             codesample_content_css: "/public/vendor/dashboard/css/sty.css",
             // MENGKONEKKAN CONTENT GAMBAR KE FILE MANAGER
             file_picker_callback: function(callback, value, meta) {
