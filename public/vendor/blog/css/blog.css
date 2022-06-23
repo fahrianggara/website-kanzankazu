@@ -2279,18 +2279,6 @@ section {
     }
 }
 
-@media (max-width: 375px) {
-    .main-blog .entry .entry-title span {
-        font-size: 27px;
-    }
-}
-
-@media (max-width: 320px) {
-    .main-blog .entry .entry-title span {
-        font-size: 22px;
-    }
-}
-
 .main-blog .entry .entry-title a {
     color: var(--text-color);
 }
@@ -2375,14 +2363,14 @@ section {
     transition-delay: 0s;
 }
 
-.main-blog .entry .entry-content p {
+/* .main-blog .entry .entry-content p {
     line-height: 26px;
     font-size: 18px;
 }
 
 .main-blog .entry .entry-content div {
     font-size: 18px;
-}
+} */
 
 .main-blog .entry .entry-content .read-more a {
     display: inline-block;
@@ -2397,7 +2385,12 @@ section {
     box-shadow: 0 0 5px var(--text-color);
 }
 
-.main-blog .entry .entry-content h3 {
+.main-blog .entry .entry-content h3,
+.main-blog .entry .entry-content h2,
+.main-blog .entry .entry-content h1,
+.main-blog .entry .entry-content h4,
+.main-blog .entry .entry-content h5,
+.main-blog .entry .entry-content h6 {
     font-size: 24px;
     margin-top: 30px;
     font-weight: bold;
@@ -2715,7 +2708,7 @@ div.code-toolbar>.toolbar>.toolbar-item>span:hover {
 
 .main-blog .entry .entry-content blockquote::before {
     content: "\201C";
-    font-family: Arial;
+    /* font-family: Arial; */
     font-size: 4em;
     position: absolute;
     left: 15px;
