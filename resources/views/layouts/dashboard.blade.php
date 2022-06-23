@@ -185,7 +185,7 @@
                 "autosave",
             ],
             content_style: "@import url('https://fonts.googleapis.com/css2?family=Anek+Latin:wght@300;500;700&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,700&family=Noto+Sans+Display:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Noto+Sans+JP:wght@300;400;700&family=Poppins:ital,wght@0,300;0,500;0,700;1,300;1,500&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,400&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,500&family=Rubik:ital,wght@0,300;0,500;0,600;1,300;1,500&display=swap');",
-            font_formats: "Anek Latin=anek latin,sans-serif;Lato=lato,sans-serif;Noto Sans JP=noto sans jp,sans-serif;Poppins=poppins,sans-serif;Roboto=roboto;Rubik=rubik,sans-serif;Roboto Condensed=roboto condensed,sans-serif;Noto Sans Display=noto sans display,sans-serif;",
+            font_formats: "Anek Latin=anek latin,sans-serif;Lato=lato,sans-serif;Noto Sans JP=noto sans jp,sans-serif;Poppins=poppins,sans-serif;Roboto=roboto;Rubik=rubik,sans-serif;Roboto Condensed=roboto condensed,sans-serif;Noto Sans Display=noto sans display,sans-serif;Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Terminal=terminal,monaco; Times New Roman=times new roman,times; Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva; Webdings=webdings; Wingdings=wingdings,zapf dingbats",
             fontsize_formats: '8pt 10pt 12pt 14pt 16pt 18pt 24pt 36pt 48pt',
             codesample_languages: [{
                     text: 'HTML/XML',
