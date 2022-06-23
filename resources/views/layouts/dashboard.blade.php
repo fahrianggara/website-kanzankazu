@@ -55,6 +55,10 @@
     {{-- CALL CSS --}}
     @stack('css-external')
     @stack('css-internal')
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Anek+Latin:wght@300;500;700&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,700&family=Noto+Sans+Display:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Noto+Sans+JP:wght@300;400;700&family=Poppins:ital,wght@0,300;0,500;0,700;1,300;1,500&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,400&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,500&family=Rubik:ital,wght@0,300;0,500;0,600;1,300;1,500&display=swap');
+    </style>
 </head>
 
 
@@ -163,6 +167,93 @@
                 .delay(5000)
                 .log(notif);
         }
+
+        // CONTENT
+        $("#input_post_content").tinymce({
+            relative_urls: false,
+            language: "en",
+            selector: 'textarea',
+            height: 300,
+            extended_valid_elements: 'img[class=popup img-fluid|src|width|height|style=z-index:9999999!important]',
+            plugins: [
+                "advlist autolink lists link image charmap print preview hr anchor pagebreak emoticons save",
+                "searchreplace wordcount visualblocks visualchars code fullscreen",
+                "insertdatetime media nonbreaking save table directionality",
+                "emoticons template paste textpattern",
+                "tabfocus",
+                "codesample",
+                "autosave",
+            ],
+            content_style: "@import url('https://fonts.googleapis.com/css2?family=Anek+Latin:wght@300;500;700&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,700&family=Noto+Sans+Display:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Noto+Sans+JP:wght@300;400;700&family=Poppins:ital,wght@0,300;0,500;0,700;1,300;1,500&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,400&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,500&family=Rubik:ital,wght@0,300;0,500;0,600;1,300;1,500&display=swap');",
+            font_formats: "Anek Latin=anek latin,sans-serif;Lato=lato,sans-serif;Noto Sans JP=noto sans jp,sans-serif;Poppins=poppins,sans-serif;Roboto=roboto;Rubik=rubik,sans-serif;Roboto Condensed=roboto condensed,sans-serif;Noto Sans Display=noto sans display,sans-serif;",
+            fontsize_formats: '8pt 10pt 12pt 14pt 16pt 18pt 24pt 36pt 48pt',
+            codesample_languages: [{
+                    text: 'HTML/XML',
+                    value: 'markup'
+                },
+                {
+                    text: 'Javascript',
+                    value: 'javascript'
+                },
+                {
+                    text: 'CSS',
+                    value: 'css'
+                },
+                {
+                    text: 'PHP',
+                    value: 'php'
+                },
+                {
+                    text: 'Python',
+                    value: 'python'
+                },
+                {
+                    text: 'C++',
+                    value: 'cpp'
+                },
+                {
+                    text: "JSON",
+                    value: "json"
+                },
+                {
+                    text: "bash",
+                    value: "bash"
+                },
+                {
+                    text: "Mel",
+                    value: "mel"
+                },
+            ],
+            toolbar1: "fullscreen preview | codesample | emoticons | link image media",
+            toolbar2: "restoredraft | save | insertfile undo redo | styleselect | fontselect | fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
+            codesample_content_css: "/public/vendor/dashboard/css/sty.css",
+            // MENGKONEKKAN CONTENT GAMBAR KE FILE MANAGER
+            file_picker_callback: function(callback, value, meta) {
+                let x = window.innerWidth || document.documentElement.clientWidth || document
+                    .getElementsByTagName('body')[0].clientWidth;
+                let y = window.innerHeight || document.documentElement.clientHeight || document
+                    .getElementsByTagName('body')[0].clientHeight;
+
+                let cmsURL = "{{ route('unisharp.lfm.show') }}" + '?editor=' + meta.fieldname;
+                if (meta.filetype == 'image') {
+                    cmsURL = cmsURL + "&type=Images";
+                } else {
+                    cmsURL = cmsURL + "&type=Files";
+                }
+
+                tinyMCE.activeEditor.windowManager.openUrl({
+                    url: cmsURL,
+                    title: 'Filemanager',
+                    width: x * 0.8,
+                    height: y * 0.8,
+                    resizable: "yes",
+                    close_previous: "no",
+                    onMessage: (api, message) => {
+                        callback(message.content);
+                    }
+                });
+            }
+        });
     </script>
 
     {{-- CALL SWEETALERT2 --}}
