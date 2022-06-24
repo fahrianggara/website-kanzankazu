@@ -309,17 +309,6 @@ class PostController extends Controller
             // PROSES INPUT DATA
             DB::beginTransaction();
             try {
-                if ($request->hasFile('thumbnail')) {
-                    // $public_path = '../../public_html/blog/';
-                    // $path = $public_path . "vendor/dashboard/image/thumbnail-posts/";
-                    $path = "vendor/dashboard/image/thumbnail-posts/";
-                    $thumbnail = $request->file('thumbnail');
-                    $newThumbnail = uniqid('POST-', true) . '.' . $thumbnail->extension();
-                    // Resize Image
-                    $reziseThumbnail = Image::make($thumbnail->path());
-                    $reziseThumbnail->resize(1280, 800)->save($path . '/' . $newThumbnail);
-                }
-
                 $randomStr = Str::random(5);
 
                 $statusDraft = $request->title == '' || $request->description == '' || $request->keywords == '' || $request->tag == '' || $request->category == '';
@@ -336,6 +325,15 @@ class PostController extends Controller
                     )->autoClose(false);
 
                     return redirect()->back()->withInput($request->all())->withErrors($validator);
+                }
+
+                if ($request->hasFile('thumbnail')) {
+                    $path = "vendor/dashboard/image/thumbnail-posts/";
+                    $thumbnail = $request->file('thumbnail');
+                    $newThumbnail = uniqid('POST-', true) . '.' . $thumbnail->extension();
+                    // Resize Image
+                    $reziseThumbnail = Image::make($thumbnail->path());
+                    $reziseThumbnail->fit(1280, 800)->save($path . '/' . $newThumbnail);
                 }
 
                 if (Auth::user()->roles->pluck('name')->contains('Editor')) {
@@ -543,7 +541,7 @@ class PostController extends Controller
                 $newThumbnail = uniqid('POST-', true) . '.' . $thumbnail->extension();
                 // Resize Image
                 $reziseThumbnail = Image::make($thumbnail->path());
-                $reziseThumbnail->resize(1280, 800)->save($path . '/' . $newThumbnail);
+                $reziseThumbnail->fit(1280, 800)->save($path . '/' . $newThumbnail);
 
                 $post->thumbnail = $newThumbnail;
             }
