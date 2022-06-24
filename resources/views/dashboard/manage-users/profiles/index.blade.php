@@ -11,31 +11,34 @@
 @section('content')
     <div class="row">
         <div class="col-md-3 m-b-30">
-            <div class="card card-outline">
-                <div class="card-body box-profile">
-                    <div class="text-center">
-                        @if (file_exists('vendor/dashboard/image/picture-profiles/' . Auth::user()->user_image))
-                            <img class="profile-user-img userImage img-fluid img-circle"
-                                src="{{ asset('vendor/dashboard/image/picture-profiles/' . Auth::user()->user_image) }}"
-                                alt="{{ Auth::user()->name }}">
-                        @else
-                            <img class="profile-user-img userImage img-fluid img-circle"
-                                src="{{ asset('vendor/dashboard/image/avatar.png') }}" alt="{{ Auth::user()->name }}">
-                        @endif
-                    </div>
-                    <div class="dropdown-divider mt-4 mb-3"></div>
-                    <h3 class="profile-username text-center user_name mb-4">{{ Auth::user()->name }}</h3>
+            <div class="sticky">
+                <div class="card card-outline">
+                    <div class="card-body box-profile">
+                        <div class="text-center">
+                            @if (file_exists('vendor/dashboard/image/picture-profiles/' . Auth::user()->user_image))
+                                <img class="profile-user-img userImage img-fluid img-circle"
+                                    src="{{ asset('vendor/dashboard/image/picture-profiles/' . Auth::user()->user_image) }}"
+                                    alt="{{ Auth::user()->name }}">
+                            @else
+                                <img class="profile-user-img userImage img-fluid img-circle"
+                                    src="{{ asset('vendor/dashboard/image/avatar.png') }}"
+                                    alt="{{ Auth::user()->name }}">
+                            @endif
+                        </div>
+                        <div class="dropdown-divider mt-4 mb-3"></div>
+                        <h3 class="profile-username text-center user_name mb-4">{{ Auth::user()->name }}</h3>
 
-                    <input type="file" name="user_image" id="user_image" class="user-update">
-                    <a href="javascript:void(0)" class="btn btn-primary btn-block" id="changeImageBtn">
-                        <b>Ganti Foto Profile</b>
-                    </a>
+                        <input type="file" name="user_image" id="user_image" class="user-update">
+                        <a href="javascript:void(0)" class="btn btn-primary btn-block" id="changeImageBtn">
+                            <b>Ganti Foto Profile</b>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="col-md-9">
-            <div class="card m-b-30">
+            <div class="card m-b-20">
                 <div class="card-body">
 
                     <ul class="nav nav-pills nav-justified" role="tablist">
@@ -44,12 +47,6 @@
                         </li>
                         <li class="nav-item waves-effect waves-light">
                             <a class="nav-link" data-toggle="tab" href="#setting-1" role="tab">Setelan</a>
-                        </li>
-                        <li class="nav-item waves-effect waves-light">
-                            <a class="nav-link" data-toggle="tab" href="#setting-2" role="tab">Sosial Media</a>
-                        </li>
-                        <li class="nav-item waves-effect waves-light">
-                            <a class="nav-link" data-toggle="tab" href="#setting-3" role="tab">Ganti Password</a>
                         </li>
                     </ul>
 
@@ -90,8 +87,9 @@
                                 <div class="form-group row">
                                     <label for="name" class="col-sm-2 col-form-label">Nama</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="name" placeholder="Masukkan nama kamu"
-                                            value="{{ Auth::user()->name }}" name="name">
+                                        <input type="text" class="form-control" id="name"
+                                            placeholder="Masukkan nama kamu" value="{{ Auth::user()->name }}"
+                                            name="name">
                                         <span class="text-danger error-text name_error"></span>
                                     </div>
                                 </div>
@@ -113,10 +111,50 @@
                                 <div class="form-group row">
                                     <label for="bio" class="col-sm-2 col-form-label">Bio</label>
                                     <div class="col-sm-10">
-                                        <textarea class="form-control" id="bio" name="bio" placeholder="enter your bio.." onkeyup="countChar(this)" cols="2"
-                                            rows="6">{{ Auth::user()->bio }}</textarea>
+                                        <textarea class="form-control" id="bio" name="bio" placeholder="enter your bio.." onkeyup="countChar(this)"
+                                            cols="2" rows="6">{{ Auth::user()->bio }}</textarea>
                                         <span class="float-right" id="charNum"></span>
                                         <span class="mt-5 text-danger error-text bio_error"></span>
+                                    </div>
+                                </div>
+
+                                <div class="dropdown-divider mb-3 mt-3"></div>
+
+                                <div class="form-group row">
+                                    <label for="instagram" class="col-sm-2 col-form-label">Instagram</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control ig" id="instagram"
+                                            placeholder="Instagram" value="{{ Auth::user()->instagram }}"
+                                            name="instagram">
+                                        <span class="text-danger error-text instagram_error"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="twitter" class="col-sm-2 col-form-label">Twitter</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control tw" id="twitter"
+                                            placeholder="Twitter" value="{{ Auth::user()->twitter }}" name="twitter">
+                                        <span class="text-danger error-text twitter_error"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="facebook" class="col-sm-2 col-form-label">Facebook</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control fb" id="facebook"
+                                            placeholder="Facebook" value="{{ Auth::user()->facebook }}"
+                                            name="facebook">
+                                        <span class="text-danger error-text facebook_error"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="github" class="col-sm-2 col-form-label">Github</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control gh" id="github"
+                                            placeholder="Github" value="{{ Auth::user()->github }}" name="github">
+                                        <span class="text-danger error-text github_error"></span>
                                     </div>
                                 </div>
 
@@ -128,65 +166,22 @@
                                 </div>
                             </form>
                         </div>
-
-                        {{-- Sosial media --}}
-                        <div class="tab-pane p-3" id="setting-2" role="tabpanel">
-                            <form action="{{ route('profile.updateSocial') }}" method="POST" class="form-horizontal"
-                                id="formSosmed" autocomplete="off">
-                                @csrf
-                                @method('put')
-
-                                <div class="form-group row">
-                                    <label for="instagram" class="col-sm-2 col-form-label">Instagram</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control ig" id="instagram" placeholder="Instagram"
-                                            value="{{ Auth::user()->instagram }}" name="instagram">
-                                        <span class="text-danger error-text instagram_error"></span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="twitter" class="col-sm-2 col-form-label">Twitter</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control tw" id="twitter" placeholder="Twitter"
-                                            value="{{ Auth::user()->twitter }}" name="twitter">
-                                        <span class="text-danger error-text twitter_error"></span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="facebook" class="col-sm-2 col-form-label">Facebook</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control fb" id="facebook" placeholder="Facebook"
-                                            value="{{ Auth::user()->facebook }}" name="facebook">
-                                        <span class="text-danger error-text facebook_error"></span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="github" class="col-sm-2 col-form-label">Github</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control gh" id="github" placeholder="Github"
-                                            value="{{ Auth::user()->github }}" name="github">
-                                        <span class="text-danger error-text github_error"></span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <div class="offset-sm-2 col-sm-10">
-                                        <button type="submit" id="buttonSosmed" class="btn btn-primary">
-                                            Update Sosial Media
-                                        </button>
-                                    </div>
-                                </div>
-
-                            </form>
-                        </div>
-
+                    </div>
+                </div>
+            </div>
+            <div class="card m-b-30">
+                <div class="card-body">
+                    <ul class="nav nav-pills nav-justified" role="tablist">
+                        <li class="nav-item waves-effect waves-light">
+                            <a disabled class="nav-link active" data-toggle="tab" href="#setting-3" role="tab" style="cursor: default">Ganti
+                                Password</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
                         {{-- Change Password --}}
-                        <div class="tab-pane p-3" id="setting-3" role="tabpanel">
-                            <form action="{{ route('profile.changePassword') }}" method="POST" class="form-horizontal"
-                                id="formPassword" autocomplete="off">
+                        <div class="tab-pane active p-3" id="setting-3" role="tabpanel">
+                            <form action="{{ route('profile.changePassword') }}" method="POST"
+                                class="form-horizontal" id="formPassword" autocomplete="off">
                                 @csrf
                                 @method('put')
 
@@ -227,7 +222,6 @@
 
                             </form>
                         </div>
-
                     </div>
                 </div>
             </div>
