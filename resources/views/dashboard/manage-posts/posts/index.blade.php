@@ -145,7 +145,7 @@
                                         {{-- delete --}}
                                         <form action="{{ route('posts.destroy', ['post' => $post]) }}" method="POST"
                                             class="d-inline" role="alertDelete"
-                                            alert-text='Hmm.. apakah kamu yakin? postingan kamu dengan judul "{{ $post->title }}" akan dihapus permanen?'>
+                                            alert-text='Hmm.. apakah kamu yakin? postingan kamu dengan judul @if ($post->title == null) "{{ $post->slug }}" @else "{{ $post->title }}" @endif akan dihapus permanen?'>
                                             @csrf
                                             @method('DELETE')
 
