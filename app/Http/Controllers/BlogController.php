@@ -273,10 +273,6 @@ class BlogController extends Controller
     {
         $tutorial = Tutorial::where('slug', $slug)->first();
 
-        // $users = User::with(['tutorials' => fn ($query) => $query->where('slug', '=', $slug)])
-        //     ->whereHas('tutorials', fn ($query) => $query->where('slug', '=', $slug))
-        //     ->get();
-
         $users = User::with(['posts' => fn ($query) => $query->where('status', 'publish')])
             ->whereHas('posts', fn ($query) => $query->where('status', 'publish')
                 ->where('tutorial_id', $tutorial->id))

@@ -7,6 +7,10 @@
 @endsection
 
 @section('content')
+    @if (Session::has('success'))
+        <div class="notif-success" data-notif="{{ Session::get('success') }}"></div>
+    @endif
+
     <div class="container">
         <div class="row px-3">
             <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0">
@@ -23,6 +27,13 @@
                     <h4 class="title text-center mt-4">
                         Login
                     </h4>
+
+                    {{-- alert warning --}}
+                    @if (Session::has('success'))
+                        <div class="alert alert-success">
+                            {{ Session::get('success') }}
+                        </div>
+                    @endif
 
                     {{-- Form Input --}}
                     <form action="{{ route('login') }}" method="POST" class="form-box px-3">
@@ -72,6 +83,12 @@
                             </button>
                         </div>
 
+                        <div class="text-right">
+                            <a href="{{ route('password.request') }}" class="forget-link">
+                                Forgot Password?
+                            </a>
+                        </div>
+
                         <hr class="my-4 hr">
 
                         <div class="text-center mb-2">
@@ -89,3 +106,15 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script>
+        // Notif status
+        const notif = $('.notif-success').data('notif');
+        if (notif) {
+            alertify
+                .delay(5000)
+                .log(notif);
+        }
+    </script>
+@endpush

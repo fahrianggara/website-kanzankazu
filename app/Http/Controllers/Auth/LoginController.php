@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -62,6 +63,7 @@ class LoginController extends Controller
         $this->guard()->logout();
         $request->session()->flush();
         $request->session()->regenerate();
+
         return redirect()->back()->with('success', 'Sampai berjumpa kembali!');
     }
 }

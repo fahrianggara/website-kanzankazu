@@ -88,6 +88,21 @@
                                 @endforeach
                             </ul>
                         </div>
+
+                        @if ($post->tutorials->isNotEmpty())
+                            <div class="ml-1 tagCats loading">
+                                <i class="uil uil-books"></i>
+                                <ul class="tags">
+                                    @foreach ($post->tutorials as $tutorial)
+                                        <li>
+                                            <a class="link-tagCats"
+                                                href="{{ route('blog.posts.tutorials.author', ['slug' => $tutorial->slug, 'user' => $post->user->slug]) }}">{{ $tutorial->title }}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                     </div>
 
                 </div>
@@ -145,6 +160,10 @@
                     <div class="float-left">
                         @if ($post->status == 'draft')
                             <a href="{{ route('posts.index', 'status=draft') }}" class="btn-Prev">
+                                <i class="uil uil-angle-double-left"></i> Kembali ke Menu
+                            </a>
+                        @elseif ($post->status == 'approve')
+                            <a href="{{ route('posts.index', 'status=approve') }}" class="btn-Prev">
                                 <i class="uil uil-angle-double-left"></i> Kembali ke Menu
                             </a>
                         @else

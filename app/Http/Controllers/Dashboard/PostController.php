@@ -319,6 +319,12 @@ class PostController extends Controller
                         $request['tag'] = Tag::select('id', 'title')->whereIn('id', $request['tag'])->get();
                     }
 
+                    if (!Auth::user()->roles->pluck('name')->contains('Editor')) {
+                        $request['tutorial'] = Tutorial::select('id', 'title')->find($request->tutorial);
+                    }
+
+                    $request['category'] = Category::select('id', 'title')->find($request->category);
+
                     Alert::warning(
                         'Oops..',
                         'kamu tidak bisa pilih tag postingan lebih dari 3 ! sedangkan kamu pilih ' . count($request['tag']) . ' tag postingan! silahkan hapus salah satunya.'
@@ -367,6 +373,7 @@ class PostController extends Controller
 
                 $post->tags()->attach($request->tag);
                 $post->categories()->attach($request->category);
+
                 if (!Auth::user()->roles->pluck('name')->contains('Editor')) {
                     $post->tutorials()->attach($request->tutorial, ['user_id' => Auth::user()->id]);
                 }

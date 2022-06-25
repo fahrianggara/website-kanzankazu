@@ -70,6 +70,9 @@
     @include('layouts._layouts.navbar')
 
     <main id="main">
+        @if (Session::has('status'))
+            <div class="status-success" data-status="{{ Session::get('status') }}"></div>
+        @endif
 
         {{-- ABOUT --}}
         {{-- @include('home.about') --}}
@@ -140,6 +143,12 @@
             alertify
                 .delay(5000)
                 .log(notif);
+        }
+        const status = $('.status-success').data('status');
+        if (status) {
+            alertify
+                .delay(7000)
+                .log(status);
         }
     </script>
 </body>

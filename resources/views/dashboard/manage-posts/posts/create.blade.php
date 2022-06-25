@@ -311,9 +311,6 @@
 @push('js-external')
     {{-- file manager --}}
     <script src="{{ asset('vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
-    {{-- ttiny mce --}}
-    <script src="{{ asset('vendor/dashboard/plugins/tinymce5/jquery.tinymce.min.js') }}"></script>
-    <script src="{{ asset('vendor/dashboard/plugins/tinymce5/tinymce.min.js') }}"></script>
     {{-- select2 --}}
     <script src="{{ asset('vendor/dashboard/plugins/select2/js/select2.min.js') }}"></script>
     <script src="{{ asset('vendor/dashboard/plugins/select2/js/i18n/' . app()->getLocale() . '.js') }}"></script>

@@ -129,6 +129,9 @@
     <script src="{{ asset('vendor/dashboard/plugins/ijabocroptool/ijaboCropTool.min.js') }}"></script>
     <script src="{{ asset('vendor/blog/assets/sweetalert2/sweetalert2.js') }}"></script>
     <script src="{{ asset('vendor/blog/assets/prehighlight/prehighlights.js') }}"></script>
+     {{-- ttiny mce --}}
+     <script src="{{ asset('vendor/dashboard/plugins/tinymce5/jquery.tinymce.min.js') }}"></script>
+     <script src="{{ asset('vendor/dashboard/plugins/tinymce5/tinymce.min.js') }}"></script>
     {{-- select2 --}}
     <script src="{{ asset('vendor/dashboard/plugins/select2/js/select2.min.js') }}"></script>
     <script src="{{ asset('vendor/dashboard/plugins/select2/js/i18n/' . app()->getLocale() . '.js') }}"></script>

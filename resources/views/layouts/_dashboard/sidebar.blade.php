@@ -16,8 +16,8 @@
             <ul>
                 <li class="menu-title">Halaman Utama</li>
                 {{-- DASHBOARD --}}
-                <li>
-                    <a href="{{ route('dashboard.index') }}"
+                <li id="dashboard">
+                    <a href="{{ route('dashboard.index', '#dashboard') }}"
                         class="waves-effect {{ set_active('dashboard.index') }}">
                         <i class="uil uil-graph-bar"></i>
                         <span> Dashboard</span>
@@ -32,8 +32,8 @@
                 </li>
                 {{-- Profile --}}
                 <li class="menu-title">Kelola Profile</li>
-                <li>
-                    <a href="{{ route('profile.index') }}" class="{{ set_active('profile.index') }}waves-effect">
+                <li id="profile">
+                    <a href="{{ route('profile.index', '#profile') }}" class="{{ set_active('profile.index') }}waves-effect">
                         <i class="uil uil-user"></i>
                         <span>Profile</span>
                     </a>
@@ -42,8 +42,8 @@
                 @can('manage_website')
                     {{-- Settings website --}}
                     <li class="menu-title">Setelan Website</li>
-                    <li>
-                        <a href="{{ route('dashboard.setting') }}"
+                    <li id="website">
+                        <a href="{{ route('dashboard.setting', '#website') }}"
                             class="waves-effect {{ set_active('dashboard.setting') }}">
                             <i class="uil uil-setting"></i>
                             <span>Pengaturan</span>
@@ -54,8 +54,8 @@
                 {{-- POSTS --}}
                 @can('manage_posts')
                     <li class="menu-title">Kelola Blog</li>
-                    <li>
-                        <a href="{{ route('posts.index') }}"
+                    <li id="posts">
+                        <a href="{{ route('posts.index', '#posts') }}"
                             class="waves-effect {{ set_active(['posts.index', 'posts.create', 'posts.edit', 'posts.show', 'posts.delete']) }}">
                             <i class="uil uil-book-medical"></i>
                             <span>Postingan</span>
@@ -64,8 +64,8 @@
                 @endcan
                 {{-- CATEGORIES --}}
                 @can('manage_categories')
-                    <li>
-                        <a href="{{ route('categories.index') }}"
+                    <li id="categories">
+                        <a href="{{ route('categories.index', '#categories') }}"
                             class="waves-effect {{ set_active(['categories.index', 'categories.create', 'categories.edit']) }}">
                             <i class="uil uil-bookmark"></i>
                             <span>Kategori</span>
@@ -74,8 +74,8 @@
                 @endcan
                 {{-- TAGS --}}
                 @can('manage_tags')
-                    <li>
-                        <a href="{{ route('tags.index') }}"
+                    <li id="tags">
+                        <a href="{{ route('tags.index', '#tags') }}"
                             class="waves-effect {{ set_active(['tags.index', 'tags.create', 'tags.edit']) }}">
                             <i class="uil uil-tag-alt"></i>
                             <span>Tag</span>
@@ -84,8 +84,8 @@
                 @endcan
                 {{-- Tutorials --}}
                 @can('manage_categories')
-                    <li>
-                        <a href="{{ route('tutorials.index') }}"
+                    <li id="tutorials">
+                        <a href="{{ route('tutorials.index', '#tutorials') }}"
                             class="waves-effect {{ set_active(['tutorials.index', 'tutorials.create', 'tutorials.edit']) }}">
                             <i class="uil uil-layer-group"></i>
                             <span>Tutorial</span>
@@ -96,8 +96,8 @@
                 {{-- USERS --}}
                 @can('manage_users')
                     <li class="menu-title">Kelola Pengguna</li>
-                    <li>
-                        <a href="{{ route('users.index') }}"
+                    <li id="users">
+                        <a href="{{ route('users.index','#users') }}"
                             class="waves-effect {{ set_active(['users.index', 'users.create', 'users.edit']) }}">
                             <i class="uil uil-users-alt"></i>
                             <span>Pengguna</span>
@@ -106,8 +106,8 @@
                 @endcan
                 {{-- ROLES --}}
                 @can('manage_roles')
-                    <li>
-                        <a href="{{ route('roles.index') }}"
+                    <li id="roles">
+                        <a href="{{ route('roles.index', '#roles') }}"
                             class="waves-effect {{ set_active(['roles.index', 'roles.create', 'roles.edit', 'roles.show']) }}">
                             <i class="uil uil-user-arrows"></i>
                             <span>Role</span>
@@ -118,8 +118,8 @@
                 {{-- INBOX CONTACT --}}
                 @can('manage_inbox')
                     <li class="menu-title">Inbox</li>
-                    <li>
-                        <a href="{{ route('contact.index') }}" class="waves-effect {{ set_active('contact.index') }}">
+                    <li id="contact">
+                        <a href="{{ route('contact.index', '#contact') }}" class="waves-effect {{ set_active('contact.index') }}">
                             <i class="uil uil-inbox"></i>
                             <span>Pesan Kontak</span>
                         </a>
@@ -128,8 +128,8 @@
 
                 {{-- FILEMANAGER --}}
                 <li class="menu-title">File Manager</li>
-                <li>
-                    <a href="{{ route('filemanager.index') }}"
+                <li id="filemanager">
+                    <a href="{{ route('filemanager.index', '#filemanager') }}"
                         class="waves-effect {{ set_active('filemanager.index') }}">
                         <i class="uil uil-folder-open"></i>
                         <span> File Manager</span>

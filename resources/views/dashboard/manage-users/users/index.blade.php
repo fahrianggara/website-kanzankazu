@@ -149,6 +149,12 @@
                 .log(notif);
         }
 
+        setTimeout(() => {
+            history.replaceState('', document.title, window.location.origin + window
+                .location.pathname + window
+                .location.search);
+        }, 0);
+
         $(document).ready(function() {
             $("form[role='alert']").submit(function(e) {
                 e.preventDefault();

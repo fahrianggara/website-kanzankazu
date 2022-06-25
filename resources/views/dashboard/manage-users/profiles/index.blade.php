@@ -173,13 +173,15 @@
                 <div class="card-body">
                     <ul class="nav nav-pills nav-justified" role="tablist">
                         <li class="nav-item waves-effect waves-light">
-                            <a disabled class="nav-link active" data-toggle="tab" href="#setting-3" role="tab" style="cursor: default">Ganti
+                            <a disabled class="nav-link active" data-toggle="tab" href="#setting-3" role="tab"
+                                style="cursor: default">Ganti
                                 Password</a>
                         </li>
                     </ul>
                     <div class="tab-content">
                         {{-- Change Password --}}
                         <div class="tab-pane active p-3" id="setting-3" role="tabpanel">
+
                             <form action="{{ route('profile.changePassword') }}" method="POST"
                                 class="form-horizontal" id="formPassword" autocomplete="off">
                                 @csrf
@@ -190,7 +192,7 @@
                                     <div class="col-sm-10">
                                         <input type="password" class="form-control" id="oldpass"
                                             placeholder="Masukkan password yang sekarang" name="oldpass">
-                                        <span class="text-danger error-text oldpass_error"></span>
+                                        <span class="invalid-feedback d-block error-text oldpass_error"></span>
                                     </div>
                                 </div>
 
@@ -199,7 +201,7 @@
                                     <div class="col-sm-10">
                                         <input type="password" class="form-control" id="newpass"
                                             placeholder="Masukkan password yang baru" name="newpass">
-                                        <span class="text-danger error-text newpass_error"></span>
+                                        <span class="invalid-feedback d-block error-text newpass_error"></span>
                                     </div>
                                 </div>
 
@@ -208,13 +210,25 @@
                                     <div class="col-sm-10">
                                         <input type="password" class="form-control" id="confirmpass"
                                             placeholder="Masukkan password yang dibuat baru tadi" name="confirmpass">
-                                        <span class="text-danger error-text confirmpass_error"></span>
+                                        <span class="invalid-feedback d-block error-text confirmpass_error"></span>
                                     </div>
                                 </div>
 
+                                <div id="forgotPassword" class="d-none">
+                                    <div class="form-group row">
+                                        <div class="offset-sm-10 col-sm-10">
+                                            <a href="{{ route('password.request') }}">Forgot Password</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="dropdown-divider mb-3 mt-3"></div>
+                                </div>
+
+
                                 <div class="form-group row">
                                     <div class="offset-sm-2 col-sm-10">
-                                        <button type="submit" id="buttonPassword" class="btn btn-primary">
+                                        <button name="submitPass" type="submit" id="buttonPassword"
+                                            class="btn btn-primary">
                                             Update Password
                                         </button>
                                     </div>
@@ -283,16 +297,21 @@
                                 $("#" + key).addClass('is-invalid');
                                 $('span.' + key + '_error').text(val[0]);
                             });
+
                         } else {
                             // $('#formUpdateProfile')[0].reset();
-                            $('.user_name').each(function() {
-                                $(this).html($('#formUpdateProfile').find($(
-                                    'input[name="name"]')).val());
-                            });
-                            $('.user_bio').each(function() {
-                                $(this).html($('#formUpdateProfile').find($(
-                                    'textarea[name="bio"]')).val());
-                            });
+                            // $('.user_name').each(function() {
+                            //     $(this).html($('#formUpdateProfile').find($(
+                            //         'input[name="name"]')).val());
+                            // });
+                            // $('.user_bio').each(function() {
+                            //     $(this).html($('#formUpdateProfile').find($(
+                            //         'textarea[name="bio"]')).val());
+                            // });
+
+                            setTimeout((function() {
+                                window.location.reload();
+                            }), 980);
 
                             alertify
                                 .delay(3500)
@@ -334,65 +353,11 @@
                                 $("#" + key).addClass('is-invalid');
                                 $('span.' + key + '_error').text(val[0]);
                             });
+
+                            $('#forgotPassword').removeClass('d-none');
                         } else {
+                            $('#forgotPassword').addClass('d-none');
                             $('#formPassword')[0].reset();
-
-                            alertify
-                                .delay(3500)
-                                .log(data.msg);
-                        }
-                    },
-                    error: function(xhr, ajaxOptions, thrownError) {
-                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
-                    }
-                });
-            })
-
-            $('#formSosmed').on('submit', function(e) {
-                e.preventDefault();
-
-                $.ajax({
-                    url: $(this).attr('action'),
-                    method: $(this).attr('method'),
-                    data: new FormData(this),
-                    processData: false,
-                    dataType: 'json',
-                    contentType: false,
-                    beforeSend: function() {
-                        $('#buttonSosmed').attr('disable', 'disable');
-                        $('#buttonSosmed').html(
-                            '<i class="fa fa-spin uil uil-spinner-alt"></i>');
-                        $(document).find('span.error-text').text('');
-                        $(document).find('input.form-control').removeClass(
-                            'is-invalid');
-                    },
-                    complete: function() {
-                        $('#buttonSosmed').removeAttr('disable');
-                        $('#buttonSosmed').html('Update Sosial Media');
-                    },
-                    success: function(data) {
-                        if (data.status == 400) {
-                            $.each(data.errors, function(key, val) {
-                                $("#" + key).addClass('is-invalid');
-                                $('span.' + key + '_error').text(val[0]);
-                            });
-                        } else {
-                            $('.ig').each(function() {
-                                $(this).html($('#formSosmed').find($(
-                                    'input[name="instagram"]')).val());
-                            });
-                            $('.fb').each(function() {
-                                $(this).html($('#formSosmed').find($(
-                                    'input[name="facebook"]')).val());
-                            });
-                            $('.tw').each(function() {
-                                $(this).html($('#formSosmed').find($(
-                                    'input[name="twitter"]')).val());
-                            });
-                            $('.gh').each(function() {
-                                $(this).html($('#formSosmed').find($(
-                                    'input[name="github"]')).val());
-                            });
 
                             alertify
                                 .delay(3500)
