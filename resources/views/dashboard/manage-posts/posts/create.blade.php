@@ -10,7 +10,7 @@
 
 @section('content')
 
-    <form action="{{ route('posts.store') }}" method="post" enctype="multipart/form-data" autocomplete="off">
+    <form action="{{ route('posts.store') }}#posts" method="post" enctype="multipart/form-data" autocomplete="off">
         @csrf
 
         @if (!Auth::user()->editorRole())
@@ -290,7 +290,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="float-right">
-                            <a class="btn btn-info px-4" href="{{ route('posts.index') }}">Kembali</a>
+                            <a class="btn btn-info px-4" href="{{ route('posts.index') }}#posts">Kembali</a>
                             <button type="submit" name="submitbtn" class="btn btn-success px-4">Posting</button>
                         </div>
                     </div>

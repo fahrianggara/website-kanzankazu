@@ -13,7 +13,7 @@
         <div class="col-12">
             <div class="card m-b-30">
                 <div class="card-body">
-                    <form action="{{ route('roles.update', ['role' => $role]) }}" method="post">
+                    <form action="{{ route('roles.update', ['role' => $role]) }}#roles" method="post">
                         @method('PUT')
                         @csrf
 
@@ -84,7 +84,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="float-right">
-                        <a href="{{ route('roles.index') }}" class="btn btn-info">Kembali</a>
+                        <a href="{{ route('roles.index') }}#roles" class="btn btn-info">Kembali</a>
                         <button type="submit" class="btn btn-warning">Perbarui</button>
                     </div>
                 </div>

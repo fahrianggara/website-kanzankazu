@@ -21,14 +21,14 @@
                             <div class="row">
                                 <div class="col-lg-1 col-3">
                                     @can('user_create')
-                                        <a href="{{ route('users.create') }}" class="btn btn-primary float-right"
+                                        <a href="{{ route('users.create') }}#users" class="btn btn-primary float-right"
                                             data-toggle="tooltip" data-placement="bottom" title="Buat">
                                             <i class="uil uil-plus"></i>
                                         </a>
                                     @endcan
                                 </div>
                                 <div class="col-lg-11 col-9">
-                                    <form action="{{ route('users.index') }}" method="GET">
+                                    <form action="{{ route('users.index') }}#users" method="GET">
                                         <div class="input-group">
                                             <input autocomplete="off" type="search" id="keyword" name="keyword"
                                                 class="form-control" placeholder="Cari pengguna.."
@@ -84,7 +84,7 @@
                                         <td>
 
                                             @can('user_update')
-                                                <a href="{{ route('users.edit', ['user' => $user]) }}"
+                                                <a href="{{ route('users.edit', ['user' => $user]) }}#users"
                                                     class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="bottom"
                                                     title="Edit">
                                                     <i class="uil uil-pen"></i>
@@ -92,7 +92,7 @@
                                             @endcan
 
                                             @can('user_delete')
-                                                <form action="{{ route('users.destroy', ['user' => $user]) }}" method="POST"
+                                                <form action="{{ route('users.destroy', ['user' => $user]) }}#users" method="POST"
                                                     class="d-inline" role="alert"
                                                     alert-text="Apakah kamu yakin? pengguna dengan nama {{ $user->name }} akan dihapus permanen.">
                                                     @csrf

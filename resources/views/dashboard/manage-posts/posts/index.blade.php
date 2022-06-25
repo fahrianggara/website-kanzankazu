@@ -16,7 +16,7 @@
     <div class="row">
 
         <div class="col-12 m-b-20">
-            <form action="" method="GET" class="">
+            <form action="#posts" method="GET" class="">
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <div class="card">
@@ -24,7 +24,7 @@
                                 <div class="row">
                                     <div class="col-lg-2 col-3">
                                         @can('post_create')
-                                            <a href="{{ route('posts.create') }}" class="btn btn-primary"
+                                            <a href="{{ route('posts.create') }}#posts" class="btn btn-primary"
                                                 data-toggle="tooltip" data-placement="bottom" title="Buat">
                                                 <i class="uil uil-plus"></i>
                                             </a>
@@ -44,8 +44,7 @@
                                                     Arsip
                                                 </option>
                                                 @if (!Auth::user()->editorRole())
-                                                    <option value="approve"
-                                                        {{ $statusSelected == 'approve' ? 'selected' : null }}>
+                                                    <option value="approve" {{ $statusSelected == 'approve' ? 'selected' : null }}>
                                                         Persetujuan
                                                     </option>
                                                 @endif
@@ -124,7 +123,7 @@
                                 {{-- detail --}}
                                 @can('post_detail')
                                     @if (($post->title != null && $post->description != null) || $cateOld != null)
-                                        <a href="{{ route('posts.show', ['slug' => $post->slug]) }}"
+                                        <a href="{{ route('posts.show', ['slug' => $post->slug]) }}#posts"
                                             class="btn btn-primary btn-sm waves-effect waves-light" data-toggle="tooltip"
                                             data-placement="bottom" title="Lihat">
                                             <i class="uil uil-eye"></i>
@@ -134,7 +133,7 @@
                                 @if ($post->user_id == Auth::user()->id)
                                     {{-- edit --}}
                                     @can('post_update')
-                                        <a href="{{ route('posts.edit', ['slug' => $post->slug]) }}"
+                                        <a href="{{ route('posts.edit', ['slug' => $post->slug]) }}#posts"
                                             class="btn btn-warning btn-sm waves-effect waves-light" data-toggle="tooltip"
                                             data-placement="bottom" title="Edit">
                                             <i class="uil uil-pen"></i>
@@ -143,7 +142,7 @@
 
                                     @can('post_delete')
                                         {{-- delete --}}
-                                        <form action="{{ route('posts.destroy', ['post' => $post]) }}" method="POST"
+                                        <form action="{{ route('posts.destroy', ['post' => $post]) }}#posts" method="POST"
                                             class="d-inline" role="alertDelete"
                                             alert-text='Hmm.. apakah kamu yakin? postingan kamu dengan judul @if ($post->title == null) "{{ $post->slug }}" @else "{{ $post->title }}" @endif akan dihapus permanen?'>
                                             @csrf
@@ -159,7 +158,7 @@
                                     @if ($post->status == 'publish')
                                         {{-- DRAFT --}}
                                         @if (($post->title != null && $post->description != null) || $cateOld != null)
-                                            <form action="{{ route('posts.draft', ['post' => $post]) }}" method="POST"
+                                            <form action="{{ route('posts.draft', ['post' => $post]) }}#posts" method="POST"
                                                 class="d-inline">
                                                 @csrf
                                                 @method('PUT')
@@ -174,7 +173,7 @@
 
                                         {{-- RECOMMENDED --}}
                                         @if (($post->title != null && $post->description != null) || $cateOld != null)
-                                            <form action="{{ route('posts.recommend', ['id' => $post->id]) }}"
+                                            <form action="{{ route('posts.recommend', ['id' => $post->id]) }}#posts"
                                                 method="POST" class="d-inline">
                                                 @csrf
                                                 @method('POST')
@@ -190,7 +189,7 @@
                                     @elseif ($post->status == 'draft')
                                         {{-- PUBLISH --}}
                                         @if (($post->title != null && $post->description != null) || $cateOld != null)
-                                            <form action="{{ route('posts.publish', ['post' => $post]) }}"
+                                            <form action="{{ route('posts.publish', ['post' => $post]) }}#posts"
                                                 method="POST" class="d-inline">
                                                 @csrf
                                                 @method('PUT')
@@ -204,7 +203,7 @@
                                         @endif
 
                                         @if (($post->title != null && $post->description != null) || $cateOld != null)
-                                            <form action="{{ route('posts.recommend', ['id' => $post->id]) }}"
+                                            <form action="{{ route('posts.recommend', ['id' => $post->id]) }}#posts"
                                                 method="POST" class="d-inline">
                                                 @csrf
                                                 @method('POST')
@@ -222,7 +221,7 @@
 
                                 @if ($post->status == 'approve')
                                     @if (!Auth::user()->editorRole())
-                                        <form action="{{ route('posts.approval', ['post' => $post]) }}" method="POST"
+                                        <form action="{{ route('posts.approval', ['post' => $post]) }}#posts" method="POST"
                                             class="d-inline" role="alertPublish" alert-button="Ya Setuju"
                                             alert-text="Apakah kamu ingin mensetujui postingan {{ $post->title }}?">
                                             @csrf
@@ -252,7 +251,7 @@
                                     tidak ditemukan.
                                 @elseif (request()->get('status') == 'publish')
                                     Hmm.. sepertinya postingan kamu belum dibuat.
-                                    <a href="{{ route('posts.create') }}">Buat?</a>
+                                    <a href="{{ route('posts.create') }}#posts">Buat?</a>
                                 @elseif (request()->get('status') == 'draft')
                                     Hmm.. kelihatannya postingan kamu belum ada yang diarsip.
                                 @elseif (request()->get('status') == 'approve')
@@ -260,7 +259,7 @@
                                     postingan..
                                 @else
                                     Hmm.. sepertinya postingan kamu belum dibuat.
-                                    <a href="{{ route('posts.create') }}">Buat?</a>
+                                    <a href="{{ route('posts.create') }}#posts">Buat?</a>
                                 @endif
                             </b>
                         </div>

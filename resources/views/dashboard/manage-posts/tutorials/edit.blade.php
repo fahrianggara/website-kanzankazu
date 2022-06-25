@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card m-b-30">
-                <form action="{{ route('tutorials.update', ['tutorial' => $tutorial]) }}" method="POST"
+                <form action="{{ route('tutorials.update', ['tutorial' => $tutorial]) }}#tutorials" method="POST"
                     enctype="multipart/form-data" autocomplete="off">
                     @csrf
                     @method('PUT')

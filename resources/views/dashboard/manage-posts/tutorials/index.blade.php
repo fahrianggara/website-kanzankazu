@@ -21,14 +21,14 @@
                             <div class="row">
                                 <div class="col-lg-1 col-3">
                                     @can('category_create')
-                                        <a href="{{ route('tutorials.create') }}" class="btn btn-primary float-right"
+                                        <a href="{{ route('tutorials.create') }}#tutorials" class="btn btn-primary float-right"
                                             data-toggle="tooltip" data-placement="bottom" title="Buat">
                                             <i class="uil uil-plus"></i>
                                         </a>
                                     @endcan
                                 </div>
                                 <div class="col-lg-11 col-9">
-                                    <form action="{{ route('tutorials.index') }}" method="GET">
+                                    <form action="{{ route('tutorials.index') }}#tutorials" method="GET">
                                         <div class="input-group">
                                             <input autocomplete="off" type="search" id="keyword" name="keyword"
                                                 class="form-control" placeholder="Cari tutorial.."
@@ -68,13 +68,13 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $tutorial->title }}</td>
                                         <td>
-                                            <a href="{{ route('tutorials.edit', ['tutorial' => $tutorial]) }}"
+                                            <a href="{{ route('tutorials.edit', ['tutorial' => $tutorial]) }}#tutorials"
                                                 class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="bottom"
                                                 title="Edit">
                                                 <i class="uil uil-pen"></i>
                                             </a>
 
-                                            <form action="{{ route('tutorials.destroy', ['tutorial' => $tutorial]) }}"
+                                            <form action="{{ route('tutorials.destroy', ['tutorial' => $tutorial]) }}#tutorials"
                                                 class="d-inline" role="alert" method="POST"
                                                 alert-text="Apakah kamu yakin? tutorial {{ $tutorial->title }} akan dihapus permanen?">
                                                 @csrf
@@ -98,7 +98,7 @@
                                                     {{ strtoupper(request()->get('keyword')) }} tidak ditemukan.
                                                 @else
                                                     Hmm.. sepertinya tutorial belum dibuat. <a
-                                                        href="{{ route('tutorials.create') }}">Buat?</a>
+                                                        href="{{ route('tutorials.create') }}#tutorials">Buat?</a>
                                                 @endif
                                             </b>
                                         </p>

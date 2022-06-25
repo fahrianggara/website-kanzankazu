@@ -34,7 +34,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <a href="{{ route('posts.index') }}" class="btn btn-primary float-right"><i
+                            <a href="{{ route('posts.index') }}#posts" class="btn btn-primary float-right"><i
                                     class="uil uil-arrow-left mr-1"></i>Back
                             </a>
                         </div>

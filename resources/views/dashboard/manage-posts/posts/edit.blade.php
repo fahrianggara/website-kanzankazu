@@ -10,7 +10,7 @@
 
 @section('content')
 
-    <form action="{{ route('posts.update', ['post' => $post]) }}" method="POST" enctype="multipart/form-data"
+    <form action="{{ route('posts.update', ['post' => $post]) }}#posts" method="POST" enctype="multipart/form-data"
         autocomplete="off">
         @method('PUT')
         @csrf
@@ -290,9 +290,9 @@
                         <div class="float-right">
                             @if ($post->status == 'draft')
                                 <a class="btn btn-info px-4"
-                                    href="{{ route('posts.index', 'status=draft') }}">Kembali</a>
+                                    href="{{ route('posts.index', 'status=draft') }}#posts">Kembali</a>
                             @else
-                                <a class="btn btn-info px-4" href="{{ route('posts.index') }}">Kembali</a>
+                                <a class="btn btn-info px-4" href="{{ route('posts.index') }}#posts">Kembali</a>
                             @endif
                             <button type="submit" class="btn btn-warning px-4">Update</button>
                         </div>

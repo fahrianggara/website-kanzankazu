@@ -95,9 +95,9 @@
                                 <ul class="tags">
                                     @foreach ($post->tutorials as $tutorial)
                                         <li>
-                                            <a class="link-tagCats"
-                                                href="{{ route('blog.posts.tutorials.author', ['slug' => $tutorial->slug, 'user' => $post->user->slug]) }}">{{ $tutorial->title }}
-                                            </a>
+                                            <span class="link-tagCats">
+                                                {{ $tutorial->title }}
+                                            </span>
                                         </li>
                                     @endforeach
                                 </ul>
@@ -118,14 +118,14 @@
                         <div class="entry-bottom">
                             @if ($nextPublish)
                                 <div class="float-left">
-                                    <a href="{{ route('posts.show', ['slug' => $nextPublish->slug]) }}" class="btn-Prev">
+                                    <a href="{{ route('posts.show', ['slug' => $nextPublish->slug]) }}#posts" class="btn-Prev">
                                         <i class="uil uil-angle-double-left"></i> Sebelumnya
                                     </a>
                                 </div>
                             @endif
                             @if ($prevPublish)
                                 <div class="float-right">
-                                    <a href="{{ route('posts.show', ['slug' => $prevPublish->slug]) }}" class="btn-Next">
+                                    <a href="{{ route('posts.show', ['slug' => $prevPublish->slug]) }}#posts" class="btn-Next">
                                         Berikutnya <i class="uil uil-angle-double-right"></i>
                                     </a>
                                 </div>
@@ -140,14 +140,14 @@
                         <div class="entry-bottom">
                             @if ($nextDraft)
                                 <div class="float-left">
-                                    <a href="{{ route('posts.show', ['slug' => $nextDraft->slug]) }}" class="btn-Prev">
+                                    <a href="{{ route('posts.show', ['slug' => $nextDraft->slug]) }}#posts" class="btn-Prev">
                                         <i class="uil uil-angle-double-left"></i> Sebelumnya
                                     </a>
                                 </div>
                             @endif
                             @if ($prevDraft)
                                 <div class="float-right">
-                                    <a href="{{ route('posts.show', ['slug' => $prevDraft->slug]) }}" class="btn-Next">
+                                    <a href="{{ route('posts.show', ['slug' => $prevDraft->slug]) }}#posts" class="btn-Next">
                                         Berikutnya <i class="uil uil-angle-double-right"></i>
                                     </a>
                                 </div>
@@ -159,15 +159,15 @@
                 <div class="entry-bottom">
                     <div class="float-left">
                         @if ($post->status == 'draft')
-                            <a href="{{ route('posts.index', 'status=draft') }}" class="btn-Prev">
+                            <a href="{{ route('posts.index', 'status=draft') }}#posts" class="btn-Prev">
                                 <i class="uil uil-angle-double-left"></i> Kembali ke Menu
                             </a>
                         @elseif ($post->status == 'approve')
-                            <a href="{{ route('posts.index', 'status=approve') }}" class="btn-Prev">
+                            <a href="{{ route('posts.index', 'status=approve') }}#posts" class="btn-Prev">
                                 <i class="uil uil-angle-double-left"></i> Kembali ke Menu
                             </a>
                         @else
-                            <a href="{{ route('posts.index') }}" class="btn-Prev">
+                            <a href="{{ route('posts.index') }}#posts" class="btn-Prev">
                                 <i class="uil uil-angle-double-left"></i> Kembali ke Menu
                             </a>
                         @endif

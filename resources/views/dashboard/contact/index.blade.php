@@ -12,7 +12,7 @@
     <div class="row">
 
         <div class="col-12">
-            <form action="" method="GET" class="">
+            <form action="#contact" method="GET" class="">
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <div class="card m-b-10">

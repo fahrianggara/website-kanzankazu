@@ -13,7 +13,7 @@
         <div class="col-12">
             <div class="card m-b-30">
                 <div class="card-body">
-                    <form action="{{ route('tags.store') }}" method="POST">
+                    <form action="{{ route('tags.store') }}#tags" method="POST">
                         @csrf
 
                         <div class="row">
@@ -49,7 +49,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="float-right">
-                        <a class="btn btn-info px-4" href="{{ route('tags.index') }}">Kembali</a>
+                        <a class="btn btn-info px-4" href="{{ route('tags.index') }}#tags">Kembali</a>
                         <button type="submit" class="btn btn-success px-4">Simpan</button>
                     </div>
                 </div>

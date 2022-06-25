@@ -21,14 +21,14 @@
                             <div class="row">
                                 <div class="col-lg-1 col-3">
                                     @can('tag_create')
-                                        <a href="{{ route('tags.create') }}" class="btn btn-primary float-right"
+                                        <a href="{{ route('tags.create') }}#tags" class="btn btn-primary float-right"
                                             data-toggle="tooltip" data-placement="bottom" title="Buat">
                                             <i class="uil uil-plus"></i>
                                         </a>
                                     @endcan
                                 </div>
                                 <div class="col-lg-11 col-9">
-                                    <form action="{{ route('tags.index') }}" method="GET">
+                                    <form action="{{ route('tags.index') }}#tags" method="GET">
                                         <div class="input-group">
                                             <input autocomplete="off" type="search" id="keyword" name="keyword"
                                                 class="form-control" placeholder="Cari tag.."
@@ -72,14 +72,14 @@
                                         <td>{{ $tag->title }}</td>
                                         <td>
                                             @can('tag_update')
-                                                <a href="{{ route('tags.edit', ['tag' => $tag]) }}"
+                                                <a href="{{ route('tags.edit', ['tag' => $tag]) }}#tags"
                                                     class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="bottom"
                                                     title="Edit">
                                                     <i class="uil uil-pen"></i>
                                                 </a>
                                             @endcan
                                             @can('tag_delete')
-                                                <form action="{{ route('tags.destroy', ['tag' => $tag]) }}" method="POST"
+                                                <form action="{{ route('tags.destroy', ['tag' => $tag]) }}#tags" method="POST"
                                                     class="d-inline" role="alert"
                                                     alert-text="Apakah kamu yakin? tag {{ $tag->title }} akan dihapus permanen?">
                                                     @csrf
@@ -106,7 +106,7 @@
                                             tidak ditemukan.
                                         @else
                                             Hmm.. sepertinya belum ada tag yang dibuat. <a
-                                                href="{{ route('tags.create') }}">Buat?</a>
+                                                href="{{ route('tags.create') }}#tags">Buat?</a>
                                         @endif
                                     </b>
                                 </p>

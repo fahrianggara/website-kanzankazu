@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card m-b-30">
-                <form action="{{ route('users.store') }}" method="post" enctype="multipart/form-data" autocomplete="off">
+                <form action="{{ route('users.store') }}#users" method="post" enctype="multipart/form-data" autocomplete="off">
                     @csrf
                     <div class="card-body">
 
@@ -139,7 +139,7 @@
 
                     </div>
                     <div class="card-footer">
-                        <a class="btn btn-info px-4" href="{{ route('users.index') }}">Kembali</a>
+                        <a class="btn btn-info px-4" href="{{ route('users.index') }}#users">Kembali</a>
                         <button type="submit" class="btn btn-success px-4">Simpan</button>
                     </div>
                 </form>

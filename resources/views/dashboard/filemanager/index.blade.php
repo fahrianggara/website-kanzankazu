@@ -14,7 +14,7 @@
             <div class="card m-b-30">
 
                 <div class="card-header d-flex justify-content-end">
-                    <form action="" method="GET" style="width: 240px">
+                    <form action="#filemanager" method="GET" style="width: 240px">
                         <div class="input-group">
                             <select id="selectType" name="type" class="custom-select" style="border-radius: 4px">
                                 <option value="image" {{ $typesSelected == 'image' ? 'selected' : null }}>Gambar</option>

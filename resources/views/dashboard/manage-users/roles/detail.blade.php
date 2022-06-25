@@ -52,7 +52,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a href="{{ route('roles.index') }}" class="btn btn-info">Kembali</a>
+                    <a href="{{ route('roles.index') }}#roles" class="btn btn-info">Kembali</a>
                 </div>
             </div>
         </div>

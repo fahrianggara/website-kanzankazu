@@ -79,7 +79,7 @@
 
                         {{-- Setting Profile --}}
                         <div class="tab-pane p-3" id="setting-1" role="tabpanel">
-                            <form class="form-horizontal" method="post" action="{{ route('profile.updateInfo') }}"
+                            <form class="form-horizontal" method="post" action="{{ route('profile.updateInfo') }}#profile"
                                 id="formUpdateProfile" autocomplete="off">
                                 @csrf
                                 @method('put')
@@ -299,17 +299,9 @@
                             });
 
                         } else {
-                            // $('#formUpdateProfile')[0].reset();
-                            // $('.user_name').each(function() {
-                            //     $(this).html($('#formUpdateProfile').find($(
-                            //         'input[name="name"]')).val());
-                            // });
-                            // $('.user_bio').each(function() {
-                            //     $(this).html($('#formUpdateProfile').find($(
-                            //         'textarea[name="bio"]')).val());
-                            // });
 
                             setTimeout((function() {
+                                window.location.href = '{{ route("profile.index") }}#profile';
                                 window.location.reload();
                             }), 980);
 

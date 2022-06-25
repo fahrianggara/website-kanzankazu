@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card m-b-30">
-                <form action="{{ route('tutorials.store') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
+                <form action="{{ route('tutorials.store') }}#tutorials" method="POST" enctype="multipart/form-data" autocomplete="off">
                     @csrf
                     <div class="card-body">
 

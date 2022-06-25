@@ -14,7 +14,7 @@
         <div class="col-12">
             <div class="card m-b-30">
                 <div class="card-body">
-                    <form action="{{ route('users.update', ['user' => $user]) }}" method="post"
+                    <form action="{{ route('users.update', ['user' => $user]) }}#users" method="post"
                         enctype="multipart/form-data" autocomplete="off">
                         @method('PUT')
                         @csrf
@@ -99,7 +99,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="float-right">
-                        <a class="btn btn-info px-4" href="{{ route('users.index') }}">Kembali</a>
+                        <a class="btn btn-info px-4" href="{{ route('users.index') }}#users">Kembali</a>
                         <button type="submit" class="btn btn-warning px-4">Perbarui pengguna</button>
                     </div>
                 </div>

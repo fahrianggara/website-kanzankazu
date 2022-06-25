@@ -21,14 +21,14 @@
                             <div class="row">
                                 <div class="col-lg-1 col-3">
                                     @can('role_create')
-                                        <a href="{{ route('roles.create') }}" class="btn btn-primary float-right"
+                                        <a href="{{ route('roles.create') }}#roles" class="btn btn-primary float-right"
                                             data-toggle="tooltip" data-placement="bottom" title="Buat">
                                             <i class="uil uil-plus"></i>
                                         </a>
                                     @endcan
                                 </div>
                                 <div class="col-lg-11 col-9">
-                                    <form action="{{ route('roles.index') }}" method="GET">
+                                    <form action="{{ route('roles.index') }}#roles" method="GET">
                                         <div class="input-group">
                                             <input autocomplete="off" type="search" id="keyword" name="keyword"
                                                 class="form-control" placeholder="Cari role.."
@@ -72,7 +72,7 @@
                                         <td>{{ $role->name }}</td>
                                         <td>
                                             @can('role_detail')
-                                                <a href="{{ route('roles.show', ['role' => $role]) }}"
+                                                <a href="{{ route('roles.show', ['role' => $role]) }}#roles"
                                                     class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="bottom"
                                                     title="Lihat">
                                                     <i class="uil uil-eye"></i>
@@ -80,7 +80,7 @@
                                             @endcan
 
                                             @can('role_update')
-                                                <a href="{{ route('roles.edit', ['role' => $role]) }}"
+                                                <a href="{{ route('roles.edit', ['role' => $role]) }}#roles"
                                                     class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="bottom"
                                                     title="Edit">
                                                     <i class="uil uil-pen"></i>
@@ -88,7 +88,7 @@
                                             @endcan
 
                                             @can('role_delete')
-                                                <form action="{{ route('roles.destroy', ['role' => $role]) }}" method="POST"
+                                                <form action="{{ route('roles.destroy', ['role' => $role]) }}#roles" method="POST"
                                                     class="d-inline" role="alert"
                                                     alert-text="Apakah kamu yakin? role {{ $role->name }} akan dihapus permanen.">
                                                     @csrf
@@ -115,7 +115,7 @@
                                             ditemukan.
                                         @else
                                             Hmm.. sepertinya role belum ada yang dibuat. <a
-                                                href="{{ route('roles.create') }}">Buat?</a>
+                                                href="{{ route('roles.create') }}#roles">Buat?</a>
                                         @endif
                                     </b>
                                 </p>

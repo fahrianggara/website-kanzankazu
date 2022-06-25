@@ -74,9 +74,7 @@ class PostController extends Controller
         $q = $request->keyword;
 
         if ($q) {
-            $posts
-                ->search($q)
-                ->orWhere('tutorial_id', 'like', '%' . $q . '%');
+            $posts->search($q);
         }
 
         return view('dashboard.manage-posts.posts.index', [

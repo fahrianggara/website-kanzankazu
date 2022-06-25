@@ -100,7 +100,7 @@
 
                         {{-- Setting Profile --}}
                         <div class="tab-pane p-3" id="setting-1" role="tabpanel">
-                            <form action="{{ route('dashboard.setting.update') }}" method="POST" class="form-horizontal"
+                            <form action="{{ route('dashboard.setting.update') }}#website" method="POST" class="form-horizontal"
                                 id="formWebSetting" autocomplete="off">
                                 @csrf
                                 @method('put')
@@ -279,6 +279,7 @@
                                 .log(response.message);
 
                             setTimeout((function() {
+                                window.location.href = '{{ route("dashboard.setting") }}#website';
                                 window.location.reload();
                             }), 980);
                         }
