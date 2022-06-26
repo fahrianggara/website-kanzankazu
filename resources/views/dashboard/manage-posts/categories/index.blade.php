@@ -21,14 +21,14 @@
                             <div class="row">
                                 <div class="col-lg-1 col-3">
                                     @can('category_create')
-                                        <a href="{{ route('categories.create') }}#categories" class="btn btn-primary"
+                                        <a href="{{ route('categories.create') }}#posts" class="btn btn-primary"
                                             data-toggle="tooltip" data-placement="bottom" title="Buat">
                                             <i class="uil uil-plus"></i>
                                         </a>
                                     @endcan
                                 </div>
                                 <div class="col-lg-11 col-9">
-                                    <form action="{{ route('categories.index') }}#categories" method="GET">
+                                    <form action="{{ route('categories.index') }}#posts" method="GET">
                                         <div class="input-group">
                                             <input autocomplete="off" type="search" id="keyword" name="keyword"
                                                 class="form-control" placeholder="Cari kategori.."
@@ -72,14 +72,14 @@
                                         <td>{{ $category->title }}</td>
                                         <td>
                                             @can('category_update')
-                                                <a href="{{ route('categories.edit', ['category' => $category]) }}#categories"
+                                                <a href="{{ route('categories.edit', ['category' => $category]) }}#posts"
                                                     class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="bottom"
                                                     title="Edit">
                                                     <i class="uil uil-pen"></i>
                                                 </a>
                                             @endcan
                                             @can('category_delete')
-                                                <form action="{{ route('categories.destroy', ['category' => $category]) }}#categories"
+                                                <form action="{{ route('categories.destroy', ['category' => $category]) }}#posts"
                                                     class="d-inline" role="alert" method="POST"
                                                     alert-text="Apakah kamu yakin? kategori {{ $category->title }} akan dihapus permanen?">
                                                     @csrf
@@ -106,7 +106,7 @@
                                             {{ strtoupper(request()->get('keyword')) }} tidak ditemukan.
                                         @else
                                             Hmm.. sepertinya kategori belum dibuat. <a
-                                                href="{{ route('categories.create') }}#categories">Buat?</a>
+                                                href="{{ route('categories.create') }}#posts">Buat?</a>
                                         @endif
                                     </b>
                                 </p>

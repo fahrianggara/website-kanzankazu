@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card m-b-30">
-                <form action="{{ route('tutorials.update', ['tutorial' => $tutorial]) }}#tutorials" method="POST"
+                <form action="{{ route('tutorials.update', ['tutorial' => $tutorial]) }}#posts" method="POST"
                     enctype="multipart/form-data" autocomplete="off">
                     @csrf
                     @method('PUT')
@@ -112,7 +112,7 @@
                     {{-- Card footer --}}
                     <div class="card-footer">
                         {{-- Button Save --}}
-                        <a class="btn btn-info px-4" href="{{ route('tutorials.index') }}">Kembali</a>
+                        <a class="btn btn-info px-4" href="{{ route('tutorials.index') }}#posts">Kembali</a>
                         <button type="submit" class="btn btn-warning px-4">Perbarui</button>
                     </div>
 

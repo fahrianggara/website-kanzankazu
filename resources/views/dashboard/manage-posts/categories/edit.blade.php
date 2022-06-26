@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card m-b-30">
-                <form action="{{ route('categories.update', ['category' => $category]) }}#categories" method="POST"
+                <form action="{{ route('categories.update', ['category' => $category]) }}#posts" method="POST"
                     enctype="multipart/form-data" autocomplete="off">
                     @method('PUT')
                     @csrf
@@ -108,7 +108,7 @@
                     {{-- Card footer --}}
                     <div class="card-footer">
                         {{-- Button Update --}}
-                        <a class="btn btn-info px-4" href="{{ route('categories.index') }}#categories">Kembali</a>
+                        <a class="btn btn-info px-4" href="{{ route('categories.index') }}#posts">Kembali</a>
                         <button type="submit" class="btn btn-warning px-4">Perbarui</button>
                     </div>
                 </form>

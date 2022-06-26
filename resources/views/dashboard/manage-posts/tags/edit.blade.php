@@ -14,7 +14,7 @@
             <div class="card m-b-30">
                 <div class="card-body">
 
-                    <form action="{{ route('tags.update', ['tag' => $tag]) }}#tags" method="POST">
+                    <form action="{{ route('tags.update', ['tag' => $tag]) }}#posts" method="POST">
                         @method('PUT')
                         @csrf
 
@@ -51,7 +51,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="float-right">
-                        <a class="btn btn-info px-4" href="{{ route('tags.index') }}#tags">Kembali</a>
+                        <a class="btn btn-info px-4" href="{{ route('tags.index') }}#posts">Kembali</a>
                         <button type="submit" class="btn btn-warning px-4">Perbarui</button>
                     </div>
                 </div>

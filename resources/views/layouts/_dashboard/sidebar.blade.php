@@ -54,7 +54,7 @@
                 {{-- POSTS --}}
                 @can('manage_posts')
                     <li id="posts" class="menu-title">Kelola Blog</li>
-                    <li >
+                    <li>
                         <a href="{{ route('posts.index', '#posts') }}"
                             class="waves-effect {{ set_active(['posts.index', 'posts.create', 'posts.edit', 'posts.show', 'posts.delete']) }}">
                             <i class="uil uil-book-medical"></i>
@@ -65,7 +65,7 @@
                 {{-- CATEGORIES --}}
                 @can('manage_categories')
                     <li id="categories">
-                        <a href="{{ route('categories.index', '#categories') }}"
+                        <a href="{{ route('categories.index', '#posts') }}"
                             class="waves-effect {{ set_active(['categories.index', 'categories.create', 'categories.edit']) }}">
                             <i class="uil uil-bookmark"></i>
                             <span>Kategori</span>
@@ -75,7 +75,7 @@
                 {{-- TAGS --}}
                 @can('manage_tags')
                     <li id="tags">
-                        <a href="{{ route('tags.index', '#tags') }}"
+                        <a href="{{ route('tags.index', '#posts') }}"
                             class="waves-effect {{ set_active(['tags.index', 'tags.create', 'tags.edit']) }}">
                             <i class="uil uil-tag-alt"></i>
                             <span>Tag</span>
@@ -85,7 +85,7 @@
                 {{-- Tutorials --}}
                 @can('manage_categories')
                     <li id="tutorials">
-                        <a href="{{ route('tutorials.index', '#tutorials') }}"
+                        <a href="{{ route('tutorials.index', '#posts') }}"
                             class="waves-effect {{ set_active(['tutorials.index', 'tutorials.create', 'tutorials.edit']) }}">
                             <i class="uil uil-layer-group"></i>
                             <span>Tutorial</span>
