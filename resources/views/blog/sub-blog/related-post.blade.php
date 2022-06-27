@@ -1,7 +1,7 @@
 @if ($posts->count() >= 1)
     <h2 class="titleMoreBlogs">Blog Terkait</h2>
 
-    <div class="row d-flex flex-row flex-nowrap overflow-auto">
+    <div id="postsRelated" class="row d-flex flex-row flex-nowrap overflow-auto">
         @forelse ($posts as $post)
             <div id="relatedPost" class="col-lg-4 col-md-6 col-7">
                 <div class="post-related">
@@ -31,7 +31,7 @@
                     <div class="link-moreblog loading">
                         <a class="link-textMoreBlog underline"
                             href="{{ route('blog.detail', ['slug' => $post->slug]) }}">
-                            {{ $post->title . ' - ' . substr($post->description, 0, 45) }}...
+                            {{ $post->title . ' - ' . substr($post->description, 0, 25) }}..
                         </a>
                     </div>
                 </div>
@@ -66,6 +66,10 @@
         });
 
         $(document).ready(function() {
+            // $('#postsRelated').mousewheel(function (e, delta) {
+            //     this.scrollLeft -= (delta * 80);
+            //     e.preventDefault();
+            // });
 
             $(document).on('click', '.simple-pagination a', function(e) {
                 e.preventDefault();

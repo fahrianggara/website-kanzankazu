@@ -5,7 +5,7 @@
 @endsection
 
 @section('keywords')
-    {{ $setting->meta_keywords }} tutorial {{ $tutorial->title }}, tutorial kanzankazu, oleh {{ $author->name }}, {{ $setting->site_name }}
+    {{ $setting->meta_keywords }} tutorial {{ $tutorial->title }} kanzankazu
 @endsection
 
 @section('content')
@@ -36,7 +36,7 @@
 
                         <h2 class="entry-title loading">
                             <a class="underline"
-                                href="{{ route('blog.detail', ['slug' => $post->slug]) }}">{{ $post->title }}</a>
+                                href="{{ route('blog.detail', ['slug' => $post->slug]) }}">{{ '#' . $loop->iteration . ' - ' . $post->title }}</a>
                         </h2>
 
                         <div class="entry-meta">

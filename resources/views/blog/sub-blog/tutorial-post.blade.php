@@ -1,9 +1,9 @@
 @if ($tutoPosts->count() >= 2)
     @foreach ($post->tutorials as $item)
-        <h2 class="titleMoreBlogs">Tutorial lainnya dari {{ $item->title }}</h2>
+        <h2 class="titleMoreBlogs">Tutorial lainnya dari <span style="color: {{$item->bg_color}}">{{ $item->title }}</span></h2>
     @endforeach
 
-    <div class="row d-flex flex-row flex-nowrap overflow-auto">
+    <div id="tutorialRelated" class="row d-flex flex-row flex-nowrap overflow-auto">
         @forelse ($tutoPosts as $post)
             <div id="relatedTuto" class="col-lg-4 col-md-6 col-7">
                 <div class="post-related">
@@ -31,7 +31,7 @@
                     <div class="link-moreblog loading">
                         <a class="link-textMoreBlog underline {{ request()->is('blog/' . $post->slug) ? 'active' : '' }}"
                             href="{{ route('blog.detail', ['slug' => $post->slug]) }}">
-                            {{ $post->title }}
+                            {{ '#' . $loop->iteration . ' - ' . $post->title }}
                         </a>
                     </div>
                 </div>
@@ -45,3 +45,14 @@
 
     </div>
 @endif
+
+@push('js-internal')
+    <script>
+        $(function() {
+            $('#tutorialRelated').mousewheel(function (e, delta) {
+                this.scrollLeft -= (delta * 80);
+                e.preventDefault();
+            });
+        })
+    </script>
+@endpush

@@ -83,7 +83,8 @@
                     <div class="entry-footer clearfix">
                         <div class="float-left d-flex">
                             <div class="tagCats loading">
-                                <i class="icofont-tags"></i>
+                                <i class="icofont-tags btn-tooltip-hide" data-toggle="tooltip" data-placement="bottom"
+                                title="Tag"></i>
                                 <ul class="tags">
                                     @foreach ($post->tags as $tag)
                                         <li>
@@ -96,7 +97,8 @@
                             </div>
 
                             <div class="ml-1 tagCats loading">
-                                <i class="icofont-folder"></i>
+                                <i class="icofont-folder btn-tooltip-hide" data-toggle="tooltip" data-placement="bottom"
+                                title="Kategori"></i>
                                 <ul class="tags">
                                     @foreach ($post->categories as $category)
                                         <li>
@@ -110,7 +112,8 @@
 
                             @if ($post->tutorials->isNotEmpty())
                                 <div class="ml-1 tagCats loading">
-                                    <i class="uil uil-books"></i>
+                                    <i class="uil uil-books btn-tooltip-hide" data-toggle="tooltip" data-placement="bottom"
+                                    title="Tutorial"></i>
                                     <ul class="tags">
                                         @foreach ($post->tutorials as $tutorial)
                                             <li>

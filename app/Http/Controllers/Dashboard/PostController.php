@@ -78,7 +78,7 @@ class PostController extends Controller
         }
 
         return view('dashboard.manage-posts.posts.index', [
-            'posts' => $posts->paginate(4)->withQueryString(),
+            'posts' => $posts->paginate(12)->withQueryString(),
             'statusSelected' => $statusSelected,
             'cateOld' => $post->categories->first(),
             'tutoOld' => $post->tutorials->first(),

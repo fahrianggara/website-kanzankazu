@@ -51,7 +51,7 @@
     {{-- jQuery Ui --}}
     <link rel="stylesheet" href="{{ asset('vendor/blog/assets/jquery-ui/jquery-ui.css') }}">
     {{-- Main CSS --}}
-    <link rel="stylesheet" href="{{ asset('vendor/blog/css/blog.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/blog/css/blogs.css') }}">
     {{-- CSS EXT --}}
     @stack('css-external')
     {{-- CSS INT --}}
@@ -98,6 +98,7 @@
     <script src="{{ asset('vendor/blog/assets/alertify/js/alertify.js') }}"></script>
     <script src="{{ asset('vendor/blog/assets/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('vendor/blog/js/medium-zoom.min.js') }}"></script>
+    <script src="{{ asset('vendor/blog/assets/jquery-mousewheel/jquery.mousewheel.min.js') }}"></script>
     {{-- Main Js --}}
     <script src="{{ asset('vendor/blog/js/main.js') }}"></script>
     {{-- JS Ext --}}
