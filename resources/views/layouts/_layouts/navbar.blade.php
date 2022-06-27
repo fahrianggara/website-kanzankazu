@@ -82,7 +82,8 @@
             <form action="{{ route('blog.search') }}" method="GET">
                 <input id="search" type="search" name="keyword" value="{{ request()->get('keyword') }}"
                     class="search-blog" placeholder="Cari blog apapun disini..." autocomplete="off">
-                <button id="buttonSubmit" type="submit" class="uil"><i class="uil uil-search"></i></button>
+                <button id="buttonSubmit" type="submit" class="uil btn-tooltip-hide" data-toggle="tooltip" data-placement="bottom"
+                title="Telusuri"><i class="uil uil-search"></i></button>
             </form>
         </div>
 

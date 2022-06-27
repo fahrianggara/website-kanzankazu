@@ -43,7 +43,7 @@ body {
 }
 
 * {
-    font-family: "Roboto Condensed", sans-serif;
+    font-family: "Rubik", sans-serif;
 }
 
 a {
@@ -65,7 +65,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: "Roboto Condensed", sans-serif;
+    font-family: "Rubik", sans-serif;
 }
 
 /* invalidfeedbac */
@@ -1995,7 +1995,7 @@ section {
 }
 
 #footer .post-title a {
-    font-size: 16px;
+    font-size: 15px;
     line-height: 0;
     color: var(--text-color);
 }
@@ -2273,7 +2273,7 @@ section {
     color: var(--first-color);
 }
 
-@media (max-width: 425px) {
+@media (max-width: 281px) {
     .main-blog .entry .entry-title span {
         font-size: 30px;
     }
@@ -3408,6 +3408,8 @@ div.code-toolbar>.toolbar>.toolbar-item>span:hover {
 
 .main-blog .post-related a {
     color: var(--text-color);
+    word-spacing: -0.5px;
+    word-break: break-all;
 }
 
 .main-blog .post-related a:hover {
