@@ -217,7 +217,7 @@
                                 <div id="forgotPassword" class="d-none">
                                     <div class="form-group row">
                                         <div class="offset-sm-10 col-sm-10">
-                                            <a href="{{ route('password.request') }}">Forgot Password</a>
+                                            <a target="_blank" href="{{ route('password.request') }}">Forgot Password</a>
                                         </div>
                                     </div>
 

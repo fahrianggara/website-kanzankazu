@@ -115,5 +115,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         // Notification
         Route::get('/notify', [\App\Http\Controllers\Dashboard\NotificationController::class, 'notify'])->name('notify');
         Route::get('/markasread/{id}', [\App\Http\Controllers\Dashboard\NotificationController::class, 'markAsRead'])->name('markasread');
+        // Newsletter
+        Route::get('/newsletter', [\App\Http\Controllers\Dashboard\NewsletterController::class, 'index'])->name('newsletter.index');
+        Route::delete('/newsletter/{newsletter}', [\App\Http\Controllers\Dashboard\NewsletterController::class, 'destroy'])->name('newsletter.destroy');
     });
 });

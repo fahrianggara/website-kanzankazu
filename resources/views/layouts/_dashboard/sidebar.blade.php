@@ -107,7 +107,7 @@
                 {{-- ROLES --}}
                 @can('manage_roles')
                     <li id="roles">
-                        <a href="{{ route('roles.index', '#roles') }}"
+                        <a href="{{ route('roles.index', '#users') }}"
                             class="waves-effect {{ set_active(['roles.index', 'roles.create', 'roles.edit', 'roles.show']) }}">
                             <i class="uil uil-user-arrows"></i>
                             <span>Role</span>
@@ -122,6 +122,12 @@
                         <a href="{{ route('contact.index', '#contact') }}" class="waves-effect {{ set_active('contact.index') }}">
                             <i class="uil uil-inbox"></i>
                             <span>Pesan Kontak</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="{{ route('newsletter.index', '#contact') }}" class="waves-effect {{ set_active('newsletter.index') }}">
+                            <i class="uil uil-at"></i>
+                            <span>Pelanggan</span>
                         </a>
                     </li>
                 @endcan

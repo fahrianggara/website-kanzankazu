@@ -34,6 +34,12 @@ Breadcrumbs::for('web_settings', function (BreadcrumbTrail $trail) {
     $trail->push('Setelan Website', route('dashboard.setting'));
 });
 
+// Dashboard > Website Settings
+Breadcrumbs::for('newsletter', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Langganan Website', route('newsletter.index'));
+});
+
 // =================================================================
 
 Breadcrumbs::for('categories', function (BreadcrumbTrail $trail) {

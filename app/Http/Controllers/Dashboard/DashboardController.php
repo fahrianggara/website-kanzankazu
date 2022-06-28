@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Contact;
+use App\Models\Newsletter;
 use App\Models\Post;
 use App\Models\Tag;
 use App\Models\Tutorial;
@@ -35,6 +36,7 @@ class DashboardController extends Controller
         $countContact = Contact::count();
         $countRole = Role::count();
         $countTutorial = Tutorial::count();
+        $countNewsletter = Newsletter::count();
 
         // post today
         $Today = Carbon::today();
@@ -53,6 +55,8 @@ class DashboardController extends Controller
         $inboxToday = Contact::select('name', 'email', 'subject', 'message')
             ->whereDate('created_at', $Today)
             ->get();
+        $newsletterToday = Newsletter::whereDate('created_at', $Today)
+            ->get();
         $userToday = User::whereDate('created_at', $Today)
             ->paginate(3);
         $roleToday = Role::select('name')
@@ -67,6 +71,7 @@ class DashboardController extends Controller
             'countContact',
             'countRole',
             'countTutorial',
+            'countNewsletter',
             'postToday',
             'cateToday',
             'tagToday',
@@ -74,6 +79,7 @@ class DashboardController extends Controller
             'userToday',
             'roleToday',
             'tutorToday',
+            'newsletterToday'
         ));
     }
 }

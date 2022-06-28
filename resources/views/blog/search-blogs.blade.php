@@ -13,7 +13,7 @@
         @if ($posts->count() >= 1)
             <div class="section-title">
                 <h2>Ini dia blog yang kamu cari</h2>
-                <p>Ada {{ $posts->count() }} blog disini.</p>
+                <p>Ada {{ $posts->count() }} blog dalam pencarian <span class="titleFilter">{{ request()->get('keyword') }}</span>.</p>
             </div>
         @endif
 

@@ -3992,7 +3992,7 @@ div.code-toolbar>.toolbar>.toolbar-item>span:hover {
     top: 2px;
 }
 
-#empty-blog .titleFilter {
+.titleFilter {
     color: var(--first-color);
 }
 

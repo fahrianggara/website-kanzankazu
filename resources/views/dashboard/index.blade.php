@@ -14,7 +14,7 @@
         @can('manage_posts')
             <div class="col-md-6 col-lg-6 col-xl-3">
                 <div class="card m-b-30">
-                    <a href="{{ route('posts.index') }}" class="waves-effect">
+                    <a href="{{ route('posts.index') }}#posts" class="waves-effect">
                         <div class="card-body">
                             <div class="d-flex flex-row">
                                 <div class="col-3 align-self-center">
@@ -38,7 +38,7 @@
         @can('manage_categories')
             <div class="col-md-6 col-lg-6 col-xl-3">
                 <div class="card m-b-30">
-                    <a href="{{ route('categories.index') }}" class="waves-effect">
+                    <a href="{{ route('categories.index') }}#posts" class="waves-effect">
                         <div class="card-body">
                             <div class="d-flex flex-row">
                                 <div class="col-3 align-self-center">
@@ -62,7 +62,7 @@
         @can('manage_tags')
             <div class="col-md-6 col-lg-6 col-xl-3">
                 <div class="card m-b-30">
-                    <a href="{{ route('tags.index') }}" class="waves-effect">
+                    <a href="{{ route('tags.index') }}#posts" class="waves-effect">
                         <div class="card-body">
                             <div class="d-flex flex-row">
                                 <div class="col-3 align-self-center">
@@ -86,7 +86,7 @@
         @can('manage_categories')
             <div class="col-md-6 col-lg-6 col-xl-3">
                 <div class="card m-b-30">
-                    <a href="{{ route('tutorials.index') }}" class="waves-effect">
+                    <a href="{{ route('tutorials.index') }}#posts" class="waves-effect">
                         <div class="card-body">
                             <div class="d-flex flex-row">
                                 <div class="col-3 align-self-center">
@@ -110,7 +110,7 @@
         @can('manage_roles')
             <div class="col-md-6 col-lg-6 col-xl-3">
                 <div class="card m-b-30">
-                    <a href="{{ route('roles.index') }}" class="waves-effect">
+                    <a href="{{ route('roles.index') }}#users" class="waves-effect">
                         <div class="card-body">
                             <div class="d-flex flex-row">
                                 <div class="col-3 align-self-center">
@@ -134,7 +134,7 @@
         @can('manage_users')
             <div class="col-md-6 col-lg-6 col-xl-3">
                 <div class="card m-b-30">
-                    <a href="{{ route('users.index') }}" class="waves-effect">
+                    <a href="{{ route('users.index') }}#users" class="waves-effect">
                         <div class="card-body">
                             <div class="d-flex flex-row">
                                 <div class="col-3 align-self-center">
@@ -158,7 +158,7 @@
         @can('manage_inbox')
             <div class="col-md-6 col-lg-6 col-xl-3">
                 <div class="card m-b-30">
-                    <a href="{{ route('contact.index') }}" class="waves-effect">
+                    <a href="{{ route('contact.index') }}#contact" class="waves-effect">
                         <div class="card-body">
                             <div class="d-flex flex-row">
                                 <div class="col-3 align-self-center">
@@ -170,6 +170,28 @@
                                     <div class="m-l-10">
                                         <h5 class="mt-0 round-inner">{{ $countContact }}</h5>
                                         <p class="mb-0 text-muted">Inbox</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div class="card m-b-30">
+                    <a href="{{ route('newsletter.index') }}#contact" class="waves-effect">
+                        <div class="card-body">
+                            <div class="d-flex flex-row">
+                                <div class="col-3 align-self-center">
+                                    <div class="round">
+                                        <i class="uil uil-at"></i>
+                                    </div>
+                                </div>
+                                <div class="col-9 align-self-center text-center">
+                                    <div class="m-l-10">
+                                        <h5 class="mt-0 round-inner">{{ $countNewsletter }}</h5>
+                                        <p class="mb-0 text-muted">Pelanggan</p>
                                     </div>
                                 </div>
                             </div>
@@ -218,7 +240,7 @@
                 <div class="col-12">
                     <div class="text-center m-b-30" role="alert">
                         Sepertinya kamu belum membuat postingan dihari ini.
-                        <a href="{{ route('posts.create') }}">buat postingan?</a>
+                        <a href="{{ route('posts.create') }}#posts">buat postingan?</a>
                     </div>
                 </div>
             @endif
@@ -471,6 +493,39 @@
                         @else
                             <div class="text-center" role="alert">
                                 Belum ada pesan yang masuk hari ini
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card m-b-30">
+                    <div class="card-header">
+                        Langganan website hari ini
+                    </div>
+                    <div class="card-body">
+                        @if ($newsletterToday->count() >= 1)
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th>Email</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($newsletterToday as $nl)
+                                            <tr class="text-center">
+                                                <td>{{ $nl->email }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @else
+                            <div class="text-center" role="alert">
+                                Belum ada yang berlangganan hari ini
                             </div>
                         @endif
                     </div>
