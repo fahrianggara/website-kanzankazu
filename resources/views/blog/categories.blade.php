@@ -5,7 +5,7 @@
 @endsection
 
 @section('keywords')
-    {{ $setting->meta_keywords }} kategori kanzankazu, {{ $setting->site_name }}
+    Kategori postingan kanzankazu
 @endsection
 
 @section('content')

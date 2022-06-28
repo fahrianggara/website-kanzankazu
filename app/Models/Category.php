@@ -9,7 +9,7 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'slug', 'thumbnail', 'description', 'parent_id'];
+    protected $fillable = ['title', 'slug', 'thumbnail', 'description', 'parent_id', 'keywords'];
     protected $hidden = ['created_at', 'updated_at'];
 
     public function scopeOnlyParent($query)

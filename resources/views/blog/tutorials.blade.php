@@ -5,7 +5,7 @@
 @endsection
 
 @section('keywords')
-    {{ $setting->meta_keywords }} tutorial kanzankazu, {{ $setting->site_name }}
+    Tutorial kanzankazu
 @endsection
 
 @section('content')

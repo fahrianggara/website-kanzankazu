@@ -7,9 +7,11 @@ use App\Models\Post;
 use App\Models\Tag;
 use App\Models\WebSetting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Str;
 
 class TagController extends Controller
 {
@@ -71,13 +73,12 @@ class TagController extends Controller
         Validator::make(
             $request->all(),
             [
-                'title'         => 'required|alpha_spaces|max:50|min:3',
+                'title'         => 'required|max:15|min:3',
                 'slug'          => 'unique:tags,slug',
             ],
             [
-                'title.required'         => 'Wajib harus diisi!',
-                'title.alpha_spaces'     => 'Hanya boleh huruf dan spasi!',
-                'title.max'              => 'Maksimal 50 karakter!',
+                'title.required'         => 'Wajib diisi',
+                'title.max'              => 'Maksimal 15 karakter!',
                 'title.min'              => 'Minimal 3 karakter!',
                 'slug.unique'            => 'Tag sudah ada!',
             ]
@@ -87,7 +88,7 @@ class TagController extends Controller
             Tag::create(
                 [
                     'title' => $request->title,
-                    'slug'  => $request->slug,
+                    'slug'  => $request->slug
                 ]
             );
 
@@ -178,7 +179,7 @@ class TagController extends Controller
     public function destroy(Tag $tag)
     {
         $usePostTag = Post::join('post_tag', 'posts.id', '=', 'post_tag.post_id')
-        ->where('post_tag.tag_id', $tag->id)->get();
+            ->where('post_tag.tag_id', $tag->id)->get();
 
         if ($usePostTag->count() >= 1) {
             Alert::warning(

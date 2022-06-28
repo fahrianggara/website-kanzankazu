@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tag extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'slug'];
+    protected $fillable = ['title', 'slug', 'keywords'];
     protected $hidden = ['created_at', 'updated_at'];
 
     public function scopeSearch($query, $title)

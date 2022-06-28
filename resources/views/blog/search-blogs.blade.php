@@ -5,7 +5,7 @@
 @endsection
 
 @section('keywords')
-    {{ $setting->meta_keywords }} pencarian kanzankazu, {{ request()->get('keyword') }}, {{ $setting->site_name }}
+    Pencarian blog {{ $setting->site_name }}
 @endsection
 
 @section('content')

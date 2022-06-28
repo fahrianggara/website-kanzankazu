@@ -188,7 +188,7 @@
                             'is-invalid');
                         // button
                         $('#btn_contactUs').attr('disabled', true);
-                        $('#btn_contactUs').html('<i class="fa fa-spin fa-spinner"></i>');
+                        $('#btn_contactUs').html('<i class="fas fa-spin fa-spinner"></i>');
                     },
                     complete: function() {
                         $('#btn_contactUs').attr('disabled', false);

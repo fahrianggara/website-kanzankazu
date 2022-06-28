@@ -5,7 +5,7 @@
 @endsection
 
 @section('keywords')
-    {{ $setting->meta_keywords }} tag {{ $tag->title }}, {{ $setting->site_name }}
+    Tag {{ $tag->title }} {{ $setting->site_name }}
 @endsection
 
 @section('content')

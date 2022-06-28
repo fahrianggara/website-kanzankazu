@@ -57,7 +57,7 @@
                         <table class="table">
                             <thead>
                                 <tr class="text-center">
-                                    <th>No</th>
+                                    <th>#</th>
                                     <th>Nama Tag</th>
                                     <th>Opsi</th>
                                 </tr>

@@ -5,7 +5,7 @@
 @endsection
 
 @section('keywords')
-    {{ $setting->meta_keywords }} kategori {{ $category->title }}, {{ $setting->site_name }}
+    Kategori {{ $category->title }} {{ $setting->site_name }}
 @endsection
 
 @section('content')

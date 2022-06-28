@@ -1,7 +1,7 @@
 @extends('layouts.blog')
 
 @section('keywords')
-    {{ $setting->meta_keywords }}, {{ $post->keywords }}
+    {{ $post->keywords }}
 @endsection
 
 @section('author')

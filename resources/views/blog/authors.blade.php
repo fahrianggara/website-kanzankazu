@@ -5,7 +5,7 @@
 @endsection
 
 @section('keywords')
-    {{ $setting->meta_keywords }} Author {{ $user->name }}, {{ $setting->site_name }}
+    {{ '@' . $user->name }} {{ $setting->site_name }}
 @endsection
 
 @section('content')

@@ -182,9 +182,9 @@ class PostController extends Controller
             $user->notify(new UserPostApproved($post));
         }
 
-        // $postUserId = $post->user_id;
-        // $user = User::find($postUserId);
-        // $user->notify(new UserPostApprovedEmail($user));
+        $postUserId = $post->user_id;
+        $user = User::find($postUserId);
+        $user->notify(new UserPostApprovedEmail($user));
 
         $post->update();
 

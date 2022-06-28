@@ -9,7 +9,7 @@ class Tutorial extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'slug', 'thumbnail', 'description', 'user_id', 'bg_color', 'text_color'];
+    protected $fillable = ['title', 'slug', 'thumbnail', 'description', 'user_id', 'bg_color', 'text_color', 'keywords'];
 
     public function posts()
     {

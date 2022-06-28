@@ -89,6 +89,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::get('/categories/select', [\App\Http\Controllers\Dashboard\CategoryController::class, 'select'])->name('categories.select');
         Route::resource('/categories', \App\Http\Controllers\Dashboard\CategoryController::class)->except('show');
         // Tag
+        Route::get('/tags/add-create', [\App\Http\Controllers\Dashboard\TagController::class, 'addcreate'])->name('tags.addcreate');
         Route::get('/tags/select', [\App\Http\Controllers\Dashboard\TagController::class, 'select'])->name('tags.select');
         Route::resource('/tags', \App\Http\Controllers\Dashboard\TagController::class)->except('show');
         // Posts

@@ -5,7 +5,7 @@
 @endsection
 
 @section('keywords')
-    {{ $setting->meta_keywords }} tag kanzankazu, {{ $setting->site_name }}
+    Tag postingan kanzankazu
 @endsection
 
 @section('content')
