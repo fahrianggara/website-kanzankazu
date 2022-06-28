@@ -58,7 +58,7 @@ Route::get('/search', [
 Route::get('showform', [\App\Http\Controllers\ContactController::class, 'create'])->name('showform');
 Route::post('savecontact', [\App\Http\Controllers\ContactController::class, 'save'])->name('contact.save');
 // Newsletter
-Route::post('newsletter', [\App\Http\Controllers\NewsletterController::class, 'storeEmail'])->name('newsletter.store');
+Route::post('newsletter', [App\Http\Controllers\Dashboard\NewsLetterController::class, 'storeEmail'])->name('newsletter.store');
 
 Route::group(['middleware' => 'prevent-back-history'], function () {
     Auth::routes([
@@ -116,7 +116,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::get('/notify', [\App\Http\Controllers\Dashboard\NotificationController::class, 'notify'])->name('notify');
         Route::get('/markasread/{id}', [\App\Http\Controllers\Dashboard\NotificationController::class, 'markAsRead'])->name('markasread');
         // Newsletter
-        Route::get('/newsletter', [\App\Http\Controllers\Dashboard\NewsletterController::class, 'index'])->name('newsletter.index');
-        Route::delete('/newsletter/{newsletter}', [\App\Http\Controllers\Dashboard\NewsletterController::class, 'destroy'])->name('newsletter.destroy');
+        Route::get('/newsletter', [\App\Http\Controllers\Dashboard\NewsLetterController::class, 'index'])->name('newsletter.index');
+        Route::delete('/newsletter/{newsletter}', [\App\Http\Controllers\Dashboard\NewsLetterController::class, 'destroy'])->name('newsletter.destroy');
     });
 });

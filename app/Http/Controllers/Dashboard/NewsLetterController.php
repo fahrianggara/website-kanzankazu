@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Newsletter;
+use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class NewsLetterController extends Controller
@@ -17,6 +18,37 @@ class NewsLetterController extends Controller
             $newsletter = Newsletter::paginate(10);
         }
         return view('dashboard.contact.newsletter.index', compact('newsletter'));
+    }
+
+    function storeEmail(Request $request)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'email' => 'required|email|unique:newsletters,email'
+            ],
+            [
+                'email.required' => 'Masukkan alamat email kamu',
+                'email.email' => 'Alamat email kamu tidak valid',
+                'email.unique' => 'Alamat email ini sudah berlangganan diwebsite kami'
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'error' => $validator->errors()->toArray(),
+            ]);
+        } else {
+            $query = Newsletter::create(['email' => $request->email]);
+
+            if ($query) {
+                return response()->json([
+                    'status' => 200,
+                    'msg'    => 'Terima kasih telah berlangganan di website kami',
+                ]);
+            }
+        }
     }
 
     public function destroy(Newsletter $newsletter)
