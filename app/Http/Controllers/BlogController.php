@@ -117,17 +117,6 @@ class BlogController extends Controller
         ]);
     }
 
-    public function showCategory()
-    {
-        return view('blog.categories', [
-            'categories' => Category::onlyParent()
-                ->whereHas('posts', function ($query) {
-                    $query->publish();
-                })
-                ->paginate(10),
-        ]);
-    }
-
     public function searchPosts(Request $request)
     {
         if (!$request->get('keyword')) {
@@ -140,7 +129,7 @@ class BlogController extends Controller
             ->latest()
             ->paginate(10);
 
-        return view('blog.search-blogs', [
+        return view('blog.sub-blog.search-blogs', [
             'posts' => $posts->appends(['keyword' => $request->keyword]),
         ]);
     }
@@ -165,6 +154,17 @@ class BlogController extends Controller
         echo json_encode($row_set);
     }
 
+    public function showCategory()
+    {
+        return view('blog.categories.categories', [
+            'categories' => Category::onlyParent()
+                ->whereHas('posts', function ($query) {
+                    $query->publish();
+                })
+                ->paginate(10),
+        ]);
+    }
+
     public function showPostsByCategory($slug)
     {
         $category = Category::where('slug', $slug)->firstOrFail();
@@ -175,7 +175,7 @@ class BlogController extends Controller
 
         $categoryRoot = $category->root();
 
-        return view('blog.blog-category', [
+        return view('blog.categories.blog-category', [
             'posts' => $posts,
             'category' => $category,
             'categoryRoot' => $categoryRoot
@@ -194,7 +194,7 @@ class BlogController extends Controller
 
         // dd($posts);
 
-        return view('blog.blog-tag', [
+        return view('blog.tags.blog-tag', [
             'posts' => $posts,
             'tag'   => $tag,
             'tags' => $tags,
@@ -203,7 +203,7 @@ class BlogController extends Controller
 
     public function showTags()
     {
-        return view('blog.tags', [
+        return view('blog.tags.tags', [
             'tags' => Tag::whereHas('posts', function ($query) {
                 $query->publish();
             })->paginate(20),
@@ -239,7 +239,7 @@ class BlogController extends Controller
             ->take(3)
             ->get();
 
-        return view('blog.authors', compact(
+        return view('blog.authors.authors', compact(
             'posts',
             'recommendationPosts',
             'user',
@@ -255,14 +255,14 @@ class BlogController extends Controller
             ->where('name', '!=', 'Admin')
             ->orderBy('created_at', 'desc')->paginate(12);
 
-        return view('blog.blog-author', [
+        return view('blog.authors.blog-author', [
             'authors' => $authors,
         ]);
     }
 
     public function showTutorial()
     {
-        return view('blog.tutorials', [
+        return view('blog.tutorials.tutorials', [
             'tutorials' => Tutorial::whereHas('posts', function ($q) {
                 $q->publish();
             })->paginate(10),
@@ -282,7 +282,7 @@ class BlogController extends Controller
 
         // dd($users);
 
-        return view('blog.blog-tutorial', [
+        return view('blog.tutorials.blog-tutorial', [
             'users' => $users,
             'tutorial' => $tutorial,
         ]);
@@ -306,7 +306,7 @@ class BlogController extends Controller
             return $query->where('name', $user);
         })->orderBy('id', 'asc')->get();
 
-        return view('blog.blog-user-tutorial', [
+        return view('blog.authors.blog-user-tutorial', [
             'posts' => $posts,
             'tutorial' => $tutorial,
             'author' => $author,

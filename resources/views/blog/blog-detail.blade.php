@@ -133,7 +133,7 @@
 
                 {{-- Tutorial post --}}
                 <div id="tutorialPost" class="related-post mb-4">
-                    @include('blog.sub-blog.tutorial-post')
+                    @include('blog.tutorials.tutorial-post')
                 </div>
 
                 <div class="blog-author d-flex align-items-center">
