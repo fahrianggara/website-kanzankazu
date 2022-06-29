@@ -7,6 +7,7 @@ $markdown->setSafeMode(true);
 
 <div id="comment-{{ $comment->getKey() }}" class="media">
     <div class="comImg loading-cicle">
+
         <img class="mr-2 rounded-circle"
             src="https://www.gravatar.com/avatar/{{ md5($comment->commenter->email ?? $comment->guest_email) }}?d=wavatar&f=y.jpg"
             alt="{{ $comment->commenter->name ?? $comment->guest_name }} Avatar">

@@ -133,7 +133,7 @@ h6 {
     background: var(--first-color);
     color: #fff;
     transition: display 0.5s ease-in-out;
-    z-index: 99999;
+    z-index: 999;
 }
 
 .to-the-top i {
@@ -177,6 +177,31 @@ a.underline:hover {
     z-index: 9999;
 }
 
+#header .history-back{
+    padding: 0 1px 0 0;
+    margin: 6px;
+    max-height: auto !important;
+}
+
+#header .history-back a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: var(--sectionBg-color);
+    border-radius: 50%;
+    transition: none !important;
+    outline: none !important;
+    color: var(--text-color);
+}
+
+#header .history-back i {
+    font-size: 16px !important;
+}
+
+#header .history-back a:hover{
+    color: var(--first-color);
+}
+
 #header .logo h1 {
     font-size: 28px;
     margin: 0;
@@ -197,6 +222,7 @@ a.underline:hover {
     padding: 0;
     margin: 4px;
     max-height: 40px;
+    transition: all 0.1s ease-in-out !important;
 }
 
 /* change theme home */
@@ -485,6 +511,10 @@ input[type="search"]:focus::-webkit-search-cancel-button {
     cursor: default;
     display: flex;
     align-items: center;
+}
+
+.nav-menu .drop-down a i {
+    color: var(--first-color);
 }
 
 .nav-menu .drop-down li a {

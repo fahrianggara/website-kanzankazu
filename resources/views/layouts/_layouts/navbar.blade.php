@@ -1,5 +1,33 @@
 <header id="header">
     <div class="container d-flex">
+        {{-- Button history back --}}
+        <div class="history-back">
+            @if (Request::is('blog/*'))
+                <a href="javascript:history.go(-1)" class="btn">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            @elseif (Request::is('category/*'))
+                <a href="javascript:history.go(-1)" class="btn">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            @elseif (Request::is('tag/*'))
+                <a href="javascript:history.go(-1)" class="btn">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            @elseif (Request::is('tutorials/*'))
+                <a href="javascript:history.go(-1)" class="btn">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            @elseif(Request::is('authors/*'))
+                <a href="javascript:history.go(-1)" class="btn">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            @elseif(Request::is('search'))
+                <a href="javascript:history.go(-1)" class="btn">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            @endif
+        </div>
 
         <div class="logo mr-auto">
             {{-- <h1 class="text-light"><a href="{{ route('blog.home') }}"><span>{{ $setting->site_name }}</span></a></h1> --}}
@@ -18,8 +46,9 @@
                     class="drop-down {{ set_active(['blog.categories', 'blog.posts.categories', 'blog.tags', 'blog.posts.tags', 'blog.author', 'blog.authors', 'blog.tutorials', 'blog.posts.tutorials', 'blog.posts.tutorials.author']) }}">
                     <a href="#">Filter Blog</a>
                     <ul>
-                        <li class="{{ set_active(['blog.tutorials', 'blog.posts.tutorials', 'blog.posts.tutorials.author']) }}"><a
-                                href="{{ route('blog.tutorials') }}">Tutorial</a>
+                        <li
+                            class="{{ set_active(['blog.tutorials', 'blog.posts.tutorials', 'blog.posts.tutorials.author']) }}">
+                            <a href="{{ route('blog.tutorials') }}">Tutorial</a>
                         </li>
                         <li class="{{ set_active(['blog.categories', 'blog.posts.categories']) }}"><a
                                 href="{{ route('blog.categories') }}">Kategori</a>
@@ -37,7 +66,7 @@
                 @if (Route::has('login'))
                     @auth
                         <li class="drop-down">
-                            <a href="#">{{ Auth::user()->slug }}</a>
+                            <a href="#"><i class="uil uil-user mr-2"></i>{{ Auth::user()->slug }}</a>
                             <ul>
                                 <li>
                                     <a target="_blank" href="{{ route('dashboard.index') }}">DASHBOARD</a>
@@ -82,8 +111,8 @@
             <form action="{{ route('blog.search') }}" method="GET">
                 <input id="search" type="search" name="keyword" value="{{ request()->get('keyword') }}"
                     class="search-blog" placeholder="Cari blog apapun disini..." autocomplete="off">
-                <button id="buttonSubmit" type="submit" class="uil btn-tooltip-hide" data-toggle="tooltip" data-placement="bottom"
-                title="Telusuri"><i class="uil uil-search"></i></button>
+                <button id="buttonSubmit" type="submit" class="uil btn-tooltip-hide" data-toggle="tooltip"
+                    data-placement="bottom" title="Telusuri"><i class="uil uil-search"></i></button>
             </form>
         </div>
 
@@ -112,6 +141,13 @@
 
 @push('js-internal')
     <script type="text/javascript">
+        function goBackAndRefresh() {
+            window.history.go(-1);
+            setTimeout(() => {
+                location.reload();
+            }, 0);
+        }
+
         $(function() {
             // === AUTOCOMPLETE SEARCH === //
             $("#search").autocomplete({

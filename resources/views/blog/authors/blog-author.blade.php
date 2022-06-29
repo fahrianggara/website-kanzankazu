@@ -33,7 +33,7 @@
                                         alt="{{ $author->name }} avatar">
                                 @endif
                             </div>
-                            <h3 class="profile-username text-center">{{ $author->name }}</h3>
+                            <h3 class="profile-username text-center"><a href="{{ route('blog.author', ['author' => $author->slug]) }}">{{ $author->name }}</a></h3>
                             <p class="text-muted text-center">{{ $author->roles->first()->name }}</p>
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">

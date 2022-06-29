@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\WebSetting;
 use App\Notifications\UserPostApproved;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
@@ -48,6 +50,9 @@ class AppServiceProvider extends ServiceProvider
 
         View::composer('*', function ($view) {
             $postUserApprove = Post::approve()->where('user_id', Auth::id())->latest();
+            // $currentRoute = Route::current();
+            // $paramsBlogs = $currentRoute->parameters();
+
             $view->with([
                 'postUserApprove' => $postUserApprove->limit(3)->get(),
                 'postApprove' => Post::approve()->limit(3)->get(),
