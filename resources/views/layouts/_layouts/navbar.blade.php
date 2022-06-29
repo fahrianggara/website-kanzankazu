@@ -3,7 +3,7 @@
         {{-- Button history back --}}
         <div class="history-back">
             @if (Request::is('blog/*'))
-                <a href="javascript:history.go(-1)" class="btn">
+                <a onclick="historyBackWFallback()" class="btn">
                     <i class="fas fa-arrow-left"></i>
                 </a>
             @elseif (Request::is('category/*'))
@@ -141,10 +141,16 @@
 
 @push('js-internal')
     <script type="text/javascript">
-        function goBackAndRefresh() {
+        function historyBackWFallback(fallbackUrl) {
+            fallbackUrl = fallbackUrl || "{{ route('blog.home') }}";
+            var prevPage = window.location.href;
+
             window.history.go(-1);
-            setTimeout(() => {
-                location.reload();
+
+            setTimeout(function() {
+                if (window.location.href == prevPage) {
+                    window.location.href = fallbackUrl;
+                }
             }, 0);
         }
 
