@@ -13,7 +13,7 @@
         @if ($tag->posts->count() >= 1)
             <div class="section-title">
                 <h2>Ini dia yang kamu cari</h2>
-                <p>Ada {{ $tag->posts->count() }} blog dalam tag {{ $tag->title }}.</p>
+                <p>Ada {{ $tag->posts->count() }} blog dalam tag <span class="titleFilter">{{ $tag->title }}</span>.</p>
             </div>
         @endif
 

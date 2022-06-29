@@ -306,7 +306,7 @@ class BlogController extends Controller
             return $query->where('name', $user);
         })->orderBy('id', 'asc')->get();
 
-        return view('blog.authors.blog-user-tutorial', [
+        return view('blog.tutorials.blog-user-tutorial', [
             'posts' => $posts,
             'tutorial' => $tutorial,
             'author' => $author,

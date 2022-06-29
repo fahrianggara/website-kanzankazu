@@ -13,7 +13,7 @@
         @if ($tutorial->posts->count() >= 1)
             <div class="section-title">
                 <h2>Tutorial {{ $tutorial->title }} oleh {{ $author->name }}.</h2>
-                <p>Ada {{ $tutorial->posts->count() }} tutorial {{ $tutorial->title }} yang dibuat oleh {{ $author->name }}.</p>
+                <p>Ada {{ $tutorial->posts->count() }} tutorial <span class="titleFilter">{{ $tutorial->title }}</span> yang dibuat oleh <span class="titleFilter">{{ $author->name }}</span>.</p>
             </div>
         @endif
 

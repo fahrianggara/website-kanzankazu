@@ -63,7 +63,7 @@
         <div class="container">
             <div class="section-title">
                 <h2>Rekomendasi Blog</h2>
-                <p>Ada {{ $recommendationPosts->count() }} blog yang direkomendasikan oleh {{ $user->name }}.</p>
+                <p>Ada {{ $recommendationPosts->count() }} blog yang direkomendasikan oleh <span class="titleFilter">{{ $user->name }}</span>.</p>
             </div>
 
             <div class="row">
@@ -159,7 +159,7 @@
         @if ($posts->count() >= 1)
             <div class="section-title">
                 <h2>by {{ $user->name }}.</h2>
-                <p>Ada {{ $posts->count() }} blog yang ditulis oleh {{ $user->name }}.</p>
+                <p>Ada {{ $posts->count() }} blog yang ditulis oleh <span class="titleFilter">{{ $user->name }}</span>.</p>
             </div>
         @endif
 

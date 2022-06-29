@@ -13,7 +13,8 @@
         @if ($tutorial->posts->count() >= 1)
             <div class="section-title">
                 <h2>Pilih Author</h2>
-                <p>Silahkan pilih author-nya terlebih dahulu yaa</p>
+                <p>Silahkan pilih author-nya terlebih dahulu yaa,</p>
+                <p>Sebelum memilih tutorial <span class="titleFilter">{{ $tutorial->title }}</span>-nya.</p>
             </div>
         @endif
 
