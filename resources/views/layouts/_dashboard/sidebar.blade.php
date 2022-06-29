@@ -25,7 +25,7 @@
                 </li>
                 {{-- HOMEPAGE --}}
                 <li>
-                    <a href="{{ route('homepage') }}" target="_blank" class="waves-effect">
+                    <a href="{{ route('homepage') }}" class="waves-effect">
                         <i class="uil uil-estate"></i>
                         <span>Beranda</span>
                     </a>

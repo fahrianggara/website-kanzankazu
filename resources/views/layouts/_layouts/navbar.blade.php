@@ -69,7 +69,7 @@
                             <a href="#"><i class="uil uil-user mr-2"></i>{{ Auth::user()->slug }}</a>
                             <ul>
                                 <li>
-                                    <a target="_blank" href="{{ route('dashboard.index') }}">DASHBOARD</a>
+                                    <a href="{{ route('dashboard.index') }}">DASHBOARD</a>
                                 </li>
                                 <li>
                                     <a href="" data-toggle="modal" data-target="#logModal">LOG OUT</a>
