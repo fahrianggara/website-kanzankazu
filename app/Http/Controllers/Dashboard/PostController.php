@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Mail\NewPost;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Newsletter;
 use App\Models\RecommendationPost;
 use App\Models\Tag;
 use App\Models\Tutorial;
@@ -19,6 +21,7 @@ use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
@@ -380,6 +383,11 @@ class PostController extends Controller
                     return redirect()->route('posts.index')->with('success', 'Postingan kamu sedang menunggu persetujuan dari mimin!');
                 } else {
                     if ($post->status == 'publish') {
+                        $data = Newsletter::select('email')->get();
+
+                        foreach ($data as $item) {
+                            Mail::to($item->email)->send(new NewPost($post));
+                        }
                         return redirect()->route('posts.index')->with('success', 'Postingan baru berhasil ditambahkan!');
                     } else {
                         return redirect()->route('posts.index')->with('success', 'Postingan baru berhasil ditambahkan didalam arsip kamu!');

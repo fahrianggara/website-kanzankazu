@@ -2,26 +2,25 @@
 
 namespace App\Mail;
 
-use App\Models\Contact;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ReplayInbox extends Mailable
+class NewPost extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $contact;
+    public $post;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($contact)
+    public function __construct($post)
     {
-        $this->contact = $contact;
+        $this->post = $post;
     }
 
     /**
@@ -31,7 +30,7 @@ class ReplayInbox extends Mailable
      */
     public function build()
     {
-        return $this->markdown('mails.replay')
-            ->subject($this->contact['judul']);
+        return $this->markdown('mails.new-post')
+            ->subject('Postingan Terbaru');
     }
 }
