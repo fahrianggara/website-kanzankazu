@@ -72,7 +72,7 @@
                                     <a href="{{ route('dashboard.index') }}"><i class="uil uil-graph-bar mr-2"></i> Dashboard</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('profile.index') }}"><i class="uil uil-user mr-2"></i> Profile Kamu</a>
+                                    <a href="{{ route('profile.index') }}"><i class="uil uil-house-user mr-2"></i> Profile Kamu</a>
                                 </li>
                                 <hr style="background-color: #00b2cc; height: 1px; border: 0; margin: 10px 0 10px 0;">
                                 <li>
