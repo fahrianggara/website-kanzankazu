@@ -44,7 +44,7 @@
 
                 <li
                     class="drop-down {{ set_active(['blog.categories', 'blog.posts.categories', 'blog.tags', 'blog.posts.tags', 'blog.author', 'blog.authors', 'blog.tutorials', 'blog.posts.tutorials', 'blog.posts.tutorials.author']) }}">
-                    <a href="#">Filter Blog</a>
+                    <a href="#"><i class="uil uil-sliders-v mr-2"></i>Filter Blog</a>
                     <ul>
                         <li
                             class="{{ set_active(['blog.tutorials', 'blog.posts.tutorials', 'blog.posts.tutorials.author']) }}">
