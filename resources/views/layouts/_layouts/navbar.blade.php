@@ -66,7 +66,7 @@
                 @if (Route::has('login'))
                     @auth
                         <li class="drop-down">
-                            <a href="#"><i class="uil uil-user mr-2"></i>{{ Auth::user()->slug }}</a>
+                            <a href="#"><i class="uil uil-user mr-2"></i>{{ Auth::user()->name }}</a>
                             <ul>
                                 <li>
                                     <a href="{{ route('dashboard.index') }}">DASHBOARD</a>
