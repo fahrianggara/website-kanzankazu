@@ -325,7 +325,7 @@
                                     <td align="justify">
                                         <div style="line-height: 24px">
                                             <p style="color: rgba(0, 0, 0, 0.80); font-size: 16px; font-family: 'Lato', sans-serif !important; line-height: 24px;">
-                                                {{ substr($post['description'], 0, 200) }}
+                                                {{ substr($post['description'], 0, 200) }}..
                                             </p>
                                         </div>
                                     </td>

@@ -3,7 +3,7 @@
         {{-- Button history back --}}
         <div class="history-back">
             @if (Request::is('blog/*'))
-                <a onclick="historyBackWFallback()" class="btn">
+                <a onclick="historyBackBlog()" class="btn">
                     <i class="fas fa-arrow-left"></i>
                 </a>
             @elseif (Request::is('category/*'))
@@ -19,7 +19,7 @@
                     <i class="fas fa-arrow-left"></i>
                 </a>
             @elseif(Request::is('authors/*'))
-                <a href="javascript:history.go(-1)" class="btn">
+                <a onclick="historyBackAuthor()" class="btn">
                     <i class="fas fa-arrow-left"></i>
                 </a>
             @elseif(Request::is('search'))
@@ -108,9 +108,9 @@
         </div>
 
         <div class="search-nav">
-            <form action="{{ route('blog.search') }}" method="GET">
+            <form action="{{ route('blog.search') }}" method="GET" autocomplete="off">
                 <input id="search" type="search" name="keyword" value="{{ request()->get('keyword') }}"
-                    class="search-blog" placeholder="Cari blog apapun disini..." autocomplete="off">
+                    class="search-blog" placeholder="Cari blog apapun disini...">
                 <button id="buttonSubmit" type="submit" class="uil btn-tooltip-hide" data-toggle="tooltip"
                     data-placement="bottom" title="Telusuri"><i class="uil uil-search"></i></button>
             </form>
@@ -141,8 +141,21 @@
 
 @push('js-internal')
     <script type="text/javascript">
-        function historyBackWFallback(fallbackUrl) {
+        function historyBackBlog(fallbackUrl) {
             fallbackUrl = fallbackUrl || "{{ route('blog.home') }}";
+            var prevPage = window.location.href;
+
+            window.history.go(-1);
+
+            setTimeout(function() {
+                if (window.location.href == prevPage) {
+                    window.location.href = fallbackUrl;
+                }
+            }, 0);
+        }
+
+        function historyBackAuthor(fallbackUrl) {
+            fallbackUrl = fallbackUrl || "{{ route('blog.authors') }}";
             var prevPage = window.location.href;
 
             window.history.go(-1);
@@ -164,23 +177,23 @@
                         .title);
                     return false;
                 },
-                search: function() {
-                    $('#buttonSubmit').attr('disabled', true);
-                    $('#buttonSubmit').html('<i class="fa fa-spin fa-spinner"></i>');
-                },
+                // search: function() {
+                //     $('#buttonSubmit').attr('disabled', true);
+                //     $('#buttonSubmit').html('<i class="fa fa-spin fa-spinner"></i>');
+                // },
                 open: function() {
                     $(".ui-autocomplete:visible").css({
                         top: "+=10.6",
                         left: "+=1"
                     });
 
-                    $('#buttonSubmit').attr('disabled', false);
-                    $('#buttonSubmit').html('<i class="uil uil-search"></i>');
+                    // $('#buttonSubmit').attr('disabled', false);
+                    // $('#buttonSubmit').html('<i class="uil uil-search"></i>');
 
-                    setInterval(() => {
-                        $('#buttonSubmit').attr('disabled', false);
-                        $('#buttonSubmit').html('<i class="uil uil-search"></i>');
-                    }, 4000);
+                    // setInterval(() => {
+                    //     $('#buttonSubmit').attr('disabled', false);
+                    //     $('#buttonSubmit').html('<i class="uil uil-search"></i>');
+                    // }, 4000);
                 },
                 select: function(event, ui) {
                     window.location.href = ui.item.url;

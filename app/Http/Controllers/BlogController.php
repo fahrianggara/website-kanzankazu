@@ -144,7 +144,7 @@ class BlogController extends Controller
         if (!$posts->isEmpty()) {
             foreach ($posts as $post) {
 
-                $new_row['title'] = $post->title;
+                $new_row['title'] = substr($post->title, 0, 25);
                 $new_row['url'] = route('blog.detail', ['slug' => $post->slug]);
 
                 $row_set[] = $new_row;
