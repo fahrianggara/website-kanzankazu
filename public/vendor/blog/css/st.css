@@ -2446,7 +2446,7 @@ pre[class*="language-"] {
     background: 0 0;
     font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
     text-shadow: 0 1px var(--sectionBg-color);
-    font-size: 16px;
+    font-size: 14px !important;
     border-radius: 5px;
     text-align: left;
     white-space: pre;
