@@ -74,9 +74,9 @@
                                 <li>
                                     <a href="{{ route('profile.index') }}">Profile Kamu</a>
                                 </li>
-                               <hr style="background-color: #00b2cc; height: 1px; border: 0; margin: 10px 0 10px 0;">
+                                <hr style="background-color: #00b2cc; height: 1px; border: 0; margin: 10px 0 10px 0;">
                                 <li>
-                                    <a href="" data-toggle="modal" data-target="#logModal">Log Out</a>
+                                    <a id="log-out" href="" data-toggle="modal" data-target="#logModal">Log Out</a>
                                 </li>
                             </ul>
                         </li>
@@ -172,6 +172,10 @@
         }
 
         $(function() {
+            $(document).on('click', '#log-out', function() {
+                $('body').removeClass('mobile-nav-active');
+            });
+
             // === AUTOCOMPLETE SEARCH === //
             $("#search").autocomplete({
                 delay: 100,
