@@ -2769,11 +2769,18 @@ div.code-toolbar>.toolbar>.toolbar-item>span:hover {
 .main-blog .entry .entry-footer {
     padding-top: 10px;
     border-top: 1px solid var(--text-color);
+    display: flex;
 }
 
 .main-blog .entry .entry-footer i {
     color: var(--first-color);
     display: inline;
+}
+
+.main-blog .entry .entry-footer .tag_post,
+.main-blog .entry .entry-footer .tuto_post,
+.main-blog .entry .entry-footer .cat_post {
+    margin: 0 0 0 2px !important;
 }
 
 .main-blog .entry .entry-footer .link-tagCats {
@@ -3471,6 +3478,9 @@ div.code-toolbar>.toolbar>.toolbar-item>span:hover {
 @media (max-width: 378px) {
     .main-blog .post-related a {
         font-size: 16px;
+    }
+    .main-blog .post-related .link-moreblog {
+        line-height: 20px !important;
     }
 }
 
@@ -4313,13 +4323,30 @@ ul li.ui-menu-item p:hover {
 }
 
 /* media */
+@media (max-width: 484px) {
+    .main-blog .entry .entry-footer {
+        display: block;
+    }
+
+    .main-blog .entry .entry-footer .tuto_post,
+    .main-blog .entry .entry-footer .cat_post {
+        margin-top: 7px !important;
+    }
+
+    .main-blog .entry .entry-footer i {
+        margin-right: 4px !important;
+    }
+}
+
 @media (max-width: 375px) {
     .blog-author img {
         width: 100px !important;
     }
+
     .blog-author a.nameAuthor {
         font-size: 20px !important;
     }
+
     .main-blog .blog-author p {
         font-size: 15px !important;
     }
@@ -4337,6 +4364,7 @@ ul li.ui-menu-item p:hover {
     .main-blog .entry .entry-title span {
         font-size: 24px !important;
     }
+
     .main-blog .entry .entry-title {
         margin: 8px 0 8px 0 !important;
     }
@@ -4352,32 +4380,37 @@ ul li.ui-menu-item p:hover {
         font-size: 14px;
         padding-right: 5px;
     }
-}
 
-@media (max-width: 331px) {
-    .main-blog .post-related .img-moreBlog .img-read {
-        font-size: 12px !important;
+    .main-blog .related-post h2 {
+        font-size: 27px !important;
     }
 }
+
 @media (max-width: 331px) {
     .blog-author img {
         width: 80px !important;
     }
+
     .blog-author a.nameAuthor {
         font-size: 17px !important;
     }
+
     .main-blog .blog-author p {
         font-size: 13px !important;
     }
+
     .main-blog .entry-single .entry-title {
         line-height: 27px !important;
     }
-    .entry-bottom .btn-Next, .entry-bottom .btn-Prev {
+
+    .entry-bottom .btn-Next,
+    .entry-bottom .btn-Prev {
         font-size: 13px !important;
     }
 }
 
 @media (max-width: 367px) {
+
     .main-blog .sidebar .recent-posts h4 a,
     .main-blog .sidebar .recent-posts h4 a.active,
     .main-blog .sidebar .categories h4 a {
@@ -4392,6 +4425,7 @@ ul li.ui-menu-item p:hover {
     .main-blog .sidebar .tags ul a {
         font-size: 13px !important;
     }
+
     .main-blog .sidebar .categories {
         overflow-x: hidden !important;
     }
@@ -4421,9 +4455,11 @@ ul li.ui-menu-item p:hover {
     .main-blog .entry .entry-content div {
         font-size: 14px;
     }
+
     .main-blog .entry .entry-footer .cats {
         font-size: 12px !important;
     }
+
     .main-blog .entry .entry-footer .tags {
         font-size: 12px !important;
     }
@@ -4466,6 +4502,7 @@ ul li.ui-menu-item p:hover {
     .main-blog .sidebar .tags ul a {
         font-size: 12px !important;
     }
+
     .main-blog .sidebar .categories {
         overflow-x: hidden !important;
     }
@@ -4475,6 +4512,7 @@ ul li.ui-menu-item p:hover {
         font-size: 14px !important;
         line-height: .1px !important;
     }
+
     #footer .footer-top .popular-post .post-time .text-time {
         font-size: 12px !important;
     }
@@ -4482,7 +4520,8 @@ ul li.ui-menu-item p:hover {
     #footer .footer-top .footer-newsletter form button[type=submit] {
         font-size: 14px !important;
     }
-    #footer .footer-top .footer-newsletter form input[type=text]{
+
+    #footer .footer-top .footer-newsletter form input[type=text] {
         width: calc(100% - 100px) !important;
     }
 
@@ -4491,7 +4530,8 @@ ul li.ui-menu-item p:hover {
         bottom: 25px !important;
     }
 
-    .entry-bottom .btn-Next, .entry-bottom .btn-Prev {
+    .entry-bottom .btn-Next,
+    .entry-bottom .btn-Prev {
         font-size: 12px !important;
     }
 

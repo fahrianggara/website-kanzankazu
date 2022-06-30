@@ -81,52 +81,49 @@
                     </div>
 
                     <div class="entry-footer clearfix">
-                        <div class="float-left d-flex">
-                            <div class="tagCats loading">
-                                <i class="icofont-tags btn-tooltip-hide" data-toggle="tooltip" data-placement="bottom"
+                        <div class="tagCats tag_post loading">
+                            <i class="icofont-tags btn-tooltip-hide" data-toggle="tooltip" data-placement="bottom"
                                 title="Tag"></i>
-                                <ul class="tags">
-                                    @foreach ($post->tags as $tag)
-                                        <li>
-                                            <a class="link-tagCats"
-                                                href="{{ route('blog.posts.tags', ['slug' => $tag->slug]) }}">{{ $tag->title }}
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-
-                            <div class="ml-1 tagCats loading">
-                                <i class="icofont-folder btn-tooltip-hide" data-toggle="tooltip" data-placement="bottom"
-                                title="Kategori"></i>
-                                <ul class="tags">
-                                    @foreach ($post->categories as $category)
-                                        <li>
-                                            <a class="link-tagCats"
-                                                href="{{ route('blog.posts.categories', ['slug' => $category->slug]) }}">{{ $category->title }}
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-
-                            @if ($post->tutorials->isNotEmpty())
-                                <div class="ml-1 tagCats loading">
-                                    <i class="uil uil-books btn-tooltip-hide" data-toggle="tooltip" data-placement="bottom"
-                                    title="Tutorial"></i>
-                                    <ul class="tags">
-                                        @foreach ($post->tutorials as $tutorial)
-                                            <li>
-                                                <a class="link-tagCats"
-                                                    href="{{ route('blog.posts.tutorials.author', ['slug' => $tutorial->slug, 'user' => $post->user->slug]) }}">{{ $tutorial->title }}
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-
+                            <ul class="tags">
+                                @foreach ($post->tags as $tag)
+                                    <li>
+                                        <a class="link-tagCats"
+                                            href="{{ route('blog.posts.tags', ['slug' => $tag->slug]) }}">{{ $tag->title }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
                         </div>
+
+                        <div class="tagCats cat_post loading">
+                            <i class="icofont-folder btn-tooltip-hide" data-toggle="tooltip" data-placement="bottom"
+                                title="Kategori"></i>
+                            <ul class="tags">
+                                @foreach ($post->categories as $category)
+                                    <li>
+                                        <a class="link-tagCats"
+                                            href="{{ route('blog.posts.categories', ['slug' => $category->slug]) }}">{{ $category->title }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+
+                        @if ($post->tutorials->isNotEmpty())
+                            <div class="tagCats tuto_post loading">
+                                <i class="uil uil-books btn-tooltip-hide" data-toggle="tooltip" data-placement="bottom"
+                                    title="Tutorial"></i>
+                                <ul class="tags">
+                                    @foreach ($post->tutorials as $tutorial)
+                                        <li>
+                                            <a class="link-tagCats"
+                                                href="{{ route('blog.posts.tutorials.author', ['slug' => $tutorial->slug, 'user' => $post->user->slug]) }}">{{ $tutorial->title }}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
 
                     </div>
                 </article>

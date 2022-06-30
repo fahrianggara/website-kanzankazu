@@ -31,7 +31,7 @@
                     <div class="link-moreblog loading">
                         <a class="link-textMoreBlog underline {{ request()->is('blog/' . $post->slug) ? 'active' : '' }}"
                             href="{{ route('blog.detail', ['slug' => $post->slug]) }}">
-                            {{ '#' . $loop->iteration . ' - ' . $post->title }}
+                            {{ '#' . $loop->iteration . ' - ' . substr($post->title, 0, 20) }}..
                         </a>
                     </div>
                 </div>
