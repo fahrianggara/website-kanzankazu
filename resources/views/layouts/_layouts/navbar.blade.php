@@ -130,7 +130,7 @@
                 Apakah kamu ingin Logout?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="close-logOut" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <a href="{{ route('logout') }}" type="button" class="btn btn-danger"
                     onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">Logout
@@ -174,6 +174,9 @@
         $(function() {
             $(document).on('click', '#log-out', function() {
                 $('body').removeClass('mobile-nav-active');
+                $('div').removeClass('mobile-nav-overly');
+                $('#toggleNav').removeClass('icofont-close');
+                $('#toggleNav').addClass('uil uil-bars');
             });
 
             // === AUTOCOMPLETE SEARCH === //

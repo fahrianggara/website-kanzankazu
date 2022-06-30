@@ -61,7 +61,7 @@
         });
         $('body').append($mobile_nav);
         $('body').prepend(
-            '<button type="button" class="mobile-nav-toggle d-lg-none"><i class="uil uil-bars"></i></button>'
+            '<button type="button" class="mobile-nav-toggle d-lg-none"><i id="toggleNav" class="uil uil-bars"></i></button>'
         );
         $('body').append('<div class="mobile-nav-overly"></div>');
 

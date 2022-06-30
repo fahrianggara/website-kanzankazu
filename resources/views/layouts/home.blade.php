@@ -117,7 +117,7 @@
     <script src="{{ asset('vendor/blog/assets/owl.carousel/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('vendor/blog/assets/alertify/js/alertify.js') }}"></script>
     {{-- Main Js --}}
-    <script src="{{ asset('vendor/blog/js/main.js') }}"></script>
+    <script src="{{ asset('vendor/blog/js/app.js') }}"></script>
     {{-- JS Ext --}}
     @stack('js-external')
     {{-- JS Int --}}
