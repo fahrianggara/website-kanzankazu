@@ -37,9 +37,9 @@
 
         <nav class="nav-menu d-none d-lg-block">
             <ul>
-                <li class="{{ set_active(['homepage']) }}"><a href="{{ route('homepage') }}">Beranda</a></li>
+                <li class="{{ set_active(['homepage']) }}"><a href="{{ route('homepage') }}"><i class="uil uil-estate mr-2" style="color: #00b2cc"></i>Beranda</a></li>
                 <li class="{{ set_active(['blog.home', 'blog.detail', 'blog.monthYear']) }} blogDetailActive">
-                    <a href="{{ route('blog.home') }}">Blog</a>
+                    <a href="{{ route('blog.home') }}"><i class="uil uil-create-dashboard mr-2" style="color: #00b2cc"></i>Blog</a>
                 </li>
 
                 <li
@@ -48,16 +48,16 @@
                     <ul>
                         <li
                             class="{{ set_active(['blog.tutorials', 'blog.posts.tutorials', 'blog.posts.tutorials.author']) }}">
-                            <a href="{{ route('blog.tutorials') }}">Tutorial</a>
+                            <a href="{{ route('blog.tutorials') }}"><i class="uil uil-layer-group mr-2"></i>Tutorial</a>
                         </li>
                         <li class="{{ set_active(['blog.categories', 'blog.posts.categories']) }}"><a
-                                href="{{ route('blog.categories') }}">Kategori</a>
+                                href="{{ route('blog.categories') }}"><i class="uil uil-bookmark mr-2"></i>Kategori</a>
                         </li>
                         <li class="{{ set_active(['blog.tags', 'blog.posts.tags']) }}"><a
-                                href=" {{ route('blog.tags') }}">Tag</a>
+                                href=" {{ route('blog.tags') }}"><i class="uil uil-tag-alt mr-2"></i>Tag</a>
                         </li>
                         <li class="{{ set_active(['blog.authors', 'blog.author']) }}">
-                            <a href="{{ route('blog.authors') }}">Author</a>
+                            <a href="{{ route('blog.authors') }}"><i class="uil uil-users-alt mr-2"></i>Author</a>
                         </li>
                     </ul>
                 </li>
@@ -69,26 +69,26 @@
                             <a href="#"><i class="uil uil-user mr-2"></i>{{ Auth::user()->name }}</a>
                             <ul>
                                 <li>
-                                    <a href="{{ route('dashboard.index') }}">Dashboard</a>
+                                    <a href="{{ route('dashboard.index') }}"><i class="uil uil-graph-bar mr-2"></i> Dashboard</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('profile.index') }}">Profile Kamu</a>
+                                    <a href="{{ route('profile.index') }}"><i class="uil uil-user mr-2"></i> Profile Kamu</a>
                                 </li>
                                 <hr style="background-color: #00b2cc; height: 1px; border: 0; margin: 10px 0 10px 0;">
                                 <li>
-                                    <a id="log-out" href="" data-toggle="modal" data-target="#logModal">Log Out</a>
+                                    <a id="log-out" href="" data-toggle="modal" data-target="#logModal">Log Out <i class="uil uil-signout ml-2"></i></a>
                                 </li>
                             </ul>
                         </li>
                     @else
                         <li class="drop-down">
-                            <a href="#">JOIN US</a>
+                            <a href="#"><i class="uil uil-user-plus mr-2"></i>JOIN US</a>
                             <ul>
                                 <li class="">
-                                    <a href="{{ route('login') }}">Log In</a>
+                                    <a href="{{ route('login') }}"><i class="uil uil-signin mr-2"></i>Log In</a>
                                 </li>
                                 <li class="">
-                                    <a href=" {{ route('register') }}">Sign Up</a>
+                                    <a href=" {{ route('register') }}"><i class="uil uil-file-edit-alt mr-2"></i>Sign Up</a>
                                 </li>
                             </ul>
                         </li>
