@@ -130,7 +130,7 @@
                 Apakah kamu ingin Logout?
             </div>
             <div class="modal-footer">
-                <button id="close-logOut" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="close-logOut" type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                 <a href="{{ route('logout') }}" type="button" class="btn btn-danger"
                     onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">Logout
