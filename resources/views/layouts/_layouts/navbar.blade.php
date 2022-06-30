@@ -69,10 +69,14 @@
                             <a href="#"><i class="uil uil-user mr-2"></i>{{ Auth::user()->name }}</a>
                             <ul>
                                 <li>
-                                    <a href="{{ route('dashboard.index') }}">DASHBOARD</a>
+                                    <a href="{{ route('dashboard.index') }}">Dashboard</a>
                                 </li>
                                 <li>
-                                    <a href="" data-toggle="modal" data-target="#logModal">LOG OUT</a>
+                                    <a href="{{ route('profile.index') }}">Profile Kamu</a>
+                                </li>
+                               <hr style="background-color: #00b2cc; height: 1px; border: 0; margin: 10px 0 10px 0;">
+                                <li>
+                                    <a href="" data-toggle="modal" data-target="#logModal">Log Out</a>
                                 </li>
                             </ul>
                         </li>
@@ -81,10 +85,10 @@
                             <a href="#">JOIN US</a>
                             <ul>
                                 <li class="">
-                                    <a href="{{ route('login') }}">LOG IN</a>
+                                    <a href="{{ route('login') }}">Log In</a>
                                 </li>
                                 <li class="">
-                                    <a href=" {{ route('register') }}">SIGN UP</a>
+                                    <a href=" {{ route('register') }}">Sign Up</a>
                                 </li>
                             </ul>
                         </li>
