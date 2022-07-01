@@ -154,6 +154,18 @@
 
 @push('js-internal')
     <script type="text/javascript">
+        function historyBackBlog(fallbackUrl) {
+            fallbackUrl = fallbackUrl || "{{ route('blog.home') }}";
+            var prevPage = window.location.href;
+
+            window.history.go(-1);
+
+            setTimeout(function() {
+                if (window.location.href == prevPage) {
+                    window.location.href = fallbackUrl;
+                }
+            }, 0);
+        }
 
         function historyBackAuthor(fallbackUrl) {
             fallbackUrl = fallbackUrl || "{{ route('blog.authors') }}";
@@ -176,7 +188,7 @@
                 if (currentUrl === window.location.href) {
                     window.location.href = targetUrl;
                 }
-            }, 0);
+            }, 100);
         }
 
         $(function() {
