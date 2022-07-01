@@ -77,7 +77,7 @@ class UserController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'name' => 'required|alpha_spaces|max:50|min:3',
+                'name' => 'required|alpha_spaces|max:12|min:3',
                 'role' => 'required',
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required|min:8|max:16|confirmed',
@@ -182,7 +182,7 @@ class UserController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'name' => 'required|alpha_spaces|max:50|min:3',
+                'name' => 'required|alpha_spaces|max:12|min:3',
                 'slug'  => 'unique:users,slug,' . $user->id,
                 'role' => 'required',
                 'user_image' => 'image|mimes:jpg,png,jpeg,gif|max:1024',
@@ -190,7 +190,7 @@ class UserController extends Controller
             [
                 'name.required' => 'Wajib harus diisi!',
                 'name.alpha_spaces' => 'Hanya boleh huruf dan spasi!',
-                'name.max' => 'Maksimal 50 karakter!',
+                'name.max' => 'Maksimal 12 karakter!',
                 'name.min' => 'Minimal 3 karakter!',
                 'slug.unique' => 'Nama sudah ada!',
                 'role.required' => 'Wajib harus diisi!',

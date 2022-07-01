@@ -34,7 +34,7 @@
                         <div class="form-input">
                             <div class="iconForm"><i class="uil uil-user"></i></div>
                             <input type="text" id="name" class="form_control @error('name') is-invalid @enderror"
-                                name="name" value="{{ old('name') }}" autofocus>
+                                name="name" value="{{ old('name') }}" style="text-transform: lowercase;" autofocus>
                             <label for="name">User Name</label>
 
                             @error('name')
@@ -81,7 +81,7 @@
                             <input type="password" class="form_control @error('password') is-invalid @enderror"
                                 id="password-confirm" type="password" name="password_confirmation"
                                 autocomplete="new-password">
-                            <label for="password">Confirm Password</label>
+                            <label for="password-confirm">Confirm Password</label>
 
                             <div class="passTog"><i class="bi bi-eye-slash-fill" id="toggleNewPass"></i></div>
 

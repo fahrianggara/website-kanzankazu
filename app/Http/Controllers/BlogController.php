@@ -259,11 +259,11 @@ class BlogController extends Controller
         $setting = WebSetting::find(1);
 
         SEOMeta::setTitle($category->title . ' - ' . $setting->site_name);
-        SEOMeta::setDescription($category->description ?? 'Postingan kategori ' . $category->title . ' di ' , $setting->site_name);
+        SEOMeta::setDescription($category->description ?? 'Postingan kategori ' . $category->title . ' di ', $setting->site_name);
         SEOMeta::addMeta('article:published_time', Carbon::parse($category->created_at)->toW3cString() . PHP_EOL, 'property');
         SEOMeta::addKeyword([$category->title . ' ' . $setting->site_name]);
 
-        OpenGraph::setDescription($category->description ?? 'Postingan kategori ' . $category->title . ' di ' , $setting->site_name);
+        OpenGraph::setDescription($category->description ?? 'Postingan kategori ' . $category->title . ' di ', $setting->site_name);
         OpenGraph::setTitle($category->title . ' - ' . $setting->site_name);
         OpenGraph::setUrl(route('blog.posts.categories', $category->slug));
         OpenGraph::addProperty('type', 'article');
@@ -272,11 +272,11 @@ class BlogController extends Controller
         TwitterCard::setSite('@' . $setting->site_name);
 
         JsonLd::setTitle($category->title);
-        JsonLd::setDescription($category->description ?? 'Postingan kategori ' . $category->title . ' di ' , $setting->site_name);
+        JsonLd::setDescription($category->description ?? 'Postingan kategori ' . $category->title . ' di ', $setting->site_name);
         JsonLd::setType('Article');
 
         JsonLdMulti::setTitle($category->title);
-        JsonLdMulti::setDescription($category->description ?? 'Postingan kategori ' . $category->title . ' di ' , $setting->site_name);
+        JsonLdMulti::setDescription($category->description ?? 'Postingan kategori ' . $category->title . ' di ', $setting->site_name);
         JsonLdMulti::setType('Article');
 
         if (!JsonLdMulti::isEmpty()) {
@@ -288,7 +288,7 @@ class BlogController extends Controller
         OpenGraph::setTitle($category->title)
             ->setUrl(route('blog.posts.categories', $category->slug))
             ->setSiteName($setting->site_name)
-            ->setDescription($category->description ?? 'Postingan kategori ' . $category->title . ' di ' , $setting->site_name)
+            ->setDescription($category->description ?? 'Postingan kategori ' . $category->title . ' di ', $setting->site_name)
             ->setType('article')
             ->setArticle([
                 'published_time' => Carbon::parse($category->created_at)->toW3cString() . PHP_EOL,
@@ -483,13 +483,13 @@ class BlogController extends Controller
             ]);
 
         if (file_exists('vendor/dashboard/image/picture-profiles/' . $user->user_image)) {
-            OpenGraph::addImage(['url' => asset('vendor/dashboard/image/picture-profiles/' . $user->user_image), 'size' => 400]);
-            OpenGraph::addImage(asset('vendor/dashboard/image/picture-profiles/' . $user->user_image), ['height' => 400, 'width' => 400]);
+            OpenGraph::addImage(['url' => asset('vendor/dashboard/image/picture-profiles/' . $user->user_image), 'size' => 1080]);
+            OpenGraph::addImage(asset('vendor/dashboard/image/picture-profiles/' . $user->user_image), ['height' => 1080, 'width' => 1080]);
             JsonLd::addImage(asset('vendor/dashboard/image/picture-profiles/' . $user->user_image));
             JsonLdMulti::addImage(asset('vendor/dashboard/image/picture-profiles/' . $user->user_image));
         } else {
-            OpenGraph::addImage(['url' => asset('vendor/dashboard/image/avatar.png'), 'size' => 400]);
-            OpenGraph::addImage(asset('vendor/dashboard/image/avatar.png'), ['height' => 400, 'width' => 400]);
+            OpenGraph::addImage(['url' => asset('vendor/dashboard/image/avatar.png'), 'size' => 1080]);
+            OpenGraph::addImage(asset('vendor/dashboard/image/avatar.png'), ['height' => 1080, 'width' => 1080]);
             JsonLd::addImage(asset('vendor/dashboard/image/avatar.png'));
             JsonLdMulti::addImage(asset('vendor/dashboard/image/avatar.png'));
         }
@@ -531,15 +531,15 @@ class BlogController extends Controller
             ->whereHas('tutorials', fn ($query) => $query->where('slug', $slug))
             ->get();
 
-            $setting = WebSetting::find(1);
+        $setting = WebSetting::find(1);
 
-            SEOTools::setTitle($tutorial->title .' - ' . $setting->site_name);
-            SEOTools::setDescription('Tutorial ' . $tutorial->title .' di ' . $setting->site_name);
-            SEOTools::opengraph()->setUrl(route('blog.posts.tutorials', $tutorial->slug));
-            SEOTools::setCanonical(route('blog.posts.tutorials', $tutorial->slug));
-            SEOTools::opengraph()->addProperty('type', 'article');
-            SEOTools::twitter()->setSite('@' . $setting->site_name);
-            SEOTools::jsonLd();
+        SEOTools::setTitle($tutorial->title . ' - ' . $setting->site_name);
+        SEOTools::setDescription('Tutorial ' . $tutorial->title . ' di ' . $setting->site_name);
+        SEOTools::opengraph()->setUrl(route('blog.posts.tutorials', $tutorial->slug));
+        SEOTools::setCanonical(route('blog.posts.tutorials', $tutorial->slug));
+        SEOTools::opengraph()->addProperty('type', 'article');
+        SEOTools::twitter()->setSite('@' . $setting->site_name);
+        SEOTools::jsonLd();
 
         return view('blog.tutorials.blog-tutorial', [
             'users' => $users,

@@ -25,7 +25,7 @@ class ProfileController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'name' => 'required|alpha_spaces|min:3|max:8',
+                'name' => 'required|alpha_spaces|min:3|max:12',
                 'bio'  => 'nullable|min:10|max:500',
                 'slug' => 'string|unique:users,slug,' . Auth::user()->id,
                 'facebook' => 'nullable|url_www',
@@ -37,7 +37,7 @@ class ProfileController extends Controller
                 'name.required' => 'Masukkan nama kamu',
                 'name.alpha_spaces' => 'Hanya boleh berisi huruf dan spasi',
                 'name.min' => 'Minimal 3 karakter',
-                'name.max' => 'Maksimal 8 karakter',
+                'name.max' => 'Maksimal 12 karakter',
                 'bio.min' => 'Minimal 10 karakter',
                 'bio.max' => 'Maksimal 500 karakter',
                 'slug.unique' => 'Nama ini sudah digunakan',
