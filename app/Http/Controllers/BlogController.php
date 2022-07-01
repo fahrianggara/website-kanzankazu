@@ -567,18 +567,18 @@ class BlogController extends Controller
 
         $setting = WebSetting::find(1);
 
-        SEOMeta::setTitle($tutorial->title . ' - ' . $setting->site_name);
+        SEOMeta::setTitle('Tutorial ' . $tutorial->title . ' by ' . $author->name . ' - ' . $setting->site_name);
         SEOMeta::setDescription($tutorial->description ?? 'Tutorial ' . $tutorial->title . ' di ' . $setting->site_name);
         SEOMeta::addMeta('author', $author->name);
         SEOMeta::addMeta('article:published_time', Carbon::parse($tutorial->created_at)->toW3cString() . PHP_EOL, 'property');
         SEOMeta::addKeyword([$tutorial->title . ' ' . $setting->site_name]);
 
         OpenGraph::setDescription($tutorial->description ?? 'Tutorial ' . $tutorial->title . ' di ' . $setting->site_name);
-        OpenGraph::setTitle($tutorial->title . ' - ' . $setting->site_name);
+        OpenGraph::setTitle('Tutorial ' . $tutorial->title . ' by ' . $author->name . ' - ' . $setting->site_name);
         OpenGraph::setUrl(route('blog.posts.tutorials.author', ['slug' => $tutorial->slug, 'user' => $author->slug]));
         OpenGraph::addProperty('type', 'article');
 
-        TwitterCard::setTitle($tutorial->title . ' - ' . $setting->site_name);
+        TwitterCard::setTitle('Tutorial ' . $tutorial->title . ' by ' . $author->name . ' - ' . $setting->site_name);
         TwitterCard::setSite('@' . $setting->site_name);
 
         JsonLd::setTitle($tutorial->title);
@@ -595,7 +595,7 @@ class BlogController extends Controller
             JsonLdMulti::setTitle($tutorial->title);
         }
 
-        OpenGraph::setTitle($tutorial->title . ' - ' . $setting->site_name)
+        OpenGraph::setTitle('Tutorial ' . $tutorial->title . ' by ' . $author->name . ' - ' . $setting->site_name)
             ->setUrl(route('blog.posts.tutorials.author', ['slug' => $tutorial->slug, 'user' => $author->slug]))
             ->setSiteName($setting->site_name)
             ->setDescription($tutorial->description ?? 'Tutorial ' . $tutorial->title . ' di ' . $setting->site_name)
