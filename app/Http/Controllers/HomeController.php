@@ -24,7 +24,7 @@ class HomeController extends Controller
         SEOTools::setCanonical(route('homepage'));
         SEOTools::opengraph()->addProperty('type', 'articles');
         SEOTools::twitter()->setSite('@' . $setting->site_name);
-        SEOTools::jsonLd()->addImage(asset('vendor/blog/img/default.png'));
+        SEOTools::jsonLd()->addImage(asset('vendor/blog/img/home-img/' . $setting->image_banner));
 
         return view('layouts.home', [
             'posts' => Post::publish()->latest()->limit(3)->get(),
