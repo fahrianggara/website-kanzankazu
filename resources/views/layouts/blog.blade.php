@@ -23,11 +23,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {{-- {!! SEO::generate() !!} --}}
-    {!! SEOMeta::generate() !!}
-    {!! OpenGraph::generate() !!}
-    {!! Twitter::generate() !!}
-    {!! JsonLd::generate() !!}
-    {!! JsonLdMulti::generate() !!}
+    {!! SEOMeta::generate(true) !!}
+    {!! OpenGraph::generate(true) !!}
+    {!! Twitter::generate(true) !!}
+    {!! JsonLd::generate(true) !!}
+    {!! JsonLdMulti::generate(true) !!}
     {{-- Logo / icon --}}
     <link rel="shortcut icon" href="{{ asset('logo-web/favicon.ico') }}" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('logo-web/apple-icon-180x180.png') }}">

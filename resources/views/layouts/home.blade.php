@@ -16,7 +16,7 @@
         gtag('config', 'G-TKJXQ59K5W');
     </script>
     {{-- Primary Meta Tags --}}
-    {!! SEO::generate() !!}
+    {!! SEO::generate(true) !!}
 
     <meta name="author" content="{{ $setting->site_name }}">
     <meta name="keywords" content="{{ $setting->meta_keywords }}">
