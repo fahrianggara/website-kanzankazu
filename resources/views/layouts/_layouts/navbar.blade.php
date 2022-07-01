@@ -3,19 +3,19 @@
         {{-- Button history back --}}
         <div class="history-back">
             @if (Request::is('blog/*'))
-                <a onclick="historyBackBlog()" class="btn">
+                <a onclick="goBackOrTo()" class="btn">
                     <i class="fas fa-arrow-left"></i>
                 </a>
             @elseif (Request::is('category/*'))
-                <a href="javascript:history.go(-1)" class="btn">
+                <a onclick="goBackOrTo()" class="btn">
                     <i class="fas fa-arrow-left"></i>
                 </a>
             @elseif (Request::is('tag/*'))
-                <a href="javascript:history.go(-1)" class="btn">
+                <a onclick="goBackOrTo()" class="btn">
                     <i class="fas fa-arrow-left"></i>
                 </a>
             @elseif (Request::is('tutorials/*'))
-                <a href="javascript:history.go(-1)" class="btn">
+                <a onclick="goBackOrTo()" class="btn">
                     <i class="fas fa-arrow-left"></i>
                 </a>
             @elseif(Request::is('authors/*'))
@@ -23,7 +23,7 @@
                     <i class="fas fa-arrow-left"></i>
                 </a>
             @elseif(Request::is('search'))
-                <a href="javascript:history.go(-1)" class="btn">
+                <a onclick="goBackOrTo()" class="btn">
                     <i class="fas fa-arrow-left"></i>
                 </a>
             @endif
@@ -37,9 +37,11 @@
 
         <nav class="nav-menu d-none d-lg-block">
             <ul>
-                <li class="{{ set_active(['homepage']) }}"><a href="{{ route('homepage') }}"><i class="uil uil-estate mr-2" style="color: #00b2cc"></i>Beranda</a></li>
+                <li class="{{ set_active(['homepage']) }}"><a href="{{ route('homepage') }}"><i
+                            class="uil uil-estate mr-2" style="color: #00b2cc"></i>Beranda</a></li>
                 <li class="{{ set_active(['blog.home', 'blog.detail', 'blog.monthYear']) }} blogDetailActive">
-                    <a href="{{ route('blog.home') }}"><i class="uil uil-create-dashboard mr-2" style="color: #00b2cc"></i>Blog</a>
+                    <a href="{{ route('blog.home') }}"><i class="uil uil-create-dashboard mr-2"
+                            style="color: #00b2cc"></i>Blog</a>
                 </li>
 
                 <li
@@ -48,10 +50,12 @@
                     <ul>
                         <li
                             class="{{ set_active(['blog.tutorials', 'blog.posts.tutorials', 'blog.posts.tutorials.author']) }}">
-                            <a href="{{ route('blog.tutorials') }}"><i class="uil uil-layer-group mr-2"></i>Tutorial</a>
+                            <a href="{{ route('blog.tutorials') }}"><i
+                                    class="uil uil-layer-group mr-2"></i>Tutorial</a>
                         </li>
                         <li class="{{ set_active(['blog.categories', 'blog.posts.categories']) }}"><a
-                                href="{{ route('blog.categories') }}"><i class="uil uil-bookmark mr-2"></i>Kategori</a>
+                                href="{{ route('blog.categories') }}"><i
+                                    class="uil uil-bookmark mr-2"></i>Kategori</a>
                         </li>
                         <li class="{{ set_active(['blog.tags', 'blog.posts.tags']) }}"><a
                                 href=" {{ route('blog.tags') }}"><i class="uil uil-tag-alt mr-2"></i>Tag</a>
@@ -69,14 +73,17 @@
                             <a href="#"><i class="uil uil-user mr-2"></i>{{ Auth::user()->name }}</a>
                             <ul>
                                 <li>
-                                    <a href="{{ route('dashboard.index') }}"><i class="uil uil-graph-bar mr-2"></i> Dashboard</a>
+                                    <a href="{{ route('dashboard.index') }}"><i class="uil uil-graph-bar mr-2"></i>
+                                        Dashboard</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('profile.index') }}"><i class="uil uil-house-user mr-2"></i> Profile Kamu</a>
+                                    <a href="{{ route('profile.index') }}"><i class="uil uil-house-user mr-2"></i>
+                                        Profile Kamu</a>
                                 </li>
                                 <hr style="background-color: #00b2cc; height: 1px; border: 0; margin: 10px 0 10px 0;">
                                 <li>
-                                    <a id="log-out" href="" data-toggle="modal" data-target="#logModal">Log Out <i class="uil uil-signout ml-2"></i></a>
+                                    <a id="log-out" href="" data-toggle="modal" data-target="#logModal">Log Out <i
+                                            class="uil uil-signout ml-2"></i></a>
                                 </li>
                             </ul>
                         </li>
@@ -88,7 +95,8 @@
                                     <a href="{{ route('login') }}"><i class="uil uil-signin mr-2"></i>Log In</a>
                                 </li>
                                 <li class="">
-                                    <a href=" {{ route('register') }}"><i class="uil uil-file-edit-alt mr-2"></i>Sign Up</a>
+                                    <a href=" {{ route('register') }}"><i class="uil uil-file-edit-alt mr-2"></i>Sign
+                                        Up</a>
                                 </li>
                             </ul>
                         </li>
@@ -130,7 +138,8 @@
                 Apakah kamu ingin Logout?
             </div>
             <div class="modal-footer">
-                <button id="close-logOut" type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                <button id="close-logOut" type="button" class="btn btn-secondary"
+                    data-dismiss="modal">Tutup</button>
                 <a href="{{ route('logout') }}" type="button" class="btn btn-danger"
                     onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">Logout
@@ -145,18 +154,6 @@
 
 @push('js-internal')
     <script type="text/javascript">
-        function historyBackBlog(fallbackUrl) {
-            fallbackUrl = fallbackUrl || "{{ route('blog.home') }}";
-            var prevPage = window.location.href;
-
-            window.history.go(-1);
-
-            setTimeout(function() {
-                if (window.location.href == prevPage) {
-                    window.location.href = fallbackUrl;
-                }
-            }, 0);
-        }
 
         function historyBackAuthor(fallbackUrl) {
             fallbackUrl = fallbackUrl || "{{ route('blog.authors') }}";
@@ -171,7 +168,19 @@
             }, 0);
         }
 
+
+        function goBackOrTo(targetUrl) {
+            var currentUrl = window.location.href;
+            window.history.go(-1);
+            setTimeout(function() {
+                if (currentUrl === window.location.href) {
+                    window.location.href = targetUrl;
+                }
+            }, 0);
+        }
+
         $(function() {
+
             $(document).on('click', '#log-out', function() {
                 $('body').removeClass('mobile-nav-active');
                 $('div').removeClass('mobile-nav-overly');

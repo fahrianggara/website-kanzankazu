@@ -55,7 +55,7 @@ class BlogController extends Controller
         $post = Post::publish()->with('categories', 'tags')->where('slug', $slug)->first();
 
         if (!$post) {
-            return redirect()->route('blog.home')->with('success', 'Oops.. blog tidak ditemukan :(');
+            return redirect()->route('blog.home');
         }
 
         $setting = WebSetting::find(1);
