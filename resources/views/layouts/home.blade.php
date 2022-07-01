@@ -15,25 +15,17 @@
 
         gtag('config', 'G-TKJXQ59K5W');
     </script>
-
-    {{-- Title website --}}
-    <title>{{ $setting->site_name }}</title>
     {{-- Primary Meta Tags --}}
+    {!! SEO::generate() !!}
+
+    <meta name="author" content="{{ $setting->site_name }}">
+    <meta name="keywords" content="{{ $setting->meta_keywords }}">
+    <meta property="og:image" content="@yield('image', asset('vendor/blog/img/default.png'))">
+    <meta property="og:site_name" content="{{ $setting->site_name }}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="title" content="{{ $setting->site_name }}">
-    <meta name="description" content="{{ $setting->site_description }}">
-    <meta name="author" content="{{ $setting->site_name }}">
-    <meta name="keywords" content="{{ $setting->meta_keywords }}">
-    {{-- Open Graph / Facebook --}}
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="@yield('url', route('homepage'))">
-    <meta property="og:title" content="{{ $setting->site_name }}">
-    <meta property="og:description" content="@yield('description', $setting->site_description)">
-    <meta property="og:image" content="@yield('image', asset('vendor/blog/img/default.png'))">
-    <meta property="og:site_name" content="{{ $setting->site_name }}">
     {{-- Logo / icon --}}
     <link rel="shortcut icon" href="{{ asset('logo-web/favicon.ico') }}" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('logo-web/apple-icon-180x180.png') }}">
@@ -112,9 +104,6 @@
     <script src="{{ asset('vendor/blog/assets/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('vendor/blog/assets/jquery.easing/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('vendor/blog/assets/jquery-sticky/jquery.sticky.js') }}"></script>
-    <script src="{{ asset('vendor/blog/assets/isotope-layout/isotope.pkgd.min.js') }}"></script>
-    <script src="{{ asset('vendor/blog/assets/venobox/venobox.min.js') }}"></script>
-    <script src="{{ asset('vendor/blog/assets/owl.carousel/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('vendor/blog/assets/alertify/js/alertify.js') }}"></script>
     {{-- Main Js --}}
     <script src="{{ asset('vendor/blog/js/app.js') }}"></script>

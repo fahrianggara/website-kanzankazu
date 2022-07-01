@@ -47,7 +47,7 @@
                                         </a>
                                     </div>
                                     <div class="post-time text-muted loading">
-                                        <p class="mt-1 text-time">{{ $post->created_at->format('j M, Y') }}</p>
+                                        <p class="text-time">{{ $post->created_at->format('j M, Y') }}</p>
                                     </div>
                                 </div>
                             </div>

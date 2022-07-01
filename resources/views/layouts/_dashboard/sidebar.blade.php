@@ -30,18 +30,19 @@
                         <span>Beranda</span>
                     </a>
                 </li>
+                {{-- BLOG --}}
+                <li>
+                    <a href="{{ route('blog.author', ['author' => Auth::user()->slug ]) }}" class="waves-effect">
+                        <i class="uil uil-create-dashboard"></i>
+                        <span>Blog</span>
+                    </a>
+                </li>
                 {{-- Profile --}}
                 <li id="profile" class="menu-title">Kelola Profile</li>
                 <li>
                     <a href="{{ route('profile.index', '#profile') }}" class="{{ set_active('profile.index') }} waves-effect">
                         <i class="uil uil-user"></i>
                         <span>Profile</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('blog.author', ['author' => Auth::user()->slug ]) }}" class="waves-effect">
-                        <i class="uil uil-create-dashboard"></i>
-                        <span>Blog</span>
                     </a>
                 </li>
 

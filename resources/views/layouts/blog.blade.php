@@ -16,24 +16,18 @@
     </script>
 
     {{-- Title WEB --}}
-    <title>@yield('title') - {{ $setting->site_name }}</title>
+    {{-- <title>@yield('title') - {{ $setting->site_name }}</title> --}}
     {{-- Meta Tag --}}
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="title" content="@yield('title') - {{ $setting->site_name }}">
-    <meta name="description" content="@yield('description', $setting->site_description)">
-    <meta name="keywords" content="@yield('keywords', $setting->meta_keywords)">
-    <meta name="language" content="id">
-    <meta name="author" content="@yield('author', $setting->site_name)">
-    {{-- Open Graph / Facebook --}}
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="@yield('url', url()->current())">
-    <meta property="og:title" content="@yield('title') - {{ $setting->site_name }}">
-    <meta property="og:description" content="@yield('description', $setting->site_description)">
-    <meta property="og:image" content="@yield('image', asset('vendor/blog/img/default.png'))">
-    <meta property="og:site_name" content="{{ $setting->site_name }}">
+    {{-- {!! SEO::generate() !!} --}}
+    {!! SEOMeta::generate() !!}
+    {!! OpenGraph::generate() !!}
+    {!! Twitter::generate() !!}
+    {!! JsonLd::generate() !!}
+    {!! JsonLdMulti::generate() !!}
     {{-- Logo / icon --}}
     <link rel="shortcut icon" href="{{ asset('logo-web/favicon.ico') }}" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('logo-web/apple-icon-180x180.png') }}">
