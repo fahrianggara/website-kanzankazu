@@ -25,14 +25,12 @@ class FirebaseController extends Controller
 
     public function redirectToGoogle(Request $request)
     {
-        $checkUser = User::where('uid', $request->uid)->first();
+        $checkUser = User::where('uid', $request->uid)->firstOrFail();
 
         if ($checkUser) {
             $checkUser->uid = $request->uid;
-            $checkUser->name = $request->name;
-            $checkUser->user_image = $request->user_image;
             $checkUser->email = $request->email;
-            $checkUser->save();
+            $checkUser->update();
             Auth::loginUsingId($checkUser->id, true);
             return response()->json([
                 "status" => 200,
