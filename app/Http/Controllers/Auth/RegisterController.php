@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Kreait\Firebase\Contract\Database;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -41,9 +42,12 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Database $database)
     {
         $this->middleware('guest');
+
+        $this->database = $database;
+        $this->table = 'users';
     }
 
     /**
@@ -59,12 +63,13 @@ class RegisterController extends Controller
             [
                 'name' => ['required', 'alpha_spaces', 'string', 'max:12', 'min:3', 'unique:users,slug'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'password' => ['required', 'string', 'min:8', 'max:16s', 'confirmed'],
+                'password' => ['required', 'string', 'min:8', 'max:16', 'confirmed'],
             ],
             [
                 'name.unique' => 'Nama ini sudah digunakan',
                 'name.max' => 'Maksimal 12 huruf',
                 'name.min' => 'Minimal 3 huruf',
+                'email.unique' => 'Email ini sudah digunakan',
             ]
         );
     }
@@ -77,15 +82,18 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user = User::create([
+        $userData = [
             'name' => $data['name'],
             'slug' => $data['slug'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-        ]);
+        ];
 
+        $user = User::create($userData);
         $role = Role::select('id')->where('name', 'Editor')->first();
         $user->roles()->attach($role);
+
+        $this->database->getReference($this->table)->push($userData);
 
         $user->notify(new WelcomeUserEmail($user));
 

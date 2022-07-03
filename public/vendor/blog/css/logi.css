@@ -277,3 +277,47 @@ label.active {
     border-color: var(--text-color);
     transition: 0.3s all ease-in-out;
 }
+
+hr.hr-text {
+    position: relative;
+    border: none;
+    height: .1px;
+    width: 100%;
+    background: var(--text-color);
+    transition: 0.3s all ease-in-out;
+}
+
+hr.hr-text::before {
+    transition: 0.3s all ease-in-out;
+    content: attr(data-content);
+    display: inline-block;
+    background: var(--containerSec-color);
+    font-size: 0.85rem;
+    color: var(--text-color);
+    padding: 0.2rem 1rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.orLogin {
+    margin-bottom: 22px;
+    text-align: center !important;
+    padding: 0 !important;
+}
+.orLogin i {
+    color: #DD4B39;
+    font-size: 24px;
+}
+.orLogin span {
+    color: var(--text-color);
+    font-weight: bold;
+    transition: 0.3s all ease-in-out;
+    margin-left: 1px;
+}
+.orLogin span:hover{
+    color: #DD4B39;
+}
+.orLogin a:hover{
+    text-decoration: none;
+}

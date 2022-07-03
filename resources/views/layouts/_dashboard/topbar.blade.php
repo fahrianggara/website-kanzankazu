@@ -15,8 +15,8 @@
                 @if (!Auth::user()->editorRole())
                     {{-- Mimin / ADMIN --}}
                     @if ($postApprove)
-                        <a class="nav-link dropdown-toggle arrow-none waves-effect " data-toggle="dropdown" href="#"
-                            role="button" aria-haspopup="false" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle arrow-none waves-effect " data-toggle="dropdown"
+                            href="#" role="button" aria-haspopup="false" aria-expanded="false">
                             <i class="uil uil-bell noti-icon"></i>
                             @if ($postApprove->count() >= 1)
                                 <span class="badge badge-success noti-icon-badge">{{ $postApprove->count() }}</span>
@@ -131,11 +131,14 @@
             </li>
 
             <li class="list-inline-item dropdown notification-list">
-                <a class="nav-link dropdown-toggle arrow-none waves-effect nav-user" data-toggle="dropdown" href="#"
-                    role="button" aria-haspopup="false" aria-expanded="false">
+                <a class="nav-link dropdown-toggle arrow-none waves-effect nav-user" data-toggle="dropdown"
+                    href="#" role="button" aria-haspopup="false" aria-expanded="false">
                     @if (file_exists('vendor/dashboard/image/picture-profiles/' . Auth::user()->user_image))
                         <img src="{{ asset('vendor/dashboard/image/picture-profiles/' . Auth::user()->user_image) }}"
                             alt="{{ Auth::user()->name }}" class="rounded-circle userImage">
+                    @elseif (Auth::user()->uid != null)
+                        <img src="{{ Auth::user()->user_image }}" alt="{{ Auth::user()->name }}"
+                            class="rounded-circle userImage">
                     @else
                         <img src="{{ asset('vendor/dashboard/image/avatar.png') }}" alt="{{ Auth::user()->name }}"
                             class="rounded-circle userImage">
@@ -183,7 +186,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                <a href="{{ route('logout') }}" type="button" class="btn btn-danger" onclick="event.preventDefault();
+                <a href="{{ route('logout') }}" type="button" class="btn btn-danger"
+                    onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">Logout
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf

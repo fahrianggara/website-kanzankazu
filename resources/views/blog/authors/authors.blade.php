@@ -16,10 +16,11 @@
                     <div class="entry-img loading">
                         @if (file_exists('vendor/dashboard/image/picture-profiles/' . $user->user_image))
                             <img src="{{ asset('vendor/dashboard/image/picture-profiles/' . $user->user_image) }}"
-                                alt="" class="img-fluid img-round" />
-                        @else
-                            <img src="{{ asset('vendor/dashboard/image/avatar.png') }}" alt=""
                                 class="img-fluid img-round" />
+                        @elseif ($user->uid != null)
+                            <img src="{{ $user->user_image }}" class="img-fluid img-round" />
+                        @else
+                            <img src="{{ asset('vendor/dashboard/image/avatar.png') }}" class="img-fluid img-round" />
                         @endif
                     </div>
 
@@ -63,7 +64,8 @@
         <div class="container">
             <div class="section-title">
                 <h2>Rekomendasi Blog</h2>
-                <p>Ada {{ $recommendationPosts->count() }} blog yang direkomendasikan oleh <span class="titleFilter">{{ $user->name }}</span>.</p>
+                <p>Ada {{ $recommendationPosts->count() }} blog yang direkomendasikan oleh <span
+                        class="titleFilter">{{ $user->name }}</span>.</p>
             </div>
 
             <div class="row">
@@ -159,7 +161,8 @@
         @if ($posts->count() >= 1)
             <div class="section-title">
                 <h2>by {{ $user->name }}.</h2>
-                <p>Ada {{ $posts->count() }} blog yang ditulis oleh <span class="titleFilter">{{ $user->name }}</span>.</p>
+                <p>Ada {{ $posts->count() }} blog yang ditulis oleh <span
+                        class="titleFilter">{{ $user->name }}</span>.</p>
             </div>
         @endif
 

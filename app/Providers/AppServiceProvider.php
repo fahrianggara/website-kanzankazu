@@ -9,6 +9,7 @@ use App\Models\WebSetting;
 use App\Notifications\UserPostApproved;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
@@ -34,6 +35,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // if(config('app.env') === 'local') {
+        //     URL::forceScheme('https');
+        // }
+
         //Add this custom validation rule.
         Validator::extend('alpha_spaces', function ($attribute, $value) {
 

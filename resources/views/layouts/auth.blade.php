@@ -20,7 +20,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('logo-web/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('logo-web/favicon-16x16.png') }}">
     {{-- CSS --}}
-    <link rel="stylesheet" href="{{ asset('vendor/blog/css/logs.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/blog/css/logi.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/blog/assets/bootstrap-icon/bootstrap-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/blog/assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
@@ -46,6 +46,10 @@
                 window.location.reload();
             }
         }
+
+        $("[data-toggle='tooltip']").tooltip().on("click", function() {
+            $(this).tooltip("hide")
+        });
     </script>
 
     @stack('js')

@@ -114,7 +114,7 @@ return [
     'starts_with' => ':attribute harus diawali salah satu dari berikut: :values',
     'string'      => ':attribute harus berupa string.',
     'timezone'    => ':attribute harus berisi zona waktu yang valid.',
-    'unique'      => ':attribute sudah ada sebelumnya.',
+    'unique'      => ':attribute sudah digunakan.',
     'uploaded'    => ':attribute gagal diunggah.',
     'url'         => 'Format :attribute tidak valid.',
     'uuid'        => ':attribute harus merupakan UUID yang valid.',

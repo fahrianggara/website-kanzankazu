@@ -1,6 +1,6 @@
 $(document).ready(function () {
     // Tooltip
-    $(".btn-tooltip-hide").tooltip().on("click", function() {
+    $(".btn-tooltip-hide").tooltip().on("click", function () {
         $(this).tooltip("hide")
     })
 
@@ -29,7 +29,7 @@ $(document).ready(function () {
     });
 
     // Active label to the top
-    $(".form-input .form_control").blur(function() {
+    $(".form-input .form_control").blur(function () {
         if ($(this).val() != "") {
             $(this).siblings("label").addClass("active");
         } else {
@@ -41,7 +41,7 @@ $(document).ready(function () {
     const togglePassword = document.querySelector('#togglePassword');
     const password = document.querySelector('#password');
 
-    togglePassword.addEventListener('click', function(e) {
+    togglePassword.addEventListener('click', function (e) {
         const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
         password.setAttribute('type', type);
 

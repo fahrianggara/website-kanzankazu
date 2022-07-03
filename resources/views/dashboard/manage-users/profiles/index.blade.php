@@ -16,11 +16,14 @@
                     <div class="card-body box-profile">
                         <div class="text-center">
                             @if (file_exists('vendor/dashboard/image/picture-profiles/' . Auth::user()->user_image))
-                                <img class="profile-user-img userImage img-fluid img-circle"
+                                <img class="profile-user-img img-circle userImage"
                                     src="{{ asset('vendor/dashboard/image/picture-profiles/' . Auth::user()->user_image) }}"
                                     alt="{{ Auth::user()->name }}">
+                            @elseif (Auth::user()->uid != null)
+                                <img src="{{ Auth::user()->user_image }}" alt="{{ Auth::user()->name }}"
+                                    class="profile-user-img img-circle userImage">
                             @else
-                                <img class="profile-user-img userImage img-fluid img-circle"
+                                <img class="profile-user-img img-circle userImage"
                                     src="{{ asset('vendor/dashboard/image/avatar.png') }}"
                                     alt="{{ Auth::user()->name }}">
                             @endif
@@ -79,8 +82,9 @@
 
                         {{-- Setting Profile --}}
                         <div class="tab-pane p-3" id="setting-1" role="tabpanel">
-                            <form class="form-horizontal" method="post" action="{{ route('profile.updateInfo') }}#profile"
-                                id="formUpdateProfile" autocomplete="off">
+                            <form class="form-horizontal" method="post"
+                                action="{{ route('profile.updateInfo') }}#profile" id="formUpdateProfile"
+                                autocomplete="off">
                                 @csrf
                                 @method('put')
 
@@ -96,8 +100,8 @@
                                 <div class="form-group row">
                                     <label for="slug" class="col-sm-2 col-form-label">Username</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="slug" placeholder="Slug"
-                                            value="{{ Auth::user()->slug }}" name="slug" readonly>
+                                        <input type="text" class="form-control" id="slug" placeholder="Username"
+                                            value="{{ Auth::user()->slug }}" name="slug" style="text-transform: lowercase;">
                                         <span class="text-danger error-text slug_error"></span>
                                     </div>
                                 </div>
@@ -217,7 +221,8 @@
                                 <div id="forgotPassword" class="d-none">
                                     <div class="form-group row">
                                         <div class="offset-sm-10 col-sm-10">
-                                            <a target="_blank" href="{{ route('password.request') }}">Forgot Password</a>
+                                            <a target="_blank" href="{{ route('password.request') }}">Forgot
+                                                Password</a>
                                         </div>
                                     </div>
 
@@ -301,7 +306,8 @@
                         } else {
 
                             setTimeout((function() {
-                                window.location.href = '{{ route("profile.index") }}#profile';
+                                window.location.href =
+                                    '{{ route('profile.index') }}#profile';
                                 window.location.reload();
                             }), 980);
 
@@ -374,7 +380,7 @@
                 allowedExtensions: ['jpg', 'jpeg', 'png'],
                 buttonsText: ['CROP & UPLOAD', 'CANCEL'],
                 buttonsColor: ['#30bf7d', '#ee5155', -15],
-                processUrl: '{{ route('profile.updateImage') }}',
+                processUrl: '{{ route("profile.updateImage") }}',
                 // withCSRF:['_token','{{ csrf_token() }}'],
                 onSuccess: function(message, element, status) {
                     alertify.okBtn("OK").alert(message);
@@ -384,19 +390,19 @@
                 }
             });
 
-            const generateSlug = (value) => {
-                return value.trim()
-                    .toLowerCase()
-                    .replace(/[^a-z\d-]/gi, '-')
-                    .replace(/-+/g, '-').replace(/^-|-$/g, "")
-            }
+            // const generateSlug = (value) => {
+            //     return value.trim()
+            //         .toLowerCase()
+            //         .replace(/[^a-z\d-]/gi, '-')
+            //         .replace(/-+/g, '-').replace(/^-|-$/g, "")
+            // }
 
-            $('#name').change(function(e) {
-                e.preventDefault();
+            // $('#name').change(function(e) {
+            //     e.preventDefault();
 
-                let title = $(this).val();
-                $('#slug').val(generateSlug(title));
-            });
+            //     let title = $(this).val();
+            //     $('#slug').val(generateSlug(title));
+            // });
         });
     </script>
 @endpush
