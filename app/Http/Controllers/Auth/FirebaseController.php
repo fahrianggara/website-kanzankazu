@@ -32,7 +32,7 @@ class FirebaseController extends Controller
             $checkUser->name = $request->name;
             $checkUser->user_image = $request->user_image;
             $checkUser->email = $request->email;
-            $checkUser->update();
+            $checkUser->save();
             Auth::loginUsingId($checkUser->id, true);
             return response()->json([
                 "status" => 200,
