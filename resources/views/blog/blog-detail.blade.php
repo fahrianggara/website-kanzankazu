@@ -136,7 +136,9 @@
                 <div class="blog-author d-flex align-items-center">
                     @if (file_exists('vendor/dashboard/image/picture-profiles/' . $post->user->user_image))
                         <img src="{{ asset('vendor/dashboard/image/picture-profiles/' . $post->user->user_image) }}"
-                            alt="{{ $post->user->name }}" class="rounded-circle float-left" />
+                            alt="" class="rounded-circle float-left" />
+                    @elseif ($post->user->uid != null)
+                        <img src="{{ $post->user->user_image }}" alt="" class="rounded-circle float-left" />
                     @else
                         <img src="{{ asset('vendor/dashboard/image/avatar.png') }}" class="rounded-circle float-left"
                             alt="">

@@ -27,13 +27,18 @@
                                     <img class="profile-user-img img-fluid img-circle"
                                         src="{{ asset('vendor/dashboard/image/picture-profiles/' . $author->user_image) }}"
                                         alt="{{ $author->name }} avatar">
+                                @elseif ($author->uid != null)
+                                    <img class="profile-user-img img-fluid img-circle" src="{{ $author->user_image }}"
+                                        alt="{{ $author->name }} avatar">
                                 @else
                                     <img class="profile-user-img img-fluid img-circle"
                                         src="{{ asset('vendor/dashboard/image/avatar.png') }}"
                                         alt="{{ $author->name }} avatar">
                                 @endif
                             </div>
-                            <h3 class="profile-username text-center"><a href="{{ route('blog.author', ['author' => $author->slug]) }}">{{ $author->name }}</a></h3>
+                            <h3 class="profile-username text-center"><a
+                                    href="{{ route('blog.author', ['author' => $author->slug]) }}">{{ $author->name }}</a>
+                            </h3>
                             <p class="text-muted text-center">{{ $author->roles->first()->name }}</p>
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
@@ -54,8 +59,7 @@
 
                         <div id="empty-blog">
 
-                            <svg viewBox="0 0 117 117" fill="none" class="iconMeh"
-                                xmlns="http://www.w3.org/2000/svg">
+                            <svg viewBox="0 0 117 117" fill="none" class="iconMeh" xmlns="http://www.w3.org/2000/svg">
                                 <circle class="face" cx="58.5" cy="58.5" r="57.5" stroke-width="2" />
                                 <circle class="eye" cx="40.5" cy="40.5" r="8.5" />
                                 <circle class="eye" cx="77.5" cy="40.5" r="8.5" />

@@ -101,7 +101,7 @@
                                     <label for="slug" class="col-sm-2 col-form-label">Username</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="slug" placeholder="Username"
-                                            value="{{ Auth::user()->slug }}" name="slug" style="text-transform: lowercase;">
+                                            value="{{ Auth::user()->slug }}" name="slug" readonly>
                                         <span class="text-danger error-text slug_error"></span>
                                     </div>
                                 </div>
@@ -390,19 +390,19 @@
                 }
             });
 
-            // const generateSlug = (value) => {
-            //     return value.trim()
-            //         .toLowerCase()
-            //         .replace(/[^a-z\d-]/gi, '-')
-            //         .replace(/-+/g, '-').replace(/^-|-$/g, "")
-            // }
+            const generateSlug = (value) => {
+                return value.trim()
+                    .toLowerCase()
+                    .replace(/[^a-z\d-]/gi, '-')
+                    .replace(/-+/g, '-').replace(/^-|-$/g, "")
+            }
 
-            // $('#name').change(function(e) {
-            //     e.preventDefault();
+            $('#name').change(function(e) {
+                e.preventDefault();
 
-            //     let title = $(this).val();
-            //     $('#slug').val(generateSlug(title));
-            // });
+                let title = $(this).val();
+                $('#slug').val(generateSlug(title));
+            });
         });
     </script>
 @endpush

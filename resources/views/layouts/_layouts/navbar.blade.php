@@ -46,7 +46,7 @@
 
                 <li
                     class="drop-down {{ set_active(['blog.categories', 'blog.posts.categories', 'blog.tags', 'blog.posts.tags', 'blog.author', 'blog.authors', 'blog.tutorials', 'blog.posts.tutorials', 'blog.posts.tutorials.author']) }}">
-                    <a href="#"><i class="uil uil-sliders-v mr-2"></i>Filter Blog</a>
+                    <a href="javascript:void(0)"><i class="uil uil-sliders-v mr-2"></i>Filter Blog</a>
                     <ul>
                         <li
                             class="{{ set_active(['blog.tutorials', 'blog.posts.tutorials', 'blog.posts.tutorials.author']) }}">
@@ -70,7 +70,7 @@
                 @if (Route::has('login'))
                     @auth
                         <li class="drop-down">
-                            <a href="#"><i class="uil uil-user mr-2"></i>{{ Auth::user()->name }}</a>
+                            <a href="javascript:void(0)"><i class="uil uil-user mr-2"></i>{{ substr(Auth::user()->name, 0, 10) }}..</a>
                             <ul>
                                 <li>
                                     <a href="{{ route('dashboard.index') }}"><i class="uil uil-graph-bar mr-2"></i>
@@ -89,7 +89,7 @@
                         </li>
                     @else
                         <li class="drop-down">
-                            <a href="#"><i class="uil uil-user-plus mr-2"></i>JOIN US</a>
+                            <a href="javascript:void(0)"><i class="uil uil-user-plus mr-2"></i>JOIN US</a>
                             <ul>
                                 <li class="">
                                     <a href="{{ route('login') }}"><i class="uil uil-signin mr-2"></i>Log In</a>

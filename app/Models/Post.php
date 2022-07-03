@@ -56,17 +56,7 @@ class Post extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class)->select(
-            'id',
-            'name',
-            'slug',
-            'user_image',
-            'bio',
-            'facebook',
-            'twitter',
-            'instagram',
-            'github'
-        );
+        return $this->belongsTo(User::class);
     }
 
     public function scopeSearch($query, $data)

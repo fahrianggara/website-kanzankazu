@@ -35,9 +35,9 @@ class ProfileController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'name' => 'required|alpha_spaces|min:3|max:12',
+                'name' => 'required|alpha_spaces|min:3|max:20',
                 'bio'  => 'nullable|min:10|max:500',
-                'slug' => 'required|min:3|max:12|string|unique:users,slug,' . Auth::user()->id,
+                'slug' => 'string|unique:users,slug,' . Auth::user()->id,
                 'facebook' => 'nullable|url_www',
                 'twitter'  => 'nullable|url_www',
                 'instagram' => 'nullable|url_www',
@@ -47,12 +47,10 @@ class ProfileController extends Controller
                 'name.required' => 'Masukkan nama kamu',
                 'name.alpha_spaces' => 'Hanya boleh berisi huruf dan spasi',
                 'name.min' => 'Minimal 3 karakter',
-                'name.max' => 'Maksimal 12 karakter',
+                'name.max' => 'Maksimal 20 karakter',
                 'bio.min' => 'Minimal 10 karakter',
                 'bio.max' => 'Maksimal 500 karakter',
-                'slug.unique' => 'Nama ini sudah digunakan',
-                'slug.min' => 'Minimal 3 karakter',
-                'slug.max' => 'Maksimal 12 karakter',
+                'slug.unique' => 'Username ini sudah digunakan',
                 'facebook.url_www' => 'URL tidak valid',
                 'twitter.url_www'  => 'URL tidak valid',
                 'instagram.url_www' => 'URL tidak valid',
@@ -73,7 +71,7 @@ class ProfileController extends Controller
 
                 $query->name  = $request->input('name');
                 $query->bio   = $request->input('bio');
-                $query->slug  = Str::slug($request->slug);
+                $query->slug  = $request->slug;
                 $query->facebook = $request->input('facebook');
                 $query->twitter  = $request->input('twitter');
                 $query->instagram = $request->input('instagram');
