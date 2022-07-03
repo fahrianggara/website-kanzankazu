@@ -90,8 +90,6 @@ class FirebaseController extends Controller
 
         if ($checkUser) {
             $checkUser->uid = $request->uid;
-            $checkUser->name = $request->name ?? $checkUser->name;
-            $checkUser->user_image = $request->user_image;
             $checkUser->email = $request->email;
             $checkUser->update();
             Auth::loginUsingId($checkUser->id, true);
@@ -117,7 +115,7 @@ class FirebaseController extends Controller
                     "error" => $validator->errors()->toArray(),
                 ]);
             } else {
-                $siteName = "kanzankazu";
+                $siteName = "KZN";
                 $userData = [
                     'uid' => $request->uid,
                     'name' => $request->name ?? $siteName,
