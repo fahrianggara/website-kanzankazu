@@ -122,14 +122,14 @@
                                         @endif
                                         <td>
                                             @if ($user->status == 'allowable')
-                                                @can('user_update')
-                                                    <a href="{{ route('users.edit', ['user' => $user]) }}#users"
-                                                        class="btn btn-sm btn-warning" data-toggle="tooltip"
-                                                        data-placement="bottom" title="Edit">
-                                                        <i class="uil uil-pen"></i>
-                                                    </a>
-                                                @endcan
                                                 @if ($user->roles->first()->name == 'Admin' || $user->roles->first()->name == 'Editor')
+                                                    @can('user_update')
+                                                        <a href="{{ route('users.edit', ['user' => $user]) }}#users"
+                                                            class="btn btn-sm btn-warning" data-toggle="tooltip"
+                                                            data-placement="bottom" title="Edit">
+                                                            <i class="uil uil-pen"></i>
+                                                        </a>
+                                                    @endcan
                                                     @can('user_delete')
                                                         <a id="blokirUser" data-id="{{ $user->id }}"
                                                             href="javascript:void(0)" class="btn btn-sm btn-danger"
