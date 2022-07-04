@@ -25,8 +25,6 @@
     <link rel="stylesheet" href="{{ asset('vendor/blog/assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link rel="stylesheet" href="{{ asset('vendor/blog/assets/alertify/css/alertifi.css') }}">
-    {{-- jQuery --}}
-    <script src="{{ asset('vendor/blog/assets/jquery/jquery.min.js') }}"></script>
     @stack('css')
 </head>
 
@@ -34,7 +32,7 @@
 
     @yield('content')
 
-    {{-- jS --}}
+    <script src="{{ asset('vendor/blog/assets/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('vendor/blog/assets/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('vendor/blog/js/login.js') }}"></script>
     <script src="{{ asset('vendor/blog/assets/alertify/js/alertify.js') }}"></script>
