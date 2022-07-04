@@ -32,11 +32,28 @@ class FirebaseController extends Controller
             $checkUser->email = $request->email;
             $checkUser->update();
             Auth::loginUsingId($checkUser->id, true);
-            return response()->json([
-                "status" => 200,
-                "msg" => "Selamat datang kembali " . $checkUser->name . '.',
-                "redirect" => route('dashboard.index'),
-            ]);
+
+            if ($checkUser->banned_at != null) {
+                if ($checkUser->banned_at == null) {
+                    return response()->json([
+                        "status" => 200,
+                        "msg" => "Selamat datang kembali " . $checkUser->name . '.',
+                        "redirect" => route('dashboard.index'),
+                    ]);
+                } else {
+                    return response()->json([
+                        "status" => 200,
+                        "msg" => "Akun kamu telah di banned.",
+                        "redirect" => route('login'),
+                    ]);
+                }
+            } else {
+                return response()->json([
+                    "status" => 200,
+                    "msg" => "Selamat datang kembali " . $checkUser->name . '.',
+                    "redirect" => route('dashboard.index'),
+                ]);
+            }
         } else {
             $validator = Validator::make(
                 $request->all(),
@@ -93,11 +110,27 @@ class FirebaseController extends Controller
             $checkUser->email = $request->email;
             $checkUser->update();
             Auth::loginUsingId($checkUser->id, true);
-            return response()->json([
-                "status" => 200,
-                "msg" => "Selamat datang kembali " . $checkUser->name . '.',
-                "redirect" => route('dashboard.index'),
-            ]);
+            if ($checkUser->banned_at != null) {
+                if ($checkUser->banned_at < now()) {
+                    return response()->json([
+                        "status" => 200,
+                        "msg" => "Selamat datang kembali " . $checkUser->name . '.',
+                        "redirect" => route('dashboard.index'),
+                    ]);
+                } else {
+                    return response()->json([
+                        "status" => 200,
+                        "msg" => "Akun kamu telah di banned.",
+                        "redirect" => route('login'),
+                    ]);
+                }
+            } else {
+                return response()->json([
+                    "status" => 200,
+                    "msg" => "Selamat datang kembali " . $checkUser->name . '.',
+                    "redirect" => route('dashboard.index'),
+                ]);
+            }
         } else {
             $validator = Validator::make(
                 $request->all(),

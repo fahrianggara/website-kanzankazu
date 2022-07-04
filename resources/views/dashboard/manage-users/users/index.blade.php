@@ -13,41 +13,69 @@
     <div class="notif-success" data-notif="{{ Session::get('success') }}"></div>
 
     <div class="row">
-        <div class="col-12">
-            <div class="row justify-content-center">
-                <div class="col-md-8">
-                    <div class="card m-b-30">
-                        <div class="card-header">
-                            <div class="row">
-                                <div class="col-lg-1 col-3">
-                                    @can('user_create')
-                                        <a href="{{ route('users.create') }}#users" class="btn btn-primary float-right"
-                                            data-toggle="tooltip" data-placement="bottom" title="Buat">
-                                            <i class="uil uil-plus"></i>
-                                        </a>
-                                    @endcan
-                                </div>
-                                <div class="col-lg-11 col-9">
-                                    <form action="{{ route('users.index') }}#users" method="GET">
-                                        <div class="input-group">
-                                            <input autocomplete="off" type="search" id="keyword" name="keyword"
-                                                class="form-control" placeholder="Cari pengguna.."
-                                                value="{{ request()->get('keyword') }}">
 
-                                            <div class="input-group-append">
-                                                <button class="btn btn-primary" type="submit" data-toggle="tooltip"
-                                                    data-placement="bottom" title="Telusuri">
-                                                    <i class="uil uil-search"></i>
-                                                </button>
-                                            </div>
+        <div class="col-12 m-b-20">
+            <form action="#users" method="GET" class="">
+                <div class="row">
+                    <div class="col-md-4 mb-2">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-lg-2 col-3">
+                                        @can('user_create')
+                                            <a href="{{ route('users.create') }}#users" class="btn btn-primary float-right"
+                                                data-toggle="tooltip" data-placement="bottom" title="Buat">
+                                                <i class="uil uil-plus"></i>
+                                            </a>
+                                        @endcan
+                                    </div>
+                                    <div class="col-lg-10 col-9">
+                                        <div class="input-group mx-1">
+                                            <select id="statusUser" name="status" class="custom-select"
+                                                style="border-radius: 4px" data-toggle="tooltip" data-placement="bottom"
+                                                title="Status">
+                                                <option value="allowable"
+                                                    {{ $statusSelected == 'allowable' ? 'selected' : null }}>
+                                                    Tidak Terblokir
+                                                </option>
+                                                <option value="banned"
+                                                    {{ $statusSelected == 'banned' ? 'selected' : null }}>
+                                                    Terblokir
+                                                </option>
+                                            </select>
+
+                                            <button id="submitStatus" class="btn btn-primary d-none" type="submit">Apply
+                                            </button>
                                         </div>
-                                    </form>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header">
+
+                                <div class="col-12">
+                                    <div class="input-group mx-1">
+                                        <input autocomplete="off" name="keyword" type="search"
+                                            value="{{ request()->get('keyword') }}" class="form-control"
+                                            placeholder="Cari pengguna..">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="submit" data-toggle="tooltip"
+                                                data-placement="bottom" title="Telusuri">
+                                                <i class="uil uil-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
 
         <div class="col-12">
@@ -60,8 +88,13 @@
                                     <th>No</th>
                                     <th>Nama</th>
                                     <th>Email</th>
-                                    <th>Role</th>
-                                    <th>Status</th>
+                                    @if (request()->get('status') == 'allowable')
+                                        <th>Role</th>
+                                        <th>Status</th>
+                                    @else
+                                        <th>Status</th>
+                                        <th>Terblokir sampai</th>
+                                    @endif
                                     <th>Opsi</th>
                                 </tr>
                             </thead>
@@ -73,37 +106,70 @@
                                         @php $no++; @endphp
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
-                                        <td>{{ $user->roles->first()->name }}</td>
-                                        <td>
-                                            @if (Cache::has('user-is-online-' . $user->id))
-                                                <span class="text-success">Online</span>
+                                        @if ($user->status == 'allowable')
+                                            <td>{{ $user->roles->first()->name }}</td>
+                                            <td>
+                                                @if (Cache::has('user-is-online-' . $user->id))
+                                                    <span class="text-success">Online</span>
+                                                @else
+                                                    <span class="text-secondary">Offline</span>
+                                                @endif
                                             @else
-                                                <span class="text-secondary">Offline</span>
-                                            @endif
-                                        </td>
+                                            <td class="text-danger">{{ strtoupper($user->status) }}</td>
+                                            <td>
+                                                {{ $user->banned_at->diffForHumans() }}
+                                            </td>
+                                        @endif
                                         <td>
+                                            @if ($user->status == 'allowable')
+                                                @can('user_update')
+                                                    <a href="{{ route('users.edit', ['user' => $user]) }}#users"
+                                                        class="btn btn-sm btn-warning" data-toggle="tooltip"
+                                                        data-placement="bottom" title="Edit">
+                                                        <i class="uil uil-pen"></i>
+                                                    </a>
+                                                @endcan
+                                                @if ($user->roles->first()->name == 'Admin' || $user->roles->first()->name == 'Editor')
+                                                    @can('user_delete')
+                                                        <a id="blokirUser" data-id="{{ $user->id }}"
+                                                            href="javascript:void(0)" class="btn btn-sm btn-danger"
+                                                            data-toggle="tooltip" data-placement="bottom" title="Blokir">
+                                                            <i class="uil uil-user-times"></i>
+                                                        </a>
+                                                    @endcan
+                                                @endif
+                                            @elseif ($user->status == 'banned')
+                                                @can('user_update')
+                                                    <form action="{{ route('users.unblokir', ['user' => $user]) }}#users"
+                                                        method="POST" class="d-inline" role="alert"
+                                                        alert-text="Apakah kamu yakin? akun dengan nama {{ $user->name }} tidak jadi diblokir?"
+                                                        alert-btn="Buka Blokir" alert-clr="#00b2cc">
+                                                        @csrf
+                                                        @method('PUT')
 
-                                            @can('user_update')
-                                                <a href="{{ route('users.edit', ['user' => $user]) }}#users"
-                                                    class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="bottom"
-                                                    title="Edit">
-                                                    <i class="uil uil-pen"></i>
-                                                </a>
-                                            @endcan
+                                                        <button type="submit"
+                                                            class="btn btn-primary btn-sm waves-effect waves-light"
+                                                            data-toggle="tooltip" data-placement="bottom" title="Buka Blokir">
+                                                            <i class="uil uil-user-check"></i>
+                                                        </button>
+                                                    </form>
+                                                @endcan
+                                                @can('user_delete')
+                                                    <form action="{{ route('users.destroy', ['user' => $user]) }}#users"
+                                                        method="POST" class="d-inline" role="alert"
+                                                        alert-text="Apakah kamu yakin? akun dengan nama {{ $user->name }} akan dihapus permanen."
+                                                        alert-btn="Hapus" alert-clr="#d33">
+                                                        @csrf
+                                                        @method('DELETE')
 
-                                            @can('user_delete')
-                                                <form action="{{ route('users.destroy', ['user' => $user]) }}#users" method="POST"
-                                                    class="d-inline" role="alert"
-                                                    alert-text="Apakah kamu yakin? pengguna dengan nama {{ $user->name }} akan dihapus permanen.">
-                                                    @csrf
-                                                    @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm btn-danger"
+                                                            data-toggle="tooltip" data-placement="bottom" title="Hapus">
+                                                            <i class="uil uil-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                @endcan
+                                            @endif
 
-                                                    <button type="submit" class="btn btn-sm btn-danger" data-toggle="tooltip"
-                                                        data-placement="bottom" title="Hapus">
-                                                        <i class="uil uil-trash"></i>
-                                                    </button>
-                                                </form>
-                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach
@@ -117,6 +183,10 @@
                                         @if (request()->get('keyword'))
                                             Oops.. sepertinya pengguna dengan nama
                                             {{ strtoupper(request()->get('keyword')) }} tidak ditemukan.
+                                        @elseif (request()->get('status') == 'allowable')
+                                            Hmm.. belum ada pengguna diwebsite {{ $setting->site_name }}.
+                                        @elseif (request()->get('status') == 'banned')
+                                            Oops.. sepertinya belum ada pengguna yang terblokir.
                                         @else
                                             Hmm.. belum ada pengguna diwebsite {{ $setting->site_name }}.
                                         @endif
@@ -137,18 +207,58 @@
             </div>
         </div>
     </div>
+
+    {{-- Modal blokir --}}
+    <div class="modal fade" id="blokirUserModal" tabindex="-1" role="dialog" aria-labelledby="blokirTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-centered">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="blokirTitle">Blokir <span id="userName"></span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="formBlokirUser" action="#" autocomplete="off" method="POST">
+                    <div class="modal-body">
+                        @csrf
+                        @method('POST')
+
+                        <input type="hidden" id="userId" name="id" value="">
+
+                        <div class="form-group mb-3">
+                            <label for="banned">Pilih hari-nya</label>
+                            <select class="form-control" name="banned" id="bannedDay">
+                                <option value="{{ \Carbon\Carbon::now()->addDays(1) }}">1 hari</option>
+                                <option value="{{ \Carbon\Carbon::now()->addDays(3) }}">3 hari</option>
+                                <option value="{{ \Carbon\Carbon::now()->addDays(7) }}">7 hari</option>
+                                <option value="{{ \Carbon\Carbon::now()->addDays(14) }}">14 hari</option>
+                                <option value="{{ \Carbon\Carbon::now()->addDays(20) }}">20 hari</option>
+                                <option value="{{ \Carbon\Carbon::now()->addDays(30) }}">30 hari</option>
+                                <option value="{{ \Carbon\Carbon::now()->addDays(31) }}">Permanen</option>
+                            </select>
+                            <span class="invalid-feedback d-block error-text banned_error"></span>
+                        </div>
+
+                        <br>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                            <button type="submit" class="submitBlokir btn btn-danger">
+                                Blokir
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @push('js-internal')
     <script>
-        // NOTIF SUCCESS
-        const notif = $('.notif-success').data('notif');
-        if (notif) {
-            alertify
-                .delay(3500)
-                .log(notif);
-        }
-
         setTimeout(() => {
             history.replaceState('', document.title, window.location.origin + window
                 .location.pathname + window
@@ -156,6 +266,72 @@
         }, 0);
 
         $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('#statusUser').on('change', function() {
+                $('#submitStatus').click();
+            });
+
+            // show data user
+            $(document).on('click', '#blokirUser', function(e) {
+                e.preventDefault();
+
+                let user_id = $(this).data('id');
+                $('#blokirUserModal').modal('show');
+
+                $.ajax({
+                    type: "GET",
+                    url: "{{ url('dashboard/users-show') }}/" + user_id,
+                    success: function(response) {
+                        if (response.status == 400) {
+                            alertify.delay(4500).error(response.msg);
+                        } else {
+                            $('#userId').val(user_id);
+                            $('#userName').html(response.data.name);
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                    }
+                });
+            });
+
+            // blokir data
+            $('#formBlokirUser').on('submit', function(e) {
+                e.preventDefault();
+
+                let id = $('#userId').val();
+
+                $.ajax({
+                    method: "POST",
+                    url: "{{ url('dashboard/user-blokir') }}/" + id,
+                    data: {
+                        "banned": $('#bannedDay').val()
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.status == 200) {
+                            alertify.delay(4500).log(response.msg);
+
+                            setTimeout((function() {
+                                window.location.href = response.redirect +
+                                    '#profile';
+                                window.location.reload();
+                            }), 980);
+
+                            $('#blokirUserModal').modal('hide');
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                    }
+                });
+            });
+
             $("form[role='alert']").submit(function(e) {
                 e.preventDefault();
 
@@ -166,8 +342,8 @@
                     allowOutsideClick: false,
                     showCancelButton: true,
                     cancelButtonText: "Ga, batalkan!",
-                    confirmButtonText: "Ya, hapus!",
-                    confirmButtonColor: '#d33',
+                    confirmButtonText: $(this).attr('alert-btn'),
+                    confirmButtonColor: $(this).attr('alert-clr'),
                     reverseButtons: true,
                 }).then((result) => {
                     if (result.isConfirmed) {

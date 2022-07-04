@@ -37,20 +37,27 @@ class UserController extends Controller
      */
     public function index(Request $request, User $user)
     {
-
-        $q = $request->get('keyword');
-
-        if ($q) {
-            $users = User::where('name', 'LIKE', '%' . $q . '%')
-                ->orWhere('email', 'LIKE', '%' . $q . '%')->paginate(50);
+        if (in_array($request->get('status'), ['allowable', 'banned'])) {
+            $statusSelected = $request->get('status');
         } else {
-            $users = User::join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
-                ->orderBy('model_has_roles.role_id', 'asc')
-                ->paginate(50);
+            $statusSelected = "allowable";
+        }
+
+        if ($statusSelected == "allowable") {
+            $users = User::allowable()->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
+                ->orderBy('model_has_roles.role_id', 'asc');
+        } else {
+            $users = User::banned()->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
+                ->orderBy('model_has_roles.role_id', 'asc');
+        }
+
+        if ($request->get('keyword')) {
+            $users->search($request->get('keyword'));
         }
 
         return view('dashboard.manage-users.users.index', [
-            'users' => $users->appends(['keyword' => $request->keyword]),
+            'users' => $users->paginate(10)->withQueryString(),
+            'statusSelected' => $statusSelected,
         ]);
     }
 
@@ -286,5 +293,50 @@ class UserController extends Controller
             DB::commit();
             return redirect()->back()->with('success', 'Pengguna dengan nama ' . $user->name . ' berhasil dihapus!');
         }
+    }
+
+    // show user modal
+    public function showUserModal($id)
+    {
+        $data = User::find($id);
+
+        if ($data) {
+            return response()->json([
+                'status' => 200,
+                'data' => $data
+            ]);
+        } else {
+            return response()->json([
+                'status' => 400,
+                'msg' => 'Data tidak ditemukan'
+            ]);
+        }
+    }
+
+    public function blokirUser($id, Request $request)
+    {
+        $data = User::find($id);
+
+        $data->banned_at = $request->banned;
+        $data->status = "banned";
+
+        $data->update();
+        return response()->json(
+            [
+                'status' => 200,
+                'msg' => 'Akun dengan nama ' . $data->name . ' telah diblokir.',
+                'redirect' => back(),
+            ]
+        );
+    }
+
+    public function unBlokirUser(User $user)
+    {
+        $user->banned_at = null;
+        $user->status = "allowable";
+
+        $user->update();
+
+        return redirect()->back()->with('success', 'Akun dengan nama ' . $user->name . ' sudah tidak terblokir.');
     }
 }

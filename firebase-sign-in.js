@@ -32,19 +32,6 @@ const githubProvider = new GithubAuthProvider();
 const auth = getAuth();
 auth.languageCode = 'id';
 
-// $('#registerForm').on('submit',  function (e) {
-//     signInWithEmailAndPassword(auth, email, password)
-//         .then((userCredential) => {
-//             // Signed in
-//             const user = userCredential.user;
-//             console.log(user);
-//         })
-//         .catch((error) => {
-//             const errorCode = error.code;
-//             const errorMessage = error.message;
-//         });
-// });
-
 $('#signWithGithub').click(function () {
     signInWithPopup(auth, githubProvider)
         .then((result) => {

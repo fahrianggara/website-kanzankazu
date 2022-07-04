@@ -36,6 +36,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'remember_token',
         'uid',
         'provider',
+        'banned_at',
+        'status'
     ];
 
     /**
@@ -52,6 +54,11 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     protected $appends = ['role_names'];
+
+    protected $dates = [
+        'email_verified_at',
+        'banned_at',
+    ];
 
     /**
      * The attributes that should be cast.
@@ -90,7 +97,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getRoleNamesAttribute()
     {
         return $this->belongsToMany(Role::class);
-
     }
 
     public function posts()
@@ -141,5 +147,20 @@ class User extends Authenticatable implements MustVerifyEmail
     public function miminRole()
     {
         return $this->roles()->where('name', 'Mimin')->first();
+    }
+
+    public function scopeAllowable($query)
+    {
+        return $query->where('status', "allowable");
+    }
+
+    public function scopeBanned($query)
+    {
+        return $query->where('status', "banned");
+    }
+
+    public function scopeSearch($query, $data)
+    {
+        return $query->where('name', 'LIKE', "%{$data}%")->orWhere('email', 'LIKE', "%{$data}%");
     }
 }

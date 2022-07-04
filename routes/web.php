@@ -108,6 +108,9 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::get('/roles/select', [\App\Http\Controllers\Dashboard\RoleController::class, 'select'])->name('roles.select');
         Route::resource('/roles', \App\Http\Controllers\Dashboard\RoleController::class);
         // User
+        Route::get('/users-show/{id}', [\App\Http\Controllers\Dashboard\UserController::class, 'showUserModal'])->name('users.showModal');
+        Route::post('/user-blokir/{id}', [\App\Http\Controllers\Dashboard\UserController::class, 'blokirUser'])->name('users.blokir');
+        Route::put('/user-unblokir/{user}', [\App\Http\Controllers\Dashboard\UserController::class, 'unBlokirUser'])->name('users.unblokir');
         Route::resource('/users', \App\Http\Controllers\Dashboard\UserController::class)->except('show');
         // FILE MANAGER
         Route::group(['prefix' => 'filemanager'], function () {

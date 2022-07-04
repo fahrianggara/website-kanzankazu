@@ -103,13 +103,21 @@
                 {{-- USERS --}}
                 @can('manage_users')
                     <li id="users" class="menu-title">Kelola Pengguna</li>
-                    <li >
+                    <li>
                         <a href="{{ route('users.index','#users') }}"
                             class="waves-effect {{ set_active(['users.index', 'users.create', 'users.edit']) }}">
                             <i class="uil uil-users-alt"></i>
                             <span>Pengguna</span>
                         </a>
                     </li>
+
+                    {{-- <li>
+                        <a href="{{ route('users.index','#users') }}"
+                            class="waves-effect ">
+                            <i class="uil uil-social-distancing"></i>
+                            <span>User Provider</span>
+                        </a>
+                    </li> --}}
                 @endcan
                 {{-- ROLES --}}
                 @can('manage_roles')

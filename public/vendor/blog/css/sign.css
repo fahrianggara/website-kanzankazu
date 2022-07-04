@@ -75,7 +75,7 @@ body {
     transition: 0.3s all ease-in-out;
 }
 
-.to-back i{
+.to-back i {
     font-size: 26px;
     position: relative;
     color: #fff;
@@ -333,25 +333,30 @@ hr.hr-text::before {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
 .orLogin {
     margin-bottom: 22px;
     text-align: center !important;
     padding: 0 !important;
 }
+
 .orLogin i {
     color: #DD4B39;
     font-size: 24px;
 }
+
 .orLogin span {
     color: var(--text-color);
     font-weight: bold;
     transition: 0.3s all ease-in-out;
     margin-left: 1px;
 }
-.orLogin span:hover{
+
+.orLogin span:hover {
     color: #DD4B39;
 }
-.orLogin a:hover{
+
+.orLogin a:hover {
     text-decoration: none;
 }
 
@@ -363,7 +368,9 @@ hr.hr-text::before {
     justify-content: center;
 }
 
-.footer-login .register, .footer-login .forgot, .footer-login .space {
+.footer-login .register,
+.footer-login .forgot,
+.footer-login .space {
     margin-top: 15px
 }
 
@@ -378,7 +385,7 @@ hr.hr-text::before {
     transition: 0.3s all ease-in-out;
 }
 
-.footer-login .link:hover{
+.footer-login .link:hover {
     color: var(--primary-color);
     transition: 0.3s all ease-in-out;
 }
@@ -394,7 +401,7 @@ hr.hr-text::before {
     display: inline-block;
 }
 
-.footer-login .space::after{
+.footer-login .space::after {
     content: "|";
     margin: 0 6px 0 6px;
     color: #00b2cc;
@@ -410,7 +417,28 @@ hr.hr-text::before {
         font-size: 12px;
     }
 
-    .change-theme i, .to-back i {
+    .change-theme i,
+    .to-back i {
         font-size: 18px;
     }
+}
+
+/* Modal */
+.modal-content {
+    background: var(--container-color);
+    color: var(--text-color);
+}
+
+.alertify .dialog>div {
+    background: var(--container-color);
+    color: var(--text-color);
+}
+
+.alertify .alert nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button),
+.alertify .dialog nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button) {
+    color: var(--text-color) !important;
+}
+
+.swal2-popup {
+    background: var(--sectionBg-color) !important;
 }

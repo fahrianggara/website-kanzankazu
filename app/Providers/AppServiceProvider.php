@@ -38,6 +38,7 @@ class AppServiceProvider extends ServiceProvider
         // if(config('app.env') === 'local') {
         //     URL::forceScheme('https');
         // }
+        \Carbon\Carbon::setLocale('id');
 
         //Add this custom validation rule.
         Validator::extend('alpha_spaces', function ($attribute, $value) {
