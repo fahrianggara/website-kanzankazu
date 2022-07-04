@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 
-@section('title', 'Forgot passsword')
+@section('title', 'Forgot password')
 
 @section('content')
     <div class="notif-success" data-notif="{{ session('status') }}"></div>
@@ -15,7 +15,7 @@
                     @include('auth.nav')
 
                     <h4 class="title text-center mt-4">
-                        Forgot passsword
+                        Forgot password
                     </h4>
 
                     {{-- Form Input --}}
