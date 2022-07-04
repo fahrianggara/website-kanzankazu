@@ -56,7 +56,7 @@ class UserController extends Controller
         }
 
         return view('dashboard.manage-users.users.index', [
-            'users' => $users->paginate(10)->withQueryString(),
+            'users' => $users->paginate(50)->withQueryString(),
             'statusSelected' => $statusSelected,
         ]);
     }
