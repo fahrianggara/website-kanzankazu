@@ -62,7 +62,7 @@
                             <div class="iconForm"><i class="uil uil-key-skeleton-alt"></i></div>
                             <input id="password-confirm" type="password" class="form_control password" name="password_confirmation"
                                 required autocomplete="new-password">
-                            <label for="password">Konfirmasi</label>
+                            <label for="password-confirm">Konfirmasi</label>
                         </div>
 
                         <div class="mb-3">
