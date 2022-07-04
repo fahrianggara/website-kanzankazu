@@ -101,6 +101,16 @@
     @stack('js-internal')
     {{-- Script --}}
     <script>
+        function buttonBack(targetUrl) {
+            var currentUrl = window.location.href;
+            window.history.go(-1);
+            setTimeout(function() {
+                if (currentUrl === window.location.href) {
+                    window.location.href = targetUrl;
+                }
+            }, 100);
+        }
+
         window.onload = function() {
             if (!localStorage.justOnce) {
                 localStorage.setItem("justOnce", "true");

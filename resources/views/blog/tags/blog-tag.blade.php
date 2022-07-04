@@ -94,7 +94,7 @@
                                 belum dibuat.
                             </p>
 
-                            <a id="buttonBack" class="buttonBlogNotFound">Kembali</a>
+                            <a onclick="buttonBack()" class="buttonBlogNotFound">Kembali</a>
                         </div>
 
                     </div>

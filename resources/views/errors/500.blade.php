@@ -30,13 +30,19 @@
             <p>
                 Sorry! Something went wrong on our server, please try again later.
             </p>
-            <a id='buttonBack' class="buttonError" href="" id="refreshpage">Refresh</a>
+            <a onclick='buttonBack()' class="buttonError" id="refreshpage">Back</a>
         </div>
     </div>
 
     <script>
-        document.getElementById('buttonBack').onclick = function() {
-            window.location = document.referrer;
+        function buttonBack(targetUrl) {
+            var currentUrl = window.location.href;
+            window.history.go(-1);
+            setTimeout(function() {
+                if (currentUrl === window.location.href) {
+                    window.location.href = targetUrl;
+                }
+            }, 100);
         }
     </script>
 </body>

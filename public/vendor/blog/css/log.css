@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Display:wght@400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Anek+Latin:wght@300;500;700&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,700&family=Noto+Sans+Display:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Noto+Sans+JP:wght@300;400;700&family=Poppins:ital,wght@0,300;0,500;0,700;1,300;1,500&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,400&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,500&family=Rubik:ital,wght@0,300;0,500;0,600;1,300;1,500&display=swap');
 
 :root {
     --primary-color: #00b2cc;
@@ -17,7 +18,11 @@ body.dark-theme {
 }
 
 * {
-    font-family: "Noto Sans Display", sans-serif;
+    font-family: "Rubik", sans-serif;
+}
+
+a:hover {
+    text-decoration: none !important;
 }
 
 body {
@@ -37,22 +42,50 @@ body {
     right: 0;
     padding: 5px 10px;
     border-radius: 0 0 0 15px !important;
-    background: #00829b;
+    background: #00b2cc;
     cursor: pointer;
+    transition: 0.3s all ease-in-out;
+}
+
+.change-theme:hover {
+    background: #00829b;
+    transition: 0.3s all ease-in-out;
 }
 
 .change-theme>i {
     font-size: 26px;
     position: relative;
-    top: -1px;
-    right: -1px;
     color: #fff;
     transition: 0.3s all ease-in-out;
 }
 
-.change-theme>i:hover {
-    color: #60e4ff;
+.to-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 5px 10px;
+    background: #00b1cc9d;
+    border-radius: 0 0 15px 0 !important;
+    cursor: pointer;
     transition: 0.3s all ease-in-out;
+}
+
+.to-back:hover {
+    background: #00829b;
+    transition: 0.3s all ease-in-out;
+}
+
+.to-back i{
+    font-size: 26px;
+    position: relative;
+    color: #fff;
+    transition: 0.3s all ease-in-out;
+}
+
+@media (max-width: 768px) {
+    .to-back {
+        background: var(--primary-color);
+    }
 }
 
 .card {
@@ -85,6 +118,7 @@ body {
     margin-bottom: 2rem;
     font-size: 30px;
     color: var(--primary-color);
+    font-weight: bold;
 }
 
 .form-input {
@@ -198,11 +232,10 @@ label.active {
     color: var(--text-color);
     z-index: 10;
     padding: 12px;
-    font-family: "Noto Sans Display", sans-serif;
-    font-weight: 500;
+    font-family: "Rubik", sans-serif;
+    font-weight: bold;
     font-size: 90%;
     margin-top: 10px;
-    letter-spacing: 0.1rem;
     -webkit-animation-delay: 0.8s;
     animation-delay: 0.8s;
     display: inline-block;
@@ -320,4 +353,64 @@ hr.hr-text::before {
 }
 .orLogin a:hover{
     text-decoration: none;
+}
+
+/* footer-login */
+.footer-login {
+    border-top: 1px solid var(--text-color);
+    display: flex;
+    transition: 0.3s all ease-in-out;
+    justify-content: center;
+}
+
+.footer-login .register, .footer-login .forgot, .footer-login .space {
+    margin-top: 15px
+}
+
+.footer-login i {
+    color: var(--primary-color) !important;
+    display: inline-block;
+}
+
+.footer-login .link {
+    color: #777;
+    font-weight: 400;
+    transition: 0.3s all ease-in-out;
+}
+
+.footer-login .link:hover{
+    color: var(--primary-color);
+    transition: 0.3s all ease-in-out;
+}
+
+.footer-login ul {
+    list-style: none;
+    display: inline;
+    padding: 0;
+    font-size: 16px;
+}
+
+.footer-login ul li {
+    display: inline-block;
+}
+
+.footer-login .space::after{
+    content: "|";
+    margin: 0 6px 0 6px;
+    color: #00b2cc;
+    transition: 0.3s all ease-in-out;
+}
+
+@media (max-width: 393px) {
+    .footer-login ul {
+        font-size: 12px;
+    }
+
+    .footer-login i {
+        font-size: 12px;
+    }
+
+    .change-theme i, .to-back i {
+        font-size: 18px;
+    }
 }

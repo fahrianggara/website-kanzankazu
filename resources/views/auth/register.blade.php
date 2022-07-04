@@ -14,18 +14,15 @@
 
                 <div class="card-body">
 
-                    <div class="change-theme">
-                        <i class="uil uil-moon btn-tooltip-hide" data-toggle="tooltip" data-placement="left"
-                            title="Ganti Tema" id="theme-toggle">
-                        </i>
-                    </div>
+                    @include('auth.nav')
 
                     <h4 class="title text-center mt-4">
                         Register
                     </h4>
 
                     {{-- Form Input --}}
-                    <form id="registerForm" action="{{ route('register') }}" method="POST" class="form-box px-3" autocomplete="off">
+                    <form id="registerForm" action="{{ route('register') }}" method="POST" class="form-box px-3"
+                        autocomplete="off">
                         @csrf
 
                         <input id="slugName" type="hidden" name="slug" value="{{ old('slug') }}">
@@ -61,7 +58,7 @@
                         <div class="form-input">
                             <div class="iconForm"><i class="uil uil-key-skeleton"></i></div>
 
-                            <input type="password" class="form_control @error('password') is-invalid @enderror"
+                            <input type="password" class="form_control password @error('password') is-invalid @enderror"
                                 id="password" type="password" name="password" autocomplete="new-password">
                             <label for="password">Password</label>
 
@@ -78,12 +75,12 @@
                         <div class="form-input">
                             <div class="iconForm"><i class="uil uil-key-skeleton"></i></div>
 
-                            <input type="password" class="form_control @error('password') is-invalid @enderror"
+                            <input type="password" class="form_control password @error('password') is-invalid @enderror"
                                 id="password-confirm" type="password" name="password_confirmation"
                                 autocomplete="new-password">
                             <label for="password-confirm">Confirm Password</label>
 
-                            <div class="passTog"><i class="bi bi-eye-slash-fill" id="toggleNewPass"></i></div>
+                            {{-- <div class="passTog"><i class="bi bi-eye-slash-fill" id="toggleNewPass"></i></div> --}}
 
                         </div>
 
@@ -93,13 +90,18 @@
                             </button>
                         </div>
 
-                        <hr class="my-4 hr">
-
-                        <div class="text-center mb-2">
-                            <a href="{{ route('login') }}" class="register-link">
-                                Sudah punya akun?
-                            </a>
+                        <div class="footer-login clearfix">
+                            <div class="register">
+                                <ul class="ul">
+                                    <li>
+                                        <a href="{{ route('login') }}" class="link">
+                                           Sudah punya akun?
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
+
                     </form>
                 </div>
             </div>
@@ -123,24 +125,12 @@
                     $('#slugName').val(generateSlug(title));
                 });
 
-                const togglePassword = document.querySelector('#togglePass');
-                const password = document.querySelector('#password');
-
-                togglePassword.addEventListener('click', function(e) {
-                    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-                    password.setAttribute('type', type);
-
+                document.getElementById("togglePass").addEventListener("click", function() {
                     this.classList.toggle("bi-eye");
-                });
 
-                const toggleNewPassword = document.querySelector('#toggleNewPass');
-                const newPassword = document.querySelector('#password-confirm');
-
-                toggleNewPassword.addEventListener('click', function(e) {
-                    const type = newPassword.getAttribute('type') === 'password' ? 'text' : 'password';
-                    newPassword.setAttribute('type', type);
-
-                    this.classList.toggle("bi-eye");
+                    [...document.querySelectorAll(".password")].forEach(
+                        p => p.type = p.type === "password" ? "text" : "password"
+                    )
                 });
             });
         </script>

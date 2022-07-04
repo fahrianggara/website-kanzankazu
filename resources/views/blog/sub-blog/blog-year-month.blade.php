@@ -86,7 +86,7 @@
                                 {{ trans('blog.no-data.blogs') }}
                             </p>
 
-                            <a id="buttonBack" class="buttonBlogNotFound">{{ trans('blog.links.linkBack') }}</a>
+                            <a onclick="buttonBack()" class="buttonBlogNotFound">{{ trans('blog.links.linkBack') }}</a>
                         </div>
 
                     </div>

@@ -27,7 +27,7 @@
             <p>
                 {{ trans('error.404-description') }}
             </p>
-            <a id="buttonBack" class="buttonError" href="">Back</a>
+            <a onclick="buttonBack()" class="buttonError">Back</a>
         </div>
     </div>
 </body>
@@ -35,7 +35,13 @@
 </html>
 
 <script>
-    document.getElementById('buttonBack').onclick = function() {
-        window.location = document.referrer;
+    function buttonBack(targetUrl) {
+        var currentUrl = window.location.href;
+        window.history.go(-1);
+        setTimeout(function() {
+            if (currentUrl === window.location.href) {
+                window.location.href = targetUrl;
+            }
+        }, 100);
     }
 </script>

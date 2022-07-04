@@ -173,78 +173,82 @@
                     </div>
                 </div>
             </div>
-            <div class="card m-b-30">
-                <div class="card-body">
-                    <ul class="nav nav-pills nav-justified" role="tablist">
-                        <li class="nav-item waves-effect waves-light">
-                            <a disabled class="nav-link active" data-toggle="tab" href="#setting-3" role="tab"
-                                style="cursor: default">Ganti
-                                Password</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
-                        {{-- Change Password --}}
-                        <div class="tab-pane active p-3" id="setting-3" role="tabpanel">
 
-                            <form action="{{ route('profile.changePassword') }}" method="POST"
-                                class="form-horizontal" id="formPassword" autocomplete="off">
-                                @csrf
-                                @method('put')
+            @if (Auth::user()->provider == null)
+                <div class="card m-b-30">
+                    <div class="card-body">
+                        <ul class="nav nav-pills nav-justified" role="tablist">
+                            <li class="nav-item waves-effect waves-light">
+                                <a disabled class="nav-link active" data-toggle="tab" href="#setting-3" role="tab"
+                                    style="cursor: default">Ganti
+                                    Password</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            {{-- Change Password --}}
+                            <div class="tab-pane active p-3" id="setting-3" role="tabpanel">
 
-                                <div class="form-group row">
-                                    <label for="oldpass" class="col-sm-2 col-form-label">Password Lama</label>
-                                    <div class="col-sm-10">
-                                        <input type="password" class="form-control" id="oldpass"
-                                            placeholder="Masukkan password yang sekarang" name="oldpass">
-                                        <span class="invalid-feedback d-block error-text oldpass_error"></span>
-                                    </div>
-                                </div>
+                                <form action="{{ route('profile.changePassword') }}" method="POST"
+                                    class="form-horizontal" id="formPassword" autocomplete="off">
+                                    @csrf
+                                    @method('put')
 
-                                <div class="form-group row">
-                                    <label for="newpass" class="col-sm-2 col-form-label">Password Baru</label>
-                                    <div class="col-sm-10">
-                                        <input type="password" class="form-control" id="newpass"
-                                            placeholder="Masukkan password yang baru" name="newpass">
-                                        <span class="invalid-feedback d-block error-text newpass_error"></span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="confirmpass" class="col-sm-2 col-form-label">Konfimasi</label>
-                                    <div class="col-sm-10">
-                                        <input type="password" class="form-control" id="confirmpass"
-                                            placeholder="Masukkan password yang dibuat baru tadi" name="confirmpass">
-                                        <span class="invalid-feedback d-block error-text confirmpass_error"></span>
-                                    </div>
-                                </div>
-
-                                <div id="forgotPassword" class="d-none">
                                     <div class="form-group row">
-                                        <div class="offset-sm-10 col-sm-10">
-                                            <a target="_blank" href="{{ route('password.request') }}">Forgot
-                                                Password</a>
+                                        <label for="oldpass" class="col-sm-2 col-form-label">Password Lama</label>
+                                        <div class="col-sm-10">
+                                            <input type="password" class="form-control" id="oldpass"
+                                                placeholder="Masukkan password yang sekarang" name="oldpass">
+                                            <span class="invalid-feedback d-block error-text oldpass_error"></span>
                                         </div>
                                     </div>
 
-                                    <div class="dropdown-divider mb-3 mt-3"></div>
-                                </div>
-
-
-                                <div class="form-group row">
-                                    <div class="offset-sm-2 col-sm-10">
-                                        <button name="submitPass" type="submit" id="buttonPassword"
-                                            class="btn btn-primary">
-                                            Update Password
-                                        </button>
+                                    <div class="form-group row">
+                                        <label for="newpass" class="col-sm-2 col-form-label">Password Baru</label>
+                                        <div class="col-sm-10">
+                                            <input type="password" class="form-control" id="newpass"
+                                                placeholder="Masukkan password yang baru" name="newpass">
+                                            <span class="invalid-feedback d-block error-text newpass_error"></span>
+                                        </div>
                                     </div>
-                                </div>
 
-                            </form>
+                                    <div class="form-group row">
+                                        <label for="confirmpass" class="col-sm-2 col-form-label">Konfimasi</label>
+                                        <div class="col-sm-10">
+                                            <input type="password" class="form-control" id="confirmpass"
+                                                placeholder="Masukkan password yang dibuat baru tadi" name="confirmpass">
+                                            <span class="invalid-feedback d-block error-text confirmpass_error"></span>
+                                        </div>
+                                    </div>
+
+                                    <div id="forgotPassword" class="d-none">
+                                        <div class="form-group row">
+                                            <div class="offset-sm-10 col-sm-10">
+                                                <a target="_blank" href="{{ route('password.request') }}">Forgot
+                                                    Password</a>
+                                            </div>
+                                        </div>
+
+                                        <div class="dropdown-divider mb-3 mt-3"></div>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <div class="offset-sm-2 col-sm-10">
+                                            <button name="submitPass" type="submit" id="buttonPassword"
+                                                class="btn btn-primary">
+                                                Update Password
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endif
         </div>
+
     </div>
 @endsection
 
@@ -380,7 +384,7 @@
                 allowedExtensions: ['jpg', 'jpeg', 'png'],
                 buttonsText: ['CROP & UPLOAD', 'CANCEL'],
                 buttonsColor: ['#30bf7d', '#ee5155', -15],
-                processUrl: '{{ route("profile.updateImage") }}',
+                processUrl: '{{ route('profile.updateImage') }}',
                 // withCSRF:['_token','{{ csrf_token() }}'],
                 onSuccess: function(message, element, status) {
                     alertify.okBtn("OK").alert(message);

@@ -95,7 +95,7 @@
                                     Oopss.. sepertinya blog yang kamu cari tidak ditemukan.
                                 </p>
 
-                                <a id="buttonBack" class="buttonBlogNotFound">Kembali</a>
+                                <a onclick="buttonBack()" class="buttonBlogNotFound">Kembali</a>
                             </div>
                         @endif
                     </div>

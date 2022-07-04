@@ -60,7 +60,7 @@ class FirebaseController extends Controller
                     'slug' => Str::slug($request->name) . '-' . strtolower(Str::random(3)),
                     'user_image' => $request->user_image,
                     'email' => $request->email,
-                    'password' => bcrypt($request->uid),
+                    // 'password' => bcrypt($request->uid),
                     'email_verified_at' => now(),
                     'provider' => 'google',
                 ];
@@ -77,7 +77,7 @@ class FirebaseController extends Controller
                 Auth::loginUsingId($user->id, true);
                 return response()->json([
                     "status" => 200,
-                    "msg" => "Selamat datang di " . $this->setting->site_name . '! ' . $request->name . '.',
+                    "msg" => "Selamat datang di " . $this->setting->site_name . '!',
                     "redirect" => route('dashboard.index'),
                 ]);
             }
@@ -115,14 +115,16 @@ class FirebaseController extends Controller
                     "error" => $validator->errors()->toArray(),
                 ]);
             } else {
+
                 $siteName = "KZN";
+
                 $userData = [
                     'uid' => $request->uid,
                     'name' => $request->name ?? $siteName,
                     'slug' => Str::slug($request->name ?? $siteName) . '-' . strtolower(Str::random(3)),
                     'user_image' => $request->user_image,
                     'email' => $request->email,
-                    'password' => bcrypt($request->uid),
+                    // 'password' => bcrypt($request->uid),
                     'email_verified_at' => now(),
                     'provider' => 'github',
                 ];
@@ -139,7 +141,7 @@ class FirebaseController extends Controller
                 Auth::loginUsingId($user->id, true);
                 return response()->json([
                     "status" => 200,
-                    "msg" => "Selamat datang di " . $this->setting->site_name . '! ' . $request->name ?? $siteName . '.',
+                    "msg" => "Selamat datang di " . $this->setting->site_name . '!',
                     "redirect" => route('dashboard.index'),
                 ]);
             }

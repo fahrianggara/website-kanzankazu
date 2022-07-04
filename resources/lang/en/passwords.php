@@ -13,10 +13,10 @@ return [
     |
     */
 
-    'reset' => 'Yeayy, Password kamu telah diperbarui! jangan sampai lupa lagi ya.',
+    'reset' => 'Password kamu telah diperbarui! jangan sampai lupa lagi ya.',
     'sent' => 'Kami telah mengirim email tautan reset kata sandi kamu! silahkan cek email kamu.',
     'throttled' => 'Harap tunggu, sebelum mencoba lagi.',
     'token' => 'Token pengaturan ulang kata sandi ini tidak valid.',
     'user' => "Kami tidak dapat menemukan pengguna dengan alamat email tersebut.",
-
+    'emailHasUid' => 'Email ini login menggunakan provider.',
 ];
