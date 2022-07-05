@@ -28,7 +28,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('user:allowable')->everyMinute();
+        $schedule->command('user:allowable')->everyMinute()->runInBackground();
     }
 
     /**
