@@ -323,8 +323,7 @@
                             @foreach ($tutorials as $tutorial)
                                 <div class="category-item clearfix">
                                     <div class="imgSidebar img-container">
-                                        <a
-                                            href="{{ route('blog.posts.tutorials.author', ['slug' => $tutorial->slug, 'user' => $post->user->slug]) }}">
+                                        <a href="{{ route('blog.posts.tutorials', ['slug' => $tutorial->slug]) }}">
                                             @if (file_exists('vendor/dashboard/image/thumbnail-tutorials/' . $tutorial->thumbnail))
                                                 <img class="img-container"
                                                     src="{{ asset('vendor/dashboard/image/thumbnail-tutorials/' . $tutorial->thumbnail) }}"
