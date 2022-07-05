@@ -393,7 +393,7 @@ class BlogController extends Controller
 
     public function showAuthors()
     {
-        $authors = User::with(['posts' => fn ($query) => $query->where('status', 'publish')])
+        $authors = User::allowable()->with(['posts' => fn ($query) => $query->where('status', 'publish')])
             ->whereHas('posts', fn ($query) => $query->where('status', 'publish'))
             ->where('name', '!=', 'Editor')
             ->where('name', '!=', 'Mimin')
@@ -418,6 +418,10 @@ class BlogController extends Controller
     public function showPostsByAuthor(User $author)
     {
         $user = $author;
+
+        if ($author->status == 'banned') {
+            return redirect()->back()->with('success', 'Author ini telah di banned');
+        }
 
         $posts = $author
             ->post()
@@ -524,7 +528,7 @@ class BlogController extends Controller
     {
         $tutorial = Tutorial::where('slug', $slug)->first();
 
-        $users = User::with(['posts' => fn ($query) => $query->where('status', 'publish')])
+        $users = User::allowable()->with(['posts' => fn ($query) => $query->where('status', 'publish')])
             ->whereHas('posts', fn ($query) => $query->where('status', 'publish')
                 ->where('tutorial_id', $tutorial->id))
             ->with(['tutorials' => fn ($query) => $query->where('slug', $slug)])
@@ -549,7 +553,7 @@ class BlogController extends Controller
 
     public function showPostsByTutorialByAuthor($slug, $user)
     {
-        $author = User::where('name', $user)->firstOrFail();
+        $author = User::allowable()->where('name', $user)->firstOrFail();
 
         $tutorial = Tutorial::with(['posts' => function ($q) use ($author) {
             return $q->whereHas('user', function ($q) use ($author) {

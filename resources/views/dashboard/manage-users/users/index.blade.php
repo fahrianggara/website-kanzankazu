@@ -36,11 +36,11 @@
                                                 title="Status">
                                                 <option value="allowable"
                                                     {{ $statusSelected == 'allowable' ? 'selected' : null }}>
-                                                    Tidak Terblokir
+                                                    Tidak Terblokir ({{ $userAllowableCount }})
                                                 </option>
                                                 <option value="banned"
                                                     {{ $statusSelected == 'banned' ? 'selected' : null }}>
-                                                    Terblokir
+                                                    Terblokir ({{ $userBannedCount }})
                                                 </option>
                                             </select>
 
@@ -88,12 +88,12 @@
                                     <th>No</th>
                                     <th>Nama</th>
                                     <th>Email</th>
-                                    @if (request()->get('status') == 'allowable')
-                                        <th>Role</th>
-                                        <th>Status</th>
-                                    @else
+                                    @if (request()->get('status') == 'banned')
                                         <th>Status</th>
                                         <th>Terblokir sampai</th>
+                                    @elseif (request()->get('status') == 'allowable' || route('users.index'))
+                                        <th>Role</th>
+                                        <th>Status</th>
                                     @endif
                                     <th>Opsi</th>
                                 </tr>
@@ -104,8 +104,10 @@
                                     <tr class="text-center">
                                         <td>{{ $users->perPage() * ($users->currentPage() - 1) + $no }}</td>
                                         @php $no++; @endphp
+
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
+
                                         @if ($user->status == 'allowable')
                                             <td>{{ $user->roles->first()->name }}</td>
                                             <td>
@@ -114,12 +116,14 @@
                                                 @else
                                                     <span class="text-secondary">Offline</span>
                                                 @endif
-                                            @else
+                                            </td>
+                                        @elseif ($user->status == 'banned')
                                             <td class="text-danger">{{ strtoupper($user->status) }}</td>
                                             <td>
                                                 {{ $user->banned_at->diffForHumans() }}
                                             </td>
                                         @endif
+
                                         <td>
                                             @if ($user->status == 'allowable')
                                                 @if ($user->roles->first()->name == 'Admin' || $user->roles->first()->name == 'Editor')
@@ -235,7 +239,7 @@
                                 <option value="{{ \Carbon\Carbon::now()->addDays(14) }}">14 hari</option>
                                 <option value="{{ \Carbon\Carbon::now()->addDays(20) }}">20 hari</option>
                                 <option value="{{ \Carbon\Carbon::now()->addDays(30) }}">30 hari</option>
-                                <option value="{{ \Carbon\Carbon::now()->addDays(31) }}">Permanen</option>
+                                <option value="{{ \Carbon\Carbon::now()->addYears(10) }}">Permanen</option>
                             </select>
                             <span class="invalid-feedback d-block error-text banned_error"></span>
                         </div>

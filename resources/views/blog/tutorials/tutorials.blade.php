@@ -60,7 +60,15 @@
                         <div class="entry-content">
                             <div class="loading">
                                 <p>
-                                    {{ substr($tutorial->description, 0, 200) }}...
+                                    @if ($tutorial->description == null)
+                                        Seputar tutorial tentang {{ $tutorial->title }}
+                                    @else
+                                        @if (strlen($tutorial->description) > 150)
+                                            {{ substr($tutorial->description, 0, 150) }}...
+                                        @else
+                                            {{ substr($tutorial->description, 0, 150) }}
+                                        @endif
+                                    @endif
                                 </p>
                             </div>
                             <div class="read-more loading">

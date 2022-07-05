@@ -46,6 +46,8 @@ class ContactController extends Controller
         return view('dashboard.contact.index', [
             'contacts' => $contacts->paginate(20)->withQueryString(),
             'statusSelected' => $statusSelected,
+            'unansweredCount' => Contact::unanswered()->count(),
+            'answeredCount' => Contact::answered()->count(),
         ]);
     }
 

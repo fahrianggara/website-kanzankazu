@@ -56,7 +56,11 @@
                             <li class="d-flex align-items-center">
                                 <div class="loading">
                                     <i class="icofont-user"></i>
-                                    <span>{{ $post->user->name }}</span>
+                                    @if ($post->user->status == 'banned')
+                                        <span>Akun diblokir</span>
+                                    @else
+                                        <span>{{ $post->user->name }}</span>
+                                    @endif
                                 </div>
                             </li>
                             <li class="d-flex align-items-center">
@@ -134,46 +138,62 @@
                 </div>
 
                 <div class="blog-author d-flex align-items-center">
-                    @if (file_exists('vendor/dashboard/image/picture-profiles/' . $post->user->user_image))
-                        <img src="{{ asset('vendor/dashboard/image/picture-profiles/' . $post->user->user_image) }}"
-                            alt="" class="rounded-circle float-left" />
-                    @elseif ($post->user->uid != null)
-                        <img src="{{ $post->user->user_image }}" alt="" class="rounded-circle float-left" />
-                    @else
+                    @if ($post->user->status == 'banned')
                         <img src="{{ asset('vendor/dashboard/image/avatar.png') }}" class="rounded-circle float-left"
                             alt="">
-                    @endif
-                    <div>
-                        <a class="nameAuthor" href="{{ route('blog.author', ['author' => $post->user->slug]) }}">
-                            {{ $post->user->name }}
-                        </a>
-                        <div class="social-links">
-                            @if ($post->user->facebook != null)
-                                <a target="_blank" href="{{ $post->user->facebook }}">
-                                    <i class="fab fa-facebook-f"></i>
-                                </a>
-                            @elseif ($post->user->twitter != null)
-                                <a target="_blank" href="{{ $post->user->twitter }}">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                            @elseif ($post->user->instagram != null)
-                                <a target="_blank" href="{{ $post->user->instagram }}">
-                                    <i class="fab fa-instagram"></i>
-                                </a>
-                            @elseif ($post->user->github != null)
-                                <a target="_blank" href="{{ $post->user->github }}">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                            @endif
-                        </div>
-                        <p>
-                            @if ($post->user->bio != null)
-                                " {{ $post->user->bio }} "
-                            @else
+
+                        <div>
+                            <a class="nameAuthor" href="javascript:void(0)">
+                                Akun Diblokir
+                            </a>
+                            <div class="social-links">
+                            </div>
+                            <p>
                                 " KanzanKazu "
-                            @endif
-                        </p>
-                    </div>
+                            </p>
+                        </div>
+                    @else
+                        @if (file_exists('vendor/dashboard/image/picture-profiles/' . $post->user->user_image))
+                            <img src="{{ asset('vendor/dashboard/image/picture-profiles/' . $post->user->user_image) }}"
+                                alt="" class="rounded-circle float-left" />
+                        @elseif ($post->user->uid != null)
+                            <img src="{{ $post->user->user_image }}" alt="" class="rounded-circle float-left" />
+                        @else
+                            <img src="{{ asset('vendor/dashboard/image/avatar.png') }}" class="rounded-circle float-left"
+                                alt="">
+                        @endif
+                        <div>
+                            <a class="nameAuthor" href="{{ route('blog.author', ['author' => $post->user->slug]) }}">
+                                {{ $post->user->name }}
+                            </a>
+                            <div class="social-links">
+                                @if ($post->user->facebook != null)
+                                    <a target="_blank" href="{{ $post->user->facebook }}">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                @elseif ($post->user->twitter != null)
+                                    <a target="_blank" href="{{ $post->user->twitter }}">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                @elseif ($post->user->instagram != null)
+                                    <a target="_blank" href="{{ $post->user->instagram }}">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                @elseif ($post->user->github != null)
+                                    <a target="_blank" href="{{ $post->user->github }}">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                @endif
+                            </div>
+                            <p>
+                                @if ($post->user->bio != null)
+                                    " {{ $post->user->bio }} "
+                                @else
+                                    " KanzanKazu "
+                                @endif
+                            </p>
+                        </div>
+                    @endif
                 </div>
 
                 @if ($prev != null || $next != null)
@@ -317,10 +337,12 @@
                                         </a>
                                     </div>
                                     <h4 class="titleSidebar loading">
+
                                         <a class="underline"
-                                            href="{{ route('blog.posts.tutorials.author', ['slug' => $tutorial->slug, 'user' => $post->user->slug]) }}">
+                                            href="{{ route('blog.posts.tutorials', ['slug' => $tutorial->slug]) }}">
                                             {{ $tutorial->title }}
                                         </a>
+
                                     </h4>
                                     <time class="timeSidebar loading">
                                         <p>

@@ -13,7 +13,8 @@
         @if ($category->posts->count() >= 1)
             <div class="section-title">
                 <h2>Ini dia yang kamu cari</h2>
-                <p>Ada {{ $category->posts->count() }} blog dalam kategori <span class="titleFilter">{{ $category->title }}</span>.</p>
+                <p>Ada {{ $category->posts->count() }} blog dalam kategori <span
+                        class="titleFilter">{{ $category->title }}</span>.</p>
             </div>
         @endif
 
@@ -44,8 +45,13 @@
                                 <li class="d-flex align-items-center">
                                     <div class="loading">
                                         <i class="icofont-user"></i>
-                                        <a class="underline iconAuthor"
-                                            href="{{ route('blog.author', ['author' => $post->user->slug]) }}">{{ $post->user->name }}</a>
+                                        @if ($post->user->status == 'banned')
+                                            <a class="underline iconAuthor"
+                                                href="javascript:void(0)">Akun diblokir</a>
+                                        @else
+                                            <a class="underline iconAuthor"
+                                                href="{{ route('blog.author', ['author' => $post->user->slug]) }}">{{ $post->user->name }}</a>
+                                        @endif
                                     </div>
                                 </li>
                                 <li class="d-flex align-items-center">
@@ -60,7 +66,11 @@
                         <div class="entry-content">
                             <div class="loading">
                                 <p>
-                                    {{ substr($post->description, 0, 200) }}...
+                                    @if (strlen($post->description) > 150)
+                                        {{ substr($post->description, 0, 150) }}...
+                                    @else
+                                        {{ substr($post->description, 0, 150) }}
+                                    @endif
                                 </p>
                             </div>
                             <div class="read-more loading">
@@ -80,8 +90,7 @@
 
                         <div id="empty-blog">
 
-                            <svg viewBox="0 0 117 117" fill="none" class="iconMeh"
-                                xmlns="http://www.w3.org/2000/svg">
+                            <svg viewBox="0 0 117 117" fill="none" class="iconMeh" xmlns="http://www.w3.org/2000/svg">
                                 <circle class="face" cx="58.5" cy="58.5" r="57.5" stroke-width="2" />
                                 <circle class="eye" cx="40.5" cy="40.5" r="8.5" />
                                 <circle class="eye" cx="77.5" cy="40.5" r="8.5" />

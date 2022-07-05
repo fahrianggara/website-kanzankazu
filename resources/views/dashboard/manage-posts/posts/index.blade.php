@@ -37,15 +37,15 @@
                                                 title="Status">
                                                 <option value="publish"
                                                     {{ $statusSelected == 'publish' ? 'selected' : null }}>
-                                                    Publik
+                                                    Publik ({{ $publishPostCount }})
                                                 </option>
                                                 <option value="draft"
                                                     {{ $statusSelected == 'draft' ? 'selected' : null }}>
-                                                    Arsip
+                                                    Arsip ({{ $draftPostCount }})
                                                 </option>
                                                 @if (!Auth::user()->editorRole())
                                                     <option value="approve" {{ $statusSelected == 'approve' ? 'selected' : null }}>
-                                                        Persetujuan
+                                                        Persetujuan ({{ $approvePostCount }})
                                                     </option>
                                                 @endif
                                             </select>

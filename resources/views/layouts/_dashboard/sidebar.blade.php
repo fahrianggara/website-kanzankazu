@@ -6,7 +6,7 @@
     <!-- LOGO -->
     <div class="topbar-left">
         <div class="text-center">
-            <a href="{{ route('dashboard.index') }}" class="logo site_name">{{ $setting->site_name }}</a>
+            <a href="{{ route('homepage') }}" target="_blank" class="logo site_name">{{ $setting->site_name }}</a>
         </div>
     </div>
 
@@ -23,13 +23,15 @@
                         <span> Dashboard</span>
                     </a>
                 </li>
+
                 {{-- HOMEPAGE --}}
-                <li>
+                {{-- <li>
                     <a href="{{ route('homepage') }}" class="waves-effect">
                         <i class="uil uil-estate"></i>
                         <span>Beranda</span>
                     </a>
-                </li>
+                </li> --}}
+
                 {{-- BLOG --}}
                 <li>
                     <a href="{{ route('blog.author', ['author' => Auth::user()->slug ]) }}" class="waves-effect">

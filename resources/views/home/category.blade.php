@@ -42,7 +42,15 @@
                         <div class="entry-content">
                             <div class="loading">
                                 <p>
-                                    {{ substr($category->description, 0, 200) }}...
+                                    @if ($category->description == null)
+                                        Kategori blog postingan tentang {{ $category->title }}
+                                    @else
+                                        @if (strlen($category->description) > 150)
+                                            {{ substr($category->description, 0, 150) }}...
+                                        @else
+                                            {{ substr($category->description, 0, 150) }}
+                                        @endif
+                                    @endif
                                 </p>
                             </div>
                             <div class="read-more loading">

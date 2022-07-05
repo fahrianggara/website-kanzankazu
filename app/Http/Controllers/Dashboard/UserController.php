@@ -58,6 +58,8 @@ class UserController extends Controller
         return view('dashboard.manage-users.users.index', [
             'users' => $users->paginate(50)->withQueryString(),
             'statusSelected' => $statusSelected,
+            'userBannedCount' => User::banned()->count(),
+            'userAllowableCount' => User::allowable()->count(),
         ]);
     }
 

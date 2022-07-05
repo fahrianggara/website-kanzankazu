@@ -86,6 +86,9 @@ class PostController extends Controller
             'cateOld' => $post->categories->first(),
             'tutoOld' => $post->tutorials->first(),
             'tagOld' => $post->tags->first(),
+            'publishPostCount' => Post::publish()->where('user_id', Auth::id())->count(),
+            'draftPostCount' => Post::draft()->where('user_id', Auth::id())->count(),
+            'approvePostCount' => Post::approve()->count(),
         ]);
     }
 

@@ -12,7 +12,7 @@
 
                         <article class="entry-thumbnail">
                             <div class="entry-img loading">
-                                <a href="{{ route('blog.detail', ['slug' => $post->slug ]) }}">
+                                <a href="{{ route('blog.detail', ['slug' => $post->slug]) }}">
                                     @if (file_exists('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail))
                                         <img src="{{ asset('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail) }}"
                                             alt="{{ $post->title }}" class="img-fluid" />
@@ -25,7 +25,7 @@
 
                             <h2 class="entry-title loading">
                                 <a class="underline"
-                                    href="{{ route('blog.detail', ['slug' => $post->slug ]) }}">{{ $post->title }}</a>
+                                    href="{{ route('blog.detail', ['slug' => $post->slug]) }}">{{ $post->title }}</a>
                             </h2>
 
                             <div class="entry-meta">
@@ -33,8 +33,15 @@
                                     <li class="d-flex align-items-center">
                                         <div class="loading">
                                             <i class="icofont-user"></i>
-                                            <a class="underline iconAuthor"
-                                                href="{{ route('blog.author', ['author' => $post->user->slug]) }}">{{ $post->user->name }}</a>
+                                            @if ($post->user->status == 'banned')
+                                                <a class="underline iconAuthor" href="javascript:void(0)"
+                                                    style="cursor: default">Akun
+                                                    diblokir
+                                                </a>
+                                            @else
+                                                <a class="underline iconAuthor"
+                                                    href="{{ route('blog.author', ['author' => $post->user->slug]) }}">{{ $post->user->name }}</a>
+                                            @endif
                                         </div>
                                     </li>
                                     <li class="d-flex align-items-center">
@@ -49,11 +56,15 @@
                             <div class="entry-content">
                                 <div class="loading">
                                     <p>
-                                        {{ substr($post->description, 0, 200) }}...
+                                        @if (strlen($post->description) > 150)
+                                            {{ substr($post->description, 0, 150) }}...
+                                        @else
+                                            {{ substr($post->description, 0, 150) }}
+                                        @endif
                                     </p>
                                 </div>
                                 <div class="read-more loading">
-                                    <a href=" {{ route('blog.detail', ['slug' => $post->slug ]) }}">
+                                    <a href=" {{ route('blog.detail', ['slug' => $post->slug]) }}">
                                         Baca Selengkapnya
                                     </a>
                                 </div>

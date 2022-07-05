@@ -70,7 +70,14 @@
                 @if (Route::has('login'))
                     @auth
                         <li class="drop-down">
-                            <a href="javascript:void(0)"><i class="uil uil-user mr-2"></i>{{ substr(Auth::user()->name, 0, 10) }}..</a>
+                            <a href="javascript:void(0)">
+                                <i class="uil uil-user mr-2"></i>
+                                @if (strlen(Auth::user()->name) > 10)
+                                    {{ substr(Auth::user()->name, 0, 10) }}..
+                                @else
+                                    {{ substr(Auth::user()->name, 0, 10) }}
+                                @endif
+                            </a>
                             <ul>
                                 <li>
                                     <a href="{{ route('dashboard.index') }}"><i class="uil uil-graph-bar mr-2"></i>

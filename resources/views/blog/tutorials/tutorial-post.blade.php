@@ -1,6 +1,7 @@
 @if ($tutoPosts->count() >= 2)
     @foreach ($post->tutorials as $item)
-        <h2 class="titleMoreBlogs">Tutorial lainnya dari <span style="color: {{$item->bg_color}}">{{ $item->title }}</span></h2>
+        <h2 class="titleMoreBlogs">Tutorial lainnya dari <span
+                style="color: {{ $item->bg_color }}">{{ $item->title }}</span></h2>
     @endforeach
 
     <div id="tutorialRelated" class="row d-flex flex-row flex-nowrap overflow-auto">
@@ -31,7 +32,11 @@
                     <div class="link-moreblog loading">
                         <a class="link-textMoreBlog underline {{ request()->is('blog/' . $post->slug) ? 'active' : '' }}"
                             href="{{ route('blog.detail', ['slug' => $post->slug]) }}">
-                            {{ '#' . $loop->iteration . ' - ' . substr($post->title, 0, 20) }}..
+                            @if (strlen($post->title) > 20)
+                                {{ '#' . $loop->iteration . ' - ' . substr($post->title, 0, 20) }}..
+                            @else
+                                {{ '#' . $loop->iteration . ' - ' . substr($post->title, 0, 20) }}
+                            @endif
                         </a>
                     </div>
                 </div>
@@ -49,7 +54,7 @@
 @push('js-internal')
     <script>
         $(function() {
-            $('#tutorialRelated').mousewheel(function (e, delta) {
+            $('#tutorialRelated').mousewheel(function(e, delta) {
                 this.scrollLeft -= (delta * 80);
                 e.preventDefault();
             });

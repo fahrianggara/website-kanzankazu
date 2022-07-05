@@ -25,11 +25,11 @@
                                             title="Status">
                                             <option value="unanswered"
                                                 {{ $statusSelected == 'unanswered' ? 'selected' : null }}>
-                                                Belum dijawab
+                                                Belum dijawab ({{ $unansweredCount }})
                                             </option>
                                             <option value="answered"
                                                 {{ $statusSelected == 'answered' ? 'selected' : null }}>
-                                                Sudah dijawab
+                                                Sudah dijawab ({{ $answeredCount }})
                                             </option>
                                         </select>
 

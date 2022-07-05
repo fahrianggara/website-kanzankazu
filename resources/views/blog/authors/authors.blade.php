@@ -112,7 +112,11 @@
                             <div class="entry-content">
                                 <div class="loading">
                                     <p>
-                                        {{ substr($recommended->post->description, 0, 200) }}...
+                                        @if (strlen($recommended->post->description) > 150)
+                                        {{ substr($recommended->post->description, 0, 150) }}...
+                                    @else
+                                        {{ substr($recommended->post->description, 0, 150) }}
+                                    @endif
                                     </p>
                                 </div>
                                 <div class="read-more loading">
@@ -210,7 +214,11 @@
                         <div class="entry-content">
                             <div class="loading">
                                 <p>
-                                    {{ substr($post->description, 0, 200) }}...
+                                    @if (strlen($post->description) > 150)
+                                        {{ substr($post->description, 0, 150) }}...
+                                    @else
+                                        {{ substr($post->description, 0, 150) }}
+                                    @endif
                                 </p>
                             </div>
                             <div class="read-more loading">

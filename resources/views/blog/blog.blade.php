@@ -24,7 +24,7 @@
 
                     <article class="entry-thumbnail">
                         <div class="entry-img ">
-                            <a href="{{ route('blog.detail', ['slug' => $post->slug ]) }}">
+                            <a href="{{ route('blog.detail', ['slug' => $post->slug]) }}">
                                 @if (file_exists('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail))
                                     <img src="{{ asset('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail) }}"
                                         alt="{{ $post->title }}" class="img-fluid" />
@@ -37,7 +37,7 @@
 
                         <h2 class="entry-title ">
                             <a class="underline"
-                                href="{{ route('blog.detail', ['slug' => $post->slug ]) }}">{{ $post->title }}
+                                href="{{ route('blog.detail', ['slug' => $post->slug]) }}">{{ $post->title }}
                             </a>
                         </h2>
 
@@ -46,8 +46,12 @@
                                 <li class="d-flex align-items-center">
                                     <div class="">
                                         <i class="icofont-user"></i>
-                                        <a class="underline iconAuthor"
-                                            href="{{ route('blog.author', ['author' => $post->user->slug]) }}">{{ $post->user->name }}</a>
+                                        @if ($post->user->status == 'banned')
+                                            <a class="underline iconAuthor" href="javascript:void(0)">Akun diblokir</a>
+                                        @else
+                                            <a class="underline iconAuthor"
+                                                href="{{ route('blog.author', ['author' => $post->user->slug]) }}">{{ $post->user->name }}</a>
+                                        @endif
                                     </div>
                                 </li>
                                 <li class="d-flex align-items-center">
@@ -62,11 +66,15 @@
                         <div class="entry-content">
                             <div class="">
                                 <p>
-                                    {{ substr($post->description, 0, 200) }}...
+                                    @if (strlen($post->description) > 150)
+                                        {{ substr($post->description, 0, 150) }}...
+                                    @else
+                                        {{ substr($post->description, 0, 150) }}
+                                    @endif
                                 </p>
                             </div>
                             <div class="read-more">
-                                <a href="{{ route('blog.detail', ['slug' => $post->slug ]) }}">
+                                <a href="{{ route('blog.detail', ['slug' => $post->slug]) }}">
                                     Baca Selengkapnya
                                 </a>
                             </div>
@@ -80,8 +88,7 @@
 
                         <div id="empty-blog">
 
-                            <svg viewBox="0 0 117 117" fill="none" class="iconMeh"
-                                xmlns="http://www.w3.org/2000/svg">
+                            <svg viewBox="0 0 117 117" fill="none" class="iconMeh" xmlns="http://www.w3.org/2000/svg">
                                 <circle class="face" cx="58.5" cy="58.5" r="57.5" stroke-width="2" />
                                 <circle class="eye" cx="40.5" cy="40.5" r="8.5" />
                                 <circle class="eye" cx="77.5" cy="40.5" r="8.5" />

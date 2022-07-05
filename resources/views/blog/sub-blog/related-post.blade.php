@@ -22,7 +22,8 @@
                         @foreach ($post->tutorials as $tutorials)
                             <div class="img-moredate">
                                 <a href="{{ route('blog.posts.tutorials.author', ['slug' => $tutorials->slug, 'user' => $post->user->slug]) }}"
-                                    class="img-infodate" style="background: {{$tutorials->bg_color}}; box-shadow: 0 0 5px rgba(0, 0, 0, 1);">{{ $tutorials->title }}
+                                    class="img-infodate"
+                                    style="background: {{ $tutorials->bg_color }}; box-shadow: 0 0 5px rgba(0, 0, 0, 1);">{{ $tutorials->title }}
                                 </a>
                             </div>
                         @endforeach
@@ -31,7 +32,11 @@
                     <div class="link-moreblog loading">
                         <a class="link-textMoreBlog underline"
                             href="{{ route('blog.detail', ['slug' => $post->slug]) }}">
-                            {{ substr($post->title, 0, 20) }}..
+                            @if (strlen($post->title) > 20)
+                                {{ substr($post->title, 0, 20) }}..
+                            @else
+                                {{ substr($post->title, 0, 20) }}
+                            @endif
                         </a>
                     </div>
                 </div>

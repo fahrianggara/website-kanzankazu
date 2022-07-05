@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\WebSetting;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -77,7 +78,6 @@ class FirebaseController extends Controller
                     'slug' => Str::slug($request->name) . '-' . strtolower(Str::random(3)),
                     'user_image' => $request->user_image,
                     'email' => $request->email,
-                    // 'password' => bcrypt($request->uid),
                     'email_verified_at' => now(),
                     'provider' => 'google',
                 ];
@@ -111,7 +111,7 @@ class FirebaseController extends Controller
             $checkUser->update();
             Auth::loginUsingId($checkUser->id, true);
             if ($checkUser->banned_at != null) {
-                if ($checkUser->banned_at < now()) {
+                if ($checkUser->banned_at == null) {
                     return response()->json([
                         "status" => 200,
                         "msg" => "Selamat datang kembali " . $checkUser->name . '.',
@@ -157,7 +157,6 @@ class FirebaseController extends Controller
                     'slug' => Str::slug($request->name ?? $siteName) . '-' . strtolower(Str::random(3)),
                     'user_image' => $request->user_image,
                     'email' => $request->email,
-                    // 'password' => bcrypt($request->uid),
                     'email_verified_at' => now(),
                     'provider' => 'github',
                 ];

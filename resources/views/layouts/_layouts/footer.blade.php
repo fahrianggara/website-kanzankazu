@@ -43,7 +43,11 @@
                                     <div class="post-title loading">
                                         <a href="{{ route('blog.detail', ['slug' => $post->slug]) }}"
                                             class="m-0 underline text-links {{ request()->is('blog/' . $post->slug) ? 'active' : '' }}">
-                                            {{ $post->title . ' - ' . substr($post->description, 0, 50) }}...
+                                            @if (strlen($post->description) > 50)
+                                                {{ $post->title . ' - ' . substr($post->description, 0, 50) }}...
+                                            @else
+                                                {{ $post->title . ' - ' . substr($post->description, 0, 50) }}
+                                            @endif
                                         </a>
                                     </div>
                                     <div class="post-time text-muted loading">
@@ -151,7 +155,6 @@
 </div>
 
 @push('js-internal')
-
     <script>
         $(function() {
             $.ajaxSetup({
