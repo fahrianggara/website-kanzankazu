@@ -43,5 +43,7 @@ class UserAllowable extends Command
             'status' => 'allowable',
             'banned_at' => null,
         ]);
+
+        return 0;
     }
 }
