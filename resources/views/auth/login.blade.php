@@ -17,7 +17,7 @@
     <div class="container">
         <div class="row px-3">
             <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0">
-                <div class="img-left d-none d-md-flex"></div>
+                <div class="img-login d-none d-md-flex"></div>
 
                 <div class="card-body">
 
