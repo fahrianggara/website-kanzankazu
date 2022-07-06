@@ -1,4 +1,3 @@
-// Import the functions you need from the SDKs you need
 import {
     initializeApp
 } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
@@ -24,7 +23,7 @@ const firebaseConfig = {
     measurementId: "G-R9TN0JZ4MH"
 };
 
-// Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const googleProvider = new GoogleAuthProvider();
@@ -32,14 +31,13 @@ const githubProvider = new GithubAuthProvider();
 const auth = getAuth();
 auth.languageCode = 'id';
 
-$('#signWithGithub').click(function () {
+$('#signWithGithub').click(function() {
     signInWithPopup(auth, githubProvider)
         .then((result) => {
-            // This gives you a GitHub Access Token. You can use it to access the GitHub API.
+
             const credential = GithubAuthProvider.credentialFromResult(result);
             const token = credential.accessToken;
 
-            // The signed-in user info.
             const user = result.user;
             console.log(user);
 
@@ -50,7 +48,7 @@ $('#signWithGithub').click(function () {
             });
 
             $.ajax({
-                url: '{{route("github.login")}}',
+                url: "{{ route('github.login') }}",
                 type: "POST",
                 data: {
                     token: token,
@@ -59,45 +57,47 @@ $('#signWithGithub').click(function () {
                     user_image: user.photoURL,
                     uid: user.uid
                 },
-                success: function (data) {
+                complete: function () {
+                    $('#signWithGithub').html('<i class="fas fa-spin fa-spinner"></i>')
+                },
+                success: function(data) {
                     if (data.status == 200) {
                         alertify
                             .delay(3500)
                             .log(data.msg);
 
-                        setTimeout((function () {
+                        setTimeout((function() {
                             window.location.href = data.redirect;
                         }), 1000);
-
                     } else {
                         alertify
                             .delay(4000)
                             .error(data.error.email[0]);
                     }
                 },
-                error: function (xhr, ajaxOptions, thrownError) {
+                error: function(xhr, ajaxOptions, thrownError) {
                     alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
                 }
             });
         }).catch((error) => {
-            // Handle Errors here.
+
             const errorCode = error.code;
             const errorMessage = error.message;
-            // The email of the user's account used.
+
             const email = error.customData.email;
-            // The AuthCredential type that was used.
+
             const credential = GithubAuthProvider.credentialFromError(error);
             console.log(errorCode, errorMessage, email, credential);
         });
 });
 
-$('#signWithGoogle').click(function () {
+$('#signWithGoogle').click(function() {
     signInWithPopup(auth, googleProvider)
         .then((result) => {
-            // This gives you a Google Access Token. You can use it to access the Google API.
+
             const credential = GoogleAuthProvider.credentialFromResult(result);
             const token = credential.accessToken;
-            // The signed-in user info.
+
             const user = result.user;
 
             console.log(user);
@@ -110,7 +110,7 @@ $('#signWithGoogle').click(function () {
             });
 
             $.ajax({
-                url: '{{route("google.login")}}',
+                url: "{{ route('google.login') }}",
                 type: "POST",
                 data: {
                     token: token,
@@ -119,15 +119,18 @@ $('#signWithGoogle').click(function () {
                     user_image: user.photoURL,
                     uid: user.uid
                 },
-                success: function (data) {
+                complete: function () {
+                    $('#signWithGoogle').html('<i class="fas fa-spin fa-spinner"></i>')
+                },
+                success: function(data) {
                     if (data.status == 200) {
                         alertify
                             .delay(3500)
                             .log(data.msg);
 
-                        setTimeout((function () {
+                        setTimeout((function() {
                             window.location.href = data.redirect;
-                        }), 1000);
+                        }), 1500);
 
                     } else {
                         alertify
@@ -135,18 +138,18 @@ $('#signWithGoogle').click(function () {
                             .error(data.error.email[0]);
                     }
                 },
-                error: function (xhr, ajaxOptions, thrownError) {
+                error: function(xhr, ajaxOptions, thrownError) {
                     alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
                 }
             });
 
         }).catch((error) => {
-            // Handle Errors here.
+
             const errorCode = error.code;
             const errorMessage = error.message;
-            // The email of the user's account used.
+
             const email = error.customData.email;
-            // The AuthCredential type that was used.
+
             const credential = GoogleAuthProvider.credentialFromError(error);
         });
 });

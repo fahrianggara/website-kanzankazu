@@ -97,14 +97,15 @@ body {
 
 .img-login {
     width: 380px;
-    height: 495px;
-    background: url("../img/auth-img/sign-up.svg") no-repeat center;
+    background: var(--containerSec-color);
+    transition: 0.3s all ease-in-out;
 }
 
 
 .img-register {
     width: 380px;
-    background: url("../img/auth-img/sign-in.svg") no-repeat center;
+    background: var(--containerSec-color);
+    transition: 0.3s all ease-in-out;
 }
 
 .img-left {
@@ -355,7 +356,7 @@ hr.hr-text::before {
 }
 
 .orLogin i {
-    color: #DD4B39;
+    color: #00b2cc;
     font-size: 24px;
 }
 
@@ -367,7 +368,7 @@ hr.hr-text::before {
 }
 
 .orLogin span:hover {
-    color: #DD4B39;
+    color: #00b2cc;
 }
 
 .orLogin a:hover {
@@ -424,16 +425,74 @@ hr.hr-text::before {
 
 @media (max-width: 393px) {
     .footer-login ul {
-        font-size: 12px;
+        font-size: 16px;
     }
 
     .footer-login i {
-        font-size: 12px;
+        font-size: 16px;
     }
+}
+
+@media (max-width: 306px) {
 
     .change-theme i,
     .to-back i {
         font-size: 18px;
+    }
+
+    .title {
+        font-size: 25px;
+    }
+
+    .footer-login ul {
+        font-size: 14px;
+    }
+
+    .footer-login .space::after {
+        font-size: 14px;
+    }
+
+    .form-input label {
+        font-size: 14px;
+        top: 12px;
+    }
+
+    .form_control:focus~label {
+        top: -7px;
+        left: 27px;
+        font-size: 10px;
+    }
+
+    label.active {
+        top: -7px;
+        left: 27px;
+        font-size: 10px;
+    }
+
+    .form-input .iconForm {
+        top: 10px;
+    }
+
+    .form-input .iconForm>i {
+        font-size: 16px;
+    }
+
+    .form-input .passTog {
+        top: 10px;
+    }
+
+    .form-input .passTog>i {
+        font-size: 16px;
+    }
+
+    .custom-control-label {
+        font-size: 14px;
+    }
+
+    input[type=checkbox] {
+        width: 25px;
+        height: 25px;
+        -moz-appearance: none;
     }
 }
 
