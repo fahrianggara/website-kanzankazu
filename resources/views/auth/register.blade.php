@@ -3,7 +3,11 @@
 @section('title', 'Register')
 
 @section('keywords')
-    {{ $setting->meta_keywords }} register kanzankazu, {{ $setting->site_name }}
+    register kanzankazu
+@endsection
+
+@section('image')
+{{ asset('vendor/blog/img/auth-img/signin.svg') }}
 @endsection
 
 @section('content')

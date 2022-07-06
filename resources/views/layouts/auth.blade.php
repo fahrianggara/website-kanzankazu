@@ -12,8 +12,14 @@
     <meta name="keywords" content="@yield('keywords', $setting->meta_keywords)">
     <meta name="language" content="id">
     <meta name="author" content="@yield('author', $setting->site_name)">
+
+    <meta property="og:title" content="@yield('title') - {{ $setting->site_name }}" />
+    <meta property="og:description" content="{{ $setting->site_description }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ url()->current() }}" />
+    <meta property="og:image" content="@yield('image')" />
     {{-- Title --}}
-    <title>@yield('title')</title>
+    <title>@yield('title') - {{ $setting->site_name }}</title>
     {{-- Logo / icon --}}
     <link rel="shortcut icon" href="{{ asset('logo-web/favicon.ico') }}" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('logo-web/apple-icon-180x180.png') }}">

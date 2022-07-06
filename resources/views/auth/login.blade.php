@@ -3,7 +3,11 @@
 @section('title', 'Login')
 
 @section('keywords')
-    {{ $setting->meta_keywords }} login kanzankazu, {{ $setting->site_name }}
+    login kanzankazu
+@endsection
+
+@section('image')
+    {{ asset('vendor/blog/img/auth-img/signup.svg') }}
 @endsection
 
 @section('content')
