@@ -159,6 +159,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $query->where('status', "banned");
     }
 
+    public function scopeNotverify($query)
+    {
+        return $query->where('status', 'notverification');
+    }
+
     public function scopeSearch($query, $data)
     {
         return $query->where('name', 'LIKE', "%{$data}%")

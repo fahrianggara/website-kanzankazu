@@ -37,7 +37,7 @@ class UserController extends Controller
      */
     public function index(Request $request, User $user)
     {
-        if (in_array($request->get('status'), ['allowable', 'banned'])) {
+        if (in_array($request->get('status'), ['allowable', 'banned', 'notverification'])) {
             $statusSelected = $request->get('status');
         } else {
             $statusSelected = "allowable";
@@ -46,8 +46,11 @@ class UserController extends Controller
         if ($statusSelected == "allowable") {
             $users = User::allowable()->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
                 ->orderBy('model_has_roles.role_id', 'asc');
-        } else {
+        } else if ($statusSelected == "banned") {
             $users = User::banned()->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
+                ->orderBy('model_has_roles.role_id', 'asc');
+        } else {
+            $users = User::notverify()->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
                 ->orderBy('model_has_roles.role_id', 'asc');
         }
 
@@ -60,6 +63,7 @@ class UserController extends Controller
             'statusSelected' => $statusSelected,
             'userBannedCount' => User::banned()->count(),
             'userAllowableCount' => User::allowable()->count(),
+            'userNotverifyCount' => User::notverify()->count(),
         ]);
     }
 

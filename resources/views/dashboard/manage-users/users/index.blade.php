@@ -42,6 +42,10 @@
                                                     {{ $statusSelected == 'banned' ? 'selected' : null }}>
                                                     Terblokir ({{ $userBannedCount }})
                                                 </option>
+                                                <option value="notverification"
+                                                    {{ $statusSelected == 'notverification' ? 'selected' : null }}>
+                                                    Belum Ter-verifikasi ({{ $userNotverifyCount }})
+                                                </option>
                                             </select>
 
                                             <button id="submitStatus" class="btn btn-primary d-none" type="submit">Apply
@@ -110,7 +114,7 @@
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
 
-                                        @if ($user->status == 'allowable')
+                                        @if ($user->status == 'allowable' || $user->status == 'notverification')
                                             <td>
                                                 @if ($user->provider != null)
                                                     {{ $user->provider }}
@@ -174,6 +178,21 @@
                                                         </button>
                                                     </form>
                                                 @endcan
+                                                @can('user_delete')
+                                                    <form action="{{ route('users.destroy', ['user' => $user]) }}#users"
+                                                        method="POST" class="d-inline" role="alert"
+                                                        alert-text="Apakah kamu yakin? akun dengan nama {{ $user->name }} akan dihapus permanen."
+                                                        alert-btn="Hapus" alert-clr="#d33">
+                                                        @csrf
+                                                        @method('DELETE')
+
+                                                        <button type="submit" class="btn btn-sm btn-danger"
+                                                            data-toggle="tooltip" data-placement="bottom" title="Hapus">
+                                                            <i class="uil uil-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                @endcan
+                                            @elseif ($user->status == 'notverification')
                                                 @can('user_delete')
                                                     <form action="{{ route('users.destroy', ['user' => $user]) }}#users"
                                                         method="POST" class="d-inline" role="alert"

@@ -88,6 +88,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'provider' => 'kanzankazu',
+            'status' => 'notverification'
         ];
 
         $user = User::create($userData);
