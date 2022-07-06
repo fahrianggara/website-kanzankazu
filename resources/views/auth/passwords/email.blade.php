@@ -27,7 +27,7 @@
                             <div class="iconForm"><i class="uil uil-envelope"></i></div>
                             <input  type="email" id="email" class="form_control @error('email') is-invalid @enderror"
                                 name="email" value="{{ Auth::user()->email ?? old('email') }}" autocomplete="off"
-                                autofocus required>
+                                autofocus>
                             <label for="email">Email</label>
 
                             @error('email')
