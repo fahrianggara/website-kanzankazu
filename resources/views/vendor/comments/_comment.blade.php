@@ -16,7 +16,7 @@ $markdown->setSafeMode(true);
 
         <div class="d-flex mb-1">
             <div class="comTitle loading">
-                <div class="comment-title guestName">
+                <div class="comment-title guestName" style="font-family: 'Rubik', sans-serif;">
                     {{ $comment->commenter->name ?? $comment->guest_name }}
                 </div>
             </div>
