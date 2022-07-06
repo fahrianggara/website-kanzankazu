@@ -174,19 +174,19 @@
                 </div>
             </div>
 
-            @if (Auth::user()->provider == null)
+            @if (Auth::user()->uid == null)
                 <div class="card m-b-30">
                     <div class="card-body">
                         <ul class="nav nav-pills nav-justified" role="tablist">
                             <li class="nav-item waves-effect waves-light">
-                                <a disabled class="nav-link active" data-toggle="tab" href="#setting-3" role="tab"
+                                <a disabled class="nav-link" data-toggle="tab" href="#setting-3" role="tab"
                                     style="cursor: default">Ganti
                                     Password</a>
                             </li>
                         </ul>
                         <div class="tab-content">
                             {{-- Change Password --}}
-                            <div class="tab-pane active p-3" id="setting-3" role="tabpanel">
+                            <div class="tab-pane p-3" id="setting-3" role="tabpanel">
 
                                 <form action="{{ route('profile.changePassword') }}" method="POST"
                                     class="form-horizontal" id="formPassword" autocomplete="off">

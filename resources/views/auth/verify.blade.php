@@ -16,8 +16,8 @@
                             </div>
                         @endif
 
-                        {{ __('Sebelum melanjutkan, harap periksa email Kamu untuk tautan verifikasi.') }}
-                        {{ __('Jika Kamu tidak menerima email') }},
+                        {{ __('Sebelum melanjutkan.. harap periksa email kamu untuk mengaktifkan email verifikasi di website kami.') }}
+                        {{ __('Jika kamu tidak menerima tautan verifikasi dari kami') }}.
                         <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
                             @csrf
                             <button type="submit"

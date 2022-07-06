@@ -44,8 +44,8 @@
 
             <div class="form-group">
                 <label for="message">Komentar</label>
-                <textarea id="message" class="form-control @if ($errors->has('comment')) is-invalid @endif" name="message" rows="3"
-                    placeholder="Masukkan komentar kamu"></textarea>
+                <textarea id="message" class="form-control @if ($errors->has('comment')) is-invalid @endif" name="message"
+                    rows="3" placeholder="Masukkan komentar kamu"></textarea>
                 <span class="invalid-feedback d-block error-text message_error"></span>
 
                 <small class="form-text text-muted">@lang('comments::comments.markdown_cheatsheet', ['url' => 'https://help.github.com/articles/basic-writing-and-formatting-syntax'])</small>
@@ -94,6 +94,14 @@
                                 $("#" + key).addClass('is-invalid');
                                 $('span.' + key + '_error').text(val[0]);
                             });
+                        } else if (response.status == 403) {
+                            alertify
+                                .delay(3500)
+                                .log(response.msg);
+
+                            setTimeout((function() {
+                                window.location.href = response.redirect;
+                            }), 1500);
                         } else {
                             $('#form-comment')[0].reset();
 
@@ -104,7 +112,6 @@
                             setTimeout((function() {
                                 window.location.reload();
                             }), 950);
-
                         }
                     },
                     error: function(xhr, ajaxOptions, thrownError) {

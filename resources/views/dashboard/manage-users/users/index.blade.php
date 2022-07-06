@@ -89,9 +89,11 @@
                                     <th>Nama</th>
                                     <th>Email</th>
                                     @if (request()->get('status') == 'banned')
+                                        <th>Provider</th>
                                         <th>Status</th>
                                         <th>Terblokir sampai</th>
                                     @elseif (request()->get('status') == 'allowable' || route('users.index'))
+                                        <th>Provider</th>
                                         <th>Role</th>
                                         <th>Status</th>
                                     @endif
@@ -109,6 +111,13 @@
                                         <td>{{ $user->email }}</td>
 
                                         @if ($user->status == 'allowable')
+                                            <td>
+                                                @if ($user->provider != null)
+                                                    {{ $user->provider }}
+                                                @else
+                                                    Kanzankazu
+                                                @endif
+                                            </td>
                                             <td>{{ $user->roles->first()->name }}</td>
                                             <td>
                                                 @if (Cache::has('user-is-online-' . $user->id))
@@ -118,6 +127,13 @@
                                                 @endif
                                             </td>
                                         @elseif ($user->status == 'banned')
+                                            <td>
+                                                @if ($user->provider != null)
+                                                    {{ $user->provider }}
+                                                @else
+                                                    Kanzankazu
+                                                @endif
+                                            </td>
                                             <td class="text-danger">{{ strtoupper($user->status) }}</td>
                                             <td>
                                                 {{ $user->banned_at->diffForHumans() }}
