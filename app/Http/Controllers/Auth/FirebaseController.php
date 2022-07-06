@@ -43,7 +43,7 @@ class FirebaseController extends Controller
                     ]);
                 } else {
                     return response()->json([
-                        "status" => 200,
+                        "status" => 403,
                         "msg" => "Akun kamu telah di banned.",
                         "redirect" => route('login'),
                     ]);
@@ -119,7 +119,7 @@ class FirebaseController extends Controller
                     ]);
                 } else {
                     return response()->json([
-                        "status" => 200,
+                        "status" => 403,
                         "msg" => "Akun kamu telah di banned.",
                         "redirect" => route('login'),
                     ]);

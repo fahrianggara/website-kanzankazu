@@ -23,7 +23,6 @@ const firebaseConfig = {
     measurementId: "G-R9TN0JZ4MH"
 };
 
-
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const googleProvider = new GoogleAuthProvider();
@@ -31,7 +30,7 @@ const githubProvider = new GithubAuthProvider();
 const auth = getAuth();
 auth.languageCode = 'id';
 
-$('#signWithGithub').click(function() {
+$('#signWithGithub').click(function () {
     signInWithPopup(auth, githubProvider)
         .then((result) => {
 
@@ -57,25 +56,65 @@ $('#signWithGithub').click(function() {
                     user_image: user.photoURL,
                     uid: user.uid
                 },
-                complete: function () {
-                    $('#signWithGithub').html('<i class="fas fa-spin fa-spinner"></i>')
+                beforeSend: function () {
+                    $('#signWithGithub').html('<i class="fas fa-spin fa-spinner"></i>');
+                    $('#tooltipGithub').tooltip('dispose').attr('title',
+                        'Tunggu sebentar..');
+                    $('#tooltipGithub').tooltip('show')
                 },
-                success: function(data) {
+                success: function (data) {
                     if (data.status == 200) {
+                        $('#tooltipGithub').tooltip('dispose').attr('title',
+                            'Mengalihkan ke Dashboard..');
+                        $('#tooltipGithub').tooltip('show')
+
                         alertify
                             .delay(3500)
                             .log(data.msg);
 
-                        setTimeout((function() {
+                        setTimeout((function () {
                             window.location.href = data.redirect;
-                        }), 1000);
+                        }), 1500);
+
+                    } else if (data.status == 403) {
+                        alertify
+                            .delay(4000)
+                            .error(data.msg);
+
+                        $('#tooltipGithub').tooltip('dispose').attr('title',
+                            data.msg);
+                        $('#tooltipGithub').tooltip('show');
+
+                        setTimeout(function () {
+                            $('#tooltipGithub').tooltip('dispose').attr('title',
+                                data.msg);
+                            $('#tooltipGithub').tooltip('enable');
+                        }, 1700);
+
+                        setTimeout((function () {
+                            window.location.href = data.redirect;
+                        }), 2000);
                     } else {
                         alertify
                             .delay(4000)
                             .error(data.error.email[0]);
+
+                        $('#signWithGithub').html(
+                            "<a id='signWithGithub' href='javascript:void(0)' class='loginGithub'><img class='logo-provider' src='{{ asset('vendor/blog/img/github.png') }}' width='27'></a>"
+                        );
+
+                        $('#tooltipGithub').tooltip('dispose').attr('title', data.error
+                            .email[0]);
+                        $('#tooltipGithub').tooltip('show')
+
+                        setTimeout(function () {
+                            $('#tooltipGithub').tooltip('dispose').attr('title',
+                                'Login dengan Github');
+                            $('#tooltipGithub').tooltip('enable');
+                        }, 4000);
                     }
                 },
-                error: function(xhr, ajaxOptions, thrownError) {
+                error: function (xhr, ajaxOptions, thrownError) {
                     alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
                 }
             });
@@ -91,7 +130,7 @@ $('#signWithGithub').click(function() {
         });
 });
 
-$('#signWithGoogle').click(function() {
+$('#signWithGoogle').click(function () {
     signInWithPopup(auth, googleProvider)
         .then((result) => {
 
@@ -119,26 +158,65 @@ $('#signWithGoogle').click(function() {
                     user_image: user.photoURL,
                     uid: user.uid
                 },
-                complete: function () {
-                    $('#signWithGoogle').html('<i class="fas fa-spin fa-spinner"></i>')
+                beforeSend: function () {
+                    $('#signWithGoogle').html('<i class="fas fa-spin fa-spinner"></i>');
+                    $('#tooltipGoogle').tooltip('dispose').attr('title',
+                        'Tunggu sebentar..');
+                    $('#tooltipGoogle').tooltip('show')
                 },
-                success: function(data) {
+                success: function (data) {
                     if (data.status == 200) {
+                        $('#tooltipGoogle').tooltip('dispose').attr('title',
+                            'Mengalihkan ke Dashboard..');
+                        $('#tooltipGoogle').tooltip('show')
+
                         alertify
                             .delay(3500)
                             .log(data.msg);
 
-                        setTimeout((function() {
+                        setTimeout((function () {
                             window.location.href = data.redirect;
                         }), 1500);
 
+                    } else if (data.status == 403) {
+                        alertify
+                            .delay(4000)
+                            .error(data.msg);
+
+                        $('#tooltipGoogle').tooltip('dispose').attr('title',
+                            data.msg);
+                        $('#tooltipGoogle').tooltip('show');
+
+                        setTimeout(function () {
+                            $('#tooltipGoogle').tooltip('dispose').attr('title',
+                                data.msg);
+                            $('#tooltipGoogle').tooltip('enable');
+                        }, 1700);
+
+                        setTimeout((function () {
+                            window.location.href = data.redirect;
+                        }), 2000);
                     } else {
                         alertify
                             .delay(4000)
                             .error(data.error.email[0]);
+
+                        $('#signWithGoogle').html(
+                            "<a id='signWithGoogle' href='javascript:void(0)' class='loginGoogle'><img class='logo-provider' src='{{ asset('vendor/blog/img/google.png') }}' width='27'></a>"
+                        );
+
+                        $('#tooltipGoogle').tooltip('dispose').attr('title', data.error
+                            .email[0]);
+                        $('#tooltipGoogle').tooltip('show')
+
+                        setTimeout(function () {
+                            $('#tooltipGoogle').tooltip('dispose').attr('title',
+                                'Login dengan google');
+                            $('#tooltipGoogle').tooltip('enable');
+                        }, 4000);
                     }
                 },
-                error: function(xhr, ajaxOptions, thrownError) {
+                error: function (xhr, ajaxOptions, thrownError) {
                     alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
                 }
             });
