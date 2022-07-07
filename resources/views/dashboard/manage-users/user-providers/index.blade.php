@@ -10,7 +10,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-12">
+        {{-- <div class="col-12">
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="card m-b-30">
@@ -38,7 +38,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <div class="col-12">
             <div class="card m-b-30">
