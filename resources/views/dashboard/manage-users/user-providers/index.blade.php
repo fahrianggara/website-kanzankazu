@@ -115,24 +115,24 @@
                             </thead>
                             <tbody>
                                 @forelse ($users as $key => $user)
-                                    @if ($user->email != Auth::user()->email)
-                                        <tr class="text-center">
+                                    <tr class="text-center">
 
-                                            <td id="{{ $user->uid }}">{{ $user->uid }}</td>
-                                            <td>{{ $user->email }}</td>
-                                            <td>
-                                                @foreach ($user->providerData as $provider)
-                                                    {{ $provider->providerId }}
-                                                @endforeach
-                                            </td>
-                                            <td>
-                                                @if ($user->disabled)
-                                                    <span class="badge badge-danger">Disabled</span>
-                                                @else
-                                                    <span class="badge badge-success">Enabled</span>
-                                                @endif
-                                            </td>
-                                            <td>
+                                        <td id="{{ $user->uid }}">{{ $user->uid }}</td>
+                                        <td>{{ $user->email }}</td>
+                                        <td>
+                                            @foreach ($user->providerData as $provider)
+                                                {{ $provider->providerId }}
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            @if ($user->disabled)
+                                                <span class="badge badge-danger">Disabled</span>
+                                            @else
+                                                <span class="badge badge-success">Enabled</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($user->email != Auth::user()->email)
                                                 @if ($user->disabled == true)
                                                     <form
                                                         action="{{ route('users.enableProvider', ['uid' => $user->uid]) }}#users"
@@ -179,9 +179,15 @@
                                                         </button>
                                                     </form>
                                                 @endif
-                                            </td>
-                                        </tr>
-                                    @endif
+                                            @else
+                                                <button disabled class="btn btn-secondary btn-sm">
+                                                    <i class="uil uil-ban" data-toggle="tooltip" data-placement="top"
+                                                        title="Kamu tidak bisa meng-disable akun kamu sendiri.">
+                                                    </i>
+                                                </button>
+                                            @endif
+                                        </td>
+                                    </tr>
                                 @empty
                                     <tr>
                                         <td colspan="5" class="text-center">
