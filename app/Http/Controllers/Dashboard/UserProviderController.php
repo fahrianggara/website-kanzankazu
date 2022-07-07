@@ -42,7 +42,7 @@ class UserProviderController extends Controller
     public function enableProvider($uid)
     {
         $this->auth->enableUser($uid);
-        return Redirect::to(URL::previous() . '#' . $uid)->with('success', 'Akun berhasil di enable');
+        return redirect()->back()->with('success', 'Akun berhasil di enable');
     }
 
     /**
