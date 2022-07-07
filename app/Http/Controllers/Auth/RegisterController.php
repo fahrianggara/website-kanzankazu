@@ -94,7 +94,7 @@ class RegisterController extends Controller
         $role = Role::select('id')->where('name', 'Editor')->first();
         $user->roles()->attach($role);
 
-        Firebase::auth()->createUser($userData);
+        // Firebase::auth()->createUser($userData);
         Firebase::database()->getReference($this->table)->push($userData);
 
         $user->notify(new WelcomeUserEmail($user));

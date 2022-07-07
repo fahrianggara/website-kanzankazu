@@ -36,7 +36,7 @@
                                                 title="Status">
                                                 <option value="allowable"
                                                     {{ $statusSelected == 'allowable' ? 'selected' : null }}>
-                                                    Tidak Terblokir ({{ $userAllowableCount }})
+                                                    Ter-verifikasi ({{ $userAllowableCount }})
                                                 </option>
                                                 <option value="banned"
                                                     {{ $statusSelected == 'banned' ? 'selected' : null }}>

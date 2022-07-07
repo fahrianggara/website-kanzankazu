@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\WebSetting;
+use App\Notifications\WelcomeUserEmail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -87,10 +88,10 @@ class FirebaseController extends Controller
                 $role = Role::select('id')->where('name', 'Editor')->first();
                 $user->roles()->attach($role);
 
+                $user->notify(new WelcomeUserEmail($user));
                 Firebase::database()->getReference($this->table)->push($userData);
 
                 Auth::loginUsingId($user->id, true);
-
                 return response()->json([
                     "status" => 200,
                     "msg" => "Selamat datang di " . $this->setting->site_name . '!',
@@ -163,6 +164,8 @@ class FirebaseController extends Controller
                 $user = User::create($userData);
                 $role = Role::select('id')->where('name', 'Editor')->first();
                 $user->roles()->attach($role);
+
+                $user->notify(new WelcomeUserEmail($user));
 
                 Firebase::database()->getReference($this->table)->push($userData);
 

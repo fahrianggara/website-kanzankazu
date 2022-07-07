@@ -74,7 +74,7 @@
                                     </td>
                                     <td>
                                         @if ($user->disabled == true)
-                                            <form action="{{ route('users.enableProvider', ['uid' => $user->uid]) }}#users"
+                                            <form action="{{ route('users.enableProvider', ['uid' => $user->uid]) }}#users" class="d-inline"
                                                 method="POST" role="alert"
                                                 alert-text='Apakah kamu yakin? akun dengan email "{{ $user->email }}" akan bisa mengakses website {{ $setting->site_name }} lagi.'
                                                 alert-btn="ENABLE" alert-clr="#00C851">
@@ -86,8 +86,20 @@
                                                     <i class="uil uil-check"></i>
                                                 </button>
                                             </form>
+                                            <form action="{{ route('users.deleteProvider', ['uid' => $user->uid]) }}#users" class="d-inline"
+                                                method="POST" role="alert"
+                                                alert-text='Apakah kamu yakin? akun dengan email "{{ $user->email }}" akan di hapus?.'
+                                                alert-btn="HAPUS" alert-clr="#d33">
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                                                    data-placement="bottom" title="Hapus akun">
+                                                    <i class="uil uil-trash"></i>
+                                                </button>
+                                            </form>
                                         @elseif ($user->disabled == false)
-                                            <form action="{{ route('users.disableProvider', ['uid' => $user->uid]) }}#users"
+                                            <form action="{{ route('users.disableProvider', ['uid' => $user->uid]) }}#users" class="d-inline"
                                                 method="POST" role="alert"
                                                 alert-text='Apakah kamu yakin? akun dengan email "{{ $user->email }}" tidak akan bisa mengakses website {{ $setting->site_name }} lagi.'
                                                 alert-btn="DISABLE" alert-clr="#d33">

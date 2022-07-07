@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
@@ -10,6 +11,7 @@ use Kreait\Firebase\Contract\Auth;
 use Kreait\Firebase\Contract\Database;
 use Kreait\Firebase\Factory;
 use Kreait\Laravel\Firebase\Facades\Firebase;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserProviderController extends Controller
 {
@@ -104,8 +106,20 @@ class UserProviderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function deleteProvider($uid)
     {
-        //
+        try {
+            $dataFromDB = User::where('uid', $uid)->first();
+            $dataFromDB->delete();
+
+            $this->auth->deleteUser($uid);
+        } catch (\Throwable $th) {
+            Alert::error(
+                'Error',
+                'Terjadi kesalahan saat menghapus data.
+                    Pesan: ' . $th->getMessage()
+            )->autoClose(false);
+        }
+        return Redirect::to(URL::previous() . '#' . $uid)->with('success', 'Akun berhasil di hapus');
     }
 }
