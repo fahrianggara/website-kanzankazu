@@ -121,10 +121,14 @@
                                         <td>{{ $user->email }}</td>
                                         <td>
                                             @foreach ($user->providerData as $provider)
+                                                <span class="d-none">{{ $provider->providerId }}</span>
+
                                                 @if ($provider->providerId == 'google.com')
-                                                    <img class="logo-provider" src="{{ asset('vendor/blog/img/google.png') }}" width="27">
+                                                    <img class="logo-provider"
+                                                        src="{{ asset('vendor/blog/img/google.png') }}" width="27">
                                                 @else
-                                                    <img class="logo-provider" src="{{ asset('vendor/blog/img/github.png') }}" width="27">
+                                                    <img class="logo-provider"
+                                                        src="{{ asset('vendor/blog/img/github.png') }}" width="27">
                                                 @endif
                                             @endforeach
                                         </td>
