@@ -36,7 +36,7 @@ class UserProviderController extends Controller
     public function disableProvider($uid)
     {
         $this->auth->disableUser($uid);
-        return Redirect::to(URL::previous() . '#' . $uid)->with('success', 'Akun berhasil di disable');
+        return redirect()->back()->with('success', 'Akun berhasil di disable');
     }
 
     public function enableProvider($uid)
@@ -120,6 +120,6 @@ class UserProviderController extends Controller
                     Pesan: ' . $th->getMessage()
             )->autoClose(false);
         }
-        return Redirect::to(URL::previous() . '#' . $uid)->with('success', 'Akun berhasil di hapus');
+        return redirect()->back()->with('success', 'Akun berhasil di hapus');
     }
 }
