@@ -25,12 +25,11 @@
     <meta name="language" content="id">
     <meta name="author" content="@yield('author', Auth::user()->name)">
     {{-- Meta OG --}}
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="@yield('url', url()->current())">
-    <meta property="og:title" content="@yield('title') - {{ $setting->site_name }}">
-    <meta property="og:description" content="@yield('description', $setting->site_description)">
-    <meta property="og:image" content="@yield('image', asset('vendor/blog/img/default.png'))">
-    <meta property="og:site_name" content="{{ $setting->site_name }}">
+    <meta property="og:title" content="@yield('title') - {{ $setting->site_name }}" />
+    <meta property="og:description" content="{{ $setting->site_description }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ url()->current() }}" />
+    <meta property="og:image" content="{{ asset('logo-web/android-chrome-512x512.png') }}" />
     {{-- title --}}
     <title>@yield('title') - {{ $setting->site_name }}</title>
     {{-- Logo / icon --}}
