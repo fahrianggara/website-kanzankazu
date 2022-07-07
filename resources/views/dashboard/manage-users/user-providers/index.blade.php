@@ -88,8 +88,8 @@
                                             </form>
                                             <form action="{{ route('users.deleteProvider', ['uid' => $user->uid]) }}#users" class="d-inline"
                                                 method="POST" role="alert"
-                                                alert-text='Apakah kamu yakin? akun dengan email "{{ $user->email }}" akan di hapus?.'
-                                                alert-btn="HAPUS" alert-clr="#d33">
+                                                alert-text='Apakah kamu yakin?! akun dengan email "{{ $user->email }}" akan di hapus PERMANEN!'
+                                                alert-btn="HAPUS AKUN" alert-clr="#d33">
                                                 @csrf
                                                 @method('DELETE')
 
