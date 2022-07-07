@@ -11,7 +11,9 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Kreait\Firebase\Contract\Auth;
 use Kreait\Firebase\Contract\Database;
+use Kreait\Laravel\Firebase\Facades\Firebase;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -42,11 +44,8 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct(Database $database)
+    public function __construct()
     {
-        $this->middleware('guest');
-
-        $this->database = $database;
         $this->table = 'users';
     }
 
@@ -95,7 +94,8 @@ class RegisterController extends Controller
         $role = Role::select('id')->where('name', 'Editor')->first();
         $user->roles()->attach($role);
 
-        $this->database->getReference($this->table)->push($userData);
+        Firebase::auth()->createUser($userData);
+        Firebase::database()->getReference($this->table)->push($userData);
 
         $user->notify(new WelcomeUserEmail($user));
 

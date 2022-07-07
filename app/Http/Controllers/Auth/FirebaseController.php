@@ -11,17 +11,18 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Str;
+use Kreait\Firebase\Contract\Auth as FirebaseAuth;
 use Kreait\Firebase\Contract\Database;
+use Kreait\Laravel\Firebase\Facades\Firebase;
 use Spatie\Permission\Models\Role;
 
 class FirebaseController extends Controller
 {
-    public function __construct(Database $database)
+    public function __construct(FirebaseAuth $auth)
     {
-        $this->database = $database;
         $this->table = 'users';
-
         $this->setting = WebSetting::find(1);
+        $this->auth = $auth;
     }
 
     public function redirectToGoogle(Request $request)
@@ -86,12 +87,10 @@ class FirebaseController extends Controller
                 $role = Role::select('id')->where('name', 'Editor')->first();
                 $user->roles()->attach($role);
 
-                $toFirebaseDB = [
-                    $this->table . '/' . $request->uid => $userData,
-                ];
-                $this->database->getReference()->update($toFirebaseDB);
+                Firebase::database()->getReference($this->table)->push($userData);
 
                 Auth::loginUsingId($user->id, true);
+
                 return response()->json([
                     "status" => 200,
                     "msg" => "Selamat datang di " . $this->setting->site_name . '!',
@@ -165,10 +164,7 @@ class FirebaseController extends Controller
                 $role = Role::select('id')->where('name', 'Editor')->first();
                 $user->roles()->attach($role);
 
-                $toFirebaseDB = [
-                    $this->table . '/' . $request->uid => $userData,
-                ];
-                $this->database->getReference()->update($toFirebaseDB);
+                Firebase::database()->getReference($this->table)->push($userData);
 
                 Auth::loginUsingId($user->id, true);
                 return response()->json([

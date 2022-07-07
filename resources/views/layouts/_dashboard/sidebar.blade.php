@@ -113,13 +113,13 @@
                         </a>
                     </li>
 
-                    {{-- <li>
-                        <a href="{{ route('users.index','#users') }}"
-                            class="waves-effect ">
+                    <li>
+                        <a href="{{ route('user-providers.index','#users') }}"
+                            class="waves-effect {{ set_active(['user-providers.index', 'user-providers.create', 'user-providers.edit']) }}">
                             <i class="uil uil-social-distancing"></i>
-                            <span>User Provider</span>
+                            <span>Pengguna Provider</span>
                         </a>
-                    </li> --}}
+                    </li>
                 @endcan
                 {{-- ROLES --}}
                 @can('manage_roles')

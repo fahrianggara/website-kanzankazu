@@ -30,7 +30,7 @@ const githubProvider = new GithubAuthProvider();
 const auth = getAuth();
 auth.languageCode = 'id';
 
-$('#signWithGithub').click(function () {
+$('#signWithGithub').click(function() {
     signInWithPopup(auth, githubProvider)
         .then((result) => {
 
@@ -56,44 +56,58 @@ $('#signWithGithub').click(function () {
                     user_image: user.photoURL,
                     uid: user.uid
                 },
-                beforeSend: function () {
+                beforeSend: function() {
                     $('#signWithGithub').html('<i class="fas fa-spin fa-spinner"></i>');
                     $('#tooltipGithub').tooltip('dispose').attr('title',
-                        'Tunggu sebentar..');
+                        'Pengecekan..');
                     $('#tooltipGithub').tooltip('show')
                 },
-                success: function (data) {
+                success: function(data) {
                     if (data.status == 200) {
+
+                        $('#signWithGithub').html('<i class="uil uil-check"></i>');
                         $('#tooltipGithub').tooltip('dispose').attr('title',
-                            'Mengalihkan ke Dashboard..');
+                            'Status OK..');
                         $('#tooltipGithub').tooltip('show')
+
+                        setTimeout(function() {
+                            $('#signWithGithub').html(
+                                '<i class="fas fa-spin fa-spinner"></i>');
+
+                            $('#tooltipGithub').tooltip('dispose').attr('title',
+                                'Mengalihkan ke Dashboard...');
+                            $('#tooltipGithub').tooltip('show');
+                        }, 1700);
 
                         alertify
                             .delay(3500)
                             .log(data.msg);
 
-                        setTimeout((function () {
+                        setTimeout((function() {
                             window.location.href = data.redirect;
-                        }), 1500);
+                        }), 3000);
 
                     } else if (data.status == 403) {
                         alertify
                             .delay(4000)
                             .error(data.msg);
 
+                        $('#signWithGithub').html('<i class="uil uil-ban"></i>');
                         $('#tooltipGithub').tooltip('dispose').attr('title',
                             data.msg);
                         $('#tooltipGithub').tooltip('show');
 
-                        setTimeout(function () {
+                        setTimeout(function() {
+                            $('#signWithGithub').html(
+                                '<i class="fas fa-spin fa-spinner"></i>');
                             $('#tooltipGithub').tooltip('dispose').attr('title',
-                                data.msg);
-                            $('#tooltipGithub').tooltip('enable');
+                                'Muat ulang halaman..');
+                            $('#tooltipGithub').tooltip('show');
                         }, 1700);
 
-                        setTimeout((function () {
+                        setTimeout((function() {
                             window.location.href = data.redirect;
-                        }), 2000);
+                        }), 3000);
                     } else {
                         alertify
                             .delay(4000)
@@ -107,14 +121,14 @@ $('#signWithGithub').click(function () {
                             .email[0]);
                         $('#tooltipGithub').tooltip('show')
 
-                        setTimeout(function () {
+                        setTimeout(function() {
                             $('#tooltipGithub').tooltip('dispose').attr('title',
                                 'Login dengan Github');
                             $('#tooltipGithub').tooltip('enable');
                         }, 4000);
                     }
                 },
-                error: function (xhr, ajaxOptions, thrownError) {
+                error: function(xhr, ajaxOptions, thrownError) {
                     alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
                 }
             });
@@ -126,11 +140,15 @@ $('#signWithGithub').click(function () {
             const email = error.customData.email;
 
             const credential = GithubAuthProvider.credentialFromError(error);
-            console.log(errorCode, errorMessage, email, credential);
+
+            if (errorCode == 'auth/user-disabled') {
+                alertify.okBtn("OK").alert(
+                    'Maaf.. akun kamu telah kami blokir. Silahkan kontak admin untuk informasi lebih lanjut :)');
+            }
         });
 });
 
-$('#signWithGoogle').click(function () {
+$('#signWithGoogle').click(function() {
     signInWithPopup(auth, googleProvider)
         .then((result) => {
 
@@ -140,7 +158,6 @@ $('#signWithGoogle').click(function () {
             const user = result.user;
 
             console.log(user);
-            console.log(credential);
 
             $.ajaxSetup({
                 headers: {
@@ -152,50 +169,65 @@ $('#signWithGoogle').click(function () {
                 url: "{{ route('google.login') }}",
                 type: "POST",
                 data: {
-                    token: token,
                     name: user.displayName,
                     email: user.email,
                     user_image: user.photoURL,
-                    uid: user.uid
+                    uid: user.uid,
+                    disable: user.reloadUserInfo.disabled
                 },
-                beforeSend: function () {
+                beforeSend: function() {
                     $('#signWithGoogle').html('<i class="fas fa-spin fa-spinner"></i>');
                     $('#tooltipGoogle').tooltip('dispose').attr('title',
-                        'Tunggu sebentar..');
+                        'Pengecekan..');
                     $('#tooltipGoogle').tooltip('show')
                 },
-                success: function (data) {
+                success: function(data) {
                     if (data.status == 200) {
+
+                        $('#signWithGoogle').html('<i class="uil uil-check"></i>');
                         $('#tooltipGoogle').tooltip('dispose').attr('title',
-                            'Mengalihkan ke Dashboard..');
+                            'Status OK..');
                         $('#tooltipGoogle').tooltip('show')
+
+                        setTimeout(function() {
+                            $('#signWithGoogle').html(
+                                '<i class="fas fa-spin fa-spinner"></i>');
+
+                            $('#tooltipGoogle').tooltip('dispose').attr('title',
+                                'Mengalihkan ke Dashboard...');
+                            $('#tooltipGoogle').tooltip('show');
+                        }, 1700);
 
                         alertify
                             .delay(3500)
                             .log(data.msg);
 
-                        setTimeout((function () {
+                        setTimeout((function() {
                             window.location.href = data.redirect;
-                        }), 1500);
+                        }), 3000);
 
                     } else if (data.status == 403) {
                         alertify
                             .delay(4000)
                             .error(data.msg);
 
+                        $('#signWithGoogle').html('<i class="uil uil-ban"></i>');
                         $('#tooltipGoogle').tooltip('dispose').attr('title',
                             data.msg);
                         $('#tooltipGoogle').tooltip('show');
 
-                        setTimeout(function () {
-                            $('#tooltipGoogle').tooltip('dispose').attr('title',
-                                data.msg);
-                            $('#tooltipGoogle').tooltip('enable');
-                        }, 1700);
+                        setTimeout(function() {
+                            $('#signWithGoogle').html(
+                                '<i class="fas fa-spin fa-spinner"></i>');
 
-                        setTimeout((function () {
+                            $('#tooltipGoogle').tooltip('dispose').attr('title',
+                                'Muat ulang halaman..');
+                            $('#tooltipGoogle').tooltip('show');
+                        }, 1500);
+
+                        setTimeout((function() {
                             window.location.href = data.redirect;
-                        }), 2000);
+                        }), 3000);
                     } else {
                         alertify
                             .delay(4000)
@@ -209,14 +241,14 @@ $('#signWithGoogle').click(function () {
                             .email[0]);
                         $('#tooltipGoogle').tooltip('show')
 
-                        setTimeout(function () {
+                        setTimeout(function() {
                             $('#tooltipGoogle').tooltip('dispose').attr('title',
                                 'Login dengan google');
                             $('#tooltipGoogle').tooltip('enable');
                         }, 4000);
                     }
                 },
-                error: function (xhr, ajaxOptions, thrownError) {
+                error: function(xhr, ajaxOptions, thrownError) {
                     alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
                 }
             });
@@ -226,8 +258,13 @@ $('#signWithGoogle').click(function () {
             const errorCode = error.code;
             const errorMessage = error.message;
 
-            const email = error.customData.email;
+            const email = error.customData;
 
             const credential = GoogleAuthProvider.credentialFromError(error);
+
+            if (errorCode == 'auth/user-disabled') {
+                alertify.okBtn("OK").alert(
+                    'Maaf.. akun kamu telah kami blokir. Silahkan kontak admin untuk informasi lebih lanjut :)');
+            }
         });
 });

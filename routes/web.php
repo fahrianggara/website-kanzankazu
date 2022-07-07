@@ -112,6 +112,10 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::post('/user-blokir/{id}', [\App\Http\Controllers\Dashboard\UserController::class, 'blokirUser'])->name('users.blokir');
         Route::put('/user-unblokir/{user}', [\App\Http\Controllers\Dashboard\UserController::class, 'unBlokirUser'])->name('users.unblokir');
         Route::resource('/users', \App\Http\Controllers\Dashboard\UserController::class)->except('show');
+        // User Provider
+        Route::post('/disable-provider/{uid}', [\App\Http\Controllers\Dashboard\UserProviderController::class, 'disableProvider'])->name('users.disableProvider');
+        Route::post('/enable-provider/{uid}', [\App\Http\Controllers\Dashboard\UserProviderController::class, 'enableProvider'])->name('users.enableProvider');
+        Route::resource('/user-providers', \App\Http\Controllers\Dashboard\UserProviderController::class)->except('show');
         // FILE MANAGER
         Route::group(['prefix' => 'filemanager'], function () {
             Route::get('/index', [\App\Http\Controllers\Dashboard\FileManagerController::class, 'index'])->name('filemanager.index');

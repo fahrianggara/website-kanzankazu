@@ -167,6 +167,23 @@ Breadcrumbs::for('edit_tutorial', function (BreadcrumbTrail $trail, $tutorial) {
     $trail->push($tutorial->title, route('tutorials.edit', ['tutorial' => $tutorial]));
 });
 
+// =================================================================
+
+Breadcrumbs::for('userProviders', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Pengguna Provider', route('user-providers.index'));
+});
+
+// Breadcrumbs::for('add_users', function (BreadcrumbTrail $trail) {
+//     $trail->parent('users');
+//     $trail->push('Buat', route('users.create'));
+// });
+
+// Breadcrumbs::for('edit_user', function (BreadcrumbTrail $trail, $user) {
+//     $trail->parent('users', $user);
+//     $trail->push($user->name, route('users.edit', ['user' => $user]));
+// });
+
 // // Home > Blog
 // Breadcrumbs::for('blog', function (BreadcrumbTrail $trail) {
 //     $trail->parent('home');
