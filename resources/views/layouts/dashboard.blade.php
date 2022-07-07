@@ -43,6 +43,9 @@
     <link rel="stylesheet" href="{{ asset('vendor/blog/assets/sweetalert2/sweetalert2.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/dashboard/plugins/alertify/css/alerts.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/dashboard/plugins/ijabocroptool/ijaboCropTool.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/dashboard/plugins/datatables/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/dashboard/plugins/datatables/buttons.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/dashboard/plugins/datatables/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet"
         href="{{ asset('vendor/dashboard/plugins/colorpicker/jquery-asColorPicker/dist/css/asColorPicker.css') }}">
     {{-- icons --}}
@@ -138,6 +141,11 @@
     {{-- select2 --}}
     <script src="{{ asset('vendor/dashboard/plugins/select2/js/select2.min.js') }}"></script>
     <script src="{{ asset('vendor/dashboard/plugins/select2/js/i18n/' . app()->getLocale() . '.js') }}"></script>
+    {{-- DATATABLE --}}
+    <script src="{{ asset('vendor/dashboard/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('vendor/dashboard/plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('vendor/dashboard/plugins/datatables/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('vendor/dashboard/plugins/datatables/responsive.bootstrap4.min.js') }}"></script>
     <!-- App js -->
     <script src="{{ asset('vendor/dashboard/js/apps.js') }}"></script>
     {{-- CALL JS --}}
