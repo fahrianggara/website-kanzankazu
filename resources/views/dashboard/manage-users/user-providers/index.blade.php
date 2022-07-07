@@ -115,65 +115,73 @@
                             </thead>
                             <tbody>
                                 @forelse ($users as $key => $user)
-                                    <tr class="text-center">
+                                    @if ($user->email != Auth::user()->email)
+                                        <tr class="text-center">
 
-                                        <td id="{{ $user->uid }}">{{ $user->uid }}</td>
-                                        <td>{{ $user->email }}</td>
-                                        <td>
-                                            @foreach ($user->providerData as $provider)
-                                                {{ $provider->providerId }}
-                                            @endforeach
-                                        </td>
-                                        <td>
-                                            @if ($user->disabled)
-                                                <span class="badge badge-danger">Disabled</span>
-                                            @else
-                                                <span class="badge badge-success">Enabled</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if ($user->disabled == true)
-                                                <form action="{{ route('users.enableProvider', ['uid' => $user->uid]) }}#users" class="d-inline"
-                                                    method="POST" role="alert"
-                                                    alert-text='Apakah kamu yakin? akun dengan email "{{ $user->email }}" akan bisa mengakses website {{ $setting->site_name }} lagi.'
-                                                    alert-btn="ENABLE" alert-clr="#00C851">
-                                                    @csrf
-                                                    @method('POST')
+                                            <td id="{{ $user->uid }}">{{ $user->uid }}</td>
+                                            <td>{{ $user->email }}</td>
+                                            <td>
+                                                @foreach ($user->providerData as $provider)
+                                                    {{ $provider->providerId }}
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                @if ($user->disabled)
+                                                    <span class="badge badge-danger">Disabled</span>
+                                                @else
+                                                    <span class="badge badge-success">Enabled</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($user->disabled == true)
+                                                    <form
+                                                        action="{{ route('users.enableProvider', ['uid' => $user->uid]) }}#users"
+                                                        class="d-inline" method="POST" role="alert"
+                                                        alert-text='Apakah kamu yakin? akun dengan email "{{ $user->email }}" akan bisa mengakses website {{ $setting->site_name }} lagi.'
+                                                        alert-btn="ENABLE" alert-clr="#00C851">
+                                                        @csrf
+                                                        @method('POST')
 
-                                                    <button type="submit" class="btn btn-success btn-sm" data-toggle="tooltip"
-                                                        data-placement="bottom" title="Enable akun">
-                                                        <i class="uil uil-check"></i>
-                                                    </button>
-                                                </form>
+                                                        <button type="submit" class="btn btn-success btn-sm"
+                                                            data-toggle="tooltip" data-placement="bottom"
+                                                            title="Enable akun">
+                                                            <i class="uil uil-check"></i>
+                                                        </button>
+                                                    </form>
 
-                                                <form action="{{ route('users.deleteProvider', ['uid' => $user->uid]) }}#users" class="d-inline"
-                                                    method="POST" role="alert"
-                                                    alert-text='Apakah kamu yakin?! akun dengan email "{{ $user->email }}" akan di hapus PERMANEN!'
-                                                    alert-btn="HAPUS AKUN" alert-clr="#d33">
-                                                    @csrf
-                                                    @method('DELETE')
+                                                    <form
+                                                        action="{{ route('users.deleteProvider', ['uid' => $user->uid]) }}#users"
+                                                        class="d-inline" method="POST" role="alert"
+                                                        alert-text='Apakah kamu yakin?! akun dengan email "{{ $user->email }}" akan di hapus PERMANEN!'
+                                                        alert-btn="HAPUS AKUN" alert-clr="#d33">
+                                                        @csrf
+                                                        @method('DELETE')
 
-                                                    <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                                                        data-placement="bottom" title="Hapus akun">
-                                                        <i class="uil uil-trash"></i>
-                                                    </button>
-                                                </form>
-                                            @elseif ($user->disabled == false)
-                                                <form action="{{ route('users.disableProvider', ['uid' => $user->uid]) }}#users" class="d-inline"
-                                                    method="POST" role="alert"
-                                                    alert-text='Apakah kamu yakin? akun dengan email "{{ $user->email }}" tidak akan bisa mengakses website {{ $setting->site_name }} lagi.'
-                                                    alert-btn="DISABLE" alert-clr="#d33">
-                                                    @csrf
-                                                    @method('POST')
+                                                        <button type="submit" class="btn btn-danger btn-sm"
+                                                            data-toggle="tooltip" data-placement="bottom"
+                                                            title="Hapus akun">
+                                                            <i class="uil uil-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                @elseif ($user->disabled == false)
+                                                    <form
+                                                        action="{{ route('users.disableProvider', ['uid' => $user->uid]) }}#users"
+                                                        class="d-inline" method="POST" role="alert"
+                                                        alert-text='Apakah kamu yakin? akun dengan email "{{ $user->email }}" tidak akan bisa mengakses website {{ $setting->site_name }} lagi.'
+                                                        alert-btn="DISABLE" alert-clr="#d33">
+                                                        @csrf
+                                                        @method('POST')
 
-                                                    <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                                                        data-placement="bottom" title="Disable akun">
-                                                        <i class="uil uil-ban"></i>
-                                                    </button>
-                                                </form>
-                                            @endif
-                                        </td>
-                                    </tr>
+                                                        <button type="submit" class="btn btn-danger btn-sm"
+                                                            data-toggle="tooltip" data-placement="bottom"
+                                                            title="Disable akun">
+                                                            <i class="uil uil-ban"></i>
+                                                        </button>
+                                                    </form>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endif
                                 @empty
                                     <tr>
                                         <td colspan="5" class="text-center">
