@@ -109,9 +109,9 @@ class UserProviderController extends Controller
     public function deleteProvider($uid)
     {
         try {
-            $dataFromDB = User::where('uid', $uid)->first();
-            $dataFromDB->roles->detach();
-            $dataFromDB->delete();
+            $user = User::where('uid', $uid)->first();
+            $user->roles()->detach();
+            $user->delete();
 
             $this->auth->deleteUser($uid);
             return redirect()->back()->with('success', 'Akun berhasil di hapus');
