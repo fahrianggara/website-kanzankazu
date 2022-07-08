@@ -27,7 +27,14 @@ $markdown->setSafeMode(true);
         <div class="d-flex mb-1">
             <div class="comTitle loading">
                 <div class="comment-title guestName" style="font-family: 'Rubik', sans-serif;">
-                    {{ $comment->commenter->name ?? ($comment->guest_name ?? 'kanzankazu') }}
+                    @if ($comment->guest_name != null)
+                        {{ $comment->guest_name ?? 'kanzankazu' }}
+                    @else
+                        <a class="underline"
+                            href="{{ route('blog.author', ['author' => $comment->commenter->slug]) }}">
+                            {{ $comment->commenter->name }}
+                        </a>
+                    @endif
                 </div>
             </div>
             <div class="comTitleTime loading ml-1">
