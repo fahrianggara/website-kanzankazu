@@ -8,16 +8,23 @@ $markdown->setSafeMode(true);
 <div id="comment-{{ $comment->getKey() }}" class="media">
     <div class="comImg loading-cicle">
 
-        <img class="mr-2 rounded-circle"
-            src="https://www.gravatar.com/avatar/{{ md5($comment->commenter->email ?? $comment->guest_email) }}?d=wavatar&f=y.jpg"
-            alt="{{ $comment->commenter->name ?? $comment->guest_name }} Avatar">
+        @if ($comment->guest_name != null)
+            <img class="mr-2 rounded-circle"
+                src="https://www.gravatar.com/avatar/{{ md5($comment->commenter->email ?? $comment->guest_email) }}?d=wavatar&f=y.jpg"
+                alt="{{ $comment->commenter->name ?? $comment->guest_name }} Avatar">
+        @else
+            <img class="mr-2 rounded-circle"
+                src="{{ asset('vendor/dashboard/image/picture-profiles') . '/' . $comment->commenter->user_image ?? 'https://www.gravatar.com/avatar/?d=wavatar&f=y.jpg' }}"
+                alt="{{ $comment->commenter->name }} Avatar">
+        @endif
+
     </div>
     <div class="media-body">
 
         <div class="d-flex mb-1">
             <div class="comTitle loading">
                 <div class="comment-title guestName" style="font-family: 'Rubik', sans-serif;">
-                    {{ $comment->commenter->name ?? $comment->guest_name }}
+                    {{ $comment->commenter->name ?? ($comment->guest_name ?? 'kanzankazu') }}
                 </div>
             </div>
             <div class="comTitleTime loading ml-1">

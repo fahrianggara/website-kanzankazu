@@ -285,6 +285,7 @@ class UserController extends Controller
             if (File::exists($path . $user->user_image)) {
                 File::delete($path . $user->user_image);
             }
+            $user->comments()->delete();
             $user->removeRole($user->roles->first());
             $user->delete();
         } catch (\Throwable $th) {

@@ -24,13 +24,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // $this->app->bind('path.public', function () {
+        //     return realpath(base_path() . '/../../public_html/blog');
+        // });
+
         $this->app->bind('path.public', function () {
-            return realpath(base_path() . '/../../public_html/blog');
+            return realpath(base_path() . '/public');
         });
     }
 
     /**
-     * Bootstrap any application services.
+     * Bootstrap any applicati0on services.
      *
      * @return void
      */
@@ -39,6 +43,7 @@ class AppServiceProvider extends ServiceProvider
         // if(config('app.env') === 'local') {
         //     URL::forceScheme('https');
         // }
+
         \Carbon\Carbon::setLocale('id');
 
         //Add this custom validation rule.
