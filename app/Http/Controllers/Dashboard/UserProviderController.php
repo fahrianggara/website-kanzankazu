@@ -114,13 +114,14 @@ class UserProviderController extends Controller
             $dataFromDB->delete();
 
             $this->auth->deleteUser($uid);
+            return redirect()->back()->with('success', 'Akun berhasil di hapus');
         } catch (\Throwable $th) {
             Alert::error(
                 'Error',
                 'Terjadi kesalahan saat menghapus data.
                     Pesan: ' . $th->getMessage()
             )->autoClose(false);
+            return redirect()->back()->with('success', 'Sepertinya ada kesalahan');
         }
-        return redirect()->back()->with('success', 'Akun berhasil di hapus');
     }
 }
