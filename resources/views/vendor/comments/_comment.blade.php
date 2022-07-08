@@ -17,9 +17,8 @@ $markdown->setSafeMode(true);
                 src="{{ asset('vendor/dashboard/image/picture-profiles') . '/' . $comment->commenter->user_image ?? 'https://www.gravatar.com/avatar/?d=wavatar&f=y.jpg' }}"
                 alt="{{ $comment->commenter->name }} Avatar">
         @else
-            <img class="mr-2 rounded-circle"
-                src="https://www.gravatar.com/avatar/{{ md5($comment->commenter->email ?? $comment->guest_email) }}?d=wavatar&f=y.jpg"
-                alt="{{ $comment->commenter->name ?? $comment->guest_name }} Avatar">
+            <img class="mr-2 rounded-circle" src="{{ asset('vendor/dashboard/image/avatar.png') }}"
+                alt="{{ $comment->commenter->name }} Avatar">
         @endif
 
     </div>
