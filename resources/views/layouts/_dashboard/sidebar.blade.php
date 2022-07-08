@@ -34,7 +34,7 @@
 
                 {{-- BLOG --}}
                 <li>
-                    <a href="{{ route('blog.author', ['author' => Auth::user()->slug ]) }}" class="waves-effect">
+                    <a href="{{ route('blog.author', ['author' => Auth::user()->slug]) }}" class="waves-effect">
                         <i class="uil uil-create-dashboard"></i>
                         <span>Blog</span>
                     </a>
@@ -42,7 +42,8 @@
                 {{-- Profile --}}
                 <li id="profile" class="menu-title">Kelola Profile</li>
                 <li>
-                    <a href="{{ route('profile.index', '#profile') }}" class="{{ set_active('profile.index') }} waves-effect">
+                    <a href="{{ route('profile.index', '#profile') }}"
+                        class="{{ set_active('profile.index') }} waves-effect">
                         <i class="uil uil-user"></i>
                         <span>Profile</span>
                     </a>
@@ -51,7 +52,7 @@
                 @can('manage_website')
                     {{-- Settings website --}}
                     <li id="website" class="menu-title">Setelan Website</li>
-                    <li >
+                    <li>
                         <a href="{{ route('dashboard.setting', '#website') }}"
                             class="waves-effect {{ set_active('dashboard.setting') }}">
                             <i class="uil uil-setting"></i>
@@ -106,7 +107,7 @@
                 @can('manage_users')
                     <li id="users" class="menu-title">Kelola Pengguna</li>
                     <li>
-                        <a href="{{ route('users.index','#users') }}"
+                        <a href="{{ route('users.index', '#users') }}"
                             class="waves-effect {{ set_active(['users.index', 'users.create', 'users.edit']) }}">
                             <i class="uil uil-users-alt"></i>
                             <span>Pengguna</span>
@@ -114,7 +115,7 @@
                     </li>
 
                     <li>
-                        <a href="{{ route('user-providers.index','#users') }}"
+                        <a href="{{ route('user-providers.index', '#users') }}"
                             class="waves-effect {{ set_active(['user-providers.index', 'user-providers.create', 'user-providers.edit']) }}">
                             <i class="uil uil-social-distancing"></i>
                             <span>Pengguna Provider</span>
@@ -135,14 +136,19 @@
                 {{-- INBOX CONTACT --}}
                 @can('manage_inbox')
                     <li id="contact" class="menu-title">Inbox</li>
-                    <li >
-                        <a href="{{ route('contact.index', '#contact') }}" class="waves-effect {{ set_active('contact.index') }}">
+                    <li>
+                        <a href="{{ route('contact.index', '#contact') }}"
+                            class="waves-effect {{ set_active('contact.index') }}">
                             <i class="uil uil-inbox"></i>
                             <span>Pesan Kontak</span>
+                            @if ($countInbox > 0)
+                                <span class="badge badge-pill badge-danger float-right">{{ $countInbox }}</span>
+                            @endif
                         </a>
                     </li>
-                    <li >
-                        <a href="{{ route('newsletter.index', '#contact') }}" class="waves-effect {{ set_active('newsletter.index') }}">
+                    <li>
+                        <a href="{{ route('newsletter.index', '#contact') }}"
+                            class="waves-effect {{ set_active('newsletter.index') }}">
                             <i class="uil uil-at"></i>
                             <span>Pelanggan</span>
                         </a>
@@ -151,7 +157,7 @@
 
                 {{-- FILEMANAGER --}}
                 <li id="filemanager" class="menu-title">File Manager</li>
-                <li >
+                <li>
                     <a href="{{ route('filemanager.index', '#filemanager') }}"
                         class="waves-effect {{ set_active('filemanager.index') }}">
                         <i class="uil uil-folder-open"></i>
@@ -162,8 +168,7 @@
                 {{-- Logout --}}
                 <li class="menu-title">__________________</li>
                 <li>
-                    <a href="{{ route('logout') }}" data-toggle="modal" data-target="#logModal"
-                        class="waves-effect">
+                    <a href="{{ route('logout') }}" data-toggle="modal" data-target="#logModal" class="waves-effect">
                         <i class="uil uil-signout"></i>
                         <span>Logout</span>
                     </a>

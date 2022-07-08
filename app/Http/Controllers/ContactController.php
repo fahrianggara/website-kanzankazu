@@ -197,11 +197,10 @@ class ContactController extends Controller
             return response()->json(
                 [
                     'status' => 200,
-                    'msg' => 'Email berhasil dikirim'
+                    'msg' => 'Email berhasil dikirim',
+                    'redirect' => back()
                 ]
             );
-
-            // return new ReplayInbox($contact);
         }
     }
 }

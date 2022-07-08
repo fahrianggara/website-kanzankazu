@@ -44,7 +44,7 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Auth $auth)
     {
         $this->table = 'users';
     }
@@ -94,7 +94,7 @@ class RegisterController extends Controller
         $role = Role::select('id')->where('name', 'Editor')->first();
         $user->roles()->attach($role);
 
-        // Firebase::auth()->createUser($userData);
+        // $this->auth->signInAnonymously();
         Firebase::database()->getReference($this->table)->push($userData);
 
         $user->notify(new WelcomeUserEmail($user));

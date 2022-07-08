@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Category;
+use App\Models\Contact;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\WebSetting;
@@ -63,6 +64,7 @@ class AppServiceProvider extends ServiceProvider
                 'postUserApprove' => $postUserApprove->limit(3)->get(),
                 'postApprove' => Post::approve()->limit(3)->get(),
                 'setting' => WebSetting::find(1),
+                'countInbox' => Contact::unanswered()->count(),
             ]);
         });
     }

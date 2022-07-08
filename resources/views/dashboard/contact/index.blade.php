@@ -395,6 +395,10 @@
                             $("#replayInboxModal").modal('hide');
                             $('#formReplayComments')[0].reset();
                             $(document).find('span.error-text').text('');
+
+                            setTimeout(() => {
+                                window.location.href = '{{ route("contact.index") }}#contact';
+                            }, 1500);
                         }
                     },
                     error: function(xhr, ajaxOptions, thrownError) {

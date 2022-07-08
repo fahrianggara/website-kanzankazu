@@ -40,7 +40,7 @@
                                                 </option>
                                                 <option value="banned"
                                                     {{ $statusSelected == 'banned' ? 'selected' : null }}>
-                                                    Terblokir ({{ $userBannedCount }})
+                                                    Ter-blokir ({{ $userBannedCount }})
                                                 </option>
                                                 <option value="notverification"
                                                     {{ $statusSelected == 'notverification' ? 'selected' : null }}>
@@ -116,11 +116,18 @@
 
                                         @if ($user->status == 'allowable' || $user->status == 'notverification')
                                             <td>
-                                                @if ($user->provider != null)
-                                                    {{ $user->provider }}
+                                                @if ($user->provider == 'google')
+                                                    <img class="logo-provider"
+                                                        src="{{ asset('vendor/blog/img/google.png') }}" width="27">
+                                                @elseif ($user->provider == 'github')
+                                                    <img class="logo-provider"
+                                                        src="{{ asset('vendor/blog/img/github.png') }}" width="27">
                                                 @else
-                                                    Kanzankazu
+                                                    <img class="logo-provider"
+                                                        src="{{ asset('logo-web/android-chrome-512x512.png') }}"
+                                                        width="27">
                                                 @endif
+                                                <span class="d-none">{{ $user->provider }}</span>
                                             </td>
                                             <td>{{ $user->roles->first()->name }}</td>
                                             <td>
@@ -132,11 +139,18 @@
                                             </td>
                                         @elseif ($user->status == 'banned')
                                             <td>
-                                                @if ($user->provider != null)
-                                                    {{ $user->provider }}
+                                                @if ($user->provider == 'google')
+                                                    <img class="logo-provider"
+                                                        src="{{ asset('vendor/blog/img/google.png') }}" width="27">
+                                                @elseif ($user->provider == 'github')
+                                                    <img class="logo-provider"
+                                                        src="{{ asset('vendor/blog/img/github.png') }}" width="27">
                                                 @else
-                                                    Kanzankazu
+                                                    <img class="logo-provider"
+                                                        src="{{ asset('logo-web/android-chrome-512x512.png') }}"
+                                                        width="27">
                                                 @endif
+                                                <span class="d-none">{{ $user->provider }}</span>
                                             </td>
                                             <td class="text-danger">{{ strtoupper($user->status) }}</td>
                                             <td>
@@ -173,7 +187,8 @@
 
                                                         <button type="submit"
                                                             class="btn btn-primary btn-sm waves-effect waves-light"
-                                                            data-toggle="tooltip" data-placement="bottom" title="Buka Blokir">
+                                                            data-toggle="tooltip" data-placement="bottom"
+                                                            title="Buka Blokir">
                                                             <i class="uil uil-user-check"></i>
                                                         </button>
                                                     </form>
