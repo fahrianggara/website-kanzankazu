@@ -12,10 +12,14 @@ $markdown->setSafeMode(true);
             <img class="mr-2 rounded-circle"
                 src="https://www.gravatar.com/avatar/{{ md5($comment->commenter->email ?? $comment->guest_email) }}?d=wavatar&f=y.jpg"
                 alt="{{ $comment->commenter->name ?? $comment->guest_name }} Avatar">
-        @else
+        @elseif (file_exists('vendor/dashboard/image/picture-profiles/' . $comment->commenter->user_image))
             <img class="mr-2 rounded-circle"
                 src="{{ asset('vendor/dashboard/image/picture-profiles') . '/' . $comment->commenter->user_image ?? 'https://www.gravatar.com/avatar/?d=wavatar&f=y.jpg' }}"
                 alt="{{ $comment->commenter->name }} Avatar">
+        @else
+            <img class="mr-2 rounded-circle"
+                src="https://www.gravatar.com/avatar/{{ md5($comment->commenter->email ?? $comment->guest_email) }}?d=wavatar&f=y.jpg"
+                alt="{{ $comment->commenter->name ?? $comment->guest_name }} Avatar">
         @endif
 
     </div>
