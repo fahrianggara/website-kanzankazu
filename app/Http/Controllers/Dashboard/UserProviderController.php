@@ -110,7 +110,7 @@ class UserProviderController extends Controller
     {
         try {
             $dataFromDB = User::where('uid', $uid)->first();
-            $dataFromDB->removeRole($dataFromDB->roles->first());
+            $dataFromDB->roles->detach();
             $dataFromDB->delete();
 
             $this->auth->deleteUser($uid);
