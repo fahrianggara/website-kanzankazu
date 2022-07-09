@@ -156,7 +156,7 @@
                         @if (file_exists('vendor/dashboard/image/picture-profiles/' . $post->user->user_image))
                             <img src="{{ asset('vendor/dashboard/image/picture-profiles/' . $post->user->user_image) }}"
                                 alt="" class="rounded-circle float-left" />
-                        @elseif ($post->user->uid != null)
+                        @elseif ($post->user->provider == 'google' || $post->user->provider == 'github')
                             <img src="{{ $post->user->user_image }}" alt="" class="rounded-circle float-left" />
                         @else
                             <img src="{{ asset('vendor/dashboard/image/avatar.png') }}" class="rounded-circle float-left"
@@ -358,12 +358,12 @@
                     <div class="sidebar">
                         <h3 class="sidebar-title">Tag</h3>
 
-                        <div class="sidebar-item tags">
+                        <div class="sidebar-item tags ">
                             <ul>
                                 @foreach ($tags as $tag)
                                     <li>
-                                        <a href="{{ route('blog.posts.tags', ['slug' => $tag->slug]) }}">
-                                            {{ $tag->title }}
+                                        <a class="m-0" href="{{ route('blog.posts.tags', ['slug' => $tag->slug]) }}">
+                                            # {{ $tag->title }}
                                         </a>
                                     </li>
                                 @endforeach

@@ -110,10 +110,15 @@ class UserProviderController extends Controller
     {
         try {
             $user = User::where('uid', $uid)->first();
-            $user->roles()->detach();
-            $user->delete();
+            if ($user == null) {
+                $this->auth->deleteUser($uid);
+            } else {
+                $user->comments()->delete();
+                $user->roles()->detach();
+                $user->delete();
 
-            $this->auth->deleteUser($uid);
+                $this->auth->deleteUser($uid);
+            }
             return redirect()->back()->with('success', 'Akun berhasil di hapus');
         } catch (\Throwable $th) {
             Alert::error(

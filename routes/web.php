@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Artisan;
 // redirect to google
 Route::post('/auth/google', [\App\Http\Controllers\Auth\FirebaseController::class, 'redirectToGoogle'])->name('google.login');
 Route::post('/auth/github', [\App\Http\Controllers\Auth\FirebaseController::class, 'redirectToGithub'])->name('github.login');
+Route::post('/auth/anonymous', [\App\Http\Controllers\Auth\FirebaseController::class, 'redirectToAnonym'])->name('anonymous.login');
 // SITEMAP XML
 Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapXmlController::class, 'index'])->name('sitemap');
 // LANGUAGE

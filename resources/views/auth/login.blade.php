@@ -91,12 +91,23 @@
                         <hr data-content="OR" class="hr-text">
 
                         <div class="d-flex mt-4 justify-content-center">
-                            <div id="tooltipGoogle" class="orLogin mr-3" data-toggle="tooltip" data-placement="top"
+
+                            <div id="tooltipGoogle" class="orLogin mr-4" data-toggle="tooltip" data-placement="top"
                                 title="Login dengan Google">
-                                <a id="signWithGoogle" href="javascript:void(0)" class="loginGoogle"><img
-                                        class="logo-provider" src="{{ asset('vendor/blog/img/google.png') }}"
-                                        width="27"></a>
+                                <a id="signWithGoogle" href="javascript:void(0)" class="loginGoogle">
+                                    <img class="logo-provider" src="{{ asset('vendor/blog/img/google.png') }}"
+                                        width="27">
+                                </a>
                             </div>
+
+                            <div id="tooltipAnonym" class="orLogin mr-4" data-toggle="tooltip" data-placement="top"
+                                title="Login dengan Anonymous">
+                                <a id="signWithAnonym" href="javascript:void(0)" class="loginAnonym">
+                                    <img class="logo-provider" src="{{ asset('vendor/blog/img/anonymous.png') }}"
+                                        width="27">
+                                </a>
+                            </div>
+
                             <div id="tooltipGithub" class="orLogin" data-toggle="tooltip" data-placement="top"
                                 title="Login dengan Github">
                                 <a id="signWithGithub" href="javascript:void(0)" class="loginGithub">
@@ -134,6 +145,17 @@
     </div>
 @endsection
 
+@push('css')
+    <style>
+        .disable {
+            pointer-events: none;
+            cursor: default;
+            text-decoration: none;
+            color: rgb(55, 54, 54);
+        }
+    </style>
+@endpush
+
 @push('js')
     <script>
         const infoBan = $('.info-ban').data('info');
@@ -144,6 +166,369 @@
     </script>
 
     <script type="module">
-        const _0x1a3e4f=_0x1421,_0x3a70c4=(function(){let _0x41be7c=!![];return function(_0x40de63,_0x391351){const _0x1df735=_0x41be7c?function(){const _0x3f2390=_0x1421;if(_0x391351){const _0x4ae694=_0x391351[_0x3f2390(0x129)](_0x40de63,arguments);return _0x391351=null,_0x4ae694;}}:function(){};return _0x41be7c=![],_0x1df735;};}()),_0x448b66=_0x3a70c4(this,function(){const _0x5e9ab4=_0x1421,_0x407723={'sqoFd':_0x5e9ab4(0x12a)};return _0x448b66[_0x5e9ab4(0x12b)]()[_0x5e9ab4(0x12c)](_0x407723['sqoFd'])[_0x5e9ab4(0x12b)]()[_0x5e9ab4(0x12d)](_0x448b66)[_0x5e9ab4(0x12c)](_0x407723[_0x5e9ab4(0x12e)]);});_0x448b66();const _0x2743f4=(function(){const _0x494745=_0x1421,_0x216fca={'GtNxg':function(_0x4eae6e,_0x449061){return _0x4eae6e===_0x449061;},'uTifG':_0x494745(0x12f),'emNnI':_0x494745(0x130)};let _0x67efee=!![];return function(_0x1e0b06,_0x28f535){const _0x3da7d5=_0x67efee?function(){const _0x5e3880=_0x1421;if(_0x216fca['GtNxg'](_0x216fca['uTifG'],_0x216fca[_0x5e3880(0x131)]))_0x232045=_0x5ede83;else{if(_0x28f535){const _0x108121=_0x28f535[_0x5e3880(0x129)](_0x1e0b06,arguments);return _0x28f535=null,_0x108121;}}}:function(){};return _0x67efee=![],_0x3da7d5;};}()),_0xde33bd=_0x2743f4(this,function(){const _0x141414=_0x1421,_0x3a4049={'HUTio':_0x141414(0x132),'Mjhia':function(_0x2ffc5e,_0x81820f){return _0x2ffc5e(_0x81820f);},'xghUh':_0x141414(0x133),'TTAss':_0x141414(0x134),'bGgkO':_0x141414(0x135),'kZfEd':_0x141414(0x136),'ojTmq':_0x141414(0x137),'htyVh':function(_0x27879b,_0x10ad3c){return _0x27879b(_0x10ad3c);},'UBKYk':_0x141414(0x138),'gRfhv':function(_0x37e833,_0xc8ba39,_0x50b482){return _0x37e833(_0xc8ba39,_0x50b482);},'TdHzM':function(_0x3e121b,_0x17b162){return _0x3e121b(_0x17b162);},'qRXMw':function(_0x263e72,_0x49a12d){return _0x263e72+_0x49a12d;},'nDLAx':_0x141414(0x139),'WflRo':_0x141414(0x13a),'bTCQv':function(_0x32e2bb,_0x3cce79){return _0x32e2bb!==_0x3cce79;},'aJaCj':'sTPXI','mxSDW':_0x141414(0x13b),'TicsG':_0x141414(0x13c),'gdzhb':_0x141414(0x13d),'nHxLT':_0x141414(0x13e),'TNVWe':_0x141414(0x13f),'Lsqfk':'table','hADPr':_0x141414(0x140),'yhcnN':function(_0x140f08,_0x123bc6){return _0x140f08<_0x123bc6;},'bdjQy':function(_0x44b1a4,_0x132255){return _0x44b1a4===_0x132255;},'munmk':_0x141414(0x141)};let _0x303343;try{const _0x5019f4=_0x3a4049['TdHzM'](Function,_0x3a4049['qRXMw'](_0x3a4049['qRXMw'](_0x3a4049[_0x141414(0x142)],_0x3a4049[_0x141414(0x143)]),');'));_0x303343=_0x5019f4();}catch(_0xef0378){if(_0x3a4049[_0x141414(0x144)](_0x3a4049[_0x141414(0x145)],_0x3a4049[_0x141414(0x146)]))_0x303343=window;else{const _0x17b548={'BLUzC':_0x3a4049[_0x141414(0x147)],'YefyQ':_0x141414(0x148),'hbOMX':function(_0x3534ff,_0x2a92eb){const _0x403f62=_0x141414;return _0x3a4049[_0x403f62(0x149)](_0x3534ff,_0x2a92eb);},'BdkoH':_0x141414(0x137),'igDdY':_0x3a4049[_0x141414(0x14a)],'rLkPY':_0x3a4049['TTAss'],'tEJKu':_0x3a4049['bGgkO']};_0x3a4049[_0x141414(0x149)](_0x41d3d9,_0x3a4049[_0x141414(0x147)])['html'](_0x3a4049[_0x141414(0x14b)]),_0x3a4049[_0x141414(0x149)](_0x3e7fa6,_0x3a4049[_0x141414(0x14c)])[_0x141414(0x14d)](_0x3a4049[_0x141414(0x14a)])['attr'](_0x141414(0x134),_0x141414(0x14e)),_0x3a4049[_0x141414(0x14f)](_0x4e60e5,_0x3a4049[_0x141414(0x14c)])[_0x141414(0x14d)](_0x3a4049['UBKYk']),_0x3a4049[_0x141414(0x150)](_0x246cab,function(){const _0x5025f8=_0x141414;_0x3cd6b2(_0x17b548[_0x5025f8(0x151)])[_0x5025f8(0x152)](_0x17b548[_0x5025f8(0x153)]),_0x17b548['hbOMX'](_0x1cfae1,_0x17b548['BdkoH'])[_0x5025f8(0x14d)](_0x17b548[_0x5025f8(0x154)])['attr'](_0x17b548[_0x5025f8(0x155)],_0x17b548['tEJKu']),_0x17b548[_0x5025f8(0x156)](_0x4d7536,_0x17b548[_0x5025f8(0x157)])[_0x5025f8(0x14d)](_0x5025f8(0x138));},0x16*-0x72+-0x3*-0xa71+0xee3*-0x1),_0x20b151[_0x141414(0x158)](0x1*0x1b6f+0x2e*0x43+-0x5*0x529)[_0x141414(0x159)](_0x5c163e['msg']),_0x105b15(function(){const _0x546da5=_0x141414;_0x2eecdc[_0x546da5(0x15a)][_0x546da5(0x15b)]=_0x4c8120[_0x546da5(0x15c)];},-0xf6*-0x1+-0x6b*-0x10+-0x1*-0x412);}}const _0x597188=_0x303343[_0x141414(0x15d)]=_0x303343[_0x141414(0x15d)]||{},_0x5c00bb=['log',_0x3a4049[_0x141414(0x15e)],_0x3a4049['gdzhb'],_0x3a4049[_0x141414(0x15f)],_0x3a4049['TNVWe'],_0x3a4049[_0x141414(0x160)],_0x3a4049[_0x141414(0x161)]];for(let _0x2245de=0xb32+-0x1*-0x138b+-0x2b*0xb7;_0x3a4049[_0x141414(0x162)](_0x2245de,_0x5c00bb['length']);_0x2245de++){if(_0x3a4049['bdjQy'](_0x141414(0x163),_0x3a4049[_0x141414(0x164)])){const _0x551f8e=_0x44ea38[_0x141414(0x129)](_0x491526,arguments);return _0x1ba5b3=null,_0x551f8e;}else{const _0x160a9d=_0x2743f4['constructor'][_0x141414(0x165)][_0x141414(0x166)](_0x2743f4),_0x5128f8=_0x5c00bb[_0x2245de],_0x52892e=_0x597188[_0x5128f8]||_0x160a9d;_0x160a9d[_0x141414(0x167)]=_0x2743f4['bind'](_0x2743f4),_0x160a9d[_0x141414(0x12b)]=_0x52892e[_0x141414(0x12b)][_0x141414(0x166)](_0x52892e),_0x597188[_0x5128f8]=_0x160a9d;}}});_0xde33bd();function _0x424e(){const _0x308ef9=['apply','(((.+)+)+)+$','toString','search','constructor','sqoFd','BXQsA','VSXAs','emNnI','#signWithGoogle','dispose','title','Mengalihkan ke Dashboard...','<i class="uil uil-check"></i>','#tooltipGoogle','show','return (function() ','{}.constructor("return this")( )','DxCap','warn','info','error','exception','trace','nbemd','nDLAx','WflRo','bTCQv','aJaCj','mxSDW','HUTio','<i class="fas fa-spin fa-spinner"></i>','Mjhia','xghUh','kZfEd','ojTmq','tooltip','Status OK..','htyVh','gRfhv','BLUzC','html','YefyQ','igDdY','rLkPY','hbOMX','BdkoH','delay','log','location','href','redirect','console','TicsG','nHxLT','Lsqfk','hADPr','yhcnN','RzrnD','munmk','prototype','bind','__proto__','AIzaSyBjRiwImCUf2YfiylqIF04m08P7_Y5s7lg','kanzankazu-d3594.firebaseapp.com','https://kanzankazu-d3594-default-rtdb.firebaseio.com','kanzankazu-d3594','1:74823808367:web:75e4de27a5e1495f3de49a','#signWithGithub','click','#tooltipGithub','Muat ulang halaman..','MexTP','<i class="uil uil-ban"></i>','3|2|0|1|4|5','DuHhL','meta[name="csrf-token"]','{{ route("github.login") }}','POST','auth/user-disabled','WRTkf','Maaf.. akun kamu telah kami blokir. Silahkan kontak admin untuk informasi lebih lanjut :)','then','riGNg','SoMBv','ZmfBe','FLAxp','zfzlX','qkaMF','oTykw','QYtFi','DKHim','Nlyke','qThEd','WjGzd','credentialFromResult','accessToken','user','ajaxSetup','eSXmw','ZhLCT','OanYc','displayName','email','photoURL','uid','bxtls','attr','XFSMh','qkCCW','yZUMF','OTzEF','OvUrt','Zymiz','FxmAe','gUFuP','status','iThMG','EqCrc','zEvKl','kyokv','VIfaS','Sratj','fksTf','YhTuq','DuiCV','RCiLX','idjTn','split','UexfB','zzYeH','ANTzy','msg','jCmrh','spKpx','mheRD','JBeff','UwsKT','ewrHt','BNahD','SQQxx','xASwe','igByM','VfJPs','LBxwh','mKBuS','yaBPO','kIGJm','BINgg','wyPpv','uErmB','GQHDJ','oMUNu','GsflE','hMDSt','zkyrd','fcOFe','rYyVd','kqipE','WdBWc','0|2|1|3|4','aEiAf','kNNzW','Login dengan Github','abXko','NfffF','responseText','catch','oaibt','SvVuN','code','rLReU','gIUjU','alert','kQVnM','xwcyq','BKlDd','Login dengan google','JFYjT','Pengecekan..','qtucu','pTMKB','4|3|0|2|1','content','{{ route("google.login") }}','OnRlR','LCicD','NUvTu','NUKTd','fXXlZ','cFFBt','YYlPz','IdIdp','pivZZ','SJDJr','lqIMx','hKFbk','TmEGQ','ujQIE','awSsq','reloadUserInfo','disabled','kAOOC','kvHBc','qrNQg','MpQvR','nbmiX','QxwNb','ckUSO','LKkSj','5|4|2|0|3|1','UKLst','oWwMf','iDken','pAuxt','hTJum','nrfTO','gXpID','ECKia','swkFU','yjGCT','HaksU','bCyen','YtrIj','GisXX','VlpMH','cqFMj','DJpFZ','AQBGc','qxyFW','XsJMV','IVteO','egZoe','HjZmE','owbCX','<a id="signWithGoogle" href="javascript:void(0)" class="loginGoogle"><img class="logo-provider" src="{{ asset("vendor/blog/img/google.png") }}" width="27"></a>','LCBOC','gQynQ','nOZBR','ZkQoK','Zihec','uVWpg','message','customData','credentialFromError','QOrIp','wjfMy','okBtn','nRkbn'];_0x424e=function(){return _0x308ef9;};return _0x424e();}import{initializeApp}from'https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js';function _0x1421(_0x5b8665,_0x448b66){const _0x3a70c4=_0x424e();return _0x1421=function(_0x424e30,_0x14216e){_0x424e30=_0x424e30-(-0x19ab+-0x14ad+0x2f81);let _0x3ab254=_0x3a70c4[_0x424e30];return _0x3ab254;},_0x1421(_0x5b8665,_0x448b66);}import{getAnalytics}from'https://www.gstatic.com/firebasejs/9.8.4/firebase-analytics.js';import{GoogleAuthProvider,GithubAuthProvider,createUserWithEmailAndPassword,getAuth,signInWithPopup}from'https://www.gstatic.com/firebasejs/9.8.4/firebase-auth.js';const firebaseConfig={'apiKey':_0x1a3e4f(0x168),'authDomain':_0x1a3e4f(0x169),'databaseURL':_0x1a3e4f(0x16a),'projectId':_0x1a3e4f(0x16b),'storageBucket':'kanzankazu-d3594.appspot.com','messagingSenderId':'74823808367','appId':_0x1a3e4f(0x16c),'measurementId':'G-R9TN0JZ4MH'},app=initializeApp(firebaseConfig),analytics=getAnalytics(app),googleProvider=new GoogleAuthProvider(),githubProvider=new GithubAuthProvider(),auth=getAuth();auth['languageCode']='id',$(_0x1a3e4f(0x16d))[_0x1a3e4f(0x16e)](function(){const _0x2249e0=_0x1a3e4f,_0x4d9560={'jPUHF':function(_0x610418,_0x4beeba){return _0x610418(_0x4beeba);},'bxtls':_0x2249e0(0x148),'riGNg':_0x2249e0(0x133),'XFSMh':_0x2249e0(0x134),'qkCCW':'Pengecekan..','yZUMF':function(_0x37b918,_0x1b8d76){return _0x37b918(_0x1b8d76);},'qkaMF':_0x2249e0(0x16f),'OTzEF':_0x2249e0(0x138),'OvUrt':function(_0x2e9a09,_0x24f25d){return _0x2e9a09(_0x24f25d);},'SoMBv':_0x2249e0(0x170),'Zymiz':function(_0x4e0a0c,_0x5ca517){return _0x4e0a0c(_0x5ca517);},'dJOXP':'enable','LOsQX':function(_0x297bd9,_0x18f080){return _0x297bd9!==_0x18f080;},'FxmAe':'FfWMh','gUFuP':'hNlZB','PtYyA':function(_0xdba948,_0x9e8da0){return _0xdba948==_0x9e8da0;},'zfzlX':'#signWithGithub','iThMG':'<i class="uil uil-check"></i>','EqCrc':_0x2249e0(0x14e),'zEvKl':function(_0xb17ea1,_0x4791ad){return _0xb17ea1(_0x4791ad);},'SQQxx':function(_0x5bb25e,_0x108780,_0x24f0e3){return _0x5bb25e(_0x108780,_0x24f0e3);},'LqOlA':function(_0x37e0c0,_0x59abaf){return _0x37e0c0!==_0x59abaf;},'igByM':_0x2249e0(0x171),'mNlVc':'2|0|5|1|3|4','VfJPs':_0x2249e0(0x172),'aEiAf':function(_0x53b708,_0x39296f){return _0x53b708(_0x39296f);},'DKHim':'<a id="signWithGithub" href="javascript:void(0)" class="loginGithub"><img class="logo-provider" src="{{ asset("vendor/blog/img/github.png") }}" width="27"></a>','VUqyU':_0x2249e0(0x173),'ZmfBe':_0x2249e0(0x174),'FLAxp':function(_0x33fa10,_0x184ca5){return _0x33fa10(_0x184ca5);},'oTykw':'Login dengan Github','QYtFi':function(_0x421904,_0x4cab5f){return _0x421904(_0x4cab5f);},'Nlyke':function(_0x5c9a29,_0x363aed){return _0x5c9a29(_0x363aed);},'qThEd':function(_0x5ab266,_0x24baef,_0x4fa75c){return _0x5ab266(_0x24baef,_0x4fa75c);},'WjGzd':function(_0x1db4a0,_0x21a845){return _0x1db4a0+_0x21a845;},'eSXmw':function(_0x11f5c4,_0x5308d7){return _0x11f5c4(_0x5308d7);},'ZhLCT':_0x2249e0(0x175),'ZNAsm':'content','FbgwY':_0x2249e0(0x176),'OanYc':_0x2249e0(0x177),'oaibt':_0x2249e0(0x137),'gMOon':function(_0x2188f4,_0x1accf7){return _0x2188f4===_0x1accf7;},'SvVuN':'paXCN','rLReU':function(_0x14ade5,_0x127605){return _0x14ade5==_0x127605;},'gIUjU':_0x2249e0(0x178),'ujHwu':_0x2249e0(0x179),'kQVnM':_0x2249e0(0x17a)};signInWithPopup(auth,githubProvider)[_0x2249e0(0x17b)](_0x40556e=>{const _0x52ab5c=_0x2249e0,_0x5e9bbb={'kyokv':_0x4d9560['bxtls'],'hMDSt':_0x4d9560[_0x52ab5c(0x17c)],'VIfaS':_0x4d9560[_0x52ab5c(0x17d)],'WshHb':_0x52ab5c(0x137),'Sratj':_0x52ab5c(0x138),'fksTf':_0x4d9560['VUqyU'],'YhTuq':_0x52ab5c(0x134),'DuiCV':function(_0x2dfc9f,_0x8d4f42){return _0x4d9560['LOsQX'](_0x2dfc9f,_0x8d4f42);},'RCiLX':_0x4d9560[_0x52ab5c(0x17e)],'UwsKT':function(_0x1f3f50,_0x41a98d){const _0xe8bb19=_0x52ab5c;return _0x4d9560[_0xe8bb19(0x17f)](_0x1f3f50,_0x41a98d);},'ewrHt':_0x4d9560[_0x52ab5c(0x180)],'BNahD':_0x4d9560[_0x52ab5c(0x181)],'ARWBY':'Mengalihkan ke Dashboard...','uErmB':_0x4d9560[_0x52ab5c(0x182)],'GQHDJ':function(_0x4fa417,_0x5ef2d8){const _0x2b7b56=_0x52ab5c;return _0x4d9560[_0x2b7b56(0x183)](_0x4fa417,_0x5ef2d8);},'oMUNu':_0x4d9560['dJOXP'],'FYGcU':_0x4d9560[_0x52ab5c(0x184)],'GsflE':function(_0x13dd3a,_0x3c6730){const _0x22d493=_0x52ab5c;return _0x4d9560[_0x22d493(0x185)](_0x13dd3a,_0x3c6730);},'zkyrd':function(_0x47cc91,_0xbbecca,_0x1895e5){const _0x192739=_0x52ab5c;return _0x4d9560[_0x192739(0x186)](_0x47cc91,_0xbbecca,_0x1895e5);},'NfffF':function(_0x2cc30d,_0x458364){const _0x121b3c=_0x52ab5c;return _0x4d9560[_0x121b3c(0x187)](_0x2cc30d,_0x458364);},'FRAml':function(_0x48f724,_0xb76891){return _0x48f724+_0xb76891;}},_0x1bb9b2=GithubAuthProvider[_0x52ab5c(0x188)](_0x40556e),_0x22f5fd=_0x1bb9b2[_0x52ab5c(0x189)],_0x437807=_0x40556e[_0x52ab5c(0x18a)];console[_0x52ab5c(0x159)](_0x437807),$[_0x52ab5c(0x18b)]({'headers':{'X-CSRF-TOKEN':_0x4d9560[_0x52ab5c(0x18c)]($,_0x4d9560[_0x52ab5c(0x18d)])['attr'](_0x4d9560['ZNAsm'])}}),$['ajax']({'url':_0x4d9560['FbgwY'],'type':_0x4d9560[_0x52ab5c(0x18e)],'data':{'token':_0x22f5fd,'name':_0x437807[_0x52ab5c(0x18f)],'email':_0x437807[_0x52ab5c(0x190)],'user_image':_0x437807[_0x52ab5c(0x191)],'uid':_0x437807[_0x52ab5c(0x192)]},'beforeSend':function(){const _0x2aacec=_0x52ab5c;_0x4d9560['jPUHF']($,_0x2aacec(0x16d))[_0x2aacec(0x152)](_0x4d9560[_0x2aacec(0x193)]),$(_0x2aacec(0x16f))[_0x2aacec(0x14d)](_0x4d9560[_0x2aacec(0x17c)])[_0x2aacec(0x194)](_0x4d9560[_0x2aacec(0x195)],_0x4d9560[_0x2aacec(0x196)]),_0x4d9560[_0x2aacec(0x197)]($,_0x4d9560[_0x2aacec(0x181)])[_0x2aacec(0x14d)](_0x4d9560[_0x2aacec(0x198)]);},'success':function(_0x3679e8){const _0x1e2905=_0x52ab5c,_0x58b6d8={'LBxwh':function(_0x59055d,_0x5ebe18){const _0x239675=_0x1421;return _0x4d9560[_0x239675(0x199)](_0x59055d,_0x5ebe18);},'ddJpV':'#signWithGithub','mKBuS':_0x4d9560[_0x1e2905(0x193)],'kNNzW':_0x1e2905(0x16f),'yaBPO':_0x1e2905(0x133),'kIGJm':_0x4d9560[_0x1e2905(0x195)],'BINgg':_0x4d9560[_0x1e2905(0x17d)],'wyPpv':_0x4d9560[_0x1e2905(0x198)],'WqxSs':function(_0x553ccd,_0x3b67cc){const _0x468feb=_0x1e2905;return _0x4d9560[_0x468feb(0x19a)](_0x553ccd,_0x3b67cc);},'abXko':_0x4d9560['dJOXP']};if(_0x4d9560['LOsQX'](_0x4d9560[_0x1e2905(0x19b)],_0x4d9560[_0x1e2905(0x19c)])){if(_0x4d9560['PtYyA'](_0x3679e8[_0x1e2905(0x19d)],0x2*0x6c+-0x3f*0x67+-0x1*-0x1949))_0x4d9560['jPUHF']($,_0x4d9560[_0x1e2905(0x180)])[_0x1e2905(0x152)](_0x4d9560[_0x1e2905(0x19e)]),_0x4d9560['OvUrt']($,_0x4d9560[_0x1e2905(0x181)])[_0x1e2905(0x14d)](_0x1e2905(0x133))[_0x1e2905(0x194)](_0x4d9560['XFSMh'],_0x4d9560[_0x1e2905(0x19f)]),_0x4d9560[_0x1e2905(0x1a0)]($,_0x4d9560[_0x1e2905(0x181)])[_0x1e2905(0x14d)](_0x1e2905(0x138)),_0x4d9560['SQQxx'](setTimeout,function(){const _0x1bd1e7=_0x1e2905,_0x1f1400={'UexfB':function(_0x52f00d,_0x4bd18a){return _0x52f00d(_0x4bd18a);},'mheRD':_0x5e9bbb[_0x1bd1e7(0x1a1)],'ANTzy':_0x5e9bbb['hMDSt'],'mHbuU':_0x5e9bbb[_0x1bd1e7(0x1a2)],'zzYeH':_0x5e9bbb['WshHb'],'JBeff':_0x5e9bbb[_0x1bd1e7(0x1a3)],'idjTn':_0x5e9bbb[_0x1bd1e7(0x1a4)],'HPVSG':_0x5e9bbb[_0x1bd1e7(0x1a5)],'jCmrh':_0x1bd1e7(0x132),'koshq':_0x1bd1e7(0x172),'spKpx':function(_0xd5d768,_0x1cb4e5,_0xf631de){return _0xd5d768(_0x1cb4e5,_0xf631de);}};if(_0x5e9bbb[_0x1bd1e7(0x1a6)](_0x5e9bbb[_0x1bd1e7(0x1a7)],_0x5e9bbb[_0x1bd1e7(0x1a7)])){const _0x30f898=_0x1f1400[_0x1bd1e7(0x1a8)][_0x1bd1e7(0x1a9)]('|');let _0x51e2d4=-0x1709*-0x1+0x2273+0x1cbe*-0x2;while(!![]){switch(_0x30f898[_0x51e2d4++]){case'0':_0x1f1400[_0x1bd1e7(0x1aa)](_0x5e7aa2,_0x1f1400[_0x1bd1e7(0x1ab)])[_0x1bd1e7(0x14d)](_0x1f1400[_0x1bd1e7(0x1ac)])[_0x1bd1e7(0x194)](_0x1f1400['HPVSG'],_0x4604f2[_0x1bd1e7(0x1ad)]);continue;case'1':_0x1f1400[_0x1bd1e7(0x1aa)](_0x5718f8,_0x1f1400['zzYeH'])[_0x1bd1e7(0x14d)](_0x1f1400['JBeff']);continue;case'2':_0x12760d(_0x1f1400[_0x1bd1e7(0x1ae)])[_0x1bd1e7(0x152)](_0x1f1400['koshq']);continue;case'3':_0x155cc5[_0x1bd1e7(0x158)](0x2f6*-0x3+-0x6b*0x34+0x2e3e)[_0x1bd1e7(0x13e)](_0x5e16be[_0x1bd1e7(0x1ad)]);continue;case'4':_0x1f1400[_0x1bd1e7(0x1af)](_0x1f51c8,function(){const _0x3a23a3=_0x1bd1e7;_0x1f1400[_0x3a23a3(0x1aa)](_0x5dd4b0,'#signWithGoogle')[_0x3a23a3(0x152)](_0x1f1400[_0x3a23a3(0x1b0)]),_0x1f1400[_0x3a23a3(0x1aa)](_0x3c061d,'#tooltipGoogle')['tooltip'](_0x1f1400['ANTzy'])[_0x3a23a3(0x194)](_0x3a23a3(0x134),_0x1f1400['mHbuU']),_0x4e0cf4(_0x1f1400['zzYeH'])[_0x3a23a3(0x14d)](_0x1f1400[_0x3a23a3(0x1b1)]);},-0x8d1+-0x374+0x1221);continue;case'5':_0x3a3113(function(){const _0x5c8edd=_0x1bd1e7;_0x3fa388['location'][_0x5c8edd(0x15b)]=_0x2cf821['redirect'];},0x1*0x2099+0x11*-0x1c1+-0x11e*-0x8);continue;}break;}}else _0x5e9bbb[_0x1bd1e7(0x1b2)]($,_0x5e9bbb[_0x1bd1e7(0x1b3)])['html'](_0x5e9bbb[_0x1bd1e7(0x1a1)]),_0x5e9bbb[_0x1bd1e7(0x1b2)]($,_0x5e9bbb[_0x1bd1e7(0x1b4)])[_0x1bd1e7(0x14d)]('dispose')[_0x1bd1e7(0x194)](_0x5e9bbb['YhTuq'],_0x5e9bbb['ARWBY']),_0x5e9bbb[_0x1bd1e7(0x1b2)]($,_0x5e9bbb[_0x1bd1e7(0x1b4)])[_0x1bd1e7(0x14d)]('show');},-0x166a+-0xd03+0x2a11),alertify[_0x1e2905(0x158)](0x7f*-0x1f+-0x2*-0x56+0x1c61)[_0x1e2905(0x159)](_0x3679e8[_0x1e2905(0x1ad)]),_0x4d9560[_0x1e2905(0x1b5)](setTimeout,function(){const _0x335dda=_0x1e2905;window['location']['href']=_0x3679e8[_0x335dda(0x15c)];},0x66b*-0x3+-0x957*0x1+0x2850);else{if(_0x4d9560['PtYyA'](_0x3679e8[_0x1e2905(0x19d)],0x1645+0xa6+-0xaac*0x2)){if(_0x4d9560['LqOlA'](_0x1e2905(0x1b6),_0x4d9560[_0x1e2905(0x1b7)])){const _0x228407=_0x4d9560['mNlVc'][_0x1e2905(0x1a9)]('|');let _0x24365e=0x5*-0x799+0x2665+0x4*-0x1a;while(!![]){switch(_0x228407[_0x24365e++]){case'0':_0x4d9560['zEvKl']($,_0x1e2905(0x16d))[_0x1e2905(0x152)](_0x4d9560[_0x1e2905(0x1b8)]);continue;case'1':$(_0x1e2905(0x16f))[_0x1e2905(0x14d)](_0x4d9560[_0x1e2905(0x198)]);continue;case'2':alertify[_0x1e2905(0x158)](-0x1a3+-0x11ef*0x2+0x3521)[_0x1e2905(0x13e)](_0x3679e8['msg']);continue;case'3':_0x4d9560[_0x1e2905(0x1b5)](setTimeout,function(){const _0x5b697d=_0x1e2905;_0x58b6d8[_0x5b697d(0x1b9)]($,_0x58b6d8['ddJpV'])['html'](_0x58b6d8[_0x5b697d(0x1ba)]),_0x58b6d8['LBxwh']($,_0x58b6d8['kNNzW'])['tooltip'](_0x58b6d8[_0x5b697d(0x1bb)])[_0x5b697d(0x194)](_0x58b6d8[_0x5b697d(0x1bc)],_0x58b6d8[_0x5b697d(0x1bd)]),_0x58b6d8[_0x5b697d(0x1b9)]($,_0x5b697d(0x16f))[_0x5b697d(0x14d)](_0x58b6d8[_0x5b697d(0x1be)]);},-0xa12+-0xdfb+0x1eb1);continue;case'4':setTimeout(function(){const _0x4aa011=_0x1e2905;window[_0x4aa011(0x15a)][_0x4aa011(0x15b)]=_0x3679e8[_0x4aa011(0x15c)];},-0x15b4+0xe30+0x133c);continue;case'5':$(_0x4d9560[_0x1e2905(0x181)])[_0x1e2905(0x14d)](_0x4d9560[_0x1e2905(0x17c)])['attr'](_0x4d9560[_0x1e2905(0x195)],_0x3679e8[_0x1e2905(0x1ad)]);continue;}break;}}else{const _0x38211f={'fcOFe':_0x1e2905(0x133),'rYyVd':_0x1e2905(0x134),'kqipE':_0x5e9bbb[_0x1e2905(0x1bf)],'WdBWc':function(_0x469adb,_0x203bcb){const _0x446319=_0x1e2905;return _0x5e9bbb[_0x446319(0x1c0)](_0x469adb,_0x203bcb);},'zARAX':_0x5e9bbb['BNahD'],'DisSe':_0x5e9bbb[_0x1e2905(0x1c1)]};_0x2c6162['delay'](0x23e4+0x542*-0x2+-0x34*0x30)['error'](_0x496f18[_0x1e2905(0x13e)][_0x1e2905(0x190)][-0x5*0x701+0x4bf+-0x60e*-0x5]),_0x53a9b8(_0x5e9bbb[_0x1e2905(0x1b3)])[_0x1e2905(0x152)](_0x5e9bbb['FYGcU']),_0x5e9bbb[_0x1e2905(0x1c2)](_0x380cb2,_0x5e9bbb['BNahD'])['tooltip'](_0x5e9bbb[_0x1e2905(0x1c3)])['attr'](_0x5e9bbb[_0x1e2905(0x1a5)],_0xa6615d[_0x1e2905(0x13e)]['email'][-0x16da+-0x2*0x80f+0x26f8]),_0x5e9bbb[_0x1e2905(0x1c2)](_0x5a975c,_0x5e9bbb['BNahD'])[_0x1e2905(0x14d)]('show'),_0x5e9bbb[_0x1e2905(0x1c4)](_0x26635c,function(){const _0x38a33e=_0x1e2905;_0x1f2ad9(_0x38a33e(0x16f))[_0x38a33e(0x14d)](_0x38211f[_0x38a33e(0x1c5)])['attr'](_0x38211f[_0x38a33e(0x1c6)],_0x38211f[_0x38a33e(0x1c7)]),_0x38211f[_0x38a33e(0x1c8)](_0x3f635f,_0x38211f['zARAX'])[_0x38a33e(0x14d)](_0x38211f['DisSe']);},0xa75*0x2+-0x31*0x6f+0xff5);}}else{const _0x1764ca=_0x1e2905(0x1c9)['split']('|');let _0x43b379=0x4*0x680+-0x2*-0xc7f+-0x32fe;while(!![]){switch(_0x1764ca[_0x43b379++]){case'0':alertify[_0x1e2905(0x158)](-0x282*-0x2+-0x1041+0x1add)['error'](_0x3679e8['error'][_0x1e2905(0x190)][0x22dd+-0x2449*0x1+0x16c]);continue;case'1':_0x4d9560['zEvKl']($,_0x4d9560[_0x1e2905(0x181)])[_0x1e2905(0x14d)](_0x4d9560[_0x1e2905(0x17c)])[_0x1e2905(0x194)](_0x4d9560[_0x1e2905(0x195)],_0x3679e8[_0x1e2905(0x13e)][_0x1e2905(0x190)][0x1cd9+0x1*-0x176b+-0x56e]);continue;case'2':_0x4d9560[_0x1e2905(0x1ca)]($,_0x1e2905(0x16d))['html'](_0x4d9560[_0x1e2905(0x184)]);continue;case'3':_0x4d9560[_0x1e2905(0x19a)]($,_0x4d9560[_0x1e2905(0x181)])[_0x1e2905(0x14d)](_0x4d9560['OTzEF']);continue;case'4':setTimeout(function(){const _0x34066f=_0x1e2905;_0x58b6d8['WqxSs']($,_0x58b6d8[_0x34066f(0x1cb)])[_0x34066f(0x14d)](_0x58b6d8[_0x34066f(0x1bb)])[_0x34066f(0x194)](_0x58b6d8[_0x34066f(0x1bc)],_0x34066f(0x1cc)),_0x58b6d8[_0x34066f(0x1b9)]($,_0x58b6d8[_0x34066f(0x1cb)])['tooltip'](_0x58b6d8[_0x34066f(0x1cd)]);},-0x1486+-0x15a8+0x842*0x7);continue;}break;}}}}else _0x2989ae['location']['href']=_0x28b2a8[_0x1e2905(0x15c)];},'error':function(_0x325816,_0x1f032f,_0x48bcbb){const _0x3d47ee=_0x52ab5c;_0x5e9bbb[_0x3d47ee(0x1c0)](alert,_0x5e9bbb[_0x3d47ee(0x1ce)](_0x5e9bbb[_0x3d47ee(0x1ce)](_0x5e9bbb['FRAml'](_0x5e9bbb[_0x3d47ee(0x1ce)](_0x325816[_0x3d47ee(0x19d)],'\x0a'),_0x325816[_0x3d47ee(0x1cf)]),'\x0a'),_0x48bcbb));}});})[_0x2249e0(0x1d0)](_0x7a2dd4=>{const _0x179b8f=_0x2249e0,_0x28f95d={'JFYjT':_0x4d9560[_0x179b8f(0x1d1)],'xwcyq':_0x4d9560[_0x179b8f(0x17c)],'BKlDd':_0x4d9560[_0x179b8f(0x195)],'sIaOg':function(_0x52dfee,_0x542d56){return _0x52dfee(_0x542d56);}};if(_0x4d9560['gMOon'](_0x4d9560['SvVuN'],_0x4d9560[_0x179b8f(0x1d2)])){const _0x2cf53c=_0x7a2dd4[_0x179b8f(0x1d3)],_0x27b46c=_0x7a2dd4['message'],_0x5e72f1=_0x7a2dd4['customData'][_0x179b8f(0x190)],_0x49bf7c=GithubAuthProvider['credentialFromError'](_0x7a2dd4);_0x4d9560[_0x179b8f(0x1d4)](_0x2cf53c,_0x4d9560[_0x179b8f(0x1d5)])&&(_0x179b8f(0x179)!==_0x4d9560['ujHwu']?_0x2f969f['location'][_0x179b8f(0x15b)]=_0x11da10['redirect']:alertify['okBtn']('OK')[_0x179b8f(0x1d6)](_0x4d9560[_0x179b8f(0x1d7)]));}else _0x3e2bcf(_0x28f95d['JFYjT'])[_0x179b8f(0x14d)](_0x28f95d[_0x179b8f(0x1d8)])[_0x179b8f(0x194)](_0x28f95d[_0x179b8f(0x1d9)],_0x179b8f(0x1da)),_0x28f95d['sIaOg'](_0x3e586c,_0x28f95d[_0x179b8f(0x1db)])[_0x179b8f(0x14d)]('enable');});}),$(_0x1a3e4f(0x132))[_0x1a3e4f(0x16e)](function(){const _0x1db876=_0x1a3e4f,_0x37eab7={'NUvTu':function(_0x7d9f65,_0x436f87){return _0x7d9f65(_0x436f87);},'LCicD':'#signWithGoogle','kAOOC':_0x1db876(0x148),'kvHBc':function(_0x33472a,_0xc028f7){return _0x33472a(_0xc028f7);},'NUKTd':_0x1db876(0x137),'fXXlZ':_0x1db876(0x133),'cFFBt':'title','nbmiX':_0x1db876(0x1dc),'IdIdp':_0x1db876(0x138),'qrNQg':_0x1db876(0x170),'MpQvR':_0x1db876(0x16d),'QxwNb':_0x1db876(0x16f),'ckUSO':function(_0x324399,_0x501908){return _0x324399===_0x501908;},'ePQdX':_0x1db876(0x1dd),'zIeVD':function(_0x364e66,_0xa21cce){return _0x364e66(_0xa21cce);},'hTJum':'Status OK..','nrfTO':'<i class="uil uil-check"></i>','gXpID':_0x1db876(0x172),'GisXX':function(_0x53fe16,_0x166814,_0x20596e){return _0x53fe16(_0x166814,_0x20596e);},'AQBGc':function(_0x41b6f8,_0x3ab6dc){return _0x41b6f8===_0x3ab6dc;},'qxyFW':_0x1db876(0x1de),'XsJMV':_0x1db876(0x1df),'IVteO':function(_0xfc7676,_0x31505c){return _0xfc7676(_0x31505c);},'owbCX':function(_0x1c7933,_0x273b3f){return _0x1c7933(_0x273b3f);},'Zihec':function(_0x3ccb1a,_0x52e4a9){return _0x3ccb1a(_0x52e4a9);},'uVWpg':function(_0x26404c,_0x5a6506){return _0x26404c+_0x5a6506;},'YYlPz':_0x1db876(0x135),'cYCug':function(_0x4a0cdd,_0x59d935){return _0x4a0cdd(_0x59d935);},'pivZZ':function(_0x34ee76,_0x2e805c){return _0x34ee76===_0x2e805c;},'bBQQj':function(_0x582663,_0x32b89b){return _0x582663(_0x32b89b);},'lqIMx':_0x1db876(0x1da),'hKFbk':_0x1db876(0x175),'TmEGQ':_0x1db876(0x1e0),'ujQIE':_0x1db876(0x1e1),'awSsq':_0x1db876(0x177),'QOrIp':function(_0x1054d8,_0x4d0f26){return _0x1054d8==_0x4d0f26;},'nRkbn':_0x1db876(0x17a),'OnRlR':function(_0x5158a1,_0x25b9be,_0x32c0ea){return _0x5158a1(_0x25b9be,_0x32c0ea);}};_0x37eab7[_0x1db876(0x1e2)](signInWithPopup,auth,googleProvider)[_0x1db876(0x17b)](_0x37d3fb=>{const _0x314ccc=_0x1db876,_0x334ed1={'UKLst':_0x37eab7[_0x314ccc(0x1e3)],'oWwMf':function(_0x3873bb,_0x4a1f0e){const _0x1731cf=_0x314ccc;return _0x37eab7[_0x1731cf(0x1e4)](_0x3873bb,_0x4a1f0e);},'iDken':_0x37eab7[_0x314ccc(0x1e5)],'pDhDj':_0x37eab7[_0x314ccc(0x1e6)],'eezPQ':_0x37eab7[_0x314ccc(0x1e7)],'pAuxt':_0x37eab7[_0x314ccc(0x1e8)],'qepGL':function(_0x3449a8,_0x3e6900){return _0x37eab7['cYCug'](_0x3449a8,_0x3e6900);},'ZvhCB':_0x37eab7[_0x314ccc(0x1e9)],'VlpMH':function(_0x48bd6d,_0x1418e0){const _0x533d81=_0x314ccc;return _0x37eab7[_0x533d81(0x1ea)](_0x48bd6d,_0x1418e0);},'cqFMj':_0x314ccc(0x1eb),'HjZmE':function(_0x4dd0a9,_0x365b0d){return _0x37eab7['bBQQj'](_0x4dd0a9,_0x365b0d);},'egZoe':_0x37eab7[_0x314ccc(0x1ec)]},_0x29bf03=GoogleAuthProvider[_0x314ccc(0x188)](_0x37d3fb),_0x5d05f1=_0x29bf03[_0x314ccc(0x189)],_0x5db3d5=_0x37d3fb[_0x314ccc(0x18a)];console[_0x314ccc(0x159)](_0x5db3d5),$[_0x314ccc(0x18b)]({'headers':{'X-CSRF-TOKEN':$(_0x37eab7[_0x314ccc(0x1ed)])[_0x314ccc(0x194)](_0x37eab7[_0x314ccc(0x1ee)])}}),$['ajax']({'url':_0x37eab7[_0x314ccc(0x1ef)],'type':_0x37eab7[_0x314ccc(0x1f0)],'data':{'name':_0x5db3d5['displayName'],'email':_0x5db3d5[_0x314ccc(0x190)],'user_image':_0x5db3d5[_0x314ccc(0x191)],'uid':_0x5db3d5[_0x314ccc(0x192)],'disable':_0x5db3d5[_0x314ccc(0x1f1)][_0x314ccc(0x1f2)]},'beforeSend':function(){const _0x32f291=_0x314ccc;_0x37eab7['NUvTu']($,_0x37eab7[_0x32f291(0x1e3)])[_0x32f291(0x152)](_0x37eab7[_0x32f291(0x1f3)]),_0x37eab7[_0x32f291(0x1f4)]($,_0x37eab7[_0x32f291(0x1e5)])[_0x32f291(0x14d)](_0x37eab7[_0x32f291(0x1e6)])[_0x32f291(0x194)](_0x37eab7[_0x32f291(0x1e7)],_0x37eab7['nbmiX']),$(_0x37eab7[_0x32f291(0x1e5)])[_0x32f291(0x14d)](_0x37eab7[_0x32f291(0x1e9)]);},'success':function(_0x1430d9){const _0x316647=_0x314ccc,_0x53a664={'ECKia':function(_0x52e815,_0x4d3adc){const _0x816dd7=_0x1421;return _0x37eab7[_0x816dd7(0x1e4)](_0x52e815,_0x4d3adc);},'swkFU':_0x316647(0x148),'yjGCT':_0x37eab7[_0x316647(0x1e5)],'HaksU':_0x316647(0x133),'gQynQ':_0x316647(0x134),'bCyen':_0x37eab7[_0x316647(0x1f5)],'YtrIj':_0x37eab7[_0x316647(0x1e9)],'LCBOC':_0x37eab7[_0x316647(0x1f6)],'nOZBR':_0x37eab7[_0x316647(0x1f7)],'ZkQoK':_0x37eab7[_0x316647(0x1f8)]};if(_0x1430d9[_0x316647(0x19d)]==0x1695+0x1*-0x22e5+0xd18){if(_0x37eab7[_0x316647(0x1f9)](_0x316647(0x1fa),_0x37eab7['ePQdX']))_0x2907c9[_0x316647(0x15a)]['href']=_0x4a2b53[_0x316647(0x15c)];else{const _0x84a987=_0x316647(0x1fb)[_0x316647(0x1a9)]('|');let _0x58a8ea=-0x1*0x2357+0x13b*0xd+-0x2*-0x9ac;while(!![]){switch(_0x84a987[_0x58a8ea++]){case'0':setTimeout(function(){const _0x5479d7=_0x316647;$(_0x334ed1[_0x5479d7(0x1fc)])[_0x5479d7(0x152)](_0x5479d7(0x148)),_0x334ed1[_0x5479d7(0x1fd)]($,_0x334ed1[_0x5479d7(0x1fe)])[_0x5479d7(0x14d)](_0x334ed1['pDhDj'])['attr'](_0x334ed1['eezPQ'],_0x334ed1[_0x5479d7(0x1ff)]),_0x334ed1['qepGL']($,_0x334ed1[_0x5479d7(0x1fe)])[_0x5479d7(0x14d)](_0x334ed1['ZvhCB']);},0x22b0+-0x131*0x19+0x1bd);continue;case'1':setTimeout(function(){const _0x2606d8=_0x316647;window[_0x2606d8(0x15a)]['href']=_0x1430d9[_0x2606d8(0x15c)];},0x721+0x2*-0x1229+0x28e9);continue;case'2':$(_0x37eab7['NUKTd'])[_0x316647(0x14d)](_0x37eab7[_0x316647(0x1e9)]);continue;case'3':alertify[_0x316647(0x158)](-0x47*-0x3f+-0xfee+0xc21)[_0x316647(0x159)](_0x1430d9[_0x316647(0x1ad)]);continue;case'4':_0x37eab7['zIeVD']($,_0x37eab7[_0x316647(0x1e5)])[_0x316647(0x14d)](_0x37eab7[_0x316647(0x1e6)])[_0x316647(0x194)](_0x37eab7[_0x316647(0x1e7)],_0x37eab7[_0x316647(0x200)]);continue;case'5':_0x37eab7['NUvTu']($,_0x37eab7['LCicD'])[_0x316647(0x152)](_0x37eab7[_0x316647(0x201)]);continue;}break;}}}else{if(_0x1430d9['status']==-0x2*-0xcb1+0xc56+0x1*-0x2425)alertify['delay'](0xdbe+-0x222a*-0x1+0x4*-0x812)[_0x316647(0x13e)](_0x1430d9[_0x316647(0x1ad)]),$(_0x37eab7[_0x316647(0x1e3)])['html'](_0x37eab7[_0x316647(0x202)]),_0x37eab7['kvHBc']($,'#tooltipGoogle')['tooltip'](_0x316647(0x133))['attr'](_0x37eab7['cFFBt'],_0x1430d9[_0x316647(0x1ad)]),_0x37eab7['zIeVD']($,_0x37eab7[_0x316647(0x1e5)])['tooltip'](_0x37eab7[_0x316647(0x1e9)]),_0x37eab7['GisXX'](setTimeout,function(){const _0x344ecd=_0x316647;_0x53a664[_0x344ecd(0x203)]($,_0x344ecd(0x132))[_0x344ecd(0x152)](_0x53a664[_0x344ecd(0x204)]),$(_0x53a664[_0x344ecd(0x205)])['tooltip'](_0x53a664[_0x344ecd(0x206)])['attr'](_0x53a664['gQynQ'],_0x53a664[_0x344ecd(0x207)]),$(_0x53a664[_0x344ecd(0x205)])[_0x344ecd(0x14d)](_0x53a664[_0x344ecd(0x208)]);},-0x2f*-0xcd+0x463*-0x2+-0x1701),_0x37eab7[_0x316647(0x209)](setTimeout,function(){const _0x1c9390=_0x316647;if(_0x334ed1[_0x1c9390(0x20a)](_0x334ed1[_0x1c9390(0x20b)],_0x1c9390(0x20c))){const _0x24fdee=_0x1ce3d7?function(){const _0x340c75=_0x1c9390;if(_0x533d7a){const _0xe92f6f=_0x32ad5f[_0x340c75(0x129)](_0x596534,arguments);return _0x23d8bc=null,_0xe92f6f;}}:function(){};return _0x5b8ef8=![],_0x24fdee;}else window[_0x1c9390(0x15a)][_0x1c9390(0x15b)]=_0x1430d9[_0x1c9390(0x15c)];},-0xb15+-0x965*0x3+0x1a*0x1f6);else{if(_0x37eab7[_0x316647(0x20d)](_0x37eab7['qxyFW'],_0x37eab7[_0x316647(0x20e)])){const _0x453f1d=_0x37eab7[_0x316647(0x20f)][_0x316647(0x1a9)]('|');let _0x754409=0x2565+0xfd4+0x5*-0xaa5;while(!![]){switch(_0x453f1d[_0x754409++]){case'0':_0x37eab7[_0x316647(0x210)]($,_0x37eab7[_0x316647(0x1e5)])[_0x316647(0x14d)](_0x37eab7['fXXlZ'])[_0x316647(0x194)](_0x37eab7[_0x316647(0x1e7)],_0x1430d9[_0x316647(0x13e)][_0x316647(0x190)][-0x1b4d+-0x796*0x1+0x22e3]);continue;case'1':_0x37eab7['GisXX'](setTimeout,function(){const _0x3f0305=_0x316647;_0x334ed1['HjZmE']($,_0x334ed1[_0x3f0305(0x1fe)])[_0x3f0305(0x14d)](_0x3f0305(0x133))[_0x3f0305(0x194)](_0x334ed1['eezPQ'],_0x334ed1[_0x3f0305(0x211)]),_0x334ed1[_0x3f0305(0x212)]($,_0x334ed1[_0x3f0305(0x1fe)])[_0x3f0305(0x14d)]('enable');},0x3*0x443+0xd5*0x2b+-0x20f0);continue;case'2':$(_0x37eab7['NUKTd'])[_0x316647(0x14d)](_0x37eab7[_0x316647(0x1e9)]);continue;case'3':_0x37eab7[_0x316647(0x213)]($,_0x37eab7[_0x316647(0x1e3)])[_0x316647(0x152)](_0x316647(0x214));continue;case'4':alertify[_0x316647(0x158)](0x1*0x837+-0xcf1*-0x3+-0x1f6a)[_0x316647(0x13e)](_0x1430d9[_0x316647(0x13e)][_0x316647(0x190)][0x213f+-0xd*0x1c6+0xa31*-0x1]);continue;}break;}}else _0x53a664[_0x316647(0x203)](_0x117731,_0x53a664[_0x316647(0x215)])[_0x316647(0x152)](_0x53a664['swkFU']),_0x53a664[_0x316647(0x203)](_0x13cf99,_0x316647(0x16f))[_0x316647(0x14d)](_0x316647(0x133))[_0x316647(0x194)](_0x53a664[_0x316647(0x216)],_0x53a664[_0x316647(0x217)]),_0x333321(_0x53a664[_0x316647(0x218)])[_0x316647(0x14d)](_0x316647(0x138));}}},'error':function(_0x4abc66,_0x4e877a,_0x248072){const _0x6097bf=_0x314ccc;_0x37eab7[_0x6097bf(0x219)](alert,_0x37eab7[_0x6097bf(0x21a)](_0x4abc66[_0x6097bf(0x19d)]+'\x0a',_0x4abc66[_0x6097bf(0x1cf)])+'\x0a'+_0x248072);}});})['catch'](_0x4812d1=>{const _0x2ba4da=_0x1db876,_0x286da1=_0x4812d1[_0x2ba4da(0x1d3)],_0x5c45a4=_0x4812d1[_0x2ba4da(0x21b)],_0x4315b3=_0x4812d1[_0x2ba4da(0x21c)],_0xa53927=GoogleAuthProvider[_0x2ba4da(0x21d)](_0x4812d1);if(_0x37eab7[_0x2ba4da(0x21e)](_0x286da1,'auth/user-disabled')){if(_0x37eab7['AQBGc'](_0x2ba4da(0x21f),'rMbDO')){const _0x57b76d=_0xf60d3[_0x2ba4da(0x12d)][_0x2ba4da(0x165)]['bind'](_0x27082),_0x2c542b=_0x56688e[_0x2a6d84],_0x14682b=_0xbfe7af[_0x2c542b]||_0x57b76d;_0x57b76d[_0x2ba4da(0x167)]=_0x5ca76e[_0x2ba4da(0x166)](_0xc4fe78),_0x57b76d['toString']=_0x14682b[_0x2ba4da(0x12b)][_0x2ba4da(0x166)](_0x14682b),_0x47dff9[_0x2c542b]=_0x57b76d;}else alertify[_0x2ba4da(0x220)]('OK')['alert'](_0x37eab7[_0x2ba4da(0x221)]);}});});
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
+        import {
+            getAnalytics
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-analytics.js";
+        import {
+            GoogleAuthProvider,
+            GithubAuthProvider,
+            createUserWithEmailAndPassword,
+            signInAnonymously,
+            getAuth,
+            signInWithPopup
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBjRiwImCUf2YfiylqIF04m08P7_Y5s7lg",
+            authDomain: "kanzankazu-d3594.firebaseapp.com",
+            databaseURL: "https://kanzankazu-d3594-default-rtdb.firebaseio.com",
+            projectId: "kanzankazu-d3594",
+            storageBucket: "kanzankazu-d3594.appspot.com",
+            messagingSenderId: "74823808367",
+            appId: "1:74823808367:web:75e4de27a5e1495f3de49a",
+            measurementId: "G-R9TN0JZ4MH"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const googleProvider = new GoogleAuthProvider();
+        const githubProvider = new GithubAuthProvider();
+        const auth = getAuth();
+        auth.languageCode = 'id';
+
+        $('#signWithAnonym').on('click', function() {
+            signInAnonymously(auth)
+                .then((result) => {
+
+                    const user = result.user;
+
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route('anonymous.login') }}",
+                        data: {
+                            uid: user.uid,
+                        },
+                        beforeSend: function() {
+                            $('#signWithGoogle').addClass('disable');
+                            $('#signWithGithub').addClass('disable');
+
+                            $('#signWithAnonym').addClass('disable');
+                            $('#signWithAnonym').html('<i class="fas fa-spin fa-spinner"></i>');
+                            $('#tooltipAnonym').tooltip('dispose').attr('title',
+                                'Pengecekan..');
+                            $('#tooltipAnonym').tooltip('show')
+                        },
+                        success: function(data) {
+                            if (data.status == 200) {
+
+                                $('#signWithAnonym').html('<i class="uil uil-check"></i>');
+                                $('#tooltipAnonym').tooltip('dispose').attr('title',
+                                    'Status OK..');
+                                $('#tooltipAnonym').tooltip('show')
+
+                                setTimeout(function() {
+                                    $('#signWithAnonym').html(
+                                        '<i class="fas fa-spin fa-spinner"></i>');
+
+                                    $('#tooltipAnonym').tooltip('dispose').attr('title',
+                                        'Mengalihkan ke Dashboard...');
+                                    $('#tooltipAnonym').tooltip('show');
+                                }, 1700);
+
+                                alertify
+                                    .delay(3500)
+                                    .log(data.msg);
+
+                                setTimeout((function() {
+                                    window.location.href = data.redirect;
+                                }), 3000);
+                            } else if (response.status == 403) {
+                                alertify
+                                    .delay(4000)
+                                    .error(data.msg);
+
+                                $('#signWithAnonym').html('<i class="uil uil-ban"></i>');
+                                $('#tooltipAnonym').tooltip('dispose').attr('title',
+                                    data.msg);
+                                $('#tooltipAnonym').tooltip('show');
+
+                                setTimeout(function() {
+                                    $('#signWithAnonym').html(
+                                        '<i class="fas fa-spin fa-spinner"></i>');
+                                    $('#tooltipAnonym').tooltip('dispose').attr('title',
+                                        'Muat ulang halaman..');
+                                    $('#tooltipAnonym').tooltip('show');
+                                }, 1700);
+
+                                setTimeout((function() {
+                                    window.location.href = data.redirect;
+                                }), 3000);
+                            }
+                        },
+                        error: function(xhr, ajaxOptions, thrownError) {
+                            alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                        }
+                    });
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                });
+
+        });
+
+        $('#signWithGithub').click(function() {
+            signInWithPopup(auth, githubProvider)
+                .then((result) => {
+
+                    const credential = GithubAuthProvider.credentialFromResult(result);
+                    const token = credential.accessToken;
+                    const user = result.user;
+
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    $.ajax({
+                        url: "{{ route('github.login') }}",
+                        type: "POST",
+                        data: {
+                            token: token,
+                            name: user.displayName,
+                            email: user.email,
+                            user_image: user.photoURL,
+                            uid: user.uid
+                        },
+                        beforeSend: function() {
+                            $('#signWithGoogle').addClass('disable');
+                            $('#signWithAnonym').addClass('disable');
+
+                            $('#signWithGithub').addClass('disable');
+                            $('#signWithGithub').html('<i class="fas fa-spin fa-spinner"></i>');
+                            $('#tooltipGithub').tooltip('dispose').attr('title',
+                                'Pengecekan..');
+                            $('#tooltipGithub').tooltip('show')
+                        },
+                        success: function(data) {
+                            if (data.status == 200) {
+
+                                $('#signWithGithub').html('<i class="uil uil-check"></i>');
+                                $('#tooltipGithub').tooltip('dispose').attr('title',
+                                    'Status OK..');
+                                $('#tooltipGithub').tooltip('show')
+
+                                setTimeout(function() {
+                                    $('#signWithGithub').html(
+                                        '<i class="fas fa-spin fa-spinner"></i>');
+
+                                    $('#tooltipGithub').tooltip('dispose').attr('title',
+                                        'Mengalihkan ke Dashboard...');
+                                    $('#tooltipGithub').tooltip('show');
+                                }, 1700);
+
+                                alertify
+                                    .delay(3500)
+                                    .log(data.msg);
+
+                                setTimeout((function() {
+                                    window.location.href = data.redirect;
+                                }), 3000);
+
+                            } else if (data.status == 403) {
+                                alertify
+                                    .delay(4000)
+                                    .error(data.msg);
+
+                                $('#signWithGithub').html('<i class="uil uil-ban"></i>');
+                                $('#tooltipGithub').tooltip('dispose').attr('title',
+                                    data.msg);
+                                $('#tooltipGithub').tooltip('show');
+
+                                setTimeout(function() {
+                                    $('#signWithGithub').html(
+                                        '<i class="fas fa-spin fa-spinner"></i>');
+                                    $('#tooltipGithub').tooltip('dispose').attr('title',
+                                        'Muat ulang halaman..');
+                                    $('#tooltipGithub').tooltip('show');
+                                }, 1700);
+
+                                setTimeout((function() {
+                                    window.location.href = data.redirect;
+                                }), 3000);
+                            } else {
+                                alertify
+                                    .delay(4000)
+                                    .error(data.error.email[0]);
+
+                                $('#signWithGithub').html(
+                                    "<a id='signWithGithub' href='javascript:void(0)' class='loginGithub'><img class='logo-provider' src='{{ asset('vendor/blog/img/github.png') }}' width='27'></a>"
+                                );
+
+                                $('#tooltipGithub').tooltip('dispose').attr('title', data.error
+                                    .email[0]);
+                                $('#tooltipGithub').tooltip('show')
+
+                                setTimeout(function() {
+                                    $('#tooltipGithub').tooltip('dispose').attr('title',
+                                        'Login dengan Github');
+                                    $('#tooltipGithub').tooltip('enable');
+                                }, 4000);
+                            }
+                        },
+                        error: function(xhr, ajaxOptions, thrownError) {
+                            alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                        }
+                    });
+                }).catch((error) => {
+
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    const email = error.customData.email;
+                    const credential = GithubAuthProvider.credentialFromError(error);
+
+                    if (errorCode == 'auth/user-disabled') {
+                        alertify.okBtn("OK").alert(
+                            'Maaf.. akun kamu telah kami blokir. Silahkan kontak admin untuk informasi lebih lanjut :)'
+                        );
+                    }
+                });
+        });
+
+        $('#signWithGoogle').on('click', function(e) {
+            e.preventDefault();
+
+            signInWithPopup(auth, googleProvider)
+                .then((result) => {
+
+                    const credential = GoogleAuthProvider.credentialFromResult(result);
+                    const token = credential.accessToken;
+                    const user = result.user;
+
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    $.ajax({
+                        url: "{{ route('google.login') }}",
+                        type: "POST",
+                        data: {
+                            name: user.displayName,
+                            email: user.email,
+                            user_image: user.photoURL,
+                            uid: user.uid,
+                            disable: user.reloadUserInfo.disabled
+                        },
+                        beforeSend: function() {
+                            $('#signWithGithub').addClass('disable');
+                            $('#signWithAnonym').addClass('disable');
+
+                            $('#signWithGoogle').addClass('disable');
+                            $('#signWithGoogle').html(
+                                '<i class="fas fa-spin fa-spinner" disabled="disabled"></i>');
+                            $('#tooltipGoogle').tooltip('dispose').attr('title',
+                                'Pengecekan..');
+                            $('#tooltipGoogle').tooltip('show')
+                        },
+                        success: function(data) {
+                            if (data.status == 200) {
+
+                                $('#signWithGoogle').html('<i class="uil uil-check"></i>');
+
+                                $('#tooltipGoogle').tooltip('dispose').attr('title',
+                                    'Status OK..');
+                                $('#tooltipGoogle').tooltip('show')
+
+                                setTimeout(function() {
+                                    $('#signWithGoogle').html(
+                                        '<i class="fas fa-spin fa-spinner"></i>');
+
+                                    $('#tooltipGoogle').tooltip('dispose').attr('title',
+                                        'Mengalihkan ke Dashboard...');
+                                    $('#tooltipGoogle').tooltip('show');
+                                }, 1700);
+
+                                alertify
+                                    .delay(3500)
+                                    .log(data.msg);
+
+                                setTimeout((function() {
+                                    window.location.href = data.redirect;
+                                }), 3000);
+
+                            } else if (data.status == 403) {
+                                alertify
+                                    .delay(4000)
+                                    .error(data.msg);
+
+                                $('#signWithGoogle').html('<i class="uil uil-ban"></i>');
+
+                                $('#tooltipGoogle').tooltip('dispose').attr('title',
+                                    data.msg);
+                                $('#tooltipGoogle').tooltip('show');
+
+                                setTimeout(function() {
+                                    $('#signWithGoogle').html(
+                                        '<i class="fas fa-spin fa-spinner"></i>');
+
+                                    $('#tooltipGoogle').tooltip('dispose').attr('title',
+                                        'Muat ulang halaman..');
+                                    $('#tooltipGoogle').tooltip('show');
+                                }, 1500);
+
+                                setTimeout((function() {
+                                    window.location.href = data.redirect;
+                                }), 3000);
+                            } else {
+                                alertify
+                                    .delay(4000)
+                                    .error(data.error.email[0]);
+
+                                $('#signWithGoogle').html(
+                                    "<a id='signWithGoogle' href='javascript:void(0)' class='loginGoogle'><img class='logo-provider' src='{{ asset('vendor/blog/img/google.png') }}' width='27'></a>"
+                                );
+
+                                $('#tooltipGoogle').tooltip('dispose').attr('title', data.error
+                                    .email[0]);
+                                $('#tooltipGoogle').tooltip('show')
+
+                                setTimeout(function() {
+                                    $('#tooltipGoogle').tooltip('dispose').attr('title',
+                                        'Login dengan google');
+                                    $('#tooltipGoogle').tooltip('enable');
+                                }, 4000);
+                            }
+                        },
+                        error: function(xhr, ajaxOptions, thrownError) {
+                            alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                        }
+                    });
+
+                }).catch((error) => {
+
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    const email = error.customData;
+                    const credential = GoogleAuthProvider.credentialFromError(error);
+
+                    if (errorCode == 'auth/user-disabled') {
+                        alertify.okBtn("OK").alert(
+                            'Maaf.. akun kamu telah kami blokir. Silahkan kontak admin untuk informasi lebih lanjut :)'
+                        );
+                    }
+                });
+        });
     </script>
 @endpush

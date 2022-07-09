@@ -27,7 +27,7 @@
                                     <img class="profile-user-img img-fluid img-circle"
                                         src="{{ asset('vendor/dashboard/image/picture-profiles/' . $author->user_image) }}"
                                         alt="{{ $author->name }} avatar">
-                                @elseif ($author->uid != null)
+                                @elseif ($author->provider == 'google' || $author->provider == 'github')
                                     <img class="profile-user-img img-fluid img-circle" src="{{ $author->user_image }}"
                                         alt="{{ $author->name }} avatar">
                                 @else

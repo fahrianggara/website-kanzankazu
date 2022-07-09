@@ -21,7 +21,7 @@
             <div class="col-lg-12 col-md-12">
                 @forelse ($tags as $tag)
                     <a class="button-links btnLinkTag" href="{{ route('blog.posts.tags', ['slug' => $tag->slug]) }}">
-                        {{ $tag->title }}
+                        # {{ $tag->title }}
                     </a>
                 @empty
                     <div class="container">

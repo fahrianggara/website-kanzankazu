@@ -31,7 +31,7 @@
                             <div class="iconForm"><i class="uil uil-envelope"></i></div>
                             <input id="email" type="email" class="form_control @error('email') is-invalid @enderror"
                                 name="email" value="{{ $email ?? old('email') }}" required autocomplete="off" autofocus>
-                            <label for="email">Email kamu</label>
+                            <label for="email" class="@error('email') active @enderror">Email kamu</label>
 
                             @error('email')
                                 <span class="invalid-feedback" role="alert">

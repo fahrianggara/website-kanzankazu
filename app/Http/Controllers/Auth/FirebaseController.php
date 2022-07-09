@@ -178,4 +178,57 @@ class FirebaseController extends Controller
             }
         }
     }
+
+    public function redirectToAnonym(Request $request)
+    {
+        $checkUser = User::where('uid', $request->uid)->first();
+        if ($checkUser) {
+            $checkUser->uid = $request->uid;
+
+            Auth::loginUsingId($checkUser->id, true);
+            if ($checkUser->banned_at != null) {
+                if ($checkUser->banned_at == null) {
+                    return response()->json([
+                        "status" => 200,
+                        "msg" => "Selamat datang kembali " . $checkUser->name . '.',
+                        "redirect" => route('dashboard.index'),
+                    ]);
+                } else {
+                    return response()->json([
+                        "status" => 403,
+                        "msg" => "Akun kamu telah di banned.",
+                        "redirect" => route('login'),
+                    ]);
+                }
+            } else {
+                return response()->json([
+                    "status" => 200,
+                    "msg" => "Selamat datang kembali " . $checkUser->name . '.',
+                    "redirect" => route('dashboard.index'),
+                ]);
+            }
+        } else {
+            $randomStr = Str::random(10);
+            $userData = [
+                'uid' => $request->uid,
+                'name' => $randomStr,
+                'slug' => Str::slug($randomStr),
+                'email_verified_at' => now(),
+                'provider' => 'anonymous',
+            ];
+
+            $user = User::create($userData);
+            $role = Role::select('id')->where('name', 'Editor')->first();
+            $user->roles()->attach($role);
+
+            Firebase::database()->getReference($this->table)->push($userData);
+
+            Auth::loginUsingId($user->id, true);
+            return response()->json([
+                "status" => 200,
+                "msg" => "Selamat datang di " . $this->setting->site_name . '!',
+                "redirect" => route('dashboard.index'),
+            ]);
+        }
+    }
 }

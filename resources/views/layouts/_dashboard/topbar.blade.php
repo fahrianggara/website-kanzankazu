@@ -133,10 +133,11 @@
             <li class="list-inline-item dropdown notification-list">
                 <a class="nav-link dropdown-toggle arrow-none waves-effect nav-user" data-toggle="dropdown"
                     href="#" role="button" aria-haspopup="false" aria-expanded="false">
+
                     @if (file_exists('vendor/dashboard/image/picture-profiles/' . Auth::user()->user_image))
                         <img src="{{ asset('vendor/dashboard/image/picture-profiles/' . Auth::user()->user_image) }}"
                             alt="{{ Auth::user()->name }}" class="rounded-circle userImage">
-                    @elseif (Auth::user()->uid != null)
+                    @elseif (Auth::user()->provider == 'google' || Auth::user()->provider == 'github')
                         <img src="{{ Auth::user()->user_image }}" alt="{{ Auth::user()->name }}"
                             class="rounded-circle userImage">
                     @else

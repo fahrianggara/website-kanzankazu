@@ -77,9 +77,9 @@
 
     @include('layouts._layouts.footer')
 
-    <a href="#" class="to-the-top btn-tooltip-hide" data-toggle="tooltip" data-placement="left" title="Keatas">
+    {{-- <a href="#" class="to-the-top btn-tooltip-hide" data-toggle="tooltip" data-placement="left" title="Keatas">
         <i class="uil uil-angle-up"></i>
-    </a>
+    </a> --}}
 
     {{-- Assets JS --}}
     <script src="{{ asset('vendor/blog/assets/jquery/jquery.min.js') }}"></script>

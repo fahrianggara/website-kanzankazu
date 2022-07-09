@@ -19,7 +19,7 @@
                                 <img class="profile-user-img img-circle userImage"
                                     src="{{ asset('vendor/dashboard/image/picture-profiles/' . Auth::user()->user_image) }}"
                                     alt="{{ Auth::user()->name }}">
-                            @elseif (Auth::user()->uid != null)
+                            @elseif (Auth::user()->provider == 'google' || Auth::user()->provider == 'github')
                                 <img src="{{ Auth::user()->user_image }}" alt="{{ Auth::user()->name }}"
                                     class="profile-user-img img-circle userImage">
                             @else
@@ -115,8 +115,8 @@
                                 <div class="form-group row">
                                     <label for="bio" class="col-sm-2 col-form-label">Bio</label>
                                     <div class="col-sm-10">
-                                        <textarea class="form-control" id="bio" name="bio" placeholder="enter your bio.." onkeyup="countChar(this)"
-                                            cols="2" rows="6">{{ Auth::user()->bio }}</textarea>
+                                        <textarea class="form-control" id="bio" name="bio" placeholder="enter your bio.."
+                                            onkeyup="countChar(this)" cols="2" rows="6">{{ Auth::user()->bio }}</textarea>
                                         <span class="float-right" id="charNum"></span>
                                         <span class="mt-5 text-danger error-text bio_error"></span>
                                     </div>

@@ -17,7 +17,7 @@
                         @if (file_exists('vendor/dashboard/image/picture-profiles/' . $user->user_image))
                             <img src="{{ asset('vendor/dashboard/image/picture-profiles/' . $user->user_image) }}"
                                 class="img-fluid img-round" />
-                        @elseif ($user->uid != null)
+                        @elseif ($user->provider == 'google' || $user->provider == 'github')
                             <img src="{{ $user->user_image }}" class="img-fluid img-round" />
                         @else
                             <img src="{{ asset('vendor/dashboard/image/avatar.png') }}" class="img-fluid img-round" />

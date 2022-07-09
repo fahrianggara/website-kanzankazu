@@ -112,7 +112,7 @@
                                         @php $no++; @endphp
 
                                         <td>{{ $user->name }}</td>
-                                        <td>{{ $user->email }}</td>
+                                        <td>{{ $user->email ?? '(anonymous)' }}</td>
 
                                         @if ($user->status == 'allowable' || $user->status == 'notverification')
                                             <td>
@@ -122,6 +122,10 @@
                                                 @elseif ($user->provider == 'github')
                                                     <img class="logo-provider"
                                                         src="{{ asset('vendor/blog/img/github.png') }}" width="27">
+                                                @elseif ($user->provider == 'anonymous')
+                                                    <img class="logo-provider"
+                                                        src="{{ asset('vendor/blog/img/anonymous.png') }}"
+                                                        width="27">
                                                 @else
                                                     <img class="logo-provider"
                                                         src="{{ asset('logo-web/android-chrome-512x512.png') }}"
@@ -160,21 +164,38 @@
 
                                         <td>
                                             @if ($user->status == 'allowable')
-                                                @if ($user->roles->first()->name == 'Admin' || $user->roles->first()->name == 'Editor')
-                                                    @can('user_update')
-                                                        <a href="{{ route('users.edit', ['user' => $user]) }}#users"
-                                                            class="btn btn-sm btn-warning" data-toggle="tooltip"
-                                                            data-placement="bottom" title="Edit">
-                                                            <i class="uil uil-pen"></i>
-                                                        </a>
-                                                    @endcan
+                                                @if ($user->provider == 'anonymous')
                                                     @can('user_delete')
-                                                        <a id="blokirUser" data-id="{{ $user->id }}"
-                                                            href="javascript:void(0)" class="btn btn-sm btn-danger"
-                                                            data-toggle="tooltip" data-placement="bottom" title="Blokir">
-                                                            <i class="uil uil-user-times"></i>
-                                                        </a>
+                                                        <form action="{{ route('users.destroy', ['user' => $user]) }}#users"
+                                                            method="POST" class="d-inline" role="alert"
+                                                            alert-text="Apakah kamu yakin? akun dengan nama {{ $user->name }} akan dihapus permanen."
+                                                            alert-btn="Hapus" alert-clr="#d33">
+                                                            @csrf
+                                                            @method('DELETE')
+
+                                                            <button type="submit" class="btn btn-sm btn-danger"
+                                                                data-toggle="tooltip" data-placement="bottom" title="Hapus">
+                                                                <i class="uil uil-trash"></i>
+                                                            </button>
+                                                        </form>
                                                     @endcan
+                                                @else
+                                                    @if ($user->roles->first()->name == 'Admin' || $user->roles->first()->name == 'Editor')
+                                                        @can('user_update')
+                                                            <a href="{{ route('users.edit', ['user' => $user]) }}#users"
+                                                                class="btn btn-sm btn-warning" data-toggle="tooltip"
+                                                                data-placement="bottom" title="Edit">
+                                                                <i class="uil uil-pen"></i>
+                                                            </a>
+                                                        @endcan
+                                                        @can('user_delete')
+                                                            <a id="blokirUser" data-id="{{ $user->id }}"
+                                                                href="javascript:void(0)" class="btn btn-sm btn-danger"
+                                                                data-toggle="tooltip" data-placement="bottom" title="Blokir">
+                                                                <i class="uil uil-user-times"></i>
+                                                            </a>
+                                                        @endcan
+                                                    @endif
                                                 @endif
                                             @elseif ($user->status == 'banned')
                                                 @can('user_update')

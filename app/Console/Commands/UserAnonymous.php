@@ -6,14 +6,14 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class UserNotVerification extends Command
+class UserAnonymous extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'user:notverification';
+    protected $signature = 'user:anonymous';
 
     /**
      * The console command description.
@@ -39,12 +39,6 @@ class UserNotVerification extends Command
      */
     public function handle()
     {
-        $now = Carbon::now();
-        $week = $now->endOfWeek(Carbon::MONDAY);
-
-        $user = User::where('email_verified_at', '=', null)
-            ->where('created_at', '<', $week)
-            ->delete();
-        $user->removeRole($user->roles->first());
+        $user = User::where('provider', 'anonymous')->where('last_seen', '<', Carbon::tomorrow())->delete();
     }
 }

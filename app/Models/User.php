@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Laravelista\Comments\Comment;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
@@ -87,6 +88,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public static function createNewToken(User $user)
     {
         return $user->createToken('token', ['server:update'])->plainTextToken;
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'commenter_id');
     }
 
     public function post()

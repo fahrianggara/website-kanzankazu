@@ -52,7 +52,7 @@
                             <div class="iconForm"><i class="uil uil-envelope"></i></div>
                             <input type="email" id="email" class="form_control @error('email') is-invalid @enderror"
                                 name="email" value="{{ old('email') }}" autofocus>
-                            <label for="email">Email</label>
+                            <label for="email" class="@error('email') active @enderror">Email</label>
 
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
