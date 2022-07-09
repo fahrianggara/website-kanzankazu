@@ -13,13 +13,13 @@
 
         <div class="col-12">
             <div class="card m-b-30">
-                <div class="card-body table-responsive">
+                <div class="card-body">
                     <div class="">
                         <table id="userProviders" class="table table-bordered">
                             <thead>
                                 <tr class="text-center">
-                                    <th>User UID</th>
                                     <th>Email</th>
+                                    <th>User UID</th>
                                     <th>Provider</th>
                                     <th>Status</th>
                                     <th>Options</th>
@@ -29,8 +29,8 @@
                                 @forelse ($users as $key => $user)
                                     <tr class="text-center">
 
-                                        <td id="{{ $user->uid }}">{{ $user->uid }}</td>
                                         <td>{{ $user->email ?? '( anonymous )' }}</td>
+                                        <td id="{{ $user->uid }}">{{ $user->uid }}</td>
                                         <td>
                                             @foreach ($user->providerData as $provider)
                                                 <span class="d-none">{{ $provider->providerId }}</span>
@@ -151,7 +151,8 @@
                 "order": [
                     [4, "desc"]
                 ],
-                "pageLength": 10
+                "pageLength": 10,
+                "responsive": true,
             });
 
             $('#userProviders tbody').on('click', "form[role='alert']", function() {
