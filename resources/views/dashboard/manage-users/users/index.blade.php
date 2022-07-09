@@ -195,6 +195,14 @@
                                                                 <i class="uil uil-user-times"></i>
                                                             </a>
                                                         @endcan
+                                                    @elseif ($user->id != '1' && $user->id != '2')
+                                                        @can('user_update')
+                                                            <a href="{{ route('users.edit', ['user' => $user]) }}#users"
+                                                                class="btn btn-sm btn-warning" data-toggle="tooltip"
+                                                                data-placement="bottom" title="Edit">
+                                                                <i class="uil uil-pen"></i>
+                                                            </a>
+                                                        @endcan
                                                     @endif
                                                 @endif
                                             @elseif ($user->status == 'banned')
