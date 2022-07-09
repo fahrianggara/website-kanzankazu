@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
 use Kreait\Firebase\Contract\Auth;
@@ -113,6 +114,10 @@ class UserProviderController extends Controller
             if ($user == null) {
                 $this->auth->deleteUser($uid);
             } else {
+                $path = "vendor/dashboard/image/picture-profiles/";
+                if (File::exists($path . $user->user_image)) {
+                    File::delete($path . $user->user_image);
+                }
                 $user->comments()->delete();
                 $user->roles()->detach();
                 $user->delete();
