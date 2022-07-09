@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
 
 class UserNotVerification extends Command
 {
@@ -45,6 +46,10 @@ class UserNotVerification extends Command
         $user = User::where('email_verified_at', '=', null)
             ->where('created_at', '>=', $week)
             ->delete();
+        $path = "vendor/dashboard/image/picture-profiles/";
+        if (File::exists($path . $user->user_image)) {
+            File::delete($path . $user->user_image);
+        }
         $user->comments()->delete();
         $user->removeRole($user->roles->first());
     }
