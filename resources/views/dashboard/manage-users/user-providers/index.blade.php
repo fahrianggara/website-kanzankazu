@@ -13,8 +13,8 @@
 
         <div class="col-12">
             <div class="card m-b-30">
-                <div class="card-body">
-                    <div class="table-responsive">
+                <div class="card-body table-responsive">
+                    <div class="">
                         <table id="userProviders" class="table table-bordered">
                             <thead>
                                 <tr class="text-center">
