@@ -39,6 +39,8 @@ class UserAnonymous extends Command
      */
     public function handle()
     {
-        $user = User::where('provider', 'anonymous')->where('last_seen', '<', Carbon::tomorrow())->delete();
+        $user = User::where('provider', 'anonymous')->where('last_seen', '>=', Carbon::tomorrow())->delete();
+        $user->comments()->delete();
+        $user->removeRole($user->roles->first());
     }
 }

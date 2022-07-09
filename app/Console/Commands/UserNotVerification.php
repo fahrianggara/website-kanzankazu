@@ -43,7 +43,7 @@ class UserNotVerification extends Command
         $week = $now->endOfWeek(Carbon::MONDAY);
 
         $user = User::where('email_verified_at', '=', null)
-            ->where('created_at', '<', $week)
+            ->where('created_at', '>=', $week)
             ->delete();
         $user->removeRole($user->roles->first());
     }
