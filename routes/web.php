@@ -67,67 +67,75 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Auth::routes([
         "verify" => true
     ]);
-
-    // auth middleware (login)
-    Route::group(['prefix' => 'dashboard', 'middleware' => ['web', 'auth', 'verified']], function () {
-        // Dashboard
-        Route::get('/', [\App\Http\Controllers\Dashboard\DashboardController::class, 'dashboard'])->name('dashboard.index');
-        // Setting website
-        Route::get('/setting', [\App\Http\Controllers\Dashboard\WebSettingController::class, 'index'])->name('dashboard.setting');
-        Route::put('/update-site', [\App\Http\Controllers\Dashboard\WebSettingController::class, 'updateSite'])->name('dashboard.setting.update');
-        // Profiles
-        Route::get('/profiles', [App\Http\Controllers\Dashboard\ProfileController::class, 'index'])->name('profile.index');
-        Route::put('/update-profile', [App\Http\Controllers\Dashboard\ProfileController::class, 'updateProfile'])->name('profile.updateInfo');
-        Route::post('/update-image', [App\Http\Controllers\Dashboard\ProfileController::class, 'updateImage'])->name('profile.updateImage');
-        Route::put('/change-password', [App\Http\Controllers\Dashboard\ProfileController::class, 'changePassword'])->name('profile.changePassword');
-        Route::put('/update-social', [App\Http\Controllers\Dashboard\ProfileController::class, 'updateSocial'])->name('profile.updateSocial');
-        // CONTACT
-        Route::resource('/contact', \App\Http\Controllers\ContactController::class)->except('edit', 'show', 'update');
-        Route::get('/show-replay/{id}', [\App\Http\Controllers\ContactController::class, 'showInbox'])->name('contact.showReplay');
-        Route::get('/replay/{id}', [\App\Http\Controllers\ContactController::class, 'replay'])->name('contact.replay');
-        // Tutorial
-        Route::get('/tutorials/select', [\App\Http\Controllers\Dashboard\TutorialController::class, 'select'])->name('tutorials.select');
-        Route::resource('/tutorials', \App\Http\Controllers\Dashboard\TutorialController::class)->except('show');
-        // Category
-        Route::get('/categories/select', [\App\Http\Controllers\Dashboard\CategoryController::class, 'select'])->name('categories.select');
-        Route::resource('/categories', \App\Http\Controllers\Dashboard\CategoryController::class)->except('show');
-        // Tag
-        Route::get('/tags/add-create', [\App\Http\Controllers\Dashboard\TagController::class, 'addcreate'])->name('tags.addcreate');
-        Route::get('/tags/select', [\App\Http\Controllers\Dashboard\TagController::class, 'select'])->name('tags.select');
-        Route::resource('/tags', \App\Http\Controllers\Dashboard\TagController::class)->except('show');
-        // Posts
-        Route::get('/posts/trash', [\App\Http\Controllers\Dashboard\PostController::class, 'listsDeletePosts'])->name('posts.delete');
-        Route::post('/posts/restore/{id}', [\App\Http\Controllers\Dashboard\PostController::class, 'restore'])->name('posts.restore');
-        Route::put('/posts/publish/{post}', [\App\Http\Controllers\Dashboard\PostController::class, 'publish'])->name('posts.publish');
-        Route::put('/posts/draft/{post}', [\App\Http\Controllers\Dashboard\PostController::class, 'draft'])->name('posts.draft');
-        Route::put('/posts/approved/{post}', [\App\Http\Controllers\Dashboard\PostController::class, 'approve'])->name('posts.approval');
-        Route::resource('/posts', \App\Http\Controllers\Dashboard\PostController::class)->except('show', 'edit');
-        Route::get('/posts/{slug}/edit', [\App\Http\Controllers\Dashboard\PostController::class, 'edit'])->name('posts.edit');
-        Route::get('/posts/{slug}', [\App\Http\Controllers\Dashboard\PostController::class, 'show'])->name('posts.show');
-        Route::post('/posts/{id}/recommend', [\App\Http\Controllers\Dashboard\PostController::class, 'recommend'])->name('posts.recommend');
-        // Role
-        Route::get('/roles/select', [\App\Http\Controllers\Dashboard\RoleController::class, 'select'])->name('roles.select');
-        Route::resource('/roles', \App\Http\Controllers\Dashboard\RoleController::class);
-        // User
-        Route::get('/users-show/{id}', [\App\Http\Controllers\Dashboard\UserController::class, 'showUserModal'])->name('users.showModal');
-        Route::post('/user-blokir/{id}', [\App\Http\Controllers\Dashboard\UserController::class, 'blokirUser'])->name('users.blokir');
-        Route::put('/user-unblokir/{user}', [\App\Http\Controllers\Dashboard\UserController::class, 'unBlokirUser'])->name('users.unblokir');
-        Route::resource('/users', \App\Http\Controllers\Dashboard\UserController::class)->except('show');
-        // User Provider
-        Route::post('/disable-provider/{uid}', [\App\Http\Controllers\Dashboard\UserProviderController::class, 'disableProvider'])->name('users.disableProvider');
-        Route::post('/enable-provider/{uid}', [\App\Http\Controllers\Dashboard\UserProviderController::class, 'enableProvider'])->name('users.enableProvider');
-        Route::delete('/delete-provider/{uid}', [\App\Http\Controllers\Dashboard\UserProviderController::class, 'deleteProvider'])->name('users.deleteProvider');
-        Route::resource('/user-providers', \App\Http\Controllers\Dashboard\UserProviderController::class)->except('show', 'destroy');
-        // FILE MANAGER
-        Route::group(['prefix' => 'filemanager'], function () {
-            Route::get('/index', [\App\Http\Controllers\Dashboard\FileManagerController::class, 'index'])->name('filemanager.index');
-            \UniSharp\LaravelFilemanager\Lfm::routes();
+    Route::group(['middleware' => 'is-anonymous'], function () {
+        // auth middleware (login)
+        Route::group(['prefix' => 'dashboard', 'middleware' => ['web', 'auth', 'verified']], function () {
+            // Dashboard
+            Route::get('/', [\App\Http\Controllers\Dashboard\DashboardController::class, 'dashboard'])->name('dashboard.index');
+            // Setting website
+            Route::get('/setting', [\App\Http\Controllers\Dashboard\WebSettingController::class, 'index'])->name('dashboard.setting');
+            Route::put('/update-site', [\App\Http\Controllers\Dashboard\WebSettingController::class, 'updateSite'])->name('dashboard.setting.update');
+            // Profiles
+            Route::get('/profiles', [App\Http\Controllers\Dashboard\ProfileController::class, 'index'])->name('profile.index');
+            Route::put('/update-profile', [App\Http\Controllers\Dashboard\ProfileController::class, 'updateProfile'])->name('profile.updateInfo');
+            Route::post('/update-image', [App\Http\Controllers\Dashboard\ProfileController::class, 'updateImage'])->name('profile.updateImage');
+            Route::put('/change-password', [App\Http\Controllers\Dashboard\ProfileController::class, 'changePassword'])->name('profile.changePassword');
+            Route::put('/update-social', [App\Http\Controllers\Dashboard\ProfileController::class, 'updateSocial'])->name('profile.updateSocial');
+            // CONTACT
+            Route::resource('/contact', \App\Http\Controllers\ContactController::class)->except('edit', 'show', 'update');
+            Route::get('/show-replay/{id}', [\App\Http\Controllers\ContactController::class, 'showInbox'])->name('contact.showReplay');
+            Route::get('/replay/{id}', [\App\Http\Controllers\ContactController::class, 'replay'])->name('contact.replay');
+            // Tutorial
+            Route::get('/tutorials/select', [\App\Http\Controllers\Dashboard\TutorialController::class, 'select'])->name('tutorials.select');
+            Route::resource('/tutorials', \App\Http\Controllers\Dashboard\TutorialController::class)->except('show');
+            // Category
+            Route::get('/categories/select', [\App\Http\Controllers\Dashboard\CategoryController::class, 'select'])->name('categories.select');
+            Route::resource('/categories', \App\Http\Controllers\Dashboard\CategoryController::class)->except('show');
+            // Tag
+            Route::get('/tags/add-create', [\App\Http\Controllers\Dashboard\TagController::class, 'addcreate'])->name('tags.addcreate');
+            Route::get('/tags/select', [\App\Http\Controllers\Dashboard\TagController::class, 'select'])->name('tags.select');
+            Route::resource('/tags', \App\Http\Controllers\Dashboard\TagController::class)->except('show');
+            // Posts
+            Route::get('/posts/trash', [\App\Http\Controllers\Dashboard\PostController::class, 'listsDeletePosts'])->name('posts.delete');
+            Route::post('/posts/restore/{id}', [\App\Http\Controllers\Dashboard\PostController::class, 'restore'])->name('posts.restore');
+            Route::put('/posts/publish/{post}', [\App\Http\Controllers\Dashboard\PostController::class, 'publish'])->name('posts.publish');
+            Route::put('/posts/draft/{post}', [\App\Http\Controllers\Dashboard\PostController::class, 'draft'])->name('posts.draft');
+            Route::put('/posts/approved/{post}', [\App\Http\Controllers\Dashboard\PostController::class, 'approve'])->name('posts.approval');
+            Route::resource('/posts', \App\Http\Controllers\Dashboard\PostController::class)->except('show', 'edit');
+            Route::get('/posts/{slug}/edit', [\App\Http\Controllers\Dashboard\PostController::class, 'edit'])->name('posts.edit');
+            Route::get('/posts/{slug}', [\App\Http\Controllers\Dashboard\PostController::class, 'show'])->name('posts.show');
+            Route::post('/posts/{id}/recommend', [\App\Http\Controllers\Dashboard\PostController::class, 'recommend'])->name('posts.recommend');
+            // Role
+            Route::get('/roles/select', [\App\Http\Controllers\Dashboard\RoleController::class, 'select'])->name('roles.select');
+            Route::resource('/roles', \App\Http\Controllers\Dashboard\RoleController::class);
+            // User
+            Route::get('/users-show/{id}', [\App\Http\Controllers\Dashboard\UserController::class, 'showUserModal'])->name('users.showModal');
+            Route::post('/user-blokir/{id}', [\App\Http\Controllers\Dashboard\UserController::class, 'blokirUser'])->name('users.blokir');
+            Route::put('/user-unblokir/{user}', [\App\Http\Controllers\Dashboard\UserController::class, 'unBlokirUser'])->name('users.unblokir');
+            Route::resource('/users', \App\Http\Controllers\Dashboard\UserController::class)->except('show');
+            // User Provider
+            Route::post('/disable-provider/{uid}', [\App\Http\Controllers\Dashboard\UserProviderController::class, 'disableProvider'])->name('users.disableProvider');
+            Route::post('/enable-provider/{uid}', [\App\Http\Controllers\Dashboard\UserProviderController::class, 'enableProvider'])->name('users.enableProvider');
+            Route::delete('/delete-provider/{uid}', [\App\Http\Controllers\Dashboard\UserProviderController::class, 'deleteProvider'])->name('users.deleteProvider');
+            Route::resource('/user-providers', \App\Http\Controllers\Dashboard\UserProviderController::class)->except('show', 'destroy');
+            // FILE MANAGER
+            Route::group(['prefix' => 'filemanager'], function () {
+                Route::get('/index', [\App\Http\Controllers\Dashboard\FileManagerController::class, 'index'])->name('filemanager.index');
+                \UniSharp\LaravelFilemanager\Lfm::routes();
+            });
+            // Notification
+            Route::get('/notify', [\App\Http\Controllers\Dashboard\NotificationController::class, 'notify'])->name('notify');
+            Route::get('/markasread/{id}', [\App\Http\Controllers\Dashboard\NotificationController::class, 'markAsRead'])->name('markasread');
+            // Newsletter
+            Route::get('/newsletter', [\App\Http\Controllers\Dashboard\NewsLetterController::class, 'index'])->name('newsletter.index');
+            Route::delete('/newsletter/{newsletter}', [\App\Http\Controllers\Dashboard\NewsLetterController::class, 'destroy'])->name('newsletter.destroy');
+            // Chat
+            Route::get('/chat-users', [\App\Http\Controllers\Dashboard\MessageController::class, 'index'])->name('chat.index');
+            Route::get('/fetch-users', [\App\Http\Controllers\Dashboard\MessageController::class, 'fetchUsers'])->name('chat.fetchUsers');
+            Route::get('/search-users', [\App\Http\Controllers\Dashboard\MessageController::class, 'searchUsersChat'])->name('chat.searchUsers');
+            Route::get('/load-latest-message', [\App\Http\Controllers\Dashboard\MessageController::class, 'getLoadLatestMessage'])->name('chat.getLoadLatestMessage');
+            Route::post('/send', [\App\Http\Controllers\Dashboard\MessageController::class, 'postSendMessage'])->name('chat.send');
+            Route::get('/fetch-old-messages', [\App\Http\Controllers\Dashboard\MessageController::class, 'getOldMessages'])->name('chat.getOldMessages');
         });
-        // Notification
-        Route::get('/notify', [\App\Http\Controllers\Dashboard\NotificationController::class, 'notify'])->name('notify');
-        Route::get('/markasread/{id}', [\App\Http\Controllers\Dashboard\NotificationController::class, 'markAsRead'])->name('markasread');
-        // Newsletter
-        Route::get('/newsletter', [\App\Http\Controllers\Dashboard\NewsLetterController::class, 'index'])->name('newsletter.index');
-        Route::delete('/newsletter/{newsletter}', [\App\Http\Controllers\Dashboard\NewsLetterController::class, 'destroy'])->name('newsletter.destroy');
     });
 });

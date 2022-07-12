@@ -72,7 +72,7 @@ $('#signWithAnonym').on('click', function() {
                                 '<i class="fas fa-spin fa-spinner"></i>');
 
                             $('#tooltipAnonym').tooltip('dispose').attr('title',
-                                'Mengalihkan ke Dashboard...');
+                                'Mengalihkan ke Homepage...');
                             $('#tooltipAnonym').tooltip('show');
                         }, 1700);
 
@@ -229,9 +229,14 @@ $('#signWithGithub').click(function() {
             const email = error.customData.email;
             const credential = GithubAuthProvider.credentialFromError(error);
 
+
             if (errorCode == 'auth/user-disabled') {
                 alertify.okBtn("OK").alert(
                     'Maaf.. akun kamu telah kami blokir. Silahkan kontak admin untuk informasi lebih lanjut :)'
+                );
+            } else if (errorCode == 'auth/account-exists-with-different-credential') {
+                alertify.okBtn("OK").alert(
+                    'Maaf, email di akun github kamu telah terdaftar di provider lain. Silahkan kontak admin untuk informasi lebih lanjut :)'
                 );
             }
         });

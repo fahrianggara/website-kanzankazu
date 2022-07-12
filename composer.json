@@ -20,6 +20,7 @@
         "laravel/ui": "^3.3",
         "laravelista/comments": "^4.5",
         "predis/predis": "^1.1",
+        "pusher/pusher-php-server": "^7.0",
         "realrashid/sweet-alert": "^4.0",
         "spatie/laravel-permission": "^5.1",
         "unisharp/laravel-filemanager": "^2.2"

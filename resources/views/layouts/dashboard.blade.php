@@ -53,7 +53,7 @@
     <link href="{{ asset('vendor/blog/assets/fontawesome/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('vendor/dashboard/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('vendor/dashboard/css/icons.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('vendor/dashboard/css/sty.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('vendor/dashboard/css/mas.css') }}" rel="stylesheet" type="text/css">
     {{-- CALL CSS --}}
     @stack('css-external')
     @stack('css-internal')
@@ -146,6 +146,7 @@
     <script src="{{ asset('vendor/dashboard/plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('vendor/dashboard/plugins/datatables/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('vendor/dashboard/plugins/datatables/responsive.bootstrap4.min.js') }}"></script>
+    <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
     <!-- App js -->
     <script src="{{ asset('vendor/dashboard/js/apps.js') }}"></script>
     {{-- CALL JS --}}

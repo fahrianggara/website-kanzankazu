@@ -191,7 +191,7 @@ class FirebaseController extends Controller
                     return response()->json([
                         "status" => 200,
                         "msg" => "Selamat datang kembali " . $checkUser->name . '.',
-                        "redirect" => route('dashboard.index'),
+                        "redirect" => route('homepage'),
                     ]);
                 } else {
                     return response()->json([
@@ -204,11 +204,11 @@ class FirebaseController extends Controller
                 return response()->json([
                     "status" => 200,
                     "msg" => "Selamat datang kembali " . $checkUser->name . '.',
-                    "redirect" => route('dashboard.index'),
+                    "redirect" => route('homepage'),
                 ]);
             }
         } else {
-            $randomStr = Str::random(10);
+            $randomStr = 'Anonymous ' . Str::random(3);
             $userData = [
                 'uid' => $request->uid,
                 'name' => $randomStr,
@@ -227,7 +227,7 @@ class FirebaseController extends Controller
             return response()->json([
                 "status" => 200,
                 "msg" => "Selamat datang di " . $this->setting->site_name . '!',
-                "redirect" => route('dashboard.index'),
+                "redirect" => route('homepage'),
             ]);
         }
     }

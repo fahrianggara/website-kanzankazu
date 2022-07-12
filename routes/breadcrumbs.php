@@ -174,6 +174,14 @@ Breadcrumbs::for('userProviders', function (BreadcrumbTrail $trail) {
     $trail->push('Pengguna Provider', route('user-providers.index'));
 });
 
+// =================================================================
+
+Breadcrumbs::for('chat', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Ngobrol', route('chat.index'));
+});
+
+
 // Breadcrumbs::for('add_users', function (BreadcrumbTrail $trail) {
 //     $trail->parent('users');
 //     $trail->push('Buat', route('users.create'));

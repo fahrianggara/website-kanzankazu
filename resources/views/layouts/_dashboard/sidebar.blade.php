@@ -39,6 +39,17 @@
                         <span>Blog</span>
                     </a>
                 </li>
+
+                {{-- Chat --}}
+                {{-- <li id="chat" class="menu-title">Diskusi</li>
+                <li>
+                    <a href="{{ route('chat.index') }}"
+                        class="{{ set_active('chat.index') }} waves-effect">
+                        <i class="uil uil-comments-alt"></i>
+                        <span>Ngobrol</span>
+                    </a>
+                </li> --}}
+
                 {{-- Profile --}}
                 <li id="profile" class="menu-title">Kelola Profile</li>
                 <li>

@@ -79,15 +79,17 @@
                                 @endif
                             </a>
                             <ul>
-                                <li>
-                                    <a href="{{ route('dashboard.index') }}"><i class="uil uil-graph-bar mr-2"></i>
-                                        Dashboard</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('profile.index') }}"><i class="uil uil-house-user mr-2"></i>
-                                        Profile Kamu</a>
-                                </li>
-                                <hr style="background-color: #00b2cc; height: 1px; border: 0; margin: 10px 0 10px 0;">
+                                @if (Auth::user()->provider != 'anonymous')
+                                    <li>
+                                        <a href="{{ route('dashboard.index') }}"><i class="uil uil-graph-bar mr-2"></i>
+                                            Dashboard</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('profile.index') }}"><i class="uil uil-house-user mr-2"></i>
+                                            Profile Kamu</a>
+                                    </li>
+                                    <hr style="background-color: #00b2cc; height: 1px; border: 0; margin: 10px 0 10px 0;">
+                                @endif
                                 <li>
                                     <a id="log-out" href="" data-toggle="modal" data-target="#logModal">Log Out <i
                                             class="uil uil-signout ml-2"></i></a>
@@ -175,7 +177,7 @@
         }
 
         function historyBackAuthor(targetUrl) {
-           window.history.back();
+            window.history.back();
         }
 
         function goBackOrTo(targetUrl) {
