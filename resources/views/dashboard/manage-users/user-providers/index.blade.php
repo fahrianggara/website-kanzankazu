@@ -12,50 +12,70 @@
     <div class="row">
 
         <div class="col-12">
-            <div class="card m-b-30">
-                <div class="card-body table-responsive">
-                    <div class="">
-                        <table id="userProviders" class="table table-bordered">
-                            <thead>
-                                <tr class="text-center">
-                                    <th>Email</th>
-                                    <th>User UID</th>
-                                    <th>Provider</th>
-                                    <th>Status</th>
-                                    <th>Options</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse ($users as $key => $user)
-                                    <tr class="text-center">
+            <div class="card card-body m-b-30 table-responsive shadow-sm table-wrapper">
+                <table id="userProviders" class="table table-hover align-items-center overflow-hidden">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>User Uid</th>
+                            <th>Provider</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($users as $key => $user)
+                            <tr>
 
-                                        <td>{{ $user->email ?? '( anonymous )' }}</td>
-                                        <td id="{{ $user->uid }}">{{ $user->uid }}</td>
-                                        <td>
-                                            @foreach ($user->providerData as $provider)
-                                                <span class="d-none">{{ $provider->providerId }}</span>
+                                <td>
+                                    <a href="javascript:void(0)" class="d-flex align-items-center" style="cursor: default">
+                                        @if ($user->photoUrl != null)
+                                            <img src="{{ $user->photoUrl }}" width="40"
+                                                class="avatar rounded-circle me-3">
+                                        @else
+                                            <img src="{{ asset('vendor/dashboard/image/avatar.png') }}" width="40"
+                                                class="avatar rounded-circle me-3">
+                                        @endif
+                                        <div class="d-block ml-3">
+                                            <span class="fw-bold name-user">{{ $user->displayName ?? 'Anonymous' }}</span>
+                                            <div class="small text-secondary">{{ $user->email ?? '(anonymous)' }}
+                                            </div>
+                                        </div>
+                                    </a>
+                                </td>
 
-                                                @if ($provider->providerId == 'google.com')
-                                                    <img class="logo-provider"
-                                                        src="{{ asset('vendor/blog/img/google.png') }}" width="27">
-                                                @elseif ($provider->providerId == 'github.com')
-                                                    <img class="logo-provider"
-                                                        src="{{ asset('vendor/blog/img/github.png') }}" width="27">
-                                                @endif
-                                            @endforeach
-                                            @if (count($user->providerData) == 0)
-                                                <img class="logo-provider"
-                                                    src="{{ asset('vendor/blog/img/anonymous.png') }}" width="27">
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if ($user->disabled)
-                                                <span class="badge badge-danger">Disabled</span>
-                                            @else
-                                                <span class="badge badge-success">Enabled</span>
-                                            @endif
-                                        </td>
-                                        <td>
+                                <td id="{{ $user->uid }}" class="name-user">{{ $user->uid }}</td>
+                                <td>
+                                    @foreach ($user->providerData as $provider)
+                                        <span class="d-none">{{ $provider->providerId }}</span>
+
+                                        @if ($provider->providerId == 'google.com')
+                                            <img class="logo-provider" src="{{ asset('vendor/blog/img/google.png') }}"
+                                                width="27">
+                                        @elseif ($provider->providerId == 'github.com')
+                                            <img class="logo-provider" src="{{ asset('vendor/blog/img/github.png') }}"
+                                                width="27">
+                                        @endif
+                                    @endforeach
+                                    @if (count($user->providerData) == 0)
+                                        <img class="logo-provider" src="{{ asset('vendor/blog/img/anonymous.png') }}"
+                                            width="27">
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($user->disabled)
+                                        <span class="text-danger">DISABLED</span>
+                                    @else
+                                        <span class="text-success">ENABLED</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <div class="btn-group dropleft">
+                                        <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="uil uil-ellipsis-v"></i>
+                                        </button>
+                                        <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mb-4 py-1">
                                             @if (count($user->providerData) == 0)
                                                 <form
                                                     action="{{ route('users.deleteProvider', ['uid' => $user->uid]) }}#users"
@@ -65,9 +85,9 @@
                                                     @csrf
                                                     @method('DELETE')
 
-                                                    <button type="submit" class="btn btn-danger btn-sm"
-                                                        data-toggle="tooltip" data-placement="bottom" title="Hapus akun">
-                                                        <i class="uil uil-trash"></i>
+                                                    <button type="submit" class="dropdown-item d-flex align-items-center ">
+                                                        <i class="uil uil-trash text-danger"></i>
+                                                        <span class="ml-2">Hapus user</span>
                                                     </button>
                                                 </form>
                                             @else
@@ -81,10 +101,10 @@
                                                             @csrf
                                                             @method('POST')
 
-                                                            <button type="submit" class="btn btn-success btn-sm"
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Enable akun">
-                                                                <i class="uil uil-check"></i>
+                                                            <button type="submit"
+                                                                class="dropdown-item d-flex align-items-center ">
+                                                                <i class="uil uil-check text-success"></i>
+                                                                <span class="ml-2">Enable akun</span>
                                                             </button>
                                                         </form>
 
@@ -96,10 +116,10 @@
                                                             @csrf
                                                             @method('DELETE')
 
-                                                            <button type="submit" class="btn btn-danger btn-sm"
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Hapus akun">
-                                                                <i class="uil uil-trash"></i>
+                                                            <button type="submit"
+                                                                class="dropdown-item d-flex align-items-center ">
+                                                                <i class="uil uil-trash text-danger"></i>
+                                                                <span class="ml-2">Hapus akun</span>
                                                             </button>
                                                         </form>
                                                     @elseif ($user->disabled == false)
@@ -111,34 +131,47 @@
                                                             @csrf
                                                             @method('POST')
 
-                                                            <button type="submit" class="btn btn-danger btn-sm"
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Disable akun">
-                                                                <i class="uil uil-ban"></i>
+                                                            <button type="submit"
+                                                                class="dropdown-item d-flex align-items-center ">
+                                                                <i class="uil uil-ban text-danger"></i>
+                                                                <span class="ml-2">Disable akun</span>
+                                                            </button>
+                                                        </form>
+                                                        <form
+                                                            action="{{ route('users.deleteProvider', ['uid' => $user->uid]) }}#users"
+                                                            class="d-inline" method="POST" role="alert"
+                                                            alert-text='Apakah kamu yakin?! akun dengan email "{{ $user->email }}" akan di hapus PERMANEN!'
+                                                            alert-btn="HAPUS AKUN" alert-clr="#d33">
+                                                            @csrf
+                                                            @method('DELETE')
+
+                                                            <button type="submit"
+                                                                class="dropdown-item d-flex align-items-center ">
+                                                                <i class="uil uil-trash text-danger"></i>
+                                                                <span class="ml-2">Hapus akun</span>
                                                             </button>
                                                         </form>
                                                     @endif
                                                 @else
-                                                    <button disabled class="btn btn-secondary btn-sm">
-                                                        <i class="uil uil-ban" data-toggle="tooltip" data-placement="top"
-                                                            title="Kamu tidak bisa meng-disable akun kamu sendiri.">
-                                                        </i>
+                                                    <button disabled class="dropdown-item d-flex align-items-center">
+                                                        <i class="uil uil-ban text-secondary"></i>
+                                                        <span class="ml-2">Disable akun</span>
                                                     </button>
                                                 @endif
                                             @endif
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="5" class="text-center">
-                                            <h5 class="text-center">Tidak ada data user</h5>
-                                        </td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5" class="text-center">
+                                    <h5 class="text-center">Tidak ada data user</h5>
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -152,7 +185,6 @@
                     [4, "desc"]
                 ],
                 "pageLength": 10,
-                "responsive": true,
             });
 
             $('#userProviders tbody').on('click', "form[role='alert']", function() {

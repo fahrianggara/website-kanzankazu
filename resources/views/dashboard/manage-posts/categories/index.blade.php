@@ -51,77 +51,98 @@
         </div>
 
         <div class="col-12">
-            <div class="card m-b-30">
-                <div class="table-responsive">
-                    @if (count($categories) >= 1)
-                        <table class="table">
-                            <thead>
-                                <tr class="text-center">
-                                    <th>No</th>
-                                    <th>Nama Kategori</th>
-                                    <th>Opsi</th>
+            <div class="card card-body m-b-30 table-responsive shadow-sm table-wrapper">
+                @if (count($categories) >= 1)
+                    <table class="table table-hover align-items-center overflow-hidden">
+                        <thead>
+                            <tr>
+                                <th>Kategori</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($categories as $category)
+                                <tr>
+                                    <td>
+                                        <a href="javascript:void(0)" class="d-flex align-items-center"
+                                            style="cursor: default">
+                                            @if (file_exists('vendor/dashboard/image/thumbnail-categories/' . $category->thumbnail))
+                                                <img src="{{ asset('vendor/dashboard/image/thumbnail-categories/' . $category->thumbnail) }}"
+                                                    width="60" class="avatar me-3">
+                                            @else
+                                                <img src="{{ asset('vendor/blog/img/default.png') }}" width="60"
+                                                    class="avatar me-3">
+                                            @endif
+                                            <div class="d-block ml-3">
+                                                <span class="fw-bold name-user">{{ $category->title }}</span>
+                                                <div class="small text-secondary">
+                                                    {{ substr($category->description, 0, 20) }}...
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group dropleft">
+                                            <button
+                                                class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="uil uil-ellipsis-v"></i>
+                                            </button>
+                                            <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mb-4 py-1">
+                                                @can('category_update')
+                                                    <a href="{{ route('categories.edit', ['category' => $category]) }}#posts"
+                                                        class="dropdown-item d-flex align-items-center ">
+                                                        <i class="uil uil-pen text-warning"></i>
+                                                        <span class="ml-2">Edit Kategori</span>
+                                                    </a>
+                                                @endcan
+                                                @can('category_delete')
+                                                    <form
+                                                        action="{{ route('categories.destroy', ['category' => $category]) }}#posts"
+                                                        class="d-inline" role="alert" method="POST"
+                                                        alert-text="Apakah kamu yakin? kategori {{ $category->title }} akan dihapus permanen?">
+                                                        @csrf
+                                                        @method('DELETE')
+
+                                                        <button type="submit" class="dropdown-item d-flex align-items-center ">
+                                                            <i class="uil uil-trash text-danger"></i>
+                                                            <span class="ml-2">Hapus Kategori</span>
+                                                        </button>
+                                                    </form>
+                                                @endcan
+                                            </div>
+                                        </div>
+                                    </td>
+
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @php $no = 1; @endphp
-                                @foreach ($categories as $category)
-                                    <tr class="text-center">
-                                        <td>{{ $categories->perPage() * ($categories->currentPage() - 1) + $no }}
-                                        </td>
-                                        @php $no++; @endphp
-                                        <td>{{ $category->title }}</td>
-                                        <td>
-                                            @can('category_update')
-                                                <a href="{{ route('categories.edit', ['category' => $category]) }}#posts"
-                                                    class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="bottom"
-                                                    title="Edit">
-                                                    <i class="uil uil-pen"></i>
-                                                </a>
-                                            @endcan
-                                            @can('category_delete')
-                                                <form action="{{ route('categories.destroy', ['category' => $category]) }}#posts"
-                                                    class="d-inline" role="alert" method="POST"
-                                                    alert-text="Apakah kamu yakin? kategori {{ $category->title }} akan dihapus permanen?">
-                                                    @csrf
-                                                    @method('DELETE')
-
-                                                    <button type="submit" class="btn btn-sm btn-danger" data-toggle="tooltip"
-                                                        data-placement="bottom" title="Hapus">
-                                                        <i class="uil uil-trash"></i>
-                                                    </button>
-                                                </form>
-                                            @endcan
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    @else
-                        <div class="card-body">
-                            <div class="text-center">
-                                <p class="card-text">
-                                    <b>
-                                        @if (request()->get('keyword'))
-                                            Oops.. sepertinya kategori dengan title
-                                            {{ strtoupper(request()->get('keyword')) }} tidak ditemukan.
-                                        @else
-                                            Hmm.. sepertinya kategori belum dibuat. <a
-                                                href="{{ route('categories.create') }}#posts">Buat?</a>
-                                        @endif
-                                    </b>
-                                </p>
-                            </div>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @else
+                    <div class="card-body">
+                        <div class="text-center">
+                            <p class="card-text">
+                                <b>
+                                    @if (request()->get('keyword'))
+                                        Oops.. sepertinya kategori dengan title
+                                        {{ strtoupper(request()->get('keyword')) }} tidak ditemukan.
+                                    @else
+                                        Hmm.. sepertinya kategori belum dibuat. <a
+                                            href="{{ route('categories.create') }}#posts">Buat?</a>
+                                    @endif
+                                </b>
+                            </p>
                         </div>
-                    @endif
+                    </div>
+                @endif
 
-                    @if ($categories->hasPages())
-                        <div class="card-footer">
-                            <div class="page-footer">
-                                {{ $categories->links('vendor.pagination.bootstrap-4') }}
-                            </div>
+                @if ($categories->hasPages())
+                    <div class="card-footer">
+                        <div class="page-footer">
+                            {{ $categories->links('vendor.pagination.bootstrap-4') }}
                         </div>
-                    @endif
-                </div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

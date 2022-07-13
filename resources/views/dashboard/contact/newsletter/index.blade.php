@@ -41,76 +41,83 @@
         </div>
 
         <div class="col-12">
-            <div class="card m-b-30">
+            <div class="card card-body m-b-30 table-responsive shadow-sm table-wrapper">
 
                 @if (count($newsletter) >= 1)
-                    <div class="table-responsive">
+                    <table class="table table-hover align-items-center overflow-hidden">
+                        <thead>
+                            <tr>
+                                <th>Email</th>
+                                <th>Berlanggan tanggal</th>
+                                @can('inbox_delete')
+                                    <th></th>
+                                @endcan
+                            </tr>
 
-                        <table class="table">
-                            <thead>
-                                <tr class="text-center">
-                                    <th>#</th>
-                                    <th>Email</th>
+                        </thead>
+                        <tbody>
+                            @foreach ($newsletter as $nl)
+                                <tr>
+                                    <td class="name-user">{{ $nl->email }}</td>
+                                    <td class="name-user">{{ $nl->created_at->format('d M, Y') }}</td>
+
                                     @can('inbox_delete')
-                                        <th>Opsi</th>
+                                        <td>
+                                            <div class="btn-group dropleft">
+                                                <button
+                                                    class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="uil uil-ellipsis-v"></i>
+                                                </button>
+                                                <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mb-4 py-1">
+
+                                                    @can('inbox_delete')
+                                                        <form
+                                                            action="{{ route('newsletter.destroy', ['newsletter' => $nl]) }}#contact"
+                                                            method="POST" role="alert"
+                                                            alert-text="Apakah kamu yakin? langganan web dengan email {{ $nl->email }} akan diberhentikan langganannya.">
+                                                            @csrf
+                                                            @method('DELETE')
+
+                                                            <button type="submit" class="dropdown-item d-flex align-items-center ">
+                                                                <i class="uil uil-trash text-danger"></i>
+                                                                <span class="ml-2">Hapus langganan</span>
+                                                            </button>
+                                                        </form>
+                                                    @endcan
+                                                </div>
+                                            </div>
+
+                                        </td>
                                     @endcan
                                 </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
 
-                            </thead>
-                            <tbody>
-                                @php $no = 1; @endphp
-                                @foreach ($newsletter as $nl)
-                                    <tr class="text-center">
-                                        <th>{{ $newsletter->perPage() * ($newsletter->currentPage() - 1) + $no }}</th>
-                                        @php $no++; @endphp
-                                        <th>{{ $nl->email }}</th>
-
-                                        @can('inbox_delete')
-                                            <th>
-
-                                                <form action="{{ route('newsletter.destroy', ['newsletter' => $nl]) }}#contact"
-                                                    method="POST" role="alert"
-                                                    alert-text="Apakah kamu yakin? langganan web dengan email {{ $nl->email }} akan diberhentikan langganannya.">
-                                                    @csrf
-                                                    @method('DELETE')
-
-                                                    <button type="submit" data-toggle="tooltip" data-placement="bottom"
-                                                        title="Hapus langganan" class="btn btn-sm btn-danger mt-1">
-                                                        <i class="uil uil-envelope-block"></i>
-                                                    </button>
-                                                </form>
-
-                                            </th>
-                                        @endcan
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-
-                    </div>
-                @else
-                    <div class="card-body">
-                        <div class="text-center">
-                            <p class="card-text">
-                                @if (request()->get('keyword'))
-                                    Oops.. sepertinya inbox dengan subjek "{{ request()->get('keyword') }}" tidak
-                                    ditemukan.
-                                @else
-                                    Oops.. sepertinya inbox masih kosong.
-                                @endif
-                            </p>
-                        </div>
-                    </div>
-                @endif
-
-                @if ($newsletter->hasPages())
-                    <div class="card-footer">
-                        <div class="page-footer">
-                            {{ $newsletter->links('vendor.pagination.bootstrap-4') }}
-                        </div>
-                    </div>
-                @endif
             </div>
+        @else
+            <div class="card-body">
+                <div class="text-center">
+                    <p class="card-text">
+                        @if (request()->get('keyword'))
+                            Oops.. sepertinya inbox dengan subjek "{{ request()->get('keyword') }}" tidak
+                            ditemukan.
+                        @else
+                            Oops.. sepertinya inbox masih kosong.
+                        @endif
+                    </p>
+                </div>
+            </div>
+            @endif
+
+            @if ($newsletter->hasPages())
+                <div class="card-footer">
+                    <div class="page-footer">
+                        {{ $newsletter->links('vendor.pagination.bootstrap-4') }}
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 @endsection

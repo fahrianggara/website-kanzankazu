@@ -68,73 +68,98 @@
         </div>
 
         <div class="col-12">
-            <div class="card m-b-30">
-
+            <div class="card card-body m-b-30 table-responsive shadow-sm table-wrapper">
                 @if (count($contacts) >= 1)
-                    <div class="table-responsive">
+                    <table class="table table-hover align-items-center overflow-hidden">
+                        <thead>
+                            <tr>
+                                <th>Nama</th>
+                                <th>Subjek Pesan</th>
+                                <th>Isi Pesan</th>
+                                @if (request()->get('status') == 'answered')
+                                    <th>Waktu Mengirim</th>
+                                @else
+                                    <th>Waktu Terkirim</th>
+                                @endif
 
-                        <table class="table">
-                            <thead>
-                                <tr class="text-center">
-                                    <th>Nama</th>
-                                    <th>Email</th>
-                                    <th>Subjek</th>
-                                    <th>Pesan</th>
+                                @can('inbox_delete')
+                                    <th></th>
+                                @endcan
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach ($contacts as $c)
+                                <tr>
+                                    <td>
+                                        <a href="javascript:void(0)" class="d-flex align-items-center"
+                                            style="cursor: default">
+                                            <div class="d-block">
+                                                <span class="fw-bold name-user">{{ $c->name }}</span>
+                                                <div class="small text-secondary">
+                                                    {{ $c->email }}
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <td class="name-user">{{ $c->subject }}</td>
+                                    <td class="name-user">{{ $c->message }}</td>
+                                    @if ($c->status == 'answered')
+                                        <td class="name-user">{{ $c->updated_at->format('d M, Y - H:i T') }}</td>
+                                    @else
+                                        <td class="name-user">{{ $c->created_at->format('d M, Y - H:i T') }}</td>
+                                    @endif
+
                                     @can('inbox_delete')
-                                        <th>Opsi</th>
+                                        <td>
+                                            <div class="btn-group dropleft">
+                                                <button
+                                                    class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="uil uil-ellipsis-v"></i>
+                                                </button>
+                                                <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mb-4 py-1">
+                                                    @if ($c->status == 'answered')
+                                                        <a id="infoContact" href="javascript:void(0)"
+                                                            data-id="{{ $c->id }}"
+                                                            class="info_btn dropdown-item d-flex align-items-center ">
+                                                            <i class="uil uil-envelope-open text-primary"></i>
+                                                            <span class="ml-2">Info pesan si pembalas</span>
+                                                        </a>
+
+                                                        <form action="{{ route('contact.destroy', ['contact' => $c]) }}"
+                                                            method="POST" role="alert"
+                                                            alert-text="Apakah kamu yakin? inbox dengan subjek ({{ $c->subject }}) akan dihapus permanen.">
+                                                            @csrf
+                                                            @method('DELETE')
+
+                                                            <button type="submit"
+                                                                class="dropdown-item d-flex align-items-center">
+                                                                <i class="uil uil-envelope-times text-danger"></i>
+                                                                <span class="ml-2">Hapus pesan</span>
+                                                            </button>
+                                                        </form>
+                                                    @endif
+
+                                                    @if ($c->status == 'unanswered')
+                                                        <a id="replayContact" href="javascript:void(0)"
+                                                            data-id="{{ $c->id }}"
+                                                            class="replay_btn dropdown-item d-flex align-items-center">
+                                                            <i class="uil uil-envelope-upload text-primary"></i>
+                                                            <span class="ml-2">Balas pesan</span>
+                                                        </a>
+                                                    @endif
+
+
+                                                </div>
+                                            </div>
+
+                                        </td>
                                     @endcan
                                 </tr>
-
-                            </thead>
-                            <tbody>
-                                @foreach ($contacts as $c)
-                                    <tr class="text-center">
-                                        <th>{{ $c->name }}</th>
-                                        <th>{{ $c->email }}</th>
-                                        <th>{{ $c->subject }}</th>
-                                        <th>{{ $c->message }}</th>
-                                        {{-- <th>{{ $c->created_at->format('d-m-Y / H:i:s a') }}</th> --}}
-
-                                        @can('inbox_delete')
-                                            <th>
-                                                @if ($c->status == 'answered')
-                                                    <a href="#" id="infoContact" class="info_btn btn btn-sm btn-info"
-                                                        data-id="{{ $c->id }}" data-toggle="tooltip"
-                                                        data-placement="bottom" title="info Pesan si pembalas">
-                                                        <i class="uil uil-envelope-open"></i>
-                                                    </a>
-                                                @endif
-
-                                                @if ($c->status == 'unanswered')
-                                                    <a href="#" id="replayContact"
-                                                        class="replay_btn btn btn-sm btn-primary" data-id="{{ $c->id }}"
-                                                        data-toggle="tooltip" data-placement="bottom" title="Balas Pesan">
-                                                        <i class="uil uil-envelope-upload"></i>
-                                                    </a>
-                                                @endif
-
-                                                @if ($c->status == 'answered')
-                                                    <form action="{{ route('contact.destroy', ['contact' => $c]) }}"
-                                                        method="POST" role="alert"
-                                                        alert-text="Apakah kamu yakin? inbox dengan subjek ({{ $c->subject }}) akan dihapus permanen.">
-                                                        @csrf
-                                                        @method('DELETE')
-
-                                                        <button type="submit" data-toggle="tooltip" data-placement="bottom"
-                                                            title="Hapus Pesan" class="btn btn-sm btn-danger mt-1">
-                                                            <i class="uil uil-envelope-times"></i>
-                                                        </button>
-                                                    </form>
-                                                @endif
-
-                                            </th>
-                                        @endcan
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-
-                    </div>
+                            @endforeach
+                        </tbody>
+                    </table>
                 @else
                     <div class="card-body">
                         <div class="text-center">
@@ -397,7 +422,8 @@
                             $(document).find('span.error-text').text('');
 
                             setTimeout(() => {
-                                window.location.href = '{{ route("contact.index") }}#contact';
+                                window.location.href =
+                                    '{{ route('contact.index') }}#contact';
                             }, 1500);
                         }
                     },

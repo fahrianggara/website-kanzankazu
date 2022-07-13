@@ -177,10 +177,15 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('dashboard.manage-users.users.edit', [
-            'user' => $user,
-            'roleOld' => $user->roles->first(),
-        ]);
+        if ($user->id != '1' && $user->id != '2') {
+            return view('dashboard.manage-users.users.edit', [
+                'user' => $user,
+                'roleOld' => $user->roles->first(),
+            ]);
+        } else {
+            return redirect()->route('users.index')->with('success', 'Tidak dapat mengedit pengguna ini!');
+        }
+
     }
 
     /**

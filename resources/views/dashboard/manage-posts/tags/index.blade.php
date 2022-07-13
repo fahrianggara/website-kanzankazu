@@ -51,76 +51,79 @@
         </div>
 
         <div class="col-12">
-            <div class="card m-b-30">
-                <div class="table-responsive">
-                    @if (count($tags) >= 1)
-                        <table class="table">
-                            <thead>
-                                <tr class="text-center">
-                                    <th>#</th>
-                                    <th>Nama Tag</th>
-                                    <th>Opsi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php $no = 1; @endphp
-                                @foreach ($tags as $tag)
-                                    <tr class="text-center">
-                                        <td>{{ $tags->perPage() * ($tags->currentPage() - 1) + $no }}
-                                        </td>
-                                        @php $no++; @endphp
-                                        <td>{{ $tag->title }}</td>
-                                        <td>
-                                            @can('tag_update')
-                                                <a href="{{ route('tags.edit', ['tag' => $tag]) }}#posts"
-                                                    class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="bottom"
-                                                    title="Edit">
-                                                    <i class="uil uil-pen"></i>
-                                                </a>
-                                            @endcan
-                                            @can('tag_delete')
-                                                <form action="{{ route('tags.destroy', ['tag' => $tag]) }}#posts" method="POST"
-                                                    class="d-inline" role="alert"
-                                                    alert-text="Apakah kamu yakin? tag {{ $tag->title }} akan dihapus permanen?">
-                                                    @csrf
-                                                    @method('DELETE')
+            <div class="card card-body m-b-30 table-responsive shadow-sm table-wrapper">
+                @if (count($tags) >= 1)
+                    <table class="table table-hover align-items-center overflow-hidden">
+                        <thead>
+                            <tr>
+                                <th>Nama Tag</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($tags as $tag)
+                                <tr>
+                                    <td class="name-user">{{ $tag->title }}</td>
+                                    <td>
+                                        <div class="btn-group dropleft">
+                                            <button
+                                                class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="uil uil-ellipsis-v"></i>
+                                            </button>
+                                            <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mb-4 py-1">
+                                                @can('tag_update')
+                                                    <a href="{{ route('tags.edit', ['tag' => $tag]) }}#posts"
+                                                        class="dropdown-item d-flex align-items-center">
+                                                        <i class="uil uil-pen text-warning"></i>
+                                                        <span class="ml-2">Edit Tag</span>
+                                                    </a>
+                                                @endcan
 
-                                                    <button type="submit" class="btn btn-sm btn-danger" data-toggle="tooltip"
-                                                        data-placement="bottom" title="Hapus">
-                                                        <i class="uil uil-trash"></i>
-                                                    </button>
-                                                </form>
-                                            @endcan
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    @else
-                        <div class="card-body">
-                            <div class="text-center">
-                                <p class="card-text">
-                                    <b>
-                                        @if (request()->get('keyword'))
-                                            Oops.. sepertinya tag {{ strtoupper(request()->get('keyword')) }}
-                                            tidak ditemukan.
-                                        @else
-                                            Hmm.. sepertinya belum ada tag yang dibuat. <a
-                                                href="{{ route('tags.create') }}#posts">Buat?</a>
-                                        @endif
-                                    </b>
-                                </p>
-                            </div>
+                                                @can('category_delete')
+                                                    <form action="{{ route('tags.destroy', ['tag' => $tag]) }}#posts"
+                                                        method="POST" class="d-inline" role="alert"
+                                                        alert-text="Apakah kamu yakin? tag {{ $tag->title }} akan dihapus permanen?">
+                                                        @csrf
+                                                        @method('DELETE')
+
+                                                        <button type="submit" class="dropdown-item d-flex align-items-center ">
+                                                            <i class="uil uil-trash text-danger"></i>
+                                                            <span class="ml-2">Hapus Tag</span>
+                                                        </button>
+                                                    </form>
+                                                @endcan
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @else
+                    <div class="card-body">
+                        <div class="text-center">
+                            <p class="card-text">
+                                <b>
+                                    @if (request()->get('keyword'))
+                                        Oops.. sepertinya tag {{ strtoupper(request()->get('keyword')) }}
+                                        tidak ditemukan.
+                                    @else
+                                        Hmm.. sepertinya belum ada tag yang dibuat. <a
+                                            href="{{ route('tags.create') }}#posts">Buat?</a>
+                                    @endif
+                                </b>
+                            </p>
                         </div>
-                    @endif
-                    @if ($tags->hasPages())
-                        <div class="card-footer">
-                            <div class="page-footer">
-                                {{ $tags->links('vendor.pagination.bootstrap-4') }}
-                            </div>
+                    </div>
+                @endif
+                @if ($tags->hasPages())
+                    <div class="card-footer">
+                        <div class="page-footer">
+                            {{ $tags->links('vendor.pagination.bootstrap-4') }}
                         </div>
-                    @endif
-                </div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
