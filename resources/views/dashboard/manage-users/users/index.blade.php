@@ -229,21 +229,21 @@
                                                                 </a>
                                                             @endcan
                                                             @can('user_delete')
-                                                            <form
-                                                                action="{{ route('users.destroy', ['user' => $user]) }}#users"
-                                                                method="POST" role="alert"
-                                                                alert-text="Apakah kamu yakin? akun dengan nama {{ $user->name }} akan dihapus permanen."
-                                                                alert-btn="Hapus" alert-clr="#d33">
-                                                                @csrf
-                                                                @method('DELETE')
+                                                                <form
+                                                                    action="{{ route('users.destroy', ['user' => $user]) }}#users"
+                                                                    method="POST" role="alert"
+                                                                    alert-text="Apakah kamu yakin? akun dengan nama {{ $user->name }} akan dihapus permanen."
+                                                                    alert-btn="Hapus" alert-clr="#d33">
+                                                                    @csrf
+                                                                    @method('DELETE')
 
-                                                                <button type="submit"
-                                                                    class="dropdown-item d-flex align-items-center ">
-                                                                    <i class="uil uil-trash text-danger"></i>
-                                                                    <span class="ml-2">Hapus user</span>
-                                                                </button>
-                                                            </form>
-                                                        @endcan
+                                                                    <button type="submit"
+                                                                        class="dropdown-item d-flex align-items-center ">
+                                                                        <i class="uil uil-trash text-danger"></i>
+                                                                        <span class="ml-2">Hapus user</span>
+                                                                    </button>
+                                                                </form>
+                                                            @endcan
                                                         @elseif ($user->id != '1' && $user->id != '2')
                                                             @can('user_update')
                                                                 <a class="dropdown-item d-flex align-items-center "

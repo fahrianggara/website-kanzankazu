@@ -3,9 +3,8 @@
 
         <ul class="list-inline float-right mb-0">
 
-            <li class="list-inline-item dropdown notification-list" data-toggle="tooltip" data-placement="bottom"
-                title="Ganti Tema">
-                <a class="nav-link dropdown-toggle arrow-none waves-effect" role="button">
+            <li class="dark-mode list-inline-item dropdown notification-list">
+                <a class="nav-link waves-effect" role="button">
                     <i id="theme-toggle" class="uil uil-moon noti-icon"></i>
                 </a>
             </li>

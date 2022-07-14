@@ -103,7 +103,7 @@
                                     alt="{{ $post->title }}" class="card-img-top img-fluid">
 
                                 <div class="btn-group dropleft btn_setting">
-                                    <button class=" btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
+                                    <button class="btn btn-link dropdown-toggle dropdown-toggle-split m-0 p-0"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="iconsetting uil uil-ellipsis-v "></i>
                                     </button>
@@ -390,7 +390,11 @@
                                     {{ $post->title }}
                                 </h5>
 
-                                <p class="card-text">{{ substr($post->description, 0, 100) }}...</p>
+                                @if (strlen($post->description) > 100)
+                                    <p class="card-text">{{ substr($post->description, 0, 100) }}...</p>
+                                @else
+                                    <p class="card-text">{{ $post->description }}</p>
+                                @endif
 
                             </div>
                         </div>

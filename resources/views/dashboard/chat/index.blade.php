@@ -301,6 +301,7 @@
                     chatBoxClone.find('.chat-user').text(username);
                     chatBoxClone.find('.btn-chat').attr('data-to-user', user_id);
                     chatBoxClone.find('#to_user_id').val(user_id);
+
                     $('#chat-overlay').append(chatBoxClone);
                 }
 
@@ -421,8 +422,6 @@
                             chatBox.addClass('chat-opened').slideDown("fast");
                             // chatBox.addClass('d-block');
                             loadLatestMessages(chatBox, message.from_user_id);
-
-
                         } else {
                             let messageLine = getMessageReceiverHtml(message);
                             $('#chat_box_' + message.from_user_id).find('.chat-history').append(
