@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Tag postingan
+    Tag Postingan
 @endsection
 
 @section('breadcrumbs')
@@ -14,138 +14,383 @@
 
     <div class="row">
         <div class="col-12">
-            <div class="row justify-content-center">
-                <div class="col-md-8">
-                    <div class="card m-b-30">
-                        <div class="card-header">
-                            <div class="row">
-                                <div class="col-lg-1 col-3">
-                                    @can('tag_create')
-                                        <a href="{{ route('tags.create') }}#posts" class="btn btn-primary float-right"
-                                            data-toggle="tooltip" data-placement="bottom" title="Buat">
-                                            <i class="uil uil-plus"></i>
-                                        </a>
-                                    @endcan
-                                </div>
-                                <div class="col-lg-11 col-9">
-                                    <form action="{{ route('tags.index') }}#posts" method="GET">
-                                        <div class="input-group">
-                                            <input autocomplete="off" type="search" id="keyword" name="keyword"
-                                                class="form-control" placeholder="Cari tag.."
-                                                value="{{ request()->get('keyword') }}">
-
-                                            <div class="input-group-append">
-                                                <button class="btn btn-primary" type="submit" data-toggle="tooltip"
-                                                    data-placement="bottom" title="Telusuri">
-                                                    <i class="uil uil-search"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div id="show_tag" class="card m-b-30 card-body table-responsive shadow-sm table-wrapper"></div>
         </div>
+    </div>
 
-        <div class="col-12">
-            <div class="card card-body m-b-30 table-responsive shadow-sm table-wrapper">
-                @if (count($tags) >= 1)
-                    <table class="table table-hover align-items-center overflow-hidden">
-                        <thead>
-                            <tr>
-                                <th>Nama Tag</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($tags as $tag)
-                                <tr>
-                                    <td class="name-user">{{ $tag->title }}</td>
-                                    <td>
-                                        <div class="btn-group dropleft">
-                                            <button
-                                                class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="uil uil-ellipsis-v"></i>
-                                            </button>
-                                            <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mb-4 py-1">
-                                                @can('tag_update')
-                                                    <a href="{{ route('tags.edit', ['tag' => $tag]) }}#posts"
-                                                        class="dropdown-item d-flex align-items-center">
-                                                        <i class="uil uil-pen text-warning"></i>
-                                                        <span class="ml-2">Edit Tag</span>
-                                                    </a>
-                                                @endcan
+    {{-- Modal create --}}
+    <div class="modal fade" id="createTag" tabindex="-1" role="dialog" aria-labelledby="replayTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-centered">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="replayTitle">Buat tag postingan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
 
-                                                @can('category_delete')
-                                                    <form action="{{ route('tags.destroy', ['tag' => $tag]) }}#posts"
-                                                        method="POST" class="d-inline" role="alert"
-                                                        alert-text="Apakah kamu yakin? tag {{ $tag->title }} akan dihapus permanen?">
-                                                        @csrf
-                                                        @method('DELETE')
+                <form id="formAddTag" action="{{ route('tags.store') }}" autocomplete="off" method="POST">
+                    @csrf
+                    @method('POST')
 
-                                                        <button type="submit" class="dropdown-item d-flex align-items-center ">
-                                                            <i class="uil uil-trash text-danger"></i>
-                                                            <span class="ml-2">Hapus Tag</span>
-                                                        </button>
-                                                    </form>
-                                                @endcan
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                @else
-                    <div class="card-body">
-                        <div class="text-center">
-                            <p class="card-text">
-                                <b>
-                                    @if (request()->get('keyword'))
-                                        Oops.. sepertinya tag {{ strtoupper(request()->get('keyword')) }}
-                                        tidak ditemukan.
-                                    @else
-                                        Hmm.. sepertinya belum ada tag yang dibuat. <a
-                                            href="{{ route('tags.create') }}#posts">Buat?</a>
-                                    @endif
-                                </b>
-                            </p>
+                    <div class="modal-body">
+                        <div class="form-group mb-3">
+                            <label for="title">Title Tag</label>
+                            <input type="text" class="form-control" id="add_title" name="title"
+                                placeholder="Masukkan title tag yang kamu buat" autofocus>
+                            <span class="invalid-feedback d-block error-text title_error"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="slug">Slug Tag</label>
+                            <input type="text" class="form-control" id="add_slug" name="slug"
+                                placeholder="Auto generate" readonly>
+                            <span class="invalid-feedback d-block error-text slug_error"></span>
                         </div>
                     </div>
-                @endif
-                @if ($tags->hasPages())
-                    <div class="card-footer">
-                        <div class="page-footer">
-                            {{ $tags->links('vendor.pagination.bootstrap-4') }}
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="submitAdd btn btn-primary">
+                            Tambah <i class="uil uil-plus"></i>
+                        </button>
                     </div>
-                @endif
+                </form>
             </div>
         </div>
     </div>
+
+    {{-- Modal update --}}
+    <div class="modal fade" id="updateTag" tabindex="-1" role="dialog" aria-labelledby="titleTag" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-centered">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="titleTagUpdate"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form id="formUpdateTag" action="#" autocomplete="off" method="PUT">
+                    @csrf
+                    @method('PUT')
+
+                    <div class="modal-body">
+                        <input type="hidden" id="update_id">
+
+                        <div class="form-group mb-3">
+                            <label for="title">Title Tag</label>
+                            <input type="text" class="form-control" id="update_title" name="title" placeholder=""
+                                autofocus>
+                            <span class="invalid-feedback d-block error-text update_title_error"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="slug">Slug Tag</label>
+                            <input type="text" class="form-control" id="update_slug" name="slug" placeholder=""
+                                readonly>
+                            <span class="invalid-feedback d-block error-text update_slug_error"></span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="submitUpdate btn btn-warning">
+                            Update <i class="uil uil-upload-alt"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{-- Modal delete --}}
+    <div class="modal fade" id="deleteTag" tabindex="-1" role="dialog" aria-labelledby="deleteTitle"
+        aria-hidden="true">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+
+                <form action="" method="DELETE" id="formDeleteTag">
+                    @csrf
+                    @method('DELETE')
+
+                    <div class="modal-body">
+                        <input id="del_id" type="hidden" name="id">
+                        <p id="text_del">Apakah kamu yakin ingin menghapus tag ini?</p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-danger deleteTag">
+                            Hapus <i class="uil uil-trash"></i>
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    @can('tag_create')
+        <a href="javascript:void(0)" class="to-the-top" data-toggle="modal" data-target="#createTag">
+            <i class="uil uil-plus"></i>
+        </a>
+    @endcan
 @endsection
 
 @push('js-internal')
     <script>
-        // NOTIF SUCCESS
-        const notif = $('.notif-success').data('notif');
-        if (notif) {
-            alertify
-                .delay(3500)
-                .log(notif);
+        const generateSlug = (value) => {
+            return value.trim()
+                .toLowerCase()
+                .replace(/[^a-z\d-]/gi, '-')
+                .replace(/-+/g, '-').replace(/^-|-$/g, "")
         }
+        $('#add_title').change(function(e) {
+            e.preventDefault();
 
-        setTimeout(() => {
-            history.replaceState('', document.title, window.location.origin + window
-                .location.pathname + window
-                .location.search);
-        }, 0);
+            let title = $(this).val();
+            $('#add_slug').val(generateSlug(title));
+        });
+
+        $('#update_title').change(function(e) {
+            e.preventDefault();
+
+            let title = $(this).val();
+            $('#update_slug').val(generateSlug(title));
+        });
+
+        // setTimeout(() => {
+        //     history.replaceState('', document.title, window.location.origin + window
+        //         .location.pathname + window
+        //         .location.search);
+        // }, 0);
 
         $(document).ready(function() {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            fetchTags();
+
+            function fetchTags() {
+                $.ajax({
+                    url: "{{ route('tags.fetch') }}",
+                    method: "GET",
+                    // beforeSend: function() {
+                    //     $('#show_tag').html(
+                    //         '<div class="text-center"><div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div></div>'
+                    //     );
+                    // },
+                    success: function(response) {
+                        $("#show_tag").html(response);
+
+                        $('table').dataTable({
+                            "ordering": false,
+                            "pageLength": 10,
+                        });
+                    }
+                });
+            }
+
+            $('#formAddTag').on('submit', function(e) {
+                e.preventDefault();
+
+                $.ajax({
+                    method: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: new FormData(this),
+                    contentType: false,
+                    processData: false,
+                    dataType: "JSON",
+                    beforeSend: function() {
+                        $('.submitAdd').attr('disabled', true);
+                        $('.submitAdd').html('<i class="fas fa-spin fa-spinner"></i>');
+                        // Ketika benar sudah melewati validasi maka hilangkan error validasinya
+                        $(document).find('span.error-text').text('');
+                        $(document).find('input.form-control').removeClass(
+                            'is-invalid');
+                    },
+                    complete: function() {
+                        $('.submitAdd').removeAttr('disabled');
+                        $('.submitAdd').html('Tambah <i class="uil uil-plus"></i>');
+
+                    },
+                    success: function(response) {
+                        if (response.status == 400) {
+                            $.each(response.errors, function(key, val) {
+                                $('span.' + key + '_error').text(val[0]);
+                                $("input#add_" + key).addClass('is-invalid');
+                            });
+                        } else {
+                            $('#formAddTag')[0].reset();
+                            $('#createTag').modal('hide');
+
+                            fetchTags();
+
+                            alertify
+                                .delay(3500)
+                                .log(response.message);
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                    }
+                });
+            });
+
+            $(document).on('click', '.edit_btn', function(e) {
+                e.preventDefault();
+
+                let id = $(this).val();
+                $("#updateTag").modal('show');
+
+                $.ajax({
+                    type: "GET",
+                    url: "{{ url('dashboard/tags/edit') }}/" + id,
+                    success: function(response) {
+                        if (response.status == 200) {
+
+                            $('#update_id').val(id);
+
+                            $('#titleTagUpdate').text("Edit tag " + response.data.title);
+                            $('#update_title').val(response.data.title);
+                            $('#update_slug').val(response.data.slug);
+
+                        } else {
+                            $("#updateTag").modal('hide');
+                            $(document).find('span.error-text').text('');
+                            $(document).find('input.form-control').removeClass(
+                                'is-invalid');
+
+                            alertify
+                                .delay(3500)
+                                .log(response.message);
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                    }
+                });
+            });
+
+            // process updating
+            $('#formUpdateTag').on('submit', function(e) {
+                e.preventDefault();
+
+                let id = $('#update_id').val();
+
+                $.ajax({
+                    url: "{{ url('dashboard/tags/update') }}/" + id,
+                    method: $(this).attr('method'),
+                    data: {
+                        "title": $('#update_title').val(),
+                        "slug": $('#update_slug').val(),
+                    },
+                    dataType: 'json',
+                    beforeSend: function() {
+                        $('.submitUpdate').attr('disabled', true);
+                        $('.submitUpdate').html('<i class="fas fa-spin fa-spinner"></i>');
+                        // Ketika benar sudah melewati validasi maka hilangkan error validasinya
+                        $(document).find('span.error-text').text('');
+                        $(document).find('input.form-control').removeClass(
+                            'is-invalid');
+                    },
+                    complete: function() {
+                        $('.submitUpdate').removeAttr('disabled');
+                        $('.submitUpdate').html('Update <i class="uil uil-upload-alt"></i>');
+
+                    },
+                    success: function(response) {
+                        if (response.status == 200) {
+                            $('#formUpdateTag')[0].reset();
+                            $('#updateTag').modal('hide');
+
+                            fetchTags();
+
+                            alertify
+                                .delay(3500)
+                                .log(response.message);
+                        } else if (response.status == 405) {
+                            $('#updateTag').modal('hide');
+                            alertify.okBtn("OK").alert(response.message);
+                        } else if (response.status == 401) {
+                            $('#updateTag').modal('hide');
+                            alertify
+                                .delay(3500)
+                                .log(response.message);
+                        } else {
+                            $.each(response.errors, function(key, val) {
+                                $('span.update_' + key + '_error').text(val[0]);
+                                $("input#update_" + key).addClass('is-invalid');
+                            });
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                    }
+                });
+            });
+
+            // Show Delete
+            $(document).on('click', '.del_btn', function(e) {
+                e.preventDefault();
+
+                let id = $(this).val();
+                let name = $(this).data('name');
+                $('#deleteTag').modal('show');
+                $('#del_id').val(id);
+                $('#text_del').text('Apakah kamu yakin? ingin menghapus tag ' + name + '?');
+
+            });
+            // process deleting
+            $("#formDeleteTag").on('submit', function(e) {
+                e.preventDefault();
+
+                let idTag = $('#del_id').val();
+
+                $.ajax({
+                    url: "{{ url('dashboard/tags/destroy') }}/" + idTag,
+                    method: $(this).attr('method'),
+                    dataType: "json",
+                    data: {
+                        "id": idTag
+                    },
+                    beforeSend: function() {
+                        $('.deleteTag').attr('disabled', true);
+                        $('.deleteTag').html('<i class="fas fa-spin fa-spinner"></i>');
+                    },
+                    complete: function() {
+                        $('.deleteTag').removeAttr('disabled');
+                        $('.deleteTag').html('Hapus <i class="uil uil-trash"></i>');
+                    },
+                    success: function(response) {
+                        if (response.status == 200) {
+                            $('#deleteTag').modal('hide');
+
+                            fetchTags();
+
+                            alertify
+                                .delay(3500)
+                                .log(response.message);
+                        } else if (response.message == 404) {
+                            $('#deleteTag').modal('hide');
+
+                            alertify
+                                .delay(3500)
+                                .log(response.message);
+                        } else {
+                            $('#deleteTag').modal('hide');
+
+                            alertify.okBtn("OK").alert(response.message);
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                    }
+                });
+            });
+
+
             $("form[role='alert']").submit(function(e) {
                 e.preventDefault();
 
@@ -164,6 +409,10 @@
                         e.target.submit();
                     }
                 });
+            });
+
+            $('body').on('shown.bs.modal', '.modal', function() {
+                $(this).find(":input:not(:button):visible:enabled:not([readonly]):first").focus();
             });
         });
     </script>

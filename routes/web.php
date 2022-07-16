@@ -86,15 +86,32 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
             Route::get('/show-replay/{id}', [\App\Http\Controllers\ContactController::class, 'showInbox'])->name('contact.showReplay');
             Route::get('/replay/{id}', [\App\Http\Controllers\ContactController::class, 'replay'])->name('contact.replay');
             // Tutorial
+            Route::delete('/tutorials/destroy/{id}', [\App\Http\Controllers\Dashboard\TutorialController::class, 'destroy'])->name('tutorials.destroy');
+            Route::put('/tutorials/update/{id}', [\App\Http\Controllers\Dashboard\TutorialController::class, 'update'])->name('tutorial.update');
+            Route::get('/tutorials/edit/{id}', [\App\Http\Controllers\Dashboard\TutorialController::class, 'edit'])->name('tutorial.edit');
+            Route::get('/tutorials/show/{id}', [\App\Http\Controllers\Dashboard\TutorialController::class, 'show'])->name('tutorials.show');
+            Route::post('/tutorials/store', [\App\Http\Controllers\Dashboard\TutorialController::class, 'store'])->name('tutorials.store');
+            Route::get('/tutorials/fetch', [\App\Http\Controllers\Dashboard\TutorialController::class, 'fetch'])->name('tutorials.fetch');
             Route::get('/tutorials/select', [\App\Http\Controllers\Dashboard\TutorialController::class, 'select'])->name('tutorials.select');
-            Route::resource('/tutorials', \App\Http\Controllers\Dashboard\TutorialController::class)->except('show');
+            Route::resource('/tutorials', \App\Http\Controllers\Dashboard\TutorialController::class)->except('show', 'store', 'edit', 'update', 'destroy');
             // Category
+            Route::delete('/categories/destroy/{id}', [\App\Http\Controllers\Dashboard\CategoryController::class, 'destroy'])->name('categories.destroy');
+            Route::get('/categories/show/{id}', [\App\Http\Controllers\Dashboard\CategoryController::class, 'show'])->name('categories.show');
+            Route::get('/categories/edit/{id}', [\App\Http\Controllers\Dashboard\CategoryController::class, 'edit'])->name('categories.edit');
+            Route::put('/categories/update/{id}', [\App\Http\Controllers\Dashboard\CategoryController::class, 'update'])->name('categories.update');
+            Route::get('/categories/fetch', [\App\Http\Controllers\Dashboard\CategoryController::class, 'fetch'])->name('categories.fetch');
+            Route::post('/categories/store', [\App\Http\Controllers\Dashboard\CategoryController::class, 'store'])->name('categories.store');
+            Route::get('/categories/create', [\App\Http\Controllers\Dashboard\CategoryController::class, 'create'])->name('categories.create');
             Route::get('/categories/select', [\App\Http\Controllers\Dashboard\CategoryController::class, 'select'])->name('categories.select');
-            Route::resource('/categories', \App\Http\Controllers\Dashboard\CategoryController::class)->except('show');
+            Route::resource('/categories', \App\Http\Controllers\Dashboard\CategoryController::class)->except('show', 'create', 'store', 'edit', 'update', 'destroy');
             // Tag
+            Route::put('/tags/update/{id}', [\App\Http\Controllers\Dashboard\TagController::class, 'update'])->name('tags.update');
+            Route::get('/tags/edit/{id}', [\App\Http\Controllers\Dashboard\TagController::class, 'edit'])->name('tags.edit');
+            Route::delete('/tags/destroy/{id}', [\App\Http\Controllers\Dashboard\TagController::class, 'destroy'])->name('tags.destroy');
+            Route::get('/tags/fetch', [\App\Http\Controllers\Dashboard\TagController::class, 'fetch'])->name('tags.fetch');
             Route::get('/tags/add-create', [\App\Http\Controllers\Dashboard\TagController::class, 'addcreate'])->name('tags.addcreate');
             Route::get('/tags/select', [\App\Http\Controllers\Dashboard\TagController::class, 'select'])->name('tags.select');
-            Route::resource('/tags', \App\Http\Controllers\Dashboard\TagController::class)->except('show');
+            Route::resource('/tags', \App\Http\Controllers\Dashboard\TagController::class)->except('show','create', 'destroy', 'edit', 'update');
             // Posts
             Route::get('/posts/trash', [\App\Http\Controllers\Dashboard\PostController::class, 'listsDeletePosts'])->name('posts.delete');
             Route::post('/posts/restore/{id}', [\App\Http\Controllers\Dashboard\PostController::class, 'restore'])->name('posts.restore');

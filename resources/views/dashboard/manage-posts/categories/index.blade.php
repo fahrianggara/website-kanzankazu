@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Kategori postingan
+    Kategori Postingan
 @endsection
 
 @section('breadcrumbs')
@@ -14,177 +14,452 @@
 
     <div class="row">
         <div class="col-12">
-            <div class="row justify-content-center">
-                <div class="col-md-8">
-                    <div class="card m-b-30">
-                        <div class="card-header">
-                            <div class="row">
-                                <div class="col-lg-1 col-3">
-                                    @can('category_create')
-                                        <a href="{{ route('categories.create') }}#posts" class="btn btn-primary"
-                                            data-toggle="tooltip" data-placement="bottom" title="Buat">
-                                            <i class="uil uil-plus"></i>
-                                        </a>
-                                    @endcan
-                                </div>
-                                <div class="col-lg-11 col-9">
-                                    <form action="{{ route('categories.index') }}#posts" method="GET">
-                                        <div class="input-group">
-                                            <input autocomplete="off" type="search" id="keyword" name="keyword"
-                                                class="form-control" placeholder="Cari kategori.."
-                                                value="{{ request()->get('keyword') }}" autocomplete="off">
-
-                                            <div class="input-group-append">
-                                                <button class="btn btn-primary" type="submit" data-toggle="tooltip"
-                                                    data-placement="bottom" title="Telusuri">
-                                                    <i class="uil uil-search"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div id="fetchCategory" class="card card-body m-b-30 table-responsive shadow-sm table-wrapper"></div>
         </div>
+    </div>
 
-        <div class="col-12">
-            <div class="card card-body m-b-30 table-responsive shadow-sm table-wrapper">
-                @if (count($categories) >= 1)
-                    <table class="table table-hover align-items-center overflow-hidden">
-                        <thead>
-                            <tr>
-                                <th>Kategori</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($categories as $category)
-                                <tr>
-                                    <td>
-                                        <a href="javascript:void(0)" class="d-flex align-items-center"
-                                            style="cursor: default">
-                                            @if (file_exists('vendor/dashboard/image/thumbnail-categories/' . $category->thumbnail))
-                                                <img src="{{ asset('vendor/dashboard/image/thumbnail-categories/' . $category->thumbnail) }}"
-                                                    width="60" class="avatar me-3">
-                                            @else
-                                                <img src="{{ asset('vendor/blog/img/default.png') }}" width="60"
-                                                    class="avatar me-3">
-                                            @endif
-                                            <div class="d-block ml-3">
-                                                <span class="fw-bold name-user">{{ $category->title }}</span>
-                                                <div class="small text-secondary">
-                                                    {{ substr($category->description, 0, 20) }}...
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <div class="btn-group dropleft">
-                                            <button
-                                                class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="uil uil-ellipsis-v"></i>
-                                            </button>
-                                            <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mb-4 py-1">
-                                                @can('category_update')
-                                                    <a href="{{ route('categories.edit', ['category' => $category]) }}#posts"
-                                                        class="dropdown-item d-flex align-items-center ">
-                                                        <i class="uil uil-pen text-warning"></i>
-                                                        <span class="ml-2">Edit Kategori</span>
-                                                    </a>
-                                                @endcan
-                                                @can('category_delete')
-                                                    <form
-                                                        action="{{ route('categories.destroy', ['category' => $category]) }}#posts"
-                                                        class="d-inline" role="alert" method="POST"
-                                                        alert-text="Apakah kamu yakin? kategori {{ $category->title }} akan dihapus permanen?">
-                                                        @csrf
-                                                        @method('DELETE')
+    {{-- Modal create --}}
+    <div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="create" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-centered">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="create">Buat Kategori</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
 
-                                                        <button type="submit" class="dropdown-item d-flex align-items-center ">
-                                                            <i class="uil uil-trash text-danger"></i>
-                                                            <span class="ml-2">Hapus Kategori</span>
-                                                        </button>
-                                                    </form>
-                                                @endcan
-                                            </div>
-                                        </div>
-                                    </td>
+                <form id="formCreate" action="{{ route('categories.store') }}" method="POST"
+                    enctype="multipart/form-data" autocomplete="off">
+                    @csrf
+                    @method('POST')
 
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                @else
-                    <div class="card-body">
-                        <div class="text-center">
-                            <p class="card-text">
-                                <b>
-                                    @if (request()->get('keyword'))
-                                        Oops.. sepertinya kategori dengan title
-                                        {{ strtoupper(request()->get('keyword')) }} tidak ditemukan.
-                                    @else
-                                        Hmm.. sepertinya kategori belum dibuat. <a
-                                            href="{{ route('categories.create') }}#posts">Buat?</a>
-                                    @endif
-                                </b>
-                            </p>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="add_title">Nama Kategori</label>
+                            <input type="text" class="form-control" id="add_title" name="title"
+                                placeholder="Masukkan title kategori">
+                            <span class="invalid-feedback d-block error-text add_title_error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="add_slug">Slug</label>
+                            <input type="text" class="form-control" id="add_slug" name="slug"
+                                placeholder="Auto generate dari title" readonly>
+                            <span class="invalid-feedback d-block error-text add_slug_error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="add_thumbnail">Thumbnail</label>
+                            <div class="custom-file">
+                                <input type="file" name="thumbnail"
+                                    class="custom-file-input @error('thumbnail') is-invalid @enderror" id="add_thumbnail"
+                                    value="{{ old('thumbnail') }}">
+                                <label class="custom-file-label" for="thumbnail">Cari gambar kategori..</label>
+                            </div>
+                            <span class="invalid-feedback d-block error-text add_thumbnail_error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="add_description">Deskripsi</label>
+                            <textarea class="form-control" id="add_description" name="description"
+                                placeholder="Masukkan deskripsi kategori atau boleh kosong" cols="2" rows="4"></textarea>
+                            <span class="invalid-feedback d-block error-text add_description_error"></span>
                         </div>
                     </div>
-                @endif
 
-                @if ($categories->hasPages())
-                    <div class="card-footer">
-                        <div class="page-footer">
-                            {{ $categories->links('vendor.pagination.bootstrap-4') }}
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btnBuat btn btn-primary">Buat <i class="uil uil-plus"></i></button>
                     </div>
-                @endif
+                </form>
             </div>
         </div>
     </div>
+
+    {{-- Modal Show --}}
+    <div class="modal fade" id="modalShow" tabindex="-1" role="dialog" aria-labelledby="modalShow" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-centered">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalShow"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img id="imgCate" src="" class="img-fluid">
+                    <h5 id="titleCate" class="mt-3"></h5>
+                    <p id="descCate"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Modal Edit --}}
+    <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalEdit"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-centered">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalEdit">Edit Kategori</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form id="formEdit" action="#" method="POST" enctype="multipart/form-data" autocomplete="off">
+                    @csrf
+                    @method('PUT')
+
+                    <input type="hidden" id="edit_id">
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="edit_title">Nama Kategori</label>
+                            <input type="text" class="form-control" id="edit_title" name="title"
+                                placeholder="Masukkan title kategori">
+                            <span class="invalid-feedback d-block error-text edit_title_error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_slug">Slug</label>
+                            <input type="text" class="form-control" id="edit_slug" name="slug"
+                                placeholder="Auto generate dari title" readonly>
+                            <span class="invalid-feedback d-block error-text edit_slug_error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_thumbnail">Thumbnail</label>
+                            <div class="custom-file">
+                                <input type="file" name="thumbnail"
+                                    class="custom-file-input @error('thumbnail') is-invalid @enderror"
+                                    value="{{ old('thumbnail') }}">
+                                <label class="custom-file-label" id="edit_thumbnail" for="thumbnail">Cari gambar
+                                    kategori..</label>
+                            </div>
+                            <span class="invalid-feedback d-block error-text edit_thumbnail_error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_description">Deskripsi</label>
+                            <textarea class="form-control" id="edit_description" name="description"
+                                placeholder="Masukkan deskripsi kategori atau boleh kosong" cols="2" rows="4"></textarea>
+                            <span class="invalid-feedback d-block error-text edit_description_error"></span>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btnEdit btn btn-warning">Edit <i class="uil uil-pen"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{-- Modal Delete --}}
+    <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDelete"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="formDelete" action="" method="POST">
+                    @csrf
+                    @method('DELETE')
+
+                    <div class="modal-body">
+                        <input type="hidden" id="del_id">
+                        <p id="del_text">Apakah anda yakin ingin menghapus kategori ini?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btnDelete btn btn-danger">Hapus <i
+                                class="uil uil-trash"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    @can('category_create')
+        <a href="javascript:void(0)" class="to-the-top" data-toggle="modal" data-target="#modalCreate">
+            <i class="uil uil-plus"></i>
+        </a>
+    @endcan
+
 @endsection
 
 @push('js-internal')
     <script>
-        // NOTIF SUCCESS
-        const notif = $('.notif-success').data('notif');
-        if (notif) {
-            alertify
-                .delay(3500)
-                .log(notif);
-        }
-
-        setTimeout(() => {
-            history.replaceState('', document.title, window.location.origin + window
-                .location.pathname + window
-                .location.search);
-        }, 0);
-
-        // SWAL
         $(document).ready(function() {
-            $("form[role='alert']").submit(function(e) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            // change title to slug
+            $('input[name="title"]').on('keyup', function() {
+                var title = $(this).val();
+                var slug = title.toLowerCase().trim().replace(/ +/g, '-').replace(/[^\w-]+/g, '');
+                $('input[name="slug"]').val(slug);
+            });
+
+            // change file name
+            $('input[type="file"]').on('change', function() {
+                var fileName = $(this).val().split('\\').pop();
+                $(this).next('.custom-file-label').addClass('selected').html(fileName);
+            });
+
+            // autofocus input modal create
+            $('.modal').on('shown.bs.modal', function() {
+                $('input[name="title"]').focus();
+            });
+
+            fetchCategories();
+
+            function fetchCategories() {
+                $.ajax({
+                    url: "{{ route('categories.fetch') }}",
+                    method: "GET",
+                    success: function(response) {
+                        $('#fetchCategory').html(response);
+
+                        $('#tableCategory').DataTable({
+                            "ordering": false,
+                            "pageLength": 10,
+                            "order": [
+                                [1, "asc"]
+                            ]
+                        });
+                    }
+                });
+            }
+
+            $('[data-dismiss="modal"]').on('click', function() {
+                $(document).find('span.error-text').text('');
+                $(document).find('input').removeClass(
+                    'is-invalid');
+                $(document).find('textarea').removeClass(
+                    'is-invalid');
+                $('#formCreate')[0].reset();
+            });
+
+            // process insert data categories with ajax
+            $('#formCreate').on('submit', function(e) {
                 e.preventDefault();
 
-                Swal.fire({
-                    title: "Warning",
-                    text: $(this).attr('alert-text'),
-                    icon: "warning",
-                    allowOutsideClick: false,
-                    showCancelButton: true,
-                    cancelButtonText: "Ga, batalkan!",
-                    confirmButtonText: "Ya, hapus!",
-                    confirmButtonColor: '#d33',
-                    reverseButtons: true,
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        e.target.submit();
+                var form = $(this)[0];
+                var formData = new FormData(form);
+
+                $.ajax({
+                    url: $(this).attr('action'),
+                    method: $(this).attr('method'),
+                    data: formData,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    beforeSend: function() {
+                        $('.btnBuat').html('<i class="fas fa-spin fa-spinner"></i>');
+                        $('.btnBuat').prop('disabled', true);
+
+                        $(document).find('span.invalid-feedback').text('');
+                        $(document).find('input').removeClass(
+                            'is-invalid');
+                        $(document).find('textarea.form-control').removeClass(
+                            'is-invalid');
+                    },
+                    complete: function() {
+                        $('.btnBuat').html('Buat <i class="uil uil-plus"></i>');
+                        $('.btnBuat').prop('disabled', false);
+                    },
+                    success: function(response) {
+                        if (response.status == 400) {
+                            $.each(response.errors, function(key, value) {
+                                $('span.add_' + key + '_error').text(value[0]);
+                                $('#add_' + key).addClass('is-invalid');
+                            });
+                        } else {
+                            $('#modalCreate').modal('hide');
+                            $('#formCreate')[0].reset();
+                            $('#formCreate').find('.custom-file-label').html(
+                                'Pilih gambar kategori..');
+
+                            fetchCategories();
+
+                            alertify.delay(4500).log(response.message);
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
                     }
                 });
             });
+
+            // show modal categories
+            $(document).on('click', '.show_btn', function() {
+
+                let id = $(this).val();
+                $("#modalShow").modal('show');
+
+                $.ajax({
+                    type: "GET",
+                    url: "{{ url('dashboard/categories/show') }}/" + id,
+                    success: function(response) {
+                        if (response.status == 200) {
+                            $('h5#modalShow').text("Kategori: " + response.data.title);
+                            if (response.data.thumbnail == "default.png") {
+                                $('img#imgCate').attr('src',
+                                    "{{ asset('vendor/blog/img/default.png') }}");
+                            } else {
+                                $('img#imgCate').attr('src',
+                                    "{{ asset('vendor/dashboard/image/thumbnail-categories') }}/" +
+                                    response.data.thumbnail);
+                            }
+                            $('h5#titleCate').text(response.data.title);
+                            $('p#descCate').text(response.data.description);
+                        } else {
+                            alertify.okBtn('Ok').alert(response.message);
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                    }
+                });
+            });
+
+            // show edit modal categories
+            $(document).on('click', '.edit_btn', function() {
+
+                let id = $(this).val();
+                $("#modalEdit").modal('show');
+
+                $.ajax({
+                    type: "GET",
+                    url: "{{ url('dashboard/categories/edit') }}/" + id,
+                    success: function(response) {
+                        if (response.status == 200) {
+                            $('h5#modalEdit').text("Edit Kategori: " + response.data.title);
+                            $('#edit_id').val(id);
+                            $('#edit_title').val(response.data.title);
+                            $('#edit_slug').val(response.data.slug);
+                            $('#edit_description').val(response.data.description);
+                            $('#edit_thumbnail').text(response.data.thumbnail);
+                            $('input[type="file"]').val(response.data.thumbnail);
+                        } else {
+                            $("#modalEdit").modal('hide');
+                            alertify.okBtn('Ok').alert(response.message);
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                    }
+                });
+            });
+
+            // process update data categories with ajax
+            $('#formEdit').on('submit', function(e) {
+                e.preventDefault();
+
+                var id = $('#edit_id').val();
+                var form = $(this)[0];
+                var formData = new FormData(form);
+
+                $.ajax({
+                    url: "{{ url('dashboard/categories/update') }}/" + id,
+                    method: $(this).attr('method'),
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    dataType: "json",
+                    beforeSend: function() {
+                        $('.btnEdit').html('<i class="fas fa-spin fa-spinner"></i>');
+                        $('.btnEdit').prop('disabled', true);
+
+                        $(document).find('span.invalid-feedback').text('');
+                        $(document).find('input').removeClass(
+                            'is-invalid');
+                        $(document).find('textarea.form-control').removeClass(
+                            'is-invalid');
+                    },
+                    complete: function() {
+                        $('.btnEdit').html('Edit <i class="uil uil-pen"></i>');
+                        $('.btnEdit').prop('disabled', false);
+                    },
+                    success: function(response) {
+                        if (response.status == 400) {
+                            $.each(response.errors, function(key, value) {
+                                $('span.edit_' + key + '_error').text(value[0]);
+                                $('#edit_' + key).addClass('is-invalid');
+                            });
+                        } else {
+                            $('#modalEdit').modal('hide');
+                            $('#formEdit')[0].reset();
+                            $('#formEdit').find('.custom-file-label').html(
+                                'Pilih gambar kategori..');
+
+                            fetchCategories();
+
+                            alertify.delay(4500).log(response.message);
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                    }
+                });
+            });
+
+            // show delete modal
+            $(document).on('click', '.del_btn', function() {
+
+                let id = $(this).val();
+                let title = $(this).data('title');
+                $("#modalDelete").modal('show');
+
+                $('#del_id').val(id);
+                $('#del_text').text("Apakah anda yakin ingin menghapus kategori: " + title + "?");
+            });
+
+            // process delete data categories with ajax
+            $('#formDelete').on('submit', function(e) {
+                e.preventDefault();
+
+                var id = $('#del_id').val();
+
+                $.ajax({
+                    url: "{{ url('dashboard/categories/destroy') }}/" + id,
+                    method: "DELETE",
+                    data: {
+                        "id": id
+                    },
+                    beforeSend: function() {
+                        $('.btnDelete').html('<i class="fas fa-spin fa-spinner"></i>');
+                        $('.btnDelete').prop('disabled', true);
+                    },
+                    complete: function() {
+                        $('.btnDelete').html('Hapus <i class="uil uil-trash"></i>');
+                        $('.btnDelete').prop('disabled', false);
+                    },
+                    success: function(response) {
+                        if (response.status == 400) {
+                            $('#modalDelete').modal('hide');
+                            alertify.okBtn('Ok').alert(response.message);
+                        } else {
+                            $('#modalDelete').modal('hide');
+
+                            fetchCategories();
+
+                            alertify.delay(4500).log(response.message);
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                    }
+                });
+            });
+
+            // $(document).on('keyup', function(e) {
+            //     if (e.which == 16) {
+            //         $('.add_btn').click();
+            //     }
+            // });
         });
     </script>
 @endpush

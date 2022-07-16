@@ -31,7 +31,7 @@
     <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:image" content="{{ asset('logo-web/android-chrome-512x512.png') }}" />
     {{-- title --}}
-    <title>@yield('title') - {{ $setting->site_name }}</title>
+    <title>@yield('title') | Dashboard - {{ $setting->site_name }}</title>
     {{-- Logo / icon --}}
     <link rel="shortcut icon" href="{{ asset('logo-web/favicon.ico') }}" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('logo-web/apple-icon-180x180.png') }}">
@@ -63,6 +63,72 @@
 
         a:hover {
             text-decoration: none !important;
+        }
+
+        .btn:focus {
+            box-shadow: none;
+        }
+
+        .dashboard-dropdown {
+            margin-bottom: 67px;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-dropdown {
+                margin-bottom: 104px;
+            }
+        }
+
+        .to-the-top {
+            position: fixed;
+            display: block;
+            width: 70px;
+            height: 70px;
+            border-radius: 50px;
+            left: 270px;
+            bottom: 100px;
+            background: #00b1cc9b;
+            color: #fff;
+            transition: display 0.5s ease-in-out;
+            z-index: 1;
+        }
+
+        .to-the-top i {
+            font-size: 30px;
+            position: absolute;
+            top: 12px;
+            right: 19.8px;
+        }
+
+        @media (max-width: 769px) {
+
+            .to-the-top {
+                position: fixed;
+                display: block;
+                width: 70px;
+                height: 70px;
+                border-radius: 50px;
+                left: 30px;
+                bottom: 100px;
+                background: #00b2cc;
+                color: #fff;
+                transition: display 0.5s ease-in-out;
+                z-index: 1;
+            }
+
+            .to-the-top i {
+                font-size: 30px;
+                position: absolute;
+                top: 12px;
+                right: 20px;
+            }
+        }
+
+
+        .to-the-top:hover {
+            color: #fff;
+            background: #00b2cc;
+            transition: background 0.2s ease-in-out;
         }
     </style>
 </head>
@@ -135,9 +201,9 @@
     <script src="{{ asset('vendor/dashboard/plugins/ijabocroptool/ijaboCropTool.min.js') }}"></script>
     <script src="{{ asset('vendor/blog/assets/sweetalert2/sweetalert2.js') }}"></script>
     <script src="{{ asset('vendor/blog/assets/prehighlight/prehighlights.js') }}"></script>
-     {{-- ttiny mce --}}
-     <script src="{{ asset('vendor/dashboard/plugins/tinymce5/jquery.tinymce.min.js') }}"></script>
-     <script src="{{ asset('vendor/dashboard/plugins/tinymce5/tinymce.min.js') }}"></script>
+    {{-- ttiny mce --}}
+    <script src="{{ asset('vendor/dashboard/plugins/tinymce5/jquery.tinymce.min.js') }}"></script>
+    <script src="{{ asset('vendor/dashboard/plugins/tinymce5/tinymce.min.js') }}"></script>
     {{-- select2 --}}
     <script src="{{ asset('vendor/dashboard/plugins/select2/js/select2.min.js') }}"></script>
     <script src="{{ asset('vendor/dashboard/plugins/select2/js/i18n/' . app()->getLocale() . '.js') }}"></script>

@@ -39,6 +39,72 @@ class TagController extends Controller
         ]);
     }
 
+    public function fetch()
+    {
+        $tags = Tag::all();
+        $output = '';
+
+        if ($tags->count() > 0) {
+            $output .= '
+            <table id="tableTag" class="table table-hover align-items-center overflow-hidden">
+                <thead>
+                    <tr>
+                        <th>Nama Tag</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+           ';
+            foreach ($tags as $tag) {
+                $output .= '
+                    <tr>
+                        <td> ' . $tag->title . ' </td>
+
+                        <td>
+                            <div class="btn-group dropleft">
+                                <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="uil uil-ellipsis-v"></i>
+                                </button>
+
+                                <div class="dropdown-menu dashboard-dropdown dropdown-menu-start py-1">
+                                    <button value="' . $tag->id . '" class="edit_btn dropdown-item d-flex align-items-center">
+                                        <i class="uil uil-pen text-warning"></i>
+                                        <span class="ml-2">Edit Tag</span>
+                                    </button>
+                                    <button value="' . $tag->id . '" data-name="' . $tag->title . '" class="del_btn dropdown-item d-flex align-items-center">
+                                        <i class="uil uil-trash text-danger"></i>
+                                        <span class="ml-2">Hapus Tag</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                ';
+            }
+            $output .= '</tbody></table>';
+        } else {
+            $output .= '
+            <div class="card-body">
+                <div class="text-center">
+                    <p class="card-text">
+                        <b>
+                            @if (request()->get("keyword"))
+                                Oops.. sepertinya tag {{ strtoupper(request()->get("keyword")) }}
+                                tidak ditemukan.
+                            @else
+                                Hmm.. sepertinya belum ada tag yang dibuat. <a
+                                    href="{{ route("tags.create") }}#posts">Buat?</a>
+                            @endif
+                        </b>
+                    </p>
+                </div>
+            </div>
+            ';
+        }
+        echo $output;
+    }
+
     // SELECT
     public function select(Request $request)
     {
@@ -70,37 +136,34 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        Validator::make(
-            $request->all(),
-            [
-                'title'         => 'required|max:15|min:3',
-                'slug'          => 'unique:tags,slug',
-            ],
-            [
-                'title.required'         => 'Wajib diisi',
-                'title.max'              => 'Maksimal 15 karakter!',
-                'title.min'              => 'Minimal 3 karakter!',
-                'slug.unique'            => 'Tag sudah ada!',
-            ]
-        )->validate();
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|alpha_spaces|max:15|min:3',
+            'slug' => 'unique:tags,slug',
+        ]);
 
-        try {
-            Tag::create(
-                [
-                    'title' => $request->title,
-                    'slug'  => $request->slug
-                ]
-            );
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->errors()->toArray()
+            ]);
+        } else {
+            try {
+                $tag = Tag::create([
+                    'title' => $request->input('title'),
+                    'slug' =>  $request->input('slug'),
+                ]);
 
-            return redirect()->route('tags.index')->with('success', 'Tag baru berhasil disimpan!');
-        } catch (\Throwable $th) {
-            Alert::error(
-                'Error',
-                'Terjadi kesalahan saat menyimpan data.
+                return response()->json([
+                    'status' => 200,
+                    'message' => "Tag postingan berhasil ditambahkan",
+                ]);
+            } catch (\Throwable $th) {
+                Alert::error(
+                    'Error',
+                    'Terjadi kesalahan saat menyimpan data.
                 Pesan: ' . $th->getMessage()
-            )->autoClose(false);
-
-            return redirect()->back()->withInput($request->all());
+                )->autoClose(false);
+            }
         }
     }
 
@@ -110,64 +173,118 @@ class TagController extends Controller
      * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tag $tag)
+    public function edit($id)
     {
-        return view('dashboard.manage-posts.tags.edit', compact('tag'));
+        $tag = Tag::find($id);
+
+        if ($tag) {
+            return response()->json([
+                'status' => 200,
+                'data' => $tag
+            ]);
+        } else {
+            return response()->json([
+                'status' => 400,
+                'message' => 'Data tag tidak ditemukan'
+            ]);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Tag  $tag
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Tag $tag)
+    public function update(Request $request, $id)
     {
-        Validator::make(
-            $request->all(),
-            [
-                'title'         => 'required|alpha_spaces|max:50|min:3',
-                'slug'          => 'unique:tags,slug,' . $tag->id,
-            ],
-            [
-                'title.required'         => 'Wajib harus diisi!',
-                'title.alpha_spaces'     => 'Hanya boleh huruf dan spasi!',
-                'title.max'              => 'Maksimal 50 karakter!',
-                'title.min'              => 'Minimal 3 karakter!',
-                'slug.unique'            => 'Tag sudah ada!',
-            ],
-        )->validate();
+        $tag = Tag::find($id);
 
-        try {
-            $tag->title = $request->input('title');
-            $tag->slug  = $request->input('slug');
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|alpha_spaces|max:15|min:3',
+            'slug' => 'unique:tags,slug,' . $id,
+        ]);
 
-            if ($tag->isDirty()) {
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->errors()->toArray()
+            ]);
+        } else {
 
-                $tag->update();
+            try {
+                $tag = Tag::find($id);
+                if ($tag) {
 
-                return redirect()->route('tags.index')
-                    ->with(
-                        'success',
-                        'Tag berhasil diperbarui!'
-                    );
-            } else {
-                return redirect()->route('tags.index')
-                    ->with(
-                        'success',
-                        'Oops.. tidak ada perubahan!'
-                    );
+                    $tag->title = $request->input('title');
+                    $tag->slug = $request->input('slug');
+
+                    if ($tag->isDirty()) {
+
+                        $tag->update();
+
+                        return response()->json([
+                            'status' => 200,
+                            'message' => "Tag postingan " . $tag->title . " berhasil diubah",
+                        ]);
+                    } else {
+                        return response()->json([
+                            'status' => 401,
+                            'message' => "Tidak ada perubahan"
+                        ]);
+                    }
+                } else {
+                    return response()->json([
+                        'status' => 405,
+                        'message' => 'tidak ada data tag'
+                    ]);
+                }
+            } catch (\Throwable $th) {
+                return response()->json([
+                    'status' => 405,
+                    'message' => 'Pesan: ' . $th->getMessage()
+                ]);
             }
-        } catch (\Throwable $th) {
-            Alert::error(
-                'Error',
-                'Terjadi kesalahan saat memperbarui data.
-                Pesan: ' . $th->getMessage()
-            )->autoClose(false);
-
-            return redirect()->back()->withInput($request->all());
         }
+
+        // Validator::make(
+        //     $request->all(),
+        //     [
+        //         'title'         => 'required|alpha_spaces|max:50|min:3',
+        //         'slug'          => 'unique:tags,slug,' . $tag->id,
+        //     ],
+        //     [
+        //         'title.required'         => 'Wajib harus diisi!',
+        //         'title.alpha_spaces'     => 'Hanya boleh huruf dan spasi!',
+        //         'title.max'              => 'Maksimal 50 karakter!',
+        //         'title.min'              => 'Minimal 3 karakter!',
+        //         'slug.unique'            => 'Tag sudah ada!',
+        //     ],
+        // )->validate();
+
+        // try {
+        //     $tag->title = $request->input('title');
+        //     $tag->slug  = $request->input('slug');
+
+        //     if ($tag->isDirty()) {
+
+        //         $tag->update();
+
+        //         return redirect()->route('tags.index')
+        //             ->with(
+        //                 'success',
+        //                 'Tag berhasil diperbarui!'
+        //             );
+        //     } else {
+        //         return redirect()->route('tags.index')
+        //             ->with(
+        //                 'success',
+        //                 'Oops.. tidak ada perubahan!'
+        //             );
+        //     }
+        // } catch (\Throwable $th) {
+        //     Alert::error(
+        //         'Error',
+        //         'Terjadi kesalahan saat memperbarui data.
+        //         Pesan: ' . $th->getMessage()
+        //     )->autoClose(false);
+
+        //     return redirect()->back()->withInput($request->all());
+        // }
     }
 
     /**
@@ -176,29 +293,38 @@ class TagController extends Controller
      * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tag $tag)
+    public function destroy($id)
     {
-        $usePostTag = Post::join('post_tag', 'posts.id', '=', 'post_tag.post_id')
-            ->where('post_tag.tag_id', $tag->id)->get();
+        $tag = Tag::find($id);
 
-        if ($usePostTag->count() >= 1) {
-            Alert::warning(
-                'Warning',
-                "Oops.. tag " . $tag->title . " tidak bisa hapus, karena tag ini sedang digunakan."
-            )->autoClose(false);
-            return redirect()->back();
-        }
+        if ($tag) {
 
-        try {
+            $usePostTag = Post::join('post_tag', 'posts.id', '=', 'post_tag.post_id')
+                ->where('post_tag.tag_id', $tag->id)->get();
+
+            if ($usePostTag->count() >= 1) {
+                // Alert::warning(
+                //     'Warning',
+                //     "Oops.. tag " . $tag->title . " tidak bisa hapus, karena tag ini sedang digunakan."
+                // )->autoClose(false);
+
+                return response()->json([
+                    'status' => 405,
+                    'message' => "Tag " . $tag->title . " tidak bisa dihapus, karena tag ini sedang digunakan."
+                ]);
+            }
+
             $tag->delete();
-        } catch (\Throwable $th) {
-            Alert::error(
-                'Error',
-                'Terjadi kesalahan saat menghapus data.
-                Pesan: ' . $th->getMessage()
-            )->autoClose(false);
-        }
 
-        return redirect()->back()->with('success', 'Tag ' . $tag->title . ' berhasil dihapus!');
+            return response()->json([
+                'status' => 200,
+                'message' => "Tag " . $tag->title . " berhasil dihapus",
+            ]);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'message' => "Data employee not found!"
+            ]);
+        }
     }
 }
