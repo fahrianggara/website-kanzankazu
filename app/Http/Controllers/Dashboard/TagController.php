@@ -89,13 +89,7 @@ class TagController extends Controller
                 <div class="text-center">
                     <p class="card-text">
                         <b>
-                            @if (request()->get("keyword"))
-                                Oops.. sepertinya tag {{ strtoupper(request()->get("keyword")) }}
-                                tidak ditemukan.
-                            @else
-                                Hmm.. sepertinya belum ada tag yang dibuat. <a
-                                    href="{{ route("tags.create") }}#posts">Buat?</a>
-                            @endif
+                           Hmm.. sepertinya belum ada tag yang dibuat.
                         </b>
                     </p>
                 </div>
