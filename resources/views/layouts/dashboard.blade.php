@@ -110,7 +110,7 @@
                 border-radius: 50px;
                 left: 30px;
                 bottom: 100px;
-                background: #00b2cc;
+                background: #00b1cc9b;
                 color: #fff;
                 transition: display 0.5s ease-in-out;
                 z-index: 1;
