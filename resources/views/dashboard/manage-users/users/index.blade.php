@@ -17,7 +17,7 @@
         <div class="col-12 m-b-20">
             <form action="#users" method="GET" class="">
                 <div class="row">
-                    <div class="col-md-4 mb-2">
+                    <div class="col-md-4 sideMenuSearch">
                         <div class="card">
                             <div class="card-header">
                                 <div class="row">
@@ -86,7 +86,7 @@
             <div class="card m-b-30">
                 <div class="card-body table-responsive shadow-sm table-wrapper">
                     @if (count($users) >= 1)
-                        <table class="table table-hover align-items-center overflow-hidden">
+                        <table id="tableUsers" class="table table-hover align-items-center overflow-hidden">
                             <thead>
                                 <tr>
                                     <th>Nama</th>
@@ -193,8 +193,7 @@
                                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     <i class="uil uil-ellipsis-v"></i>
                                                 </button>
-                                                <div
-                                                    class="dropdown-menu dashboard-dropdown dropdown-menu-start mb-4 py-1">
+                                                <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mb-2 py-1">
 
                                                     @if ($user->status == 'allowable')
                                                         @if ($user->provider == 'anonymous')
@@ -344,15 +343,14 @@
                             </div>
                         </div>
                     @endif
-
-                    @if ($users->hasPages())
-                        <div class="card-footer">
-                            <div class="page-footer">
-                                {{ $users->links('vendor.pagination.bootstrap-4') }}
-                            </div>
-                        </div>
-                    @endif
                 </div>
+                @if ($users->hasPages())
+                    <div class="card-footer">
+                        <div class="page-footer">
+                            {{ $users->links('vendor.pagination.bootstrap-4') }}
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
@@ -408,12 +406,6 @@
 
 @push('js-internal')
     <script>
-        setTimeout(() => {
-            history.replaceState('', document.title, window.location.origin + window
-                .location.pathname + window
-                .location.search);
-        }, 0);
-
         $(document).ready(function() {
             $.ajaxSetup({
                 headers: {

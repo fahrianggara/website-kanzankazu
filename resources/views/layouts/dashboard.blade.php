@@ -53,27 +53,10 @@
     <link href="{{ asset('vendor/blog/assets/fontawesome/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('vendor/dashboard/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('vendor/dashboard/css/icons.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('vendor/dashboard/css/isss.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('vendor/dashboard/css/q.css') }}" rel="stylesheet" type="text/css">
     {{-- CALL CSS --}}
     @stack('css-external')
     @stack('css-internal')
-
-    <style>
-        @media screen and (max-width: 767px) {
-            div.dataTables_wrapper div.dataTables_length, div.dataTables_wrapper div.dataTables_filter, div.dataTables_wrapper div.dataTables_info, div.dataTables_wrapper div.dataTables_paginate {
-                text-align: left !important;
-            }
-
-        }
-        div.dataTables_wrapper div.dataTables_paginate ul.pagination {
-            justify-content: flex-start !important;
-            white-space: nowrap !important;
-            margin: 2px 0 !important;
-        }
-        .dataTables_wrapper .dataTables_paginate {
-            padding-right: 0 !important;
-        }
-    </style>
 </head>
 
 
@@ -184,6 +167,20 @@
             });
 
             $('.dataTables_wrapper').find('.col-sm-12.col-md-5').remove();
+
+            $(document).on('keyup', function(e) {
+                e.preventDefault();
+
+                if ($('#modalDelete').hasClass('show')) {
+                    if (e.which == 13) {
+                        $('.btnDelete').click();
+                    }
+                }
+
+                if (e.which == 16) {
+                    $('[data-target="#modalCreate"]').click();
+                }
+            });
         });
 
         // Notif status

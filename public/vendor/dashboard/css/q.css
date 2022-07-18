@@ -5136,11 +5136,11 @@ div.sticky {
     overflow: hidden;
     position: absolute;
     left: 0;
-    top: 0;
+    top: 1;
     z-index: 0;
     box-shadow: 2.5px 2.5px 2.5px rgba(0, 0, 0, 0.80);
     opacity: 0.9;
-    border-radius: 0 0 4px 0;
+    border-radius: 4px 0 4px 0;
 }
 
 .ribbon-wrapper.ribbon-lg {}
@@ -5988,6 +5988,7 @@ div.sticky {
     color: var(--text-color);
 }
 
+
 .btn_setting {
     position: absolute;
     top: 2px;
@@ -6000,6 +6001,10 @@ div.sticky {
     padding: 3px 5px 3px 5px;
     border-radius: 50%;
     color: #ffffff;
+}
+
+.btn_setting i.iconsetting:hover {
+    background-color: rgba(0, 0, 0, 0.80);
 }
 
 .btn-group .text-dark i {
@@ -6024,8 +6029,8 @@ div.sticky {
     width: 70px;
     height: 70px;
     border-radius: 50px;
-    right: 10px;
-    bottom: 80px;
+    right: 30px;
+    bottom: 93px;
     background: #00b1cc9b;
     color: #fff;
     transition: display 0.5s ease-in-out;
@@ -6035,8 +6040,8 @@ div.sticky {
 .to-the-top i {
     font-size: 30px;
     position: absolute;
-    top: 12px;
-    right: 19.8px;
+    top: 12.5px;
+    right: 19.5px;
 }
 
 .to-the-top:hover {
@@ -6054,6 +6059,7 @@ div.dataTables_wrapper div.dataTables_paginate {
     margin-top: 15px;
 }
 
+/* cARD */
 .card {
     position: relative;
     display: flex;
@@ -6232,3 +6238,41 @@ div.dataTables_wrapper div.dataTables_paginate {
         border-bottom-left-radius: 0;
     }
 }
+
+@media screen and (max-width: 767px) {
+
+    div.dataTables_wrapper div.dataTables_length,
+    div.dataTables_wrapper div.dataTables_filter,
+    div.dataTables_wrapper div.dataTables_info,
+    div.dataTables_wrapper div.dataTables_paginate {
+        text-align: left !important;
+    }
+
+}
+
+div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+    justify-content: flex-start !important;
+    white-space: nowrap !important;
+    margin: 2px 0 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+    padding-right: 0 !important;
+}
+
+@media(max-width: 421px) {
+    .sideMenuSearch {
+        margin-top: 0px !important;
+    }
+}
+@media(max-width: 481px) {
+    .sideMenuSearch {
+        margin-top: 20px;
+    }
+}
+@media(max-width: 768px) {
+    .sideMenuSearch {
+        margin-bottom: 20px;
+    }
+}
+

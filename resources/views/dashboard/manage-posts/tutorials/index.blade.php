@@ -13,45 +13,8 @@
     <div class="notif-success" data-notif="{{ Session::get('success') }}"></div>
 
     <div class="row">
-        <div class="col-md-12 m-b-20">
-            <div class="row justify-content-center">
-                <div class="col-md-2 mb-2">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="col-12">
-                                <div class="input-group mx-1">
-                                    <select class="form-control" id="selectData">
-                                        <option value="10">10</option>
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-10">
-                    <div class="card">
-                        <div class="card-header">
 
-                            <div class="col-12">
-                                <div class="input-group mx-1">
-                                    <input autocomplete="off" id="keyword" type="search" class="form-control"
-                                        placeholder="Cari tutorial..">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary" disabled>
-                                            <i class="uil uil-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @include('dashboard.menu-search.menu')
 
         <div class="col-12">
             <div class="card m-b-30">

@@ -10,45 +10,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-12 m-b-20">
-            <div class="row justify-content-center">
-                <div class="col-md-2 mb-2">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="col-12">
-                                <div class="input-group mx-1">
-                                    <select class="form-control" id="selectData">
-                                        <option value="10">10</option>
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-10">
-                    <div class="card">
-                        <div class="card-header">
-
-                            <div class="col-12">
-                                <div class="input-group mx-1">
-                                    <input autocomplete="off" id="keyword" type="search" class="form-control"
-                                        placeholder="Cari pengguna..">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary" disabled>
-                                            <i class="uil uil-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @include('dashboard.menu-search.menu')
 
         <div class="col-md-12">
             <div class="card m-b-30">
@@ -123,7 +85,7 @@
                                                     <form
                                                         action="{{ route('users.deleteProvider', ['uid' => $user->uid]) }}#users"
                                                         class="d-inline" method="POST" role="alert"
-                                                        alert-text='Apakah kamu yakin?! akun dengan email "{{ $user->email }}" akan di hapus PERMANEN!'
+                                                        alert-text='Apakah kamu yakin?! akun dengan email "{{ $user->email ?? '(anonymous)' }}" akan di hapus PERMANEN!'
                                                         alert-btn="HAPUS AKUN" alert-clr="#d33">
                                                         @csrf
                                                         @method('DELETE')
@@ -227,13 +189,13 @@
         $(document).ready(function() {
             let dataTable = $('#userProviders').DataTable({
                 "order": [
-                    [4, "desc"]
+                    [2, "desc"]
                 ],
                 "pageLength": 10,
-                "bInfo": true,
+                "bInfo": false,
             });
 
-            $('#keyword').on('keyup', function() {
+            $('input[type="search"]').on('keyup', function() {
                 dataTable.search(this.value).draw();
             });
 
