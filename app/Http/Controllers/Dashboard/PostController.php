@@ -102,29 +102,39 @@ class PostController extends Controller
     {
         $post = Post::with('categories', 'tags')->where('slug', $slug)->first();
 
-        $nextPublish = Post::publish()->where('user_id', Auth::id())
-            ->where('id', '>', $post->id)
-            ->min('id');
-        $prevPublish = Post::publish()->where('user_id', Auth::id())
-            ->where('id', '<', $post->id)
-            ->max('id');
+        if (($post->title != null && $post->description != null) && ($post->categories->first() != null && $post->tags->first() != null)) {
+            $nextPublish = Post::publish()->where('user_id', Auth::id())
+                ->where('id', '>', $post->id)
+                ->min('id');
+            $prevPublish = Post::publish()->where('user_id', Auth::id())
+                ->where('id', '<', $post->id)
+                ->max('id');
 
-        $nextDraft = Post::draft()->where('user_id', Auth::id())
-            ->where('id', '>', $post->id)
-            ->min('id');
-        $prevDraft = Post::draft()->where('user_id', Auth::id())
-            ->where('id', '<', $post->id)
-            ->max('id');
+            $nextDraft = Post::draft()->where('user_id', Auth::id())
+                ->where('id', '>', $post->id)
+                ->min('id');
+            $prevDraft = Post::draft()->where('user_id', Auth::id())
+                ->where('id', '<', $post->id)
+                ->max('id');
 
-        return view('dashboard.manage-posts.posts.show', [
-            'post' => $post,
-            'tags' => $post->tags,
-            'categories' => $post->categories,
-            'nextPublish' => Post::find($nextPublish),
-            'prevPublish' => Post::find($prevPublish),
-            'nextDraft' => Post::find($nextDraft),
-            'prevDraft' => Post::find($prevDraft),
-        ]);
+            return view('dashboard.manage-posts.posts.show', [
+                'post' => $post,
+                'tags' => $post->tags,
+                'categories' => $post->categories,
+                'nextPublish' => Post::find($nextPublish),
+                'prevPublish' => Post::find($prevPublish),
+                'nextDraft' => Post::find($nextDraft),
+                'prevDraft' => Post::find($prevDraft),
+            ]);
+        } else {
+            Alert::warning(
+                'Oops..',
+                'kamu tidak bisa melihat postingan kamu, ketika semua isinya masih kosong. silahkan isi semua kontennya terlebih dahulu!'
+            )->autoClose(false);
+
+            return Redirect::to(URL::route('posts.index') . '?status=draft');
+
+        }
     }
 
     public function recommend($id)
@@ -429,8 +439,10 @@ class PostController extends Controller
     public function edit($slug)
     {
         $post = Post::with('categories', 'tags', 'tutorials')->where('slug', $slug)->first();
+        $cateOld = $post->categories->first();
 
         if ($post->user_id == Auth::user()->id) {
+
             return view('dashboard.manage-posts.posts.edit', [
                 'post' => $post,
                 'categories' => Category::with('generation')->onlyParent()->get(),
@@ -607,8 +619,15 @@ class PostController extends Controller
             $post->update();
 
             if ($post->title === null || $post->description === null || $post->keywords === null || $post->categories->first() === null || $post->tags->first() === null) {
-                // return redirect()->back()->with('success', 'Postingan berhasil diperbarui.');
-                return Redirect::to(URL::route('posts.edit', ['slug' => $post->slug]) . '#content')->with('success', 'Postingan berhasil diperbarui.');
+                if ($post->status === 'publish') {
+
+                    $post->status = 'draft';
+                    $post->update();
+
+                    return Redirect::to(URL::route('posts.edit', ['slug' => $post->slug]) . '#content')->with('success', 'Postingan berhasil diperbarui.');
+                } else {
+                    return Redirect::to(URL::route('posts.edit', ['slug' => $post->slug]) . '#content')->with('success', 'Postingan berhasil diperbarui.');
+                }
             }
 
             if ($post->status == 'draft') {

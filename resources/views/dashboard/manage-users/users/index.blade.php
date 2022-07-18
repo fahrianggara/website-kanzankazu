@@ -83,151 +83,121 @@
         </div>
 
         <div class="col-12">
-            <div class="card card-body m-b-30 table-responsive shadow-sm table-wrapper">
-                @if (count($users) >= 1)
-                    <table class="table table-hover align-items-center overflow-hidden">
-                        <thead>
-                            <tr>
-                                <th>Nama</th>
-                                <th>Role</th>
-                                @if (request()->get('status') == 'banned')
-                                    <th>Provider</th>
-                                    <th>Status</th>
-                                    <th>Terblokir sampai</th>
-                                @elseif (request()->get('status') == 'allowable' || route('users.index'))
-                                    <th>Provider</th>
-                                    <th>Bergabung tanggal</th>
-                                    <th>Status</th>
-                                @endif
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($users as $user)
+            <div class="card m-b-30">
+                <div class="card-body table-responsive shadow-sm table-wrapper">
+                    @if (count($users) >= 1)
+                        <table class="table table-hover align-items-center overflow-hidden">
+                            <thead>
                                 <tr>
+                                    <th>Nama</th>
+                                    <th>Role</th>
+                                    @if (request()->get('status') == 'banned')
+                                        <th>Provider</th>
+                                        <th>Status</th>
+                                        <th>Terblokir sampai</th>
+                                    @elseif (request()->get('status') == 'allowable' || route('users.index'))
+                                        <th>Provider</th>
+                                        <th>Bergabung tanggal</th>
+                                        <th>Status</th>
+                                    @endif
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($users as $user)
+                                    <tr>
 
-                                    <td>
-                                        <a href="javascript:void(0)" class="d-flex align-items-center"
-                                            style="cursor: default">
-                                            @if (file_exists('vendor/dashboard/image/picture-profiles/' . $user->user_image))
-                                                <img src="{{ asset('vendor/dashboard/image/picture-profiles/' . $user->user_image) }}"
-                                                    width="40" class="avatar rounded-circle me-3">
-                                            @elseif($user->provider == 'google' || $user->provider == 'github')
-                                                <img src="{{ $user->user_image }}" width="40"
-                                                    class="avatar rounded-circle me-3">
-                                            @else
-                                                <img src="{{ asset('vendor/dashboard/image/avatar.png') }}"
-                                                    width="40" class="avatar rounded-circle me-3">
-                                            @endif
-                                            <div class="d-block ml-3">
-                                                <span class="fw-bold name-user">{{ $user->name }}</span>
-                                                <div class="small text-secondary">{{ $user->email ?? '(anonymous)' }}
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </td>
-
-                                    <td>
-                                        <span class="name-user">
-                                            {{ $user->roles->first()->name }}
-                                        </span>
-                                    </td>
-
-                                    @if ($user->status == 'allowable' || $user->status == 'notverification')
                                         <td>
-                                            @if ($user->provider == 'google')
-                                                <img class="logo-provider"
-                                                    src="{{ asset('vendor/blog/img/google.png') }}" width="27">
-                                            @elseif ($user->provider == 'github')
-                                                <img class="logo-provider"
-                                                    src="{{ asset('vendor/blog/img/github.png') }}" width="27">
-                                            @elseif ($user->provider == 'anonymous')
-                                                <img class="logo-provider"
-                                                    src="{{ asset('vendor/blog/img/anonymous.png') }}" width="27">
-                                            @else
-                                                <img class="logo-provider"
-                                                    src="{{ asset('logo-web/android-chrome-512x512.png') }}"
-                                                    width="27">
-                                            @endif
-                                            <span class="d-none">{{ $user->provider }}</span>
+                                            <a href="javascript:void(0)" class="d-flex align-items-center"
+                                                style="cursor: default">
+                                                @if (file_exists('vendor/dashboard/image/picture-profiles/' . $user->user_image))
+                                                    <img src="{{ asset('vendor/dashboard/image/picture-profiles/' . $user->user_image) }}"
+                                                        width="40" class="avatar rounded-circle me-3">
+                                                @elseif($user->provider == 'google' || $user->provider == 'github')
+                                                    <img src="{{ $user->user_image }}" width="40"
+                                                        class="avatar rounded-circle me-3">
+                                                @else
+                                                    <img src="{{ asset('vendor/dashboard/image/avatar.png') }}"
+                                                        width="40" class="avatar rounded-circle me-3">
+                                                @endif
+                                                <div class="d-block ml-3">
+                                                    <span class="fw-bold name-user">{{ $user->name }}</span>
+                                                    <div class="small text-secondary">{{ $user->email ?? '(anonymous)' }}
+                                                    </div>
+                                                </div>
+                                            </a>
                                         </td>
+
                                         <td>
                                             <span class="name-user">
-                                                {{ $user->created_at->format('j M Y') }}
+                                                {{ $user->roles->first()->name }}
                                             </span>
                                         </td>
+
+                                        @if ($user->status == 'allowable' || $user->status == 'notverification')
+                                            <td>
+                                                @if ($user->provider == 'google')
+                                                    <img class="logo-provider"
+                                                        src="{{ asset('vendor/blog/img/google.png') }}" width="27">
+                                                @elseif ($user->provider == 'github')
+                                                    <img class="logo-provider"
+                                                        src="{{ asset('vendor/blog/img/github.png') }}" width="27">
+                                                @elseif ($user->provider == 'anonymous')
+                                                    <img class="logo-provider"
+                                                        src="{{ asset('vendor/blog/img/anonymous.png') }}"
+                                                        width="27">
+                                                @else
+                                                    <img class="logo-provider"
+                                                        src="{{ asset('logo-web/android-chrome-512x512.png') }}"
+                                                        width="27">
+                                                @endif
+                                                <span class="d-none">{{ $user->provider }}</span>
+                                            </td>
+                                            <td>
+                                                <span class="name-user">
+                                                    {{ $user->created_at->format('j M Y') }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                @if (Cache::has('user-is-online-' . $user->id))
+                                                    <span class="text-success">Online</span>
+                                                @else
+                                                    <span class="text-secondary">Offline</span>
+                                                @endif
+                                            </td>
+                                        @elseif ($user->status == 'banned')
+                                            <td>
+                                                @if ($user->provider == 'google')
+                                                    <img class="logo-provider"
+                                                        src="{{ asset('vendor/blog/img/google.png') }}" width="27">
+                                                @elseif ($user->provider == 'github')
+                                                    <img class="logo-provider"
+                                                        src="{{ asset('vendor/blog/img/github.png') }}" width="27">
+                                                @else
+                                                    <img class="logo-provider"
+                                                        src="{{ asset('logo-web/android-chrome-512x512.png') }}"
+                                                        width="27">
+                                                @endif
+                                                <span class="d-none">{{ $user->provider }}</span>
+                                            </td>
+                                            <td class="text-danger">{{ strtoupper($user->status) }}</td>
+                                            <td class="text-secondary">
+                                                {{ $user->banned_at->diffForHumans() }}
+                                            </td>
+                                        @endif
+
                                         <td>
-                                            @if (Cache::has('user-is-online-' . $user->id))
-                                                <span class="text-success">Online</span>
-                                            @else
-                                                <span class="text-secondary">Offline</span>
-                                            @endif
-                                        </td>
-                                    @elseif ($user->status == 'banned')
-                                        <td>
-                                            @if ($user->provider == 'google')
-                                                <img class="logo-provider"
-                                                    src="{{ asset('vendor/blog/img/google.png') }}" width="27">
-                                            @elseif ($user->provider == 'github')
-                                                <img class="logo-provider"
-                                                    src="{{ asset('vendor/blog/img/github.png') }}" width="27">
-                                            @else
-                                                <img class="logo-provider"
-                                                    src="{{ asset('logo-web/android-chrome-512x512.png') }}"
-                                                    width="27">
-                                            @endif
-                                            <span class="d-none">{{ $user->provider }}</span>
-                                        </td>
-                                        <td class="text-danger">{{ strtoupper($user->status) }}</td>
-                                        <td class="text-secondary">
-                                            {{ $user->banned_at->diffForHumans() }}
-                                        </td>
-                                    @endif
+                                            <div class="btn-group dropleft">
+                                                <button
+                                                    class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="uil uil-ellipsis-v"></i>
+                                                </button>
+                                                <div
+                                                    class="dropdown-menu dashboard-dropdown dropdown-menu-start mb-4 py-1">
 
-                                    <td>
-                                        <div class="btn-group dropleft">
-                                            <button
-                                                class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="uil uil-ellipsis-v"></i>
-                                            </button>
-                                            <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mb-4 py-1">
-
-                                                @if ($user->status == 'allowable')
-                                                    @if ($user->provider == 'anonymous')
-                                                        @can('user_delete')
-                                                            <form
-                                                                action="{{ route('users.destroy', ['user' => $user]) }}#users"
-                                                                method="POST" role="alert"
-                                                                alert-text="Apakah kamu yakin? akun dengan nama {{ $user->name }} akan dihapus permanen."
-                                                                alert-btn="Hapus" alert-clr="#d33">
-                                                                @csrf
-                                                                @method('DELETE')
-
-                                                                <button type="submit"
-                                                                    class="dropdown-item d-flex align-items-center ">
-                                                                    <i class="uil uil-trash text-danger"></i>
-                                                                    <span class="ml-2">Hapus user</span>
-                                                                </button>
-                                                            </form>
-                                                        @endcan
-                                                    @else
-                                                        @if ($user->roles->first()->name == 'Admin' || $user->roles->first()->name == 'Editor')
-                                                            @can('user_update')
-                                                                <a class="dropdown-item d-flex align-items-center "
-                                                                    href="{{ route('users.edit', ['user' => $user]) }}#users">
-                                                                    <i class="uil uil-pen text-warning"></i>
-                                                                    <span class="ml-2">Edit user</span>
-                                                                </a>
-                                                            @endcan
-                                                            @can('user_delete')
-                                                                <a id="blokirUser" data-id="{{ $user->id }}"
-                                                                    class="dropdown-item d-flex align-items-center "
-                                                                    href="javascript:void(0)">
-                                                                    <i class="uil uil-ban text-danger"></i>
-                                                                    <span class="ml-2">Blokir user</span>
-                                                                </a>
-                                                            @endcan
+                                                    @if ($user->status == 'allowable')
+                                                        @if ($user->provider == 'anonymous')
                                                             @can('user_delete')
                                                                 <form
                                                                     action="{{ route('users.destroy', ['user' => $user]) }}#users"
@@ -244,109 +214,145 @@
                                                                     </button>
                                                                 </form>
                                                             @endcan
-                                                        @elseif ($user->id != '1' && $user->id != '2')
-                                                            @can('user_update')
-                                                                <a class="dropdown-item d-flex align-items-center "
-                                                                    href="{{ route('users.edit', ['user' => $user]) }}#users">
-                                                                    <i class="uil uil-pen text-warning"></i>
-                                                                    <span class="ml-2">Edit user</span>
-                                                                </a>
-                                                            @endcan
                                                         @else
-                                                            <a class="dropdown-item d-flex align-items-center text-secondary"
-                                                                href="javascript:void(0)">
-                                                                <i class="uil uil-user-exclamation"></i>
-                                                                <span class="ml-2">Tidak bisa disetting</span>
-                                                            </a>
+                                                            @if ($user->roles->first()->name == 'Admin' || $user->roles->first()->name == 'Editor')
+                                                                @can('user_update')
+                                                                    <a class="dropdown-item d-flex align-items-center "
+                                                                        href="{{ route('users.edit', ['user' => $user]) }}#users">
+                                                                        <i class="uil uil-pen text-warning"></i>
+                                                                        <span class="ml-2">Edit user</span>
+                                                                    </a>
+                                                                @endcan
+                                                                @can('user_delete')
+                                                                    <a id="blokirUser" data-id="{{ $user->id }}"
+                                                                        class="dropdown-item d-flex align-items-center "
+                                                                        href="javascript:void(0)">
+                                                                        <i class="uil uil-ban text-danger"></i>
+                                                                        <span class="ml-2">Blokir user</span>
+                                                                    </a>
+                                                                @endcan
+                                                                @can('user_delete')
+                                                                    <form
+                                                                        action="{{ route('users.destroy', ['user' => $user]) }}#users"
+                                                                        method="POST" role="alert"
+                                                                        alert-text="Apakah kamu yakin? akun dengan nama {{ $user->name }} akan dihapus permanen."
+                                                                        alert-btn="Hapus" alert-clr="#d33">
+                                                                        @csrf
+                                                                        @method('DELETE')
+
+                                                                        <button type="submit"
+                                                                            class="dropdown-item d-flex align-items-center ">
+                                                                            <i class="uil uil-trash text-danger"></i>
+                                                                            <span class="ml-2">Hapus user</span>
+                                                                        </button>
+                                                                    </form>
+                                                                @endcan
+                                                            @elseif ($user->id != '1' && $user->id != '2')
+                                                                @can('user_update')
+                                                                    <a class="dropdown-item d-flex align-items-center "
+                                                                        href="{{ route('users.edit', ['user' => $user]) }}#users">
+                                                                        <i class="uil uil-pen text-warning"></i>
+                                                                        <span class="ml-2">Edit user</span>
+                                                                    </a>
+                                                                @endcan
+                                                            @else
+                                                                <a class="dropdown-item d-flex align-items-center text-secondary"
+                                                                    href="javascript:void(0)">
+                                                                    <i class="uil uil-user-exclamation"></i>
+                                                                    <span class="ml-2">Tidak bisa disetting</span>
+                                                                </a>
+                                                            @endif
                                                         @endif
+                                                    @elseif ($user->status == 'banned')
+                                                        @can('user_update')
+                                                            <form
+                                                                action="{{ route('users.unblokir', ['user' => $user]) }}#users"
+                                                                method="POST" class="d-inline" role="alert"
+                                                                alert-text="Apakah kamu yakin? akun dengan nama {{ $user->name }} tidak jadi diblokir?"
+                                                                alert-btn="Buka Blokir" alert-clr="#00b2cc">
+                                                                @csrf
+                                                                @method('PUT')
+
+                                                                <button type="submit"
+                                                                    class="dropdown-item d-flex align-items-center ">
+                                                                    <i class="uil uil-check text-success"></i>
+                                                                    <span class="ml-2">Buka blokir</span>
+                                                                </button>
+                                                            </form>
+                                                        @endcan
+                                                        @can('user_delete')
+                                                            <form
+                                                                action="{{ route('users.destroy', ['user' => $user]) }}#users"
+                                                                method="POST" class="d-inline" role="alert"
+                                                                alert-text="Apakah kamu yakin? akun dengan nama {{ $user->name }} akan dihapus permanen."
+                                                                alert-btn="Hapus" alert-clr="#d33">
+                                                                @csrf
+                                                                @method('DELETE')
+
+                                                                <button type="submit"
+                                                                    class="dropdown-item d-flex align-items-center ">
+                                                                    <i class="uil uil-trash text-danger"></i>
+                                                                    <span class="ml-2">Hapus user</span>
+                                                                </button>
+                                                            </form>
+                                                        @endcan
+                                                    @elseif ($user->status == 'notverification')
+                                                        @can('user_delete')
+                                                            <form
+                                                                action="{{ route('users.destroy', ['user' => $user]) }}#users"
+                                                                method="POST" class="d-inline" role="alert"
+                                                                alert-text="Apakah kamu yakin? akun dengan nama {{ $user->name }} akan dihapus permanen."
+                                                                alert-btn="Hapus" alert-clr="#d33">
+                                                                @csrf
+                                                                @method('DELETE')
+
+                                                                <button type="submit"
+                                                                    class="dropdown-item d-flex align-items-center ">
+                                                                    <i class="uil uil-trash text-danger"></i>
+                                                                    <span class="ml-2">Hapus user</span>
+                                                                </button>
+                                                            </form>
+                                                        @endcan
                                                     @endif
-                                                @elseif ($user->status == 'banned')
-                                                    @can('user_update')
-                                                        <form
-                                                            action="{{ route('users.unblokir', ['user' => $user]) }}#users"
-                                                            method="POST" class="d-inline" role="alert"
-                                                            alert-text="Apakah kamu yakin? akun dengan nama {{ $user->name }} tidak jadi diblokir?"
-                                                            alert-btn="Buka Blokir" alert-clr="#00b2cc">
-                                                            @csrf
-                                                            @method('PUT')
 
-                                                            <button type="submit"
-                                                                class="dropdown-item d-flex align-items-center ">
-                                                                <i class="uil uil-check text-success"></i>
-                                                                <span class="ml-2">Buka blokir</span>
-                                                            </button>
-                                                        </form>
-                                                    @endcan
-                                                    @can('user_delete')
-                                                        <form action="{{ route('users.destroy', ['user' => $user]) }}#users"
-                                                            method="POST" class="d-inline" role="alert"
-                                                            alert-text="Apakah kamu yakin? akun dengan nama {{ $user->name }} akan dihapus permanen."
-                                                            alert-btn="Hapus" alert-clr="#d33">
-                                                            @csrf
-                                                            @method('DELETE')
-
-                                                            <button type="submit"
-                                                                class="dropdown-item d-flex align-items-center ">
-                                                                <i class="uil uil-trash text-danger"></i>
-                                                                <span class="ml-2">Hapus user</span>
-                                                            </button>
-                                                        </form>
-                                                    @endcan
-                                                @elseif ($user->status == 'notverification')
-                                                    @can('user_delete')
-                                                        <form action="{{ route('users.destroy', ['user' => $user]) }}#users"
-                                                            method="POST" class="d-inline" role="alert"
-                                                            alert-text="Apakah kamu yakin? akun dengan nama {{ $user->name }} akan dihapus permanen."
-                                                            alert-btn="Hapus" alert-clr="#d33">
-                                                            @csrf
-                                                            @method('DELETE')
-
-                                                            <button type="submit"
-                                                                class="dropdown-item d-flex align-items-center ">
-                                                                <i class="uil uil-trash text-danger"></i>
-                                                                <span class="ml-2">Hapus user</span>
-                                                            </button>
-                                                        </form>
-                                                    @endcan
-                                                @endif
-
+                                                </div>
                                             </div>
-                                        </div>
 
-                                    </td>
+                                        </td>
 
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                @else
-                    <div class="card-body">
-                        <div class="text-center">
-                            <p class="card-text">
-                                <b>
-                                    @if (request()->get('keyword'))
-                                        Oops.. sepertinya pengguna dengan nama
-                                        {{ strtoupper(request()->get('keyword')) }} tidak ditemukan.
-                                    @elseif (request()->get('status') == 'allowable')
-                                        Hmm.. belum ada pengguna diwebsite {{ $setting->site_name }}.
-                                    @elseif (request()->get('status') == 'banned')
-                                        Oops.. sepertinya belum ada pengguna yang terblokir.
-                                    @else
-                                        Hmm.. belum ada pengguna diwebsite {{ $setting->site_name }}.
-                                    @endif
-                                </b>
-                            </p>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <div class="card-body">
+                            <div class="text-center">
+                                <p class="card-text">
+                                    <b>
+                                        @if (request()->get('keyword'))
+                                            Oops.. sepertinya pengguna dengan nama
+                                            {{ strtoupper(request()->get('keyword')) }} tidak ditemukan.
+                                        @elseif (request()->get('status') == 'allowable')
+                                            Hmm.. belum ada pengguna diwebsite {{ $setting->site_name }}.
+                                        @elseif (request()->get('status') == 'banned')
+                                            Oops.. sepertinya belum ada pengguna yang terblokir.
+                                        @else
+                                            Hmm.. belum ada pengguna diwebsite {{ $setting->site_name }}.
+                                        @endif
+                                    </b>
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                @endif
+                    @endif
 
-                @if ($users->hasPages())
-                    <div class="card-footer">
-                        <div class="page-footer">
-                            {{ $users->links('vendor.pagination.bootstrap-4') }}
+                    @if ($users->hasPages())
+                        <div class="card-footer">
+                            <div class="page-footer">
+                                {{ $users->links('vendor.pagination.bootstrap-4') }}
+                            </div>
                         </div>
-                    </div>
-                @endif
+                    @endif
+                </div>
             </div>
         </div>
     </div>

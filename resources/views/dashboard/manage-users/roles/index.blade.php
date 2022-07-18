@@ -51,87 +51,90 @@
         </div>
 
         <div class="col-12">
-            <div class="card card-body m-b-30 table-responsive shadow-sm table-wrapper">
-                @if ($roles->count() >= 1)
-                    <table class="table table-hover align-items-center overflow-hidden">
-                        <thead>
-                            <tr>
-                                <th>Role name</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($roles as $role)
+            <div class="card m-b-30">
+                <div class=" card-body table-responsive shadow-sm table-wrapper">
+                    @if ($roles->count() >= 1)
+                        <table class="table table-hover align-items-center overflow-hidden">
+                            <thead>
                                 <tr>
-                                    <td class="name-user">{{ $role->name }}</td>
-                                    <td>
-                                        <div class="btn-group dropleft">
-                                            <button
-                                                class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="uil uil-ellipsis-v"></i>
-                                            </button>
-                                            <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mb-4 py-1">
-
-                                                @can('role_detail')
-                                                    <a href="{{ route('roles.show', ['role' => $role]) }}#roles"
-                                                        class="dropdown-item d-flex align-items-center">
-                                                        <i class="uil uil-eye text-primary"></i>
-                                                        <span class="ml-2">Lihat role</span>
-                                                    </a>
-                                                @endcan
-
-                                                @can('role_update')
-                                                    <a href="{{ route('roles.edit', ['role' => $role]) }}#roles"
-                                                        class="dropdown-item d-flex align-items-center">
-                                                        <i class="uil uil-pen text-warning"></i>
-                                                        <span class="ml-2">Edit role</span>
-                                                    </a>
-                                                @endcan
-
-                                                @can('role_delete')
-                                                    <form action="{{ route('roles.destroy', ['role' => $role]) }}#roles"
-                                                        method="POST" class="d-inline" role="alert"
-                                                        alert-text="Apakah kamu yakin? role {{ $role->name }} akan dihapus permanen.">
-                                                        @csrf
-                                                        @method('DELETE')
-
-                                                        <button type="submit" class="dropdown-item d-flex align-items-center">
-                                                            <i class="uil uil-trash text-danger"></i>
-                                                            <span class="ml-2">Hapus role</span>
-                                                        </button>
-                                                    </form>
-                                                @endcan
-                                            </div>
-                                        </div>
-                                    </td>
+                                    <th>Role name</th>
+                                    <th></th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                @else
-                    <div class="card-body">
-                        <div class="text-center">
-                            <p class="card-text">
-                                <b>
-                                    @if (request()->get('keyword'))
-                                        Oops.. sepertinya role {{ strtoupper(request()->get('keyword')) }} tidak
-                                        ditemukan.
-                                    @else
-                                        Hmm.. sepertinya role belum ada yang dibuat. <a
-                                            href="{{ route('roles.create') }}#roles">Buat?</a>
-                                    @endif
-                                </b>
-                            </p>
-                        </div>
-                    </div>
-                @endif
+                            </thead>
+                            <tbody>
+                                @foreach ($roles as $role)
+                                    <tr>
+                                        <td class="name-user">{{ $role->name }}</td>
+                                        <td>
+                                            <div class="btn-group dropleft">
+                                                <button
+                                                    class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="uil uil-ellipsis-v"></i>
+                                                </button>
+                                                <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mb-4 py-1">
 
-                @if ($roles->hasPages())
-                    <div class="card-footer">
-                        {{ $roles->links('vendor.pagination.bootstrap-4') }}
-                    </div>
-                @endif
+                                                    @can('role_detail')
+                                                        <a href="{{ route('roles.show', ['role' => $role]) }}#roles"
+                                                            class="dropdown-item d-flex align-items-center">
+                                                            <i class="uil uil-eye text-primary"></i>
+                                                            <span class="ml-2">Lihat role</span>
+                                                        </a>
+                                                    @endcan
+
+                                                    @can('role_update')
+                                                        <a href="{{ route('roles.edit', ['role' => $role]) }}#roles"
+                                                            class="dropdown-item d-flex align-items-center">
+                                                            <i class="uil uil-pen text-warning"></i>
+                                                            <span class="ml-2">Edit role</span>
+                                                        </a>
+                                                    @endcan
+
+                                                    @can('role_delete')
+                                                        <form action="{{ route('roles.destroy', ['role' => $role]) }}#roles"
+                                                            method="POST" class="d-inline" role="alert"
+                                                            alert-text="Apakah kamu yakin? role {{ $role->name }} akan dihapus permanen.">
+                                                            @csrf
+                                                            @method('DELETE')
+
+                                                            <button type="submit"
+                                                                class="dropdown-item d-flex align-items-center">
+                                                                <i class="uil uil-trash text-danger"></i>
+                                                                <span class="ml-2">Hapus role</span>
+                                                            </button>
+                                                        </form>
+                                                    @endcan
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <div class="card-body">
+                            <div class="text-center">
+                                <p class="card-text">
+                                    <b>
+                                        @if (request()->get('keyword'))
+                                            Oops.. sepertinya role {{ strtoupper(request()->get('keyword')) }} tidak
+                                            ditemukan.
+                                        @else
+                                            Hmm.. sepertinya role belum ada yang dibuat. <a
+                                                href="{{ route('roles.create') }}#roles">Buat?</a>
+                                        @endif
+                                    </b>
+                                </p>
+                            </div>
+                        </div>
+                    @endif
+
+                    @if ($roles->hasPages())
+                        <div class="card-footer">
+                            {{ $roles->links('vendor.pagination.bootstrap-4') }}
+                        </div>
+                    @endif
+                </div>
             </div>
         </div>
     </div>

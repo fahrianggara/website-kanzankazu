@@ -382,15 +382,10 @@
             });
 
             // FUNCTION TITLE GENERATE KE SLUG
-            $("#input_post_title").change(function(event) {
-                $("#input_post_slug").val(
-                    event.target.value
-                    .trim()
-                    .toLowerCase()
-                    .replace(/[^a-z\d-]/gi, "-")
-                    .replace(/-+/g, "-")
-                    .replace(/^-|-$/g, "")
-                );
+            $('input[name="title"]').on('keyup', function() {
+                var title = $(this).val();
+                var slug = title.toLowerCase().trim().replace(/ +/g, '-').replace(/[^\w-]+/g, '');
+                $('input[name="slug"]').val(slug);
             });
 
             // MEMANGGIL FILE MANAGER

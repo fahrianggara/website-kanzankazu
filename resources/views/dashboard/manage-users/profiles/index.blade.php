@@ -332,6 +332,12 @@
         }
 
         $(function() {
+            // change name to username no number to lowercase
+            $('#name').on('keyup', function() {
+                var name = $(this).val();
+                var username = name.replace(/[^a-zA-Z]/g, '').toLowerCase();
+                $('#slug').val(username);
+            });
 
             // Update user info
             $('#formUpdateProfile').on('submit', function(e) {
@@ -450,20 +456,6 @@
                 onError: function(message, element, status) {
                     alertify.okBtn("OK").alert(message);
                 }
-            });
-
-            const generateSlug = (value) => {
-                return value.trim()
-                    .toLowerCase()
-                    .replace(/[^a-z\d-]/gi, '-')
-                    .replace(/-+/g, '-').replace(/^-|-$/g, "")
-            }
-
-            $('#name').change(function(e) {
-                e.preventDefault();
-
-                let title = $(this).val();
-                $('#slug').val(generateSlug(title));
             });
         });
     </script>

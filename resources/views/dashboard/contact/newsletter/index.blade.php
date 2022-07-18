@@ -41,60 +41,63 @@
         </div>
 
         <div class="col-12">
-            <div class="card card-body m-b-30 table-responsive shadow-sm table-wrapper">
+            <div class="card m-b-30">
+                <div class="card-body table-responsive shadow-sm table-wrapper">
 
-                @if (count($newsletter) >= 1)
-                    <table class="table table-hover align-items-center overflow-hidden">
-                        <thead>
-                            <tr>
-                                <th>Email</th>
-                                <th>Berlanggan tanggal</th>
-                                @can('inbox_delete')
-                                    <th></th>
-                                @endcan
-                            </tr>
-
-                        </thead>
-                        <tbody>
-                            @foreach ($newsletter as $nl)
+                    @if (count($newsletter) >= 1)
+                        <table class="table table-hover align-items-center overflow-hidden">
+                            <thead>
                                 <tr>
-                                    <td class="name-user">{{ $nl->email }}</td>
-                                    <td class="name-user">{{ $nl->created_at->format('d M, Y') }}</td>
-
+                                    <th>Email</th>
+                                    <th>Berlanggan tanggal</th>
                                     @can('inbox_delete')
-                                        <td>
-                                            <div class="btn-group dropleft">
-                                                <button
-                                                    class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="uil uil-ellipsis-v"></i>
-                                                </button>
-                                                <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mb-4 py-1">
-
-                                                    @can('inbox_delete')
-                                                        <form
-                                                            action="{{ route('newsletter.destroy', ['newsletter' => $nl]) }}#contact"
-                                                            method="POST" role="alert"
-                                                            alert-text="Apakah kamu yakin? langganan web dengan email {{ $nl->email }} akan diberhentikan langganannya.">
-                                                            @csrf
-                                                            @method('DELETE')
-
-                                                            <button type="submit" class="dropdown-item d-flex align-items-center ">
-                                                                <i class="uil uil-trash text-danger"></i>
-                                                                <span class="ml-2">Hapus langganan</span>
-                                                            </button>
-                                                        </form>
-                                                    @endcan
-                                                </div>
-                                            </div>
-
-                                        </td>
+                                        <th></th>
                                     @endcan
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
 
+                            </thead>
+                            <tbody>
+                                @foreach ($newsletter as $nl)
+                                    <tr>
+                                        <td class="name-user">{{ $nl->email }}</td>
+                                        <td class="name-user">{{ $nl->created_at->format('d M, Y') }}</td>
+
+                                        @can('inbox_delete')
+                                            <td>
+                                                <div class="btn-group dropleft">
+                                                    <button
+                                                        class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
+                                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="uil uil-ellipsis-v"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mb-4 py-1">
+
+                                                        @can('inbox_delete')
+                                                            <form
+                                                                action="{{ route('newsletter.destroy', ['newsletter' => $nl]) }}#contact"
+                                                                method="POST" role="alert"
+                                                                alert-text="Apakah kamu yakin? langganan web dengan email {{ $nl->email }} akan diberhentikan langganannya.">
+                                                                @csrf
+                                                                @method('DELETE')
+
+                                                                <button type="submit"
+                                                                    class="dropdown-item d-flex align-items-center ">
+                                                                    <i class="uil uil-trash text-danger"></i>
+                                                                    <span class="ml-2">Hapus langganan</span>
+                                                                </button>
+                                                            </form>
+                                                        @endcan
+                                                    </div>
+                                                </div>
+
+                                            </td>
+                                        @endcan
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+
+                </div>
             </div>
         @else
             <div class="card-body">

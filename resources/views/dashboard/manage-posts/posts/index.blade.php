@@ -124,8 +124,11 @@
                                     @if ($post->recommendedPost)
                                         <i class="fas fa-star mr-2 text-warning"></i>
                                     @endif
-
-                                    {{ $post->title }}
+                                    @if ($post->title == null)
+                                        {{ $post->slug }}
+                                    @else
+                                        {{ $post->title }}
+                                    @endif
                                 </h5>
 
                                 @if (strlen($post->description) > 100)
@@ -180,19 +183,6 @@
 
 @push('js-internal')
     <script>
-        // NOTIF SUCCESS
-        const notif = $('.notif-success').data('notif');
-        if (notif) {
-            alertify
-                .delay(3500)
-                .log(notif);
-        }
-
-        setTimeout(() => {
-            history.replaceState('', document.title, window.location.origin + window
-                .location.pathname + window
-                .location.search);
-        }, 0);
 
         $(document).ready(function() {
             // status post

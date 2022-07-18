@@ -53,84 +53,10 @@
     <link href="{{ asset('vendor/blog/assets/fontawesome/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('vendor/dashboard/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('vendor/dashboard/css/icons.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('vendor/dashboard/css/i.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('vendor/dashboard/css/isss.css') }}" rel="stylesheet" type="text/css">
     {{-- CALL CSS --}}
     @stack('css-external')
     @stack('css-internal')
-
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Anek+Latin:wght@300;500;700&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,700&family=Noto+Sans+Display:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Noto+Sans+JP:wght@300;400;700&family=Poppins:ital,wght@0,300;0,500;0,700;1,300;1,500&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,400&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,500&family=Rubik:ital,wght@0,300;0,500;0,600;1,300;1,500&display=swap');
-
-        a:hover {
-            text-decoration: none !important;
-        }
-
-        .btn:focus {
-            box-shadow: none;
-        }
-
-        .dashboard-dropdown {
-            margin-bottom: 67px;
-        }
-
-        @media (max-width: 768px) {
-            .dashboard-dropdown {
-                margin-bottom: 104px;
-            }
-        }
-
-        .to-the-top {
-            position: fixed;
-            display: block;
-            width: 70px;
-            height: 70px;
-            border-radius: 50px;
-            left: 270px;
-            bottom: 100px;
-            background: #00b1cc9b;
-            color: #fff;
-            transition: display 0.5s ease-in-out;
-            z-index: 1;
-        }
-
-        .to-the-top i {
-            font-size: 30px;
-            position: absolute;
-            top: 12px;
-            right: 19.8px;
-        }
-
-        @media (max-width: 769px) {
-
-            .to-the-top {
-                position: fixed;
-                display: block;
-                width: 70px;
-                height: 70px;
-                border-radius: 50px;
-                left: 30px;
-                bottom: 100px;
-                background: #00b1cc9b;
-                color: #fff;
-                transition: display 0.5s ease-in-out;
-                z-index: 1;
-            }
-
-            .to-the-top i {
-                font-size: 30px;
-                position: absolute;
-                top: 12px;
-                right: 20px;
-            }
-        }
-
-
-        .to-the-top:hover {
-            color: #fff;
-            background: #00b2cc;
-            transition: background 0.2s ease-in-out;
-        }
-    </style>
 </head>
 
 

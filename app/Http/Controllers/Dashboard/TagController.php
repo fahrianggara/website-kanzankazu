@@ -49,7 +49,7 @@ class TagController extends Controller
             <table id="tableTag" class="table table-hover align-items-center overflow-hidden">
                 <thead>
                     <tr>
-                        <th>Nama Tag</th>
+                        <th>Tag</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -234,51 +234,6 @@ class TagController extends Controller
                 ]);
             }
         }
-
-        // Validator::make(
-        //     $request->all(),
-        //     [
-        //         'title'         => 'required|alpha_spaces|max:50|min:3',
-        //         'slug'          => 'unique:tags,slug,' . $tag->id,
-        //     ],
-        //     [
-        //         'title.required'         => 'Wajib harus diisi!',
-        //         'title.alpha_spaces'     => 'Hanya boleh huruf dan spasi!',
-        //         'title.max'              => 'Maksimal 50 karakter!',
-        //         'title.min'              => 'Minimal 3 karakter!',
-        //         'slug.unique'            => 'Tag sudah ada!',
-        //     ],
-        // )->validate();
-
-        // try {
-        //     $tag->title = $request->input('title');
-        //     $tag->slug  = $request->input('slug');
-
-        //     if ($tag->isDirty()) {
-
-        //         $tag->update();
-
-        //         return redirect()->route('tags.index')
-        //             ->with(
-        //                 'success',
-        //                 'Tag berhasil diperbarui!'
-        //             );
-        //     } else {
-        //         return redirect()->route('tags.index')
-        //             ->with(
-        //                 'success',
-        //                 'Oops.. tidak ada perubahan!'
-        //             );
-        //     }
-        // } catch (\Throwable $th) {
-        //     Alert::error(
-        //         'Error',
-        //         'Terjadi kesalahan saat memperbarui data.
-        //         Pesan: ' . $th->getMessage()
-        //     )->autoClose(false);
-
-        //     return redirect()->back()->withInput($request->all());
-        // }
     }
 
     /**
