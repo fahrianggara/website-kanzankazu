@@ -4077,8 +4077,8 @@ span.select2-dropdown.select2-dropdown--below {
 }
 
 input.select2-search__field.mousetrap {
-    background: var(--sectionBg-color);
-    color: var(--text-color);
+    background: var(--container-color);
+    color: var(--text-color) !important;
 }
 
 span.select2-selection__rendered {
@@ -4469,7 +4469,7 @@ File: Responsive
 }
 
 .select2-container--bootstrap4 .select2-selection {
-    background-color: var(--sectionBg-color) !important;
+    background-color: var(--container-color) !important;
     border: 1px solid var(--first-color) !important;
     color: var(--text-color);
 }
