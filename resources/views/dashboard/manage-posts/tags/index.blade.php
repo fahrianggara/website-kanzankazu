@@ -217,6 +217,7 @@
 
                         let dataTable = $('table').DataTable({
                             "ordering": false,
+                            "bInfo": false,
                             "pageLength": 10,
                             "order": [
                                 [1, "desc"]
@@ -230,6 +231,8 @@
                         $('#selectData').on('change', function() {
                             dataTable.page.len(this.value).draw();
                         });
+
+                        $('.dataTables_wrapper').find('.col-sm-12.col-md-5').remove();
                     }
                 });
             }

@@ -50,7 +50,7 @@
             </div>
         </div>
 
-        <div class="col-12">
+        <div class="col-md-12">
             <div class="card m-b-30">
                 <div class="card-body table-responsive shadow-sm table-wrapper">
                     <table id="userProviders" class="table user-table table-hover align-items-center overflow-hidden">
@@ -230,7 +230,7 @@
                     [4, "desc"]
                 ],
                 "pageLength": 10,
-                "bInfo": false,
+                "bInfo": true,
             });
 
             $('#keyword').on('keyup', function() {

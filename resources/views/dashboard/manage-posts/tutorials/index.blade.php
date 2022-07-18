@@ -55,7 +55,7 @@
 
         <div class="col-12">
             <div class="card m-b-30">
-                <div id="fetchTutorial" class=" card-bodytable-responsive shadow-sm table-wrapper"></div>
+                <div id="fetchTutorial" class="card-body table-responsive shadow-sm table-wrapper"></div>
             </div>
         </div>
     </div>
@@ -293,6 +293,7 @@
                             "order": [
                                 [1, "desc"]
                             ],
+                            "bInfo": false,
                         });
 
                         $('#keyword').on('keyup', function() {
@@ -302,6 +303,8 @@
                         $('#selectData').on('change', function() {
                             dataTable.page.len(this.value).draw();
                         });
+
+                        $('.dataTables_wrapper').find('.col-sm-12.col-md-5').remove();
                     }
                 });
             }

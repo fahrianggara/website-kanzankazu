@@ -270,6 +270,7 @@
                             "order": [
                                 [1, "asc"]
                             ],
+                            "bInfo": false,
                         });
 
                         $('#keyword').on('keyup', function() {
@@ -279,6 +280,8 @@
                         $('#selectData').on('change', function() {
                             dataTable.page.len(this.value).draw();
                         });
+
+                        $('.dataTables_wrapper').find('.col-sm-12.col-md-5').remove();
                     }
                 });
             }
