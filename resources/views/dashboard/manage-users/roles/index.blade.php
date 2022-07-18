@@ -17,7 +17,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="card m-b-30">
-                        <div class="card-header">
+                        <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-1 col-3">
                                     @can('role_create')

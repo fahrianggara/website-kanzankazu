@@ -19,7 +19,7 @@
                 <div class="row">
                     <div class="col-md-4 sideMenuSearch">
                         <div class="card">
-                            <div class="card-header">
+                            <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-2 col-3">
                                         @can('user_create')
@@ -59,7 +59,7 @@
                     </div>
                     <div class="col-md-8">
                         <div class="card">
-                            <div class="card-header">
+                            <div class="card-body">
 
                                 <div class="col-12">
                                     <div class="input-group mx-1">

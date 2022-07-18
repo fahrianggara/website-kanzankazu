@@ -2,7 +2,7 @@
     <div class="row justify-content-center">
         <div class="col-xl-2 col-lg-3 col-md-5 sideMenuSearch">
             <div class="card">
-                <div class="card-header">
+                <div class="card-body">
                     <div class="col-12">
                         <div class="input-group mx-1">
                             <select class="form-control" id="selectData">
@@ -18,7 +18,7 @@
         </div>
         <div class="col-xl-10 col-lg-9 col-md-7">
             <div class="card">
-                <div class="card-header">
+                <div class="card-body">
 
                     <div class="col-12">
                         <div class="input-group mx-1">

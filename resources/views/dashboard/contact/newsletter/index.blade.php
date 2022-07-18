@@ -17,7 +17,7 @@
 
                     <div class="col-md-8 mb-3">
                         <div class="card m-b-10">
-                            <div class="card-header">
+                            <div class="card-body">
 
                                 <div class="col-12">
                                     <div class="input-group mx-1">

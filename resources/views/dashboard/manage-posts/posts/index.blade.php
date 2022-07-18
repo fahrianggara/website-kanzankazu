@@ -10,8 +10,7 @@
 
 @section('content')
     {{-- Alert success --}}
-    <div class="notif-success" data-notif="{{ Session::get('success') }}">
-    </div>
+    <div class="notif-success" data-notif="{{ Session::get('success') }}"></div>
 
     <div class="row">
 
@@ -20,7 +19,7 @@
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <div class="card">
-                            <div class="card-header">
+                            <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-2 col-3">
                                         @can('post_create')
@@ -62,7 +61,7 @@
                     </div>
                     <div class="col-md-8">
                         <div class="card">
-                            <div class="card-header">
+                            <div class="card-body">
 
                                 <div class="col-12">
                                     <div class="input-group mx-1">
@@ -85,8 +84,8 @@
             </form>
         </div>
 
-        <div class="row">
-            @if ($posts->count() >= 1)
+        @if ($posts->count() >= 1)
+            <div class="row">
                 @foreach ($posts as $post)
                     <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
                         <div class="card m-b-30">
@@ -141,38 +140,69 @@
                         </div>
                     </div>
                 @endforeach
-            @else
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <b>
-                                @if (request()->get('keyword'))
-                                    Oops.. sepertinya postingan kamu dengan kata kunci
-                                    {{ strtoupper(request()->get('keyword')) }}
-                                    tidak ditemukan.
-                                @elseif (request()->get('status') == 'publish')
-                                    Hmm.. sepertinya postingan kamu belum dibuat.
-                                    <a href="{{ route('posts.create') }}#posts">Buat?</a>
-                                @elseif (request()->get('status') == 'draft')
-                                    Hmm.. kelihatannya postingan kamu belum ada yang diarsip.
-                                @elseif (request()->get('status') == 'approve')
-                                    Hmm.. kelihatannya pengguna belum ada yang buat
-                                    postingan..
-                                @else
-                                    Hmm.. sepertinya postingan kamu belum dibuat.
-                                    <a href="{{ route('posts.create') }}#posts">Buat?</a>
-                                @endif
-                            </b>
-                        </div>
-                    </div>
+            </div>
+        @else
+            <div id="noPost" class="col-lg-12">
+                <div class="noPost">
+                    @if (request()->get('keyword'))
+                        <i class="uil uil-search"></i>
+                        <h5 class="m-t-10">
+                            Oops.. sepertinya postingan kamu dengan kata kunci
+                            <span class="active">{{ strtoupper(request()->get('keyword')) }}</span>
+                            tidak ditemukan.
+                        </h5>
+                    @elseif (request()->get('status') == 'publish')
+                        <i class="uil uil-plus-circle"></i>
+                        <h5 class="m-t-10">
+                            Hmm.. sepertinya postingan kamu belum dibuat.
+                            <a href="{{ route('posts.create') }}#posts">Buat?</a>
+                        </h5>
+                    @elseif (request()->get('status') == 'draft')
+                        <i class="uil uil-archive"></i>
+                        <h5 class="m-t-10">
+                            Hmm.. kelihatannya postingan kamu belum ada yang diarsip.
+                        </h5>
+                    @elseif (request()->get('status') == 'approve')
+                        <i class="uil uil-users-alt"></i>
+                        <h5 class="m-t-10">
+                            Hmm.. kelihatannya pengguna belum ada yang buat
+                            postingan..
+                        </h5>
+                    @else
+                        <i class="uil uil-plus-circle"></i>
+                        <h5 class="m-t-10">
+                            Hmm.. sepertinya postingan kamu belum dibuat.
+                            <a href="{{ route('posts.create') }}#posts">Buat?</a>
+                        </h5>
+                    @endif
+
                 </div>
-            @endif
-        </div>
+            </div>
+            {{-- <b class="text-center">
+                @if (request()->get('keyword'))
+                    Oops.. sepertinya postingan kamu dengan kata kunci
+                    {{ strtoupper(request()->get('keyword')) }}
+                    tidak ditemukan.
+                @elseif (request()->get('status') == 'publish')
+                    Hmm.. sepertinya postingan kamu belum dibuat.
+                    <a href="{{ route('posts.create') }}#posts">Buat?</a>
+                @elseif (request()->get('status') == 'draft')
+                    Hmm.. kelihatannya postingan kamu belum ada yang diarsip.
+                @elseif (request()->get('status') == 'approve')
+                    Hmm.. kelihatannya pengguna belum ada yang buat
+                    postingan..
+                @else
+                    Hmm.. sepertinya postingan kamu belum dibuat.
+                    <a href="{{ route('posts.create') }}#posts">Buat?</a>
+                @endif
+            </b> --}}
+        @endif
+
 
         @if ($posts->hasPages())
             <div class="col-lg-12">
                 <div class="card m-b-30">
-                    <div class="card-footer">
+                    <div class="card-body">
                         {{ $posts->links('vendor.pagination.bootstrap-4') }}
                     </div>
                 </div>
@@ -183,7 +213,6 @@
 
 @push('js-internal')
     <script>
-
         $(document).ready(function() {
             // status post
             $('#statusPost').on('change', function() {

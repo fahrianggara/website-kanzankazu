@@ -16,7 +16,7 @@
                 <div class="row">
                     <div class="col-md-4 mb-2">
                         <div class="card m-b-10">
-                            <div class="card-header">
+                            <div class="card-body">
 
                                 <div class="col">
                                     <div class="input-group mx-1">
@@ -44,7 +44,7 @@
                     </div>
                     <div class="col-md-8 mb-4">
                         <div class="card">
-                            <div class="card-header">
+                            <div class="card-body">
 
                                 <div class="col-12">
                                     <div class="input-group mx-1">

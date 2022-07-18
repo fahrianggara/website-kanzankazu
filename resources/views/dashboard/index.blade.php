@@ -208,7 +208,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="card m-b-30">
-                    <div class="card-header">
+                    <div class="card-body">
                         Postingan hari ini
                     </div>
                 </div>
@@ -261,7 +261,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="card m-b-30">
-                    <div class="card-header">
+                    <div class="card-body">
                         Kategori hari ini
                     </div>
                 </div>
@@ -335,7 +335,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="card m-b-30">
-                    <div class="card-header">
+                    <div class="card-body">
                         Tutorial hari ini
                     </div>
                 </div>
