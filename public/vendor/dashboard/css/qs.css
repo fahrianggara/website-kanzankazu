@@ -120,7 +120,7 @@ a {
 a:hover {
     outline: 0;
     text-decoration: none !important;
-    color: var(--primLight-color);
+    color: #0096b0;
 }
 
 .btn:focus {
@@ -3291,10 +3291,9 @@ span.star-required {
     font-size: 26px;
     display: inline-block;
     font-weight: 400;
-    border: 3px solid #f8f8fe;
     text-align: center;
     border-radius: 50%;
-    background: #03738a4b;
+    background: var(--containerSec-color);
 }
 
 .user-update {
@@ -3305,16 +3304,21 @@ span.star-required {
 
 .round {
     line-height: 60px;
-    color: var(--first-color);
+    color: #707070 !important;
     width: 60px;
     height: 60px;
     font-size: 26px;
     display: inline-block;
     font-weight: 400;
-    border: 3px solid #f8f8fe;
+    border: 3px solid var(--first-color);
     text-align: center;
     border-radius: 50%;
-    background: #03738a4b;
+    background: var(--containerSec-color);
+}
+
+.round i {
+    position: relative;
+    top: -1.7px;
 }
 
 .round-inner,

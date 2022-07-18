@@ -152,7 +152,7 @@
                             tidak ditemukan.
                         </h5>
                     @elseif (request()->get('status') == 'publish')
-                        <i class="uil uil-plus-circle"></i>
+                         <i class="uil uil-book-medical"></i>
                         <h5 class="m-t-10">
                             Hmm.. sepertinya postingan kamu belum dibuat.
                             <a href="{{ route('posts.create') }}#posts">Buat?</a>
@@ -169,7 +169,7 @@
                             postingan..
                         </h5>
                     @else
-                        <i class="uil uil-plus-circle"></i>
+                         <i class="uil uil-book-medical"></i>
                         <h5 class="m-t-10">
                             Hmm.. sepertinya postingan kamu belum dibuat.
                             <a href="{{ route('posts.create') }}#posts">Buat?</a>
