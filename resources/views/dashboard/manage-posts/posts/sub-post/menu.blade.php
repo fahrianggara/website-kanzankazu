@@ -55,7 +55,7 @@
                         <button type="submit" class="dropdown-item d-flex align-items-center">
                             <i class="{{ $post->recommendedPost ? 'fas fa-star' : 'far fa-star' }} text-warning"></i>
                             <span
-                                class="ml-2">{{ $post->recommendedPost ? 'Rekomendasi' : 'Rekomendasikan' }}</span>
+                                class="ml-2">{{ $post->recommendedPost ? 'Batal Rekomendasikan' : 'Rekomendasikan' }}</span>
                         </button>
                     </form>
                 @endif
@@ -83,7 +83,7 @@
                         <button type="submit" class="dropdown-item d-flex align-items-center">
                             <i class="{{ $post->recommendedPost ? 'fas fa-star' : 'far fa-star' }} text-warning"></i>
                             <span
-                                class="ml-2">{{ $post->recommendedPost ? 'Rekomendasi' : 'Rekomendasikan' }}</span>
+                                class="ml-2">{{ $post->recommendedPost ? 'Batal Rekomendasikan' : 'Rekomendasikan' }}</span>
                         </button>
                     </form>
                 @endif
