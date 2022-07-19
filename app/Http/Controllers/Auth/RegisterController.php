@@ -89,7 +89,6 @@ class RegisterController extends Controller
             'provider' => 'kanzankazu',
             'status' => 'notverification'
         ];
-
         $user = User::create($userData);
         $role = Role::select('id')->where('name', 'Editor')->first();
         $user->roles()->attach($role);

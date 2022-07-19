@@ -9,7 +9,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 
-class UserPostApprovedEmail extends Notification
+class UserPostApprovedEmail extends Notification implements ShouldQueue
 {
     use Queueable;
 

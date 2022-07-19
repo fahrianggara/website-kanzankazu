@@ -424,9 +424,8 @@
                             $(document).find('span.error-text').text('');
 
                             setTimeout(() => {
-                                window.location.href =
-                                    '{{ route('contact.index') }}#contact';
-                            }, 1500);
+                                window.location.href = '{{ route("contact.index") }}#contact';
+                            }, 1000);
                         }
                     },
                     error: function(xhr, ajaxOptions, thrownError) {

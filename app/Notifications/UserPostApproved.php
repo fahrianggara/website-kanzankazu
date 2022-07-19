@@ -8,9 +8,10 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 
-class UserPostApproved extends Notification
+class UserPostApproved extends Notification implements ShouldQueue
 {
     use Queueable;
+
     public $user;
 
     /**
