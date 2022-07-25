@@ -26,6 +26,11 @@
 
                     <h3 class="author-title">
                         {{ $user->name }}
+                        @if (Auth::check())
+                            @if (Auth::user()->id == $user->id)
+                                <span class="text-muted" style="font-size: 16px">(You)</span>
+                            @endif
+                        @endif
                     </h3>
 
                     <p class="author-bio">

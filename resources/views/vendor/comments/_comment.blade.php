@@ -30,10 +30,14 @@ $markdown->setSafeMode(true);
                     @if ($comment->guest_name != null)
                         {{ $comment->guest_name ?? 'kanzankazu' }}
                     @else
-                        <a class="underline"
-                            href="{{ route('blog.author', ['author' => $comment->commenter->slug]) }}">
+                        <a class="underline" href="{{ route('blog.author', ['author' => $comment->commenter->slug]) }}">
                             {{ $comment->commenter->name }}
                         </a>
+                        @if ($comment->commenter->id == $comment->commentable->user_id)
+                            <span class="badge badge-info d-inline" style="font-size: 11px">
+                                Pembuat
+                            </span>
+                        @endif
                     @endif
                 </div>
             </div>

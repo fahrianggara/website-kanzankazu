@@ -152,6 +152,17 @@ $('#signWithGithub').click(function() {
                         'Pengecekan..');
                     $('#tooltipGithub').tooltip('show')
                 },
+                complete: function() {
+                    $('#signWithGoogle').removeClass('disable');
+
+                    $('#signWithGithub').removeClass('disable');
+                    $('#signWithGithub').html(
+                        "<a id='signWithGithub' href='javascript:void(0)' class='loginGithub'><img class='logo-provider' src='{{ asset('vendor/blog/img/github.png') }}' width='27'></a>"
+                    );
+                    $('#tooltipGithub').tooltip('dispose').attr('title',
+                        'Login dengan Github');
+                    $('#tooltipGithub').tooltip('show')
+                },
                 success: function(data) {
                     if (data.status == 200) {
 
@@ -277,6 +288,17 @@ $('#signWithGoogle').on('click', function(e) {
                         '<i class="fas fa-spin fa-spinner" disabled="disabled"></i>');
                     $('#tooltipGoogle').tooltip('dispose').attr('title',
                         'Pengecekan..');
+                    $('#tooltipGoogle').tooltip('show')
+                },
+                complete: function() {
+                    $('#signWithGithub').removeClass('disable');
+
+                    $('#signWithGoogle').removeClass('disable');
+                    $('#signWithGoogle').html(
+                        "<a id='signWithGoogle' href='javascript:void(0)' class='loginGoogle'><img class='logo-provider' src='{{ asset('vendor/blog/img/google.png') }}' width='27'></a>"
+                    );
+                    $('#tooltipGoogle').tooltip('dispose').attr('title',
+                        'Login dengan Google');
                     $('#tooltipGoogle').tooltip('show')
                 },
                 success: function(data) {

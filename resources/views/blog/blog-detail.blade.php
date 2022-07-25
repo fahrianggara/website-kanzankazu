@@ -224,11 +224,10 @@
                 <article class="sect-coment" id="sectComment">
                     @if ($post->comments->count() >= 1)
                         <h2 class="sect-title"> {{ $post->comments->count() }} Komentar</h2>
-                        <hr class="hr" style="padding-bottom: 5px">
                     @else
                         <h2 class="sect-title"> Belum ada komentar</h2>
-                        <hr class="hr" style="padding-bottom: 5px">
                     @endif
+                    <hr class="hr" style="padding-bottom: 5px">
 
                     @comments([
                         'model' => $post,

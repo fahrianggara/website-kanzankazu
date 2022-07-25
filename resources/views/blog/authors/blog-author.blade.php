@@ -38,10 +38,20 @@
                             </div>
                             <h3 class="profile-username text-center">
                                 <a class="underline" href="{{ route('blog.author', ['author' => $author->slug]) }}">
-                                    @if (strlen($author->name) > 11)
-                                        {{ substr($author->name, 0, 11) . '..' }}
+                                    @if (strlen($author->name) > 10)
+                                        {{ substr($author->name, 0, 10) . '..' }}
+                                        @if (Auth::check())
+                                            @if (Auth::user()->id == $author->id)
+                                                <span class="text-muted" style="font-size: 16px">(You)</span>
+                                            @endif
+                                        @endif
                                     @else
                                         {{ $author->name }}
+                                        @if (Auth::check())
+                                            @if (Auth::user()->id == $author->id)
+                                                <span class="text-muted" style="font-size: 16px">(You)</span>
+                                            @endif
+                                        @endif
                                     @endif
                                 </a>
                             </h3>
