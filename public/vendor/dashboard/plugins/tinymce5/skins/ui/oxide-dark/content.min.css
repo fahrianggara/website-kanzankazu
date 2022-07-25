@@ -583,7 +583,7 @@ pre[class*=language-] {
 }
 
 .mce-content-body [data-mce-selected=inline-boundary] {
-    background-color: #b4d7ff !important
+    background-color: #b4d7ff !important;
 }
 
 .mce-content-body .mce-edit-focus {
