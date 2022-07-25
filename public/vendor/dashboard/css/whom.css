@@ -6498,21 +6498,24 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 .tox .tox-tbtn:hover,
 .tox .tox-tbtn:focus,
 .tox .tox-mbtn:hover,
-.tox .tox-mbtn:focus {
+.tox .tox-mbtn:focus,
+.tox .tox-tbtn--disabled:hover svg {
     background: var(--first-color) !important;
     color: #fff !important;
 }
 
 .tox .tox-tbtn:hover svg {
     fill: #fff !important;
-    background: var(--first-color) !important;
 }
 
-.tox .tox-tbtn--disabled svg,
-.tox .tox-tbtn--disabled:hover svg {
-    fill: rgba(255, 255, 255, .5) !important;
+.tox .tox-tbtn--disabled svg{
+    fill: #6c757d !important;
 }
 
 .tox .tox-dialog__body-nav-item {
     color: var(--text-color) !important;
+}
+
+.tox-button {
+    font-family: "Rubik", sans-serif !important;
 }
