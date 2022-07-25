@@ -281,7 +281,7 @@
                     value: "mel"
                 },
             ],
-            toolbar1: "restoredraft save | insertfile undo redo | fullscreen preview | styleselect fontselect fontsizeselect | bold italic codesample emoticons | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
+            toolbar1: "restoredraft save | insertfile undo redo | fullscreen preview | styleselect fontselect fontsizeselect | bold italic | codesample emoticons | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
             // MENGKONEKKAN CONTENT GAMBAR KE FILE MANAGER
             file_picker_callback: function(callback, value, meta) {
                 let x = window.innerWidth || document.documentElement.clientWidth || document
