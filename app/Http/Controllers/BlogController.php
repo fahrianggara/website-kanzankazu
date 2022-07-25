@@ -119,11 +119,9 @@ class BlogController extends Controller
 
         // next,prev button
         $next_id = Post::publish()
-            ->where('user_id', $post->user->id)
             ->where('id', '>', $post->id)
             ->min('id');
         $prev_id = Post::publish()
-            ->where('user_id', $post->user->id)
             ->where('id', '<', $post->id)
             ->max('id');
 

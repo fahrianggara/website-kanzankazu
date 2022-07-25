@@ -123,6 +123,10 @@
                     $(this).text('Salin Kode');
                 }.bind(this), 5000);
             });
+
+            $("[data-toggle='tooltip']").tooltip().on("click", function() {
+            $(this).tooltip("hide")
+        });
         });
 
         window.onload = function() {
@@ -149,9 +153,7 @@
             window.location = document.referrer;
         }
 
-        $(".btn-tooltip-hide").tooltip().on("click", function() {
-            $(this).tooltip("hide")
-        });
+
     </script>
 </body>
 

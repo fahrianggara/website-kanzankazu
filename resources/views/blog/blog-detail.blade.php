@@ -200,7 +200,8 @@
                     <article class="entry-bottom" style="margin-bottom: 20px">
                         @if ($prev)
                             <div class="float-right">
-                                <a href="{{ route('blog.detail', ['slug' => $prev->slug]) }}" class="btn-Next">
+                                <a href="{{ route('blog.detail', ['slug' => $prev->slug]) }}" class="btn-Next" data-toggle="tooltip" data-placement="bottom"
+                                    title="{{ $prev->title }}">
                                     Berikutnya <i class="icofont-rounded-right"></i>
                                 </a>
                             </div>
@@ -208,7 +209,8 @@
 
                         @if ($next)
                             <div class="float-left">
-                                <a href="{{ route('blog.detail', ['slug' => $next->slug]) }}" class="btn-Prev">
+                                <a href="{{ route('blog.detail', ['slug' => $next->slug]) }}" class="btn-Prev" data-toggle="tooltip" data-placement="bottom"
+                                    title="{{ $next->title }}">
                                     <i class="icofont-rounded-left"></i> Sebelumnya
                                 </a>
                             </div>
@@ -232,7 +234,7 @@
                     @comments([
                         'model' => $post,
                         'approved' => true,
-                        'maxIndentationLevel' => 1,
+                        'maxIndentationLevel' => 3,
                     ])
                 </article>
 
