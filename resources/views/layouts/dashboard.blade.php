@@ -65,10 +65,6 @@
     @stack('css-external')
     @stack('css-internal')
 
-    <style>
-
-
-    </style>
 </head>
 
 
@@ -138,7 +134,7 @@
     <script src="{{ asset('vendor/dashboard/plugins/alertify/js/alerts.js') }}"></script>
     <script src="{{ asset('vendor/dashboard/plugins/ijabocroptool/ijaboCropTool.min.js') }}"></script>
     <script src="{{ asset('vendor/blog/assets/sweetalert2/sweetalert2.js') }}"></script>
-    <script src="{{ asset('vendor/blog/assets/prehighlight/prehighlights.js') }}"></script>
+    <script src="{{ asset('vendor/blog/assets/prehighlight/prehighlight.js') }}"></script>
     <script src="{{ asset('vendor/dashboard/plugins/dropzone/dist/dropzone.js') }}"></script>
     <script src="{{ asset('vendor/dashboard/plugins/dropify/js/dropify.min.js') }}"></script>
     {{-- ttiny mce --}}
@@ -309,6 +305,8 @@
                 });
             }
         });
+
+
     </script>
 
     {{-- CALL SWEETALERT2 --}}

@@ -118,14 +118,16 @@
                         <div class="entry-bottom">
                             @if ($nextPublish)
                                 <div class="float-left">
-                                    <a href="{{ route('posts.show', ['slug' => $nextPublish->slug]) }}#posts" class="btn-Prev">
+                                    <a href="{{ route('posts.show', ['slug' => $nextPublish->slug]) }}#posts"
+                                        class="btn-Prev">
                                         <i class="uil uil-angle-double-left"></i> Sebelumnya
                                     </a>
                                 </div>
                             @endif
                             @if ($prevPublish)
                                 <div class="float-right">
-                                    <a href="{{ route('posts.show', ['slug' => $prevPublish->slug]) }}#posts" class="btn-Next">
+                                    <a href="{{ route('posts.show', ['slug' => $prevPublish->slug]) }}#posts"
+                                        class="btn-Next">
                                         Berikutnya <i class="uil uil-angle-double-right"></i>
                                     </a>
                                 </div>
@@ -140,14 +142,16 @@
                         <div class="entry-bottom">
                             @if ($nextDraft)
                                 <div class="float-left">
-                                    <a href="{{ route('posts.show', ['slug' => $nextDraft->slug]) }}#posts" class="btn-Prev">
+                                    <a href="{{ route('posts.show', ['slug' => $nextDraft->slug]) }}#posts"
+                                        class="btn-Prev">
                                         <i class="uil uil-angle-double-left"></i> Sebelumnya
                                     </a>
                                 </div>
                             @endif
                             @if ($prevDraft)
                                 <div class="float-right">
-                                    <a href="{{ route('posts.show', ['slug' => $prevDraft->slug]) }}#posts" class="btn-Next">
+                                    <a href="{{ route('posts.show', ['slug' => $prevDraft->slug]) }}#posts"
+                                        class="btn-Next">
                                         Berikutnya <i class="uil uil-angle-double-right"></i>
                                     </a>
                                 </div>

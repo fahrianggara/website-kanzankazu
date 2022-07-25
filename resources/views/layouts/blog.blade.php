@@ -87,7 +87,7 @@
     <script src="{{ asset('vendor/blog/assets/jquery-sticky/jquery.sticky.js') }}"></script>
     <script src="{{ asset('vendor/blog/assets/jquery.easing/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('vendor/blog/assets/sharerjs/sharer.min.js') }}"></script>
-    <script src="{{ asset('vendor/blog/assets/prehighlight/prehighlights.js') }}"></script>
+    <script src="{{ asset('vendor/blog/assets/prehighlight/prehighlight.js') }}"></script>
     <script src="{{ asset('vendor/blog/assets/alertify/js/alertify.js') }}"></script>
     <script src="{{ asset('vendor/blog/js/medium-zoom.min.js') }}"></script>
     <script src="{{ asset('vendor/blog/assets/jquery-mousewheel/jquery.mousewheel.min.js') }}"></script>
