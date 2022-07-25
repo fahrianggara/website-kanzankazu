@@ -2529,8 +2529,8 @@ body.tox-dialog__disable-scroll {
 }
 
 .tox .tox-menubar {
-    background: url("data:image/svg+xml;charset=utf8,%3Csvg height='39px' viewBox='0 0 40 39px' width='40' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='38px' width='100' height='1' fill='%23000000'/%3E%3C/svg%3E") left 0 top 0 #6c757d;
-    /* border-bottom: 1px solid var(--first-color); */
+    /* background: url("data:image/svg+xml;charset=utf8,%3Csvg height='39px' viewBox='0 0 40 39px' width='40' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='38px' width='100' height='1' fill='%23000000'/%3E%3C/svg%3E") left 0 top 0 #6c757d; */
+    border-bottom: 1px solid var(--first-color);
     background-color: var(--container-color);
     display: flex;
     flex: 0 0 auto;
@@ -3394,8 +3394,8 @@ body.tox-dialog__disable-scroll {
 .tox .tox-toolbar,
 .tox .tox-toolbar__overflow,
 .tox .tox-toolbar__primary {
-    background: url("data:image/svg+xml;charset=utf8,%3Csvg height='39px' viewBox='0 0 40 39px' width='40' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='38px' width='100' height='1' fill='%23000000'/%3E%3C/svg%3E") left 0 top 0;
-    /* border-bottom: 1px solid var(--first-color); */
+    /* background: url("data:image/svg+xml;charset=utf8,%3Csvg height='39px' viewBox='0 0 40 39px' width='40' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='38px' width='100' height='1' fill='%23000000'/%3E%3C/svg%3E") left 0 top 0; */
+    border-bottom: 1px solid var(--first-color);
     background-color: var(--container-color);
     display: flex;
     flex: 0 0 auto;

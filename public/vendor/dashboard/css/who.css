@@ -6403,11 +6403,6 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     margin: 0 5px
 }
 
-.todo-list #titleTodo {
-    cursor: pointer;
-    padding: 0;
-}
-
 .input-group>.custom-select:not(:first-child),
 .input-group>.form-control:not(:first-child) {
     border-top-left-radius: 4px;

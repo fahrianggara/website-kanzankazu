@@ -66,8 +66,41 @@
     @stack('css-internal')
 
     <style>
-        .dropify-wrapper, .dropify-wrapper .dropify-clear {
+        :root {
+            --first-color: #00829b;
+        }
+
+        body.dark-theme {
+            --first-color: #00b2cc;
+        }
+
+        .dropify-wrapper,
+        .dropify-wrapper .dropify-clear {
             font-family: "Rubik", sans-serif !important;
+        }
+
+        .tox-tinymce,
+        .tox-tinymce-aux,
+        .tox .tox-dialog__title,
+        .mce-content-body {
+            font-family: "Rubik", sans-serif !important;
+        }
+
+        .todo-list #titleTodo {
+            cursor: default !important;
+            padding: 0;
+        }
+
+        .tox .tox-menubar,
+        .tox .tox-toolbar,
+        .tox .tox-toolbar__overflow,
+        .tox .tox-toolbar__primary {
+            border-bottom: 1px solid var(--first-color);
+            background: none !important;
+        }
+
+        .tox .tox-menu {
+            border: 1px solid var(--first-color) !important;
         }
     </style>
 </head>

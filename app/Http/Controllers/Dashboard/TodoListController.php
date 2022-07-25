@@ -44,7 +44,7 @@ class TodoListController extends Controller
                                 <label for="checkList"></label>
                             </div>
 
-                            <span id="titleTodo" class="text" style="cursor:pointer;">' . $todo->title . '</span>
+                            <span id="titleTodo" class="text">' . $todo->title . '</span>
 
                             <div class="tools">
                                 <a href="javascript:void(0)" data-id="' . $todo->id . '" class="del_btn">

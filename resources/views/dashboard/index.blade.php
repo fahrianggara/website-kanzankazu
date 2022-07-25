@@ -259,9 +259,9 @@
             <script>
                 $(function() {
                     // titleTodo click checkbox
-                    $(document).on('click', '#titleTodo', function() {
-                        $(this).closest('li').find('input[type="checkbox"]').click();
-                    });
+                    // $(document).on('click', '#titleTodo', function() {
+                    //     $(this).closest('li').find('input[type="checkbox"]').click();
+                    // });
 
                     // csrf
                     $.ajaxSetup({
