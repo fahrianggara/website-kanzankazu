@@ -158,7 +158,7 @@ code {
     position: fixed;
     right: 0;
     left: 240px;
-    z-index: 10 !important;
+    z-index: 4 !important;
 }
 
 #wrapper {
@@ -6143,6 +6143,7 @@ div.dataTables_wrapper div.dataTables_paginate {
 .card-footer {
     padding: 1.25rem 1.5rem;
     border-top: 0.0625rem solid rgba(17, 24, 39, 0.125);
+    background-color: var(--header-color);
 }
 
 .card-footer:last-child {
@@ -6271,11 +6272,13 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
         margin-top: 0px !important;
     }
 }
+
 @media(max-width: 481px) {
     .sideMenuSearch {
         margin-top: 20px;
     }
 }
+
 @media(max-width: 768px) {
     .sideMenuSearch {
         margin-bottom: 20px;
@@ -6308,6 +6311,7 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
         transform: translateX(-300%) translateY(-300%);
     }
 }
+
 @media(max-width: 1025px) {
     #noPost .noPost {
         position: relative;
@@ -6318,4 +6322,130 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     }
 }
 
+.todo-list {
+    list-style: none;
+    margin: 0;
+    overflow: auto;
+    padding: 0;
+    max-height: 300px;
+}
 
+.todo-list>li {
+    border-radius: 4px;
+    background-color: var(--header-color);
+    border-left: 2px solid var(--first-color);
+    color: var(--text-color);
+    margin-bottom: 2px;
+    padding: 10px
+}
+
+.todo-list>li:last-of-type {
+    margin-bottom: 0
+}
+
+.todo-list>li>input[type=checkbox] {
+    margin: 0px 10px 0 5px
+}
+
+.todo-list>li .text {
+    display: inline-block;
+    font-weight: 600;
+    margin-left: 5px
+}
+
+.todo-list>li .badge {
+    font-size: .7rem;
+    margin-left: 10px
+}
+
+.todo-list>li .tools {
+    display: none;
+}
+
+.todo-list>li .tools .uil-pen {
+    color: #ffbb33;
+    margin-left: 10px;
+}
+
+.todo-list>li .tools .uil-trash {
+    color: #ff4444;
+}
+
+.todo-list>li .tools .uil {
+    cursor: pointer;
+    margin-right: 5px
+}
+
+.todo-list>li.done .uil-trash {
+    margin-left: 10px;
+}
+
+.todo-list>li:hover .tools {
+    display: inline-block
+}
+
+.todo-list>li.done {
+    color: #697582
+}
+
+.todo-list>li.done .text {
+    font-weight: 500;
+    text-decoration: line-through
+}
+
+.todo-list>li.done .badge {
+    background-color: #adb5bd !important
+}
+
+.todo-list .handle {
+    cursor: move;
+    display: inline-block;
+    margin: 0 5px
+}
+
+.todo-list #titleTodo {
+    cursor: pointer;
+    padding: 0;
+}
+
+.input-group>.custom-select:not(:first-child),
+.input-group>.form-control:not(:first-child) {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.titleCompleted,
+.titleTask {
+    font-size: 12px;
+    font-weight: bold;
+    color: #6c757d;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.dropify-wrapper {
+    background-color: var(--container-color) !important;
+    color: #797979 !important;
+    border: 1px solid var(--first-color) !important;
+    border-radius: 4px !important;
+    height: 194px !important;
+}
+
+.dropify-wrapper:hover {
+    background-size: 30px 30px;
+    background-image: -webkit-linear-gradient(135deg, var(--header-color) 25%, transparent 25%, transparent 50%, var(--header-color) 50%, var(--header-color) 75%, transparent 75%, transparent);
+    background-image: linear-gradient(-45deg, var(--header-color) 25%, transparent 25%, transparent 50%, var(--header-color) 50%, var(--header-color) 75%, transparent 75%, transparent);
+    -webkit-animation: stripes 2s linear infinite;
+    animation: stripes 2s linear infinite
+}
+
+.dropify-wrapper .dropify-preview {
+    border-radius: 4px !important;
+    background-color: var(--container-color);
+}
+
+.dropify-wrapper .dropify-clear {
+    border: 2px solid var(--first-color);
+    color: #fff;
+    border-radius: 4px;
+}

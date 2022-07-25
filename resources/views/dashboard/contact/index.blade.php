@@ -425,7 +425,8 @@
 
                             setTimeout(() => {
                                 window.location.href = '{{ route("contact.index") }}#contact';
-                            }, 1000);
+                                window.location.reload();
+                            }, 1500);
                         }
                     },
                     error: function(xhr, ajaxOptions, thrownError) {

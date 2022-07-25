@@ -153,6 +153,19 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
             Route::get('/load-latest-message', [\App\Http\Controllers\Dashboard\MessageController::class, 'getLoadLatestMessage'])->name('chat.getLoadLatestMessage');
             Route::post('/send', [\App\Http\Controllers\Dashboard\MessageController::class, 'postSendMessage'])->name('chat.send');
             Route::get('/fetch-old-messages', [\App\Http\Controllers\Dashboard\MessageController::class, 'getOldMessages'])->name('chat.getOldMessages');
+            // firebase table
+            Route::get('/firebase', [\App\Http\Controllers\Auth\FirebaseController::class, 'index'])->name('firebase.index');
+            Route::delete('/firebase/destroy/{id}', [\App\Http\Controllers\Auth\FirebaseController::class, 'destroy'])->name('firebase.destroy');
+            // Todo List
+            Route::get('/todolist', [\App\Http\Controllers\Dashboard\TodoListController::class, 'index'])->name('todolist.index');
+            Route::post('/todolist/store', [\App\Http\Controllers\Dashboard\TodoListController::class, 'store'])->name('todolist.store');
+            Route::get('/todolist/{id}', [\App\Http\Controllers\Dashboard\TodoListController::class, 'edit'])->name('todolist.edit');
+            Route::put('/todolist/{id}', [\App\Http\Controllers\Dashboard\TodoListController::class, 'update'])->name('todolist.update');
+            Route::post('/sort-todolist', [\App\Http\Controllers\Dashboard\TodoListController::class, 'sort'])->name('todolist.sort');
+            Route::delete('/todolist/{id}', [\App\Http\Controllers\Dashboard\TodoListController::class, 'destroy'])->name('todolist.destroy');
+            Route::put('/todolist/completed/{id}', [\App\Http\Controllers\Dashboard\TodoListController::class, 'completed'])->name('todolist.completed');
+
+
         });
     });
 });

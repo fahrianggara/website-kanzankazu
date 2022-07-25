@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    User Providers
+    Firebase: Otentikasi
 @endsection
 
 @section('breadcrumbs')
@@ -30,8 +30,7 @@
                                 <tr>
 
                                     <td>
-                                        <a href="javascript:void(0)" class="d-flex align-items-center"
-                                            style="cursor: default">
+                                        <a href="javascript:void(0)" class="d-flex align-items-center" style="cursor: default">
                                             @if ($user->photoUrl != null)
                                                 <img src="{{ $user->photoUrl }}" width="40"
                                                     class="avatar rounded-circle me-3">

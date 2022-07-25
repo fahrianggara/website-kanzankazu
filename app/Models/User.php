@@ -104,6 +104,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Post::class, 'user_id');
     }
 
+    public function todoList()
+    {
+        return $this->hasMany(TodoLists::class, 'user_id');
+    }
+
     public function getRoleNamesAttribute()
     {
         return $this->belongsToMany(Role::class);
@@ -180,4 +185,5 @@ class User extends Authenticatable implements MustVerifyEmail
             ->orWhere('email', 'LIKE', "%{$data}%")
             ->orWhere('provider', 'LIKE', "%{$data}%");
     }
+
 }

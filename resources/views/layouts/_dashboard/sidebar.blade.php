@@ -124,14 +124,6 @@
                             <span>Pengguna</span>
                         </a>
                     </li>
-
-                    <li>
-                        <a href="{{ route('user-providers.index', '#users') }}"
-                            class="waves-effect {{ set_active(['user-providers.index', 'user-providers.create', 'user-providers.edit']) }}">
-                            <i class="uil uil-social-distancing"></i>
-                            <span>Pengguna Provider</span>
-                        </a>
-                    </li>
                 @endcan
                 {{-- ROLES --}}
                 @can('manage_roles')
@@ -140,6 +132,25 @@
                             class="waves-effect {{ set_active(['roles.index', 'roles.create', 'roles.edit', 'roles.show']) }}">
                             <i class="uil uil-user-arrows"></i>
                             <span>Role</span>
+                        </a>
+                    </li>
+                @endcan
+
+                @can('manage_users')
+                    <li id="firebase" class="menu-title">Firebase</li>
+                    <li>
+                        <a href="{{ route('user-providers.index', '#firebase') }}"
+                            class="waves-effect {{ set_active(['user-providers.index', 'user-providers.create', 'user-providers.edit']) }}">
+                            <i class="uil uil-social-distancing"></i>
+                            <span>Otentikasi Users</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('firebase.index', '#firebase') }}"
+                            class="waves-effect {{ set_active(['firebase.index']) }}">
+                            <i class="uil uil-database"></i>
+                            <span>Database Users</span>
                         </a>
                     </li>
                 @endcan
@@ -177,7 +188,7 @@
                 </li>
 
                 {{-- Logout --}}
-                <li class="menu-title">__________________</li>
+                <li class="menu-title">Sign Out</li>
                 <li>
                     <a href="{{ route('logout') }}" data-toggle="modal" data-target="#logModal" class="waves-effect">
                         <i class="uil uil-signout"></i>

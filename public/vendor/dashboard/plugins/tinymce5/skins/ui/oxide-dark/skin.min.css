@@ -4,12 +4,45 @@
  * For LGPL see License.txt in the project root for license information.
  * For commercial licenses see https://www.tiny.cloud/
  */
+ @import url("https://fonts.googleapis.com/css?family=Rubik:400,500,700");
+
+ :root {
+    --first-color: #00829b;
+    --primary-color: #00b2cc;
+    --primLight-color: #60e4ff;
+    --primDark-color: #00829b;
+    --container-color: #fff;
+    --containerSec-color: #fff;
+    --sectionBg-color: #f2f5f4;
+    --text-color: #000;
+    --text2-color: #212121;
+    --codeText-color: #f2f5f4;
+    --sidebarCate-color: #f2f5f4;
+    --header-color: rgb(244, 244, 244);
+}
+
+/* DARK THEME COLOR */
+body.dark-theme {
+    --first-color: #00b2cc;
+    --primary-color: #00b2cc;
+    --primLight-color: #60e4ff;
+    --primDark-color: #00829b;
+    --container-color: #121212;
+    --containerSec-color: #1e1e1e;
+    --sectionBg-color: #1f1f1f;
+    --text-color: #fff;
+    --text2-color: #fafafa;
+    --codeText-color: #1e1e1e;
+    --sidebarCate-color: #121212;
+    --header-color: #181818;
+}
+
 .tox {
     box-shadow: none;
     box-sizing: content-box;
-    color: #2a3746;
+    color: #6c757d;
     cursor: auto;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-family: "Rubik", sans-serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -44,6 +77,7 @@
 .tox :not(svg):not(rect) {
     background: 0 0;
     border: 0;
+    border-color: 1px solid #6c757d;
     box-shadow: none;
     float: none;
     height: auto;
@@ -66,7 +100,7 @@
 }
 
 .tox-tinymce {
-    border: 1px solid #000;
+    border: 1px solid var(--first-color);
     border-radius: 0;
     box-shadow: none;
     box-sizing: border-box;
@@ -85,7 +119,7 @@
 
 .tox-tinymce-inline .tox-editor-header {
     background-color: transparent;
-    border: 1px solid #000;
+    border: 1px solid red;
     border-radius: 0;
     box-shadow: none
 }
@@ -138,7 +172,7 @@ button::-moz-focus-inner {
 }
 
 .tox .tox-dialog__body-content .accessibility-issue--info .accessibility-issue__description {
-    background-color: rgba(32, 122, 183, .5);
+    background-color: rgba(0, 0, 0, 0.10);
     border-color: #207ab7;
     color: #fff
 }
@@ -275,11 +309,11 @@ button::-moz-focus-inner {
 }
 
 .tox .tox-button {
-    background-color: #207ab7;
+    background-color: var(--first-color);
     background-image: none;
     background-position: 0 0;
     background-repeat: repeat;
-    border-color: #207ab7;
+    border-color: var(--first-color);
     border-radius: 3px;
     border-style: solid;
     border-width: 1px;
@@ -422,8 +456,6 @@ button::-moz-focus-inner {
 }
 
 .tox .tox-button--naked {
-    background-color: transparent;
-    border-color: transparent;
     box-shadow: unset;
     color: #fff
 }
@@ -644,12 +676,12 @@ button::-moz-focus-inner {
 }
 
 .tox .tox-collection--list .tox-collection__item--enabled {
-    background-color: #2b3b4e;
+    background-color: var(--header-color);
     color: #fff
 }
 
 .tox .tox-collection--list .tox-collection__item--active {
-    background-color: #4a5562
+    background-color: var(--header-color)
 }
 
 .tox .tox-collection--toolbar .tox-collection__item--enabled {
@@ -658,16 +690,16 @@ button::-moz-focus-inner {
 }
 
 .tox .tox-collection--toolbar .tox-collection__item--active {
-    background-color: #4a5562
+    background-color: var(--header-color)
 }
 
 .tox .tox-collection--grid .tox-collection__item--enabled {
-    background-color: #757d87;
+    background-color: var(--header-color);
     color: #fff
 }
 
 .tox .tox-collection--grid .tox-collection__item--active:not(.tox-collection__item--state-disabled) {
-    background-color: #4a5562;
+    background-color: var(--header-color);
     color: #fff
 }
 
@@ -696,7 +728,7 @@ button::-moz-focus-inner {
 
 .tox .tox-collection__item-checkmark svg,
 .tox .tox-collection__item-icon svg {
-    fill: currentColor
+    fill: #6c757d
 }
 
 .tox .tox-collection--toolbar-lg .tox-collection__item-icon {
@@ -705,7 +737,7 @@ button::-moz-focus-inner {
 }
 
 .tox .tox-collection__item-label {
-    color: currentColor;
+    color: #6c757d;
     display: inline-block;
     flex: 1;
     -ms-flex-preferred-size: auto;
@@ -1340,7 +1372,8 @@ button::-moz-focus-inner {
 }
 
 .tox .tox-dialog-wrap__backdrop {
-    background-color: rgba(34, 47, 62, .75);
+    background-color: var(--container-color);
+    opacity: .8;
     bottom: 0;
     left: 0;
     position: absolute;
@@ -1350,12 +1383,12 @@ button::-moz-focus-inner {
 }
 
 .tox .tox-dialog-wrap__backdrop--opaque {
-    background-color: #222f3e
+    background-color: var(--container-color)
 }
 
 .tox .tox-dialog {
-    background-color: #2b3b4e;
-    border-color: #000;
+    background-color: var(--header-color);
+    border-color: var(--first-color);
     border-radius: 3px;
     border-style: solid;
     border-width: 1px;
@@ -1384,7 +1417,7 @@ button::-moz-focus-inner {
 
 .tox .tox-dialog__header {
     align-items: center;
-    background-color: #2b3b4e;
+    background-color: var(--container-color);
     border-bottom: none;
     color: #fff;
     display: flex;
@@ -1422,11 +1455,12 @@ button::-moz-focus-inner {
     font-weight: 400;
     line-height: 1.3;
     margin: 0;
-    text-transform: none
+    text-transform: none;
+    color: var(--text-color);
 }
 
 .tox .tox-dialog__body {
-    color: #fff;
+    color: var(--text-color);
     display: flex;
     flex: 1;
     -ms-flex-preferred-size: auto;
@@ -1608,7 +1642,7 @@ button::-moz-focus-inner {
 
 .tox .tox-dialog__footer {
     align-items: center;
-    background-color: #2b3b4e;
+    background-color: var(--container-color);
     border-top: 1px solid #000;
     display: flex;
     justify-content: space-between;
@@ -1644,7 +1678,7 @@ button::-moz-focus-inner {
 }
 
 .tox .tox-dialog__table tbody tr {
-    border-bottom: 1px solid #000
+    border-bottom: 1px solid #6c757d
 }
 
 .tox .tox-dialog__table tbody tr:last-child {
@@ -1765,7 +1799,7 @@ body.tox-dialog__disable-scroll {
 }
 
 .tox .tox-dropzone p {
-    color: rgba(255, 255, 255, .5);
+    color: var(--text-color);
     margin: 0 0 16px 0
 }
 
@@ -1778,7 +1812,8 @@ body.tox-dialog__disable-scroll {
 }
 
 .tox .tox-edit-area__iframe {
-    background-color: #fff;
+    background-color: var(--container-color) !important;
+    color: var(--text-color);
     border: 0;
     box-sizing: border-box;
     flex: 1;
@@ -1968,7 +2003,7 @@ body.tox-dialog__disable-scroll {
 
 .tox .tox-label,
 .tox .tox-toolbar-label {
-    color: rgba(255, 255, 255, .5);
+    color: var(--text-color);
     display: block;
     font-size: 14px;
     font-style: normal;
@@ -2084,14 +2119,14 @@ body.tox-dialog__disable-scroll {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background-color: #2b3b4e;
-    border-color: #000;
+    background-color: var(--header-color);
+    border-color: #6c757d;
     border-radius: 3px;
     border-style: solid;
     border-width: 1px;
     box-shadow: none;
     box-sizing: border-box;
-    color: #fff;
+    color: var(--text-color);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
     font-size: 16px;
     line-height: 24px;
@@ -2105,7 +2140,7 @@ body.tox-dialog__disable-scroll {
 
 .tox .tox-textarea[disabled],
 .tox .tox-textfield[disabled] {
-    background-color: #222f3e;
+    background-color: var(--container-color);
     color: rgba(255, 255, 255, .85);
     cursor: not-allowed
 }
@@ -2113,8 +2148,7 @@ body.tox-dialog__disable-scroll {
 .tox .tox-listboxfield .tox-listbox--select:focus,
 .tox .tox-textarea:focus,
 .tox .tox-textfield:focus {
-    background-color: #2b3b4e;
-    border-color: #207ab7;
+    border-color: var(--first-color);
     box-shadow: none;
     outline: 0
 }
@@ -2201,14 +2235,14 @@ body.tox-dialog__disable-scroll {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background-color: #2b3b4e;
-    border-color: #000;
+    background-color: var(--header-color);
+    border-color: #6c757d;
     border-radius: 3px;
     border-style: solid;
     border-width: 1px;
     box-shadow: none;
     box-sizing: border-box;
-    color: #fff;
+    color: var(--text-color);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
     font-size: 16px;
     line-height: 24px;
@@ -2459,14 +2493,15 @@ body.tox-dialog__disable-scroll {
 }
 
 .tox .tox-menu {
-    background-color: #2b3b4e;
-    border: 1px solid #000;
+    background-color: var(--container-color);
+    border: 1px solid #6c757d;
     border-radius: 3px;
     box-shadow: 0 4px 8px 0 rgba(42, 55, 70, .1);
     display: inline-block;
     overflow: hidden;
     vertical-align: top;
-    z-index: 1150
+    z-index: 1150;
+    color: var(--text-color);
 }
 
 .tox .tox-menu.tox-collection.tox-collection--list {
@@ -2494,8 +2529,9 @@ body.tox-dialog__disable-scroll {
 }
 
 .tox .tox-menubar {
-    background: url("data:image/svg+xml;charset=utf8,%3Csvg height='39px' viewBox='0 0 40 39px' width='40' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='38px' width='100' height='1' fill='%23000000'/%3E%3C/svg%3E") left 0 top 0 #222f3e;
-    background-color: #222f3e;
+    background: url("data:image/svg+xml;charset=utf8,%3Csvg height='39px' viewBox='0 0 40 39px' width='40' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='38px' width='100' height='1' fill='%23000000'/%3E%3C/svg%3E") left 0 top 0 #6c757d;
+    /* border-bottom: 1px solid var(--first-color); */
+    background-color: var(--container-color);
     display: flex;
     flex: 0 0 auto;
     flex-shrink: 0;
@@ -2513,7 +2549,7 @@ body.tox-dialog__disable-scroll {
     border: 0;
     border-radius: 3px;
     box-shadow: none;
-    color: #fff;
+    color: #6c757d;
     display: flex;
     flex: 0 0 auto;
     font-size: 14px;
@@ -2552,7 +2588,7 @@ body.tox-dialog__disable-scroll {
 }
 
 .tox .tox-mbtn:hover:not(:disabled):not(.tox-mbtn--active) {
-    background: #4a5562;
+    background: #6c757d;
     border: 0;
     box-shadow: none;
     color: #fff
@@ -2771,7 +2807,7 @@ body.tox-dialog__disable-scroll {
 }
 
 .tox .tox-pop__dialog {
-    background-color: #222f3e;
+    background-color: var(--container-color);
     border: 1px solid #000;
     border-radius: 3px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
@@ -2805,7 +2841,7 @@ body.tox-dialog__disable-scroll {
 }
 
 .tox .tox-pop.tox-pop--bottom::after {
-    border-color: #222f3e transparent transparent transparent;
+    border-color: var(--container-color) transparent transparent transparent;
     border-width: 8px;
     margin-left: -8px;
     margin-top: -1px
@@ -2825,7 +2861,7 @@ body.tox-dialog__disable-scroll {
 }
 
 .tox .tox-pop.tox-pop--top::after {
-    border-color: transparent transparent #222f3e transparent;
+    border-color: transparent transparent var(--container-color) transparent;
     border-width: 8px;
     margin-left: -8px;
     margin-top: 1px
@@ -2845,7 +2881,7 @@ body.tox-dialog__disable-scroll {
 }
 
 .tox .tox-pop.tox-pop--left::after {
-    border-color: transparent #222f3e transparent transparent;
+    border-color: transparent var(--container-color) transparent transparent;
     border-width: 8px;
     margin-left: -15px
 }
@@ -2864,7 +2900,7 @@ body.tox-dialog__disable-scroll {
 }
 
 .tox .tox-pop.tox-pop--right::after {
-    border-color: transparent transparent transparent #222f3e;
+    border-color: transparent transparent transparent var(--container-color);
     border-width: 8px;
     margin-left: -1px
 }
@@ -2894,7 +2930,7 @@ body.tox-dialog__disable-scroll {
 }
 
 .tox .tox-sidebar {
-    background-color: #222f3e;
+    background-color: var(--container-color);
     display: flex;
     flex-direction: row;
     justify-content: flex-end
@@ -3022,9 +3058,9 @@ body.tox-dialog__disable-scroll {
 
 .tox .tox-statusbar {
     align-items: center;
-    background-color: #222f3e;
-    border-top: 1px solid #000;
-    color: #fff;
+    background-color: var(--container-color);
+    border-top: 1px solid var(--first-color);
+    color: #6c757d;
     display: flex;
     flex: 0 0 auto;
     font-size: 12px;
@@ -3065,7 +3101,7 @@ body.tox-dialog__disable-scroll {
 .tox .tox-statusbar a,
 .tox .tox-statusbar__path-item,
 .tox .tox-statusbar__wordcount {
-    color: #fff;
+    color: #6c757d;
     text-decoration: none
 }
 
@@ -3093,7 +3129,7 @@ body.tox-dialog__disable-scroll {
 
 .tox .tox-statusbar__resize-handle svg {
     display: block;
-    fill: #fff
+    fill: #6c757d !important
 }
 
 .tox:not([dir=rtl]) .tox-statusbar__path>* {
@@ -3134,7 +3170,7 @@ body.tox-dialog__disable-scroll {
     border: 0;
     border-radius: 3px;
     box-shadow: none;
-    color: #fff;
+    color: #6c757d;
     display: flex;
     flex: 0 0 auto;
     font-size: 14px;
@@ -3152,7 +3188,7 @@ body.tox-dialog__disable-scroll {
 
 .tox .tox-tbtn svg {
     display: block;
-    fill: #fff
+    fill: #6c757d
 }
 
 .tox .tox-tbtn.tox-tbtn-more {
@@ -3193,7 +3229,7 @@ body.tox-dialog__disable-scroll {
 .tox .tox-tbtn--disabled:hover,
 .tox .tox-tbtn:disabled,
 .tox .tox-tbtn:disabled:hover {
-    background: 0 0;
+    /* background: 0 0; */
     border: 0;
     box-shadow: none;
     color: rgba(255, 255, 255, .5);
@@ -3204,7 +3240,7 @@ body.tox-dialog__disable-scroll {
 .tox .tox-tbtn--disabled:hover svg,
 .tox .tox-tbtn:disabled svg,
 .tox .tox-tbtn:disabled:hover svg {
-    fill: rgba(255, 255, 255, .5)
+    /* fill: rgba(255, 255, 255, .5) */
 }
 
 .tox .tox-tbtn--enabled,
@@ -3289,7 +3325,7 @@ body.tox-dialog__disable-scroll {
 }
 
 .tox .tox-tbtn__select-chevron svg {
-    fill: rgba(255, 255, 255, .5)
+    fill: #6c757d
 }
 
 .tox .tox-tbtn--bespoke .tox-tbtn__select-label {
@@ -3352,14 +3388,15 @@ body.tox-dialog__disable-scroll {
 }
 
 .tox .tox-toolbar-overlord {
-    background-color: #222f3e
+    background-color: var(--container-color)
 }
 
 .tox .tox-toolbar,
 .tox .tox-toolbar__overflow,
 .tox .tox-toolbar__primary {
-    background: url("data:image/svg+xml;charset=utf8,%3Csvg height='39px' viewBox='0 0 40 39px' width='40' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='38px' width='100' height='1' fill='%23000000'/%3E%3C/svg%3E") left 0 top 0 #222f3e;
-    background-color: #222f3e;
+    background: url("data:image/svg+xml;charset=utf8,%3Csvg height='39px' viewBox='0 0 40 39px' width='40' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='38px' width='100' height='1' fill='%23000000'/%3E%3C/svg%3E") left 0 top 0;
+    /* border-bottom: 1px solid var(--first-color); */
+    background-color: var(--container-color);
     display: flex;
     flex: 0 0 auto;
     flex-shrink: 0;
@@ -3408,7 +3445,7 @@ body.tox-dialog__disable-scroll {
 }
 
 .tox.tox-tinymce-aux .tox-toolbar__overflow {
-    background-color: #222f3e;
+    background-color: var(--container-color);
     border: 1px solid #000;
     border-radius: 3px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, .15)
@@ -3436,11 +3473,11 @@ body.tox-dialog__disable-scroll {
 }
 
 .tox:not([dir=rtl]) .tox-toolbar__group:not(:last-of-type) {
-    border-right: 1px solid #000
+    border-right: 1px solid var(--first-color)
 }
 
 .tox[dir=rtl] .tox-toolbar__group:not(:last-of-type) {
-    border-left: 1px solid #000
+    border-left: 1px solid var(--first-color)
 }
 
 .tox .tox-tooltip {

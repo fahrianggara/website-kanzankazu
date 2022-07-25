@@ -132,7 +132,7 @@ class UserController extends Controller
                     $newPict = uniqid('USER-', true) . '.' . $picture->extension();
                     // resize
                     $resizeImg = Image::make($picture->path());
-                    $resizeImg->resize(1080, 1080)->save($path . '/' . $newPict);
+                    $resizeImg->fit(1080, 1080)->save($path . '/' . $newPict);
                 }
 
                 $user = User::create([
@@ -239,7 +239,7 @@ class UserController extends Controller
                     $newPict = uniqid('USER-', true) . '.' . $userPict->extension();
                     // resize
                     $resizeImg = Image::make($userPict->path());
-                    $resizeImg->resize(1080, 1080)->save($path . '/' . $newPict);
+                    $resizeImg->fit(1080, 1080)->save($path . '/' . $newPict);
 
                     $user->user_image = $newPict;
                 }

@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Buat postingan
+    Buat Postingan
 @endsection
 
 @section('breadcrumbs')
@@ -21,14 +21,14 @@
 
         <div class="row">
 
-            <div class="col-lg-12">
-                <div class="card m-b-30">
-                    <div class="card-body">
+            <div class="col-lg-12 ">
+                <div class="m-b-30">
+                    <div class="">
 
                         <div class="row">
                             {{-- TITLE --}}
                             <div class="col-lg-6 form-group">
-                                <label for="input_post_title">Judul @if (Auth::user()->editorRole())
+                                <label for="input_post_title">Judul Postingan @if (Auth::user()->editorRole())
                                         <span class="star-required">*</span>
                                     @endif
                                 </label>
@@ -42,92 +42,16 @@
                                     </span>
                                 @enderror
                             </div>
-                            {{-- SLUG --}}
-                            <div class="col-lg-6 form-group">
-                                <label for="input_post_slug">Slug <span class="star-required"></span></label>
-
-                                <input type="text" id="input_post_slug" name="slug"
-                                    class="form-control @error('slug') is-invalid @enderror" placeholder="Auto Generate"
-                                    value="{{ old('slug') }}" readonly>
-
-                                @error('slug')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            {{-- KEYWORDS --}}
-                            <div class="col-lg-6 form-group">
-                                <label for="input_post_keywords">Kata Kunci @if (Auth::user()->editorRole())
-                                        <span class="star-required">*</span>
-                                    @endif
-                                </label>
-                                <input type="text" id="input_post_keywords" name="keywords"
-                                    class="form-control @error('keywords') is-invalid @enderror"
-                                    placeholder="Masukkan kata kunci postingan kamu. cth: tutorial, php"
-                                    value="{{ old('keywords') }}">
-
-                                @error('keywords')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-
-                            {{-- AUTHOR --}}
-                            <div class="col-lg-6 form-group">
-                                <label for="input_post_author">Author <span class="star-required"></span></label>
-
-                                <input type="text" id="input_post_author" name="author"
-                                    class="form-control @error('author') is-invalid @enderror" placeholder="Author"
-                                    value="{{ Auth::user()->name }}" readonly>
-
-                                @error('author')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            {{-- THUMBNAIL --}}
-                            <div class="col-lg-6 form-group">
-                                <label for="input_post_thumbnail">Gambar Postingan @if (Auth::user()->editorRole())
-                                        <span class="star-required">*</span>
-                                    @endif
-                                </label>
-
-                                <div class="input-group">
-
-                                    <div class="custom-file">
-                                        <input type="file" name="thumbnail"
-                                            class="custom-file-input @error('thumbnail') is-invalid @enderror"
-                                            id="thumbnail" value="{{ old('thumbnail') }}">
-                                        <label class="custom-file-label" for="thumbnail">Pilih gambar postingan
-                                            kamu..</label>
-                                    </div>
-
-                                    @error('thumbnail')
-                                        <span class="invalid-feedback d-block" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
 
                             {{-- SELECT TAG --}}
                             <div class="col-lg-6 form-group">
-                                <label for="select_post_tag" class="">Tag postingan @if (Auth::user()->editorRole())
+                                <label for="select_post_tag" class="">Tag Postingan @if (Auth::user()->editorRole())
                                         <span class="star-required">*</span>
                                     @endif
                                 </label>
 
                                 <select name="tag[]" id="select_post_tag"
-                                    data-placeholder="Cari tag sesuai postingan kamu.."
+                                    data-placeholder="Pilih tag sesuai postingan kamu.."
                                     class="custom-select w-100 @error('tag') is-invalid @enderror" multiple>
                                     @if (old('tag'))
                                         @foreach (old('tag') as $tag)
@@ -148,12 +72,12 @@
                             {{-- Category --}}
                             <div class="form-group col-lg-6">
                                 <label for="select_category">
-                                    Kategori @if (Auth::user()->editorRole())
+                                    Kategori Postingan @if (Auth::user()->editorRole())
                                         <span class="star-required">*</span>
                                     @endif
                                 </label>
 
-                                <select id="select_category" name="category" data-placeholder="Pilih kategori post"
+                                <select id="select_category" name="category" data-placeholder="Pilih kategori sesuai postingan kamu.."
                                     class="custom-select w-100 @error('category') is-invalid @enderror">
                                     @if (old('category'))
                                         <option value="{{ old('category')->id }}">
@@ -168,10 +92,11 @@
                                     </span>
                                 @enderror
                             </div>
+
                             {{-- STATUS --}}
                             @if (Auth::user()->editorRole())
                                 <div class="col-lg-6 form-group">
-                                    <label for="select_post_status" class="">Status <span
+                                    <label for="select_post_status" class="">Status Postingan<span
                                             class="star-required"></span>
                                     </label>
 
@@ -190,13 +115,15 @@
                                 </div>
                             @else
                                 <div class="col-lg-6 form-group">
-                                    <label for="select_post_status">Status <span class="star-required"></span></label>
+                                    <label for="select_post_status">Status Postingan</label>
 
                                     <select name="status" id="select_post_status"
                                         class="custom-select w-100 @error('status') is-invalid @enderror">
-                                        <option value="publish" @if (old('status') == 'publish') selected @endif>Publik
+                                        <option value="publish" @if (old('status') == 'publish') selected @endif>
+                                            Publik
                                         </option>
-                                        <option value="draft" @if (old('status') == 'draft') selected @endif>Arsip
+                                        <option value="draft" @if (old('status') == 'draft') selected @endif>
+                                            Arsip
                                         </option>
 
                                         @error('status')
@@ -209,32 +136,15 @@
                             @endif
                         </div>
 
-                        @if (Auth::user()->editorRole())
-                            {{-- DESCRIPTION --}}
-                            <div class="form-group">
-                                <label for="input_post_desc">Deskripsi @if (Auth::user()->editorRole())
-                                        <span class="star-required">*</span>
-                                    @endif
-                                </label>
-                                <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="input_post_desc"
-                                    onkeyup="countCharBlog(this)" cols="2" rows="6" placeholder="Masukkan deskripsi postingan kamu..">{{ old('description') }}</textarea>
-
-                                <span class="float-right" id="charNumBlog"></span>
-
-                                @error('description')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        @else
+                        @if (!Auth::user()->editorRole())
                             <div class="row">
                                 {{-- tutorial --}}
                                 <div class="form-group col-lg-6">
                                     <label for="select_tutorial">
-                                        Tutorial <span class="star-required"></span>
+                                        Tutorial Postingan
+                                        <i class="uil uil-info-circle text-primary" data-toggle="tooltip" data-placement="top" title="Tutorial postingan ini seperti urutan dari awal sampai akhir konten. pilih datanya sesuai dengan konten kamu, jika tidak maka abaikan saja"></i>
                                     </label>
-                                    <select id="select_tutorial" name="tutorial" data-placeholder="Pilih tutorial post"
+                                    <select id="select_tutorial" name="tutorial" data-placeholder="Pilih tutorial sesuai postingan kamu.."
                                         class="custom-select w-100 @error('tutorial') is-invalid @enderror">
                                         @if (old('tutorial'))
                                             <option id="tutorial_id" value="{{ old('tutorial')->id }}">
@@ -249,26 +159,48 @@
                                         </span>
                                     @enderror
                                 </div>
-                                {{-- DESCRIPTION --}}
-                                <div class="form-group col-lg-6">
-                                    <label for="input_post_desc">Deskripsi @if (Auth::user()->editorRole())
-                                            <span class="star-required">*</span>
-                                        @endif
-                                    </label>
+                            </div>
+                        @endif
 
-                                    <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="input_post_desc"
-                                        onkeyup="countCharBlog(this)" cols="2" rows="6" placeholder="Masukkan deskripsi postingan kamu..">{{ old('description') }}</textarea>
+                        <div class="row">
+                            {{-- THUMBNAIL --}}
+                            <div class="col-lg-6 form-group">
+                                <label for="input_post_thumbnail">Gambar Postingan @if (Auth::user()->editorRole())
+                                        <span class="star-required">*</span>
+                                    @endif
+                                </label>
 
-                                    <span class="float-right" id="charNumBlog"></span>
+                                <div class="input-group">
 
-                                    @error('description')
-                                        <span class="invalid-feedback" role="alert">
+                                    <input type="file" name="thumbnail" id="thumbnail" class="dropify" />
+
+                                    @error('thumbnail')
+                                        <span class="invalid-feedback d-block" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
                             </div>
-                        @endif
+
+                            {{-- DESCRIPTION --}}
+                            <div class="form-group col-lg-6">
+                                <label for="input_post_desc">Deskripsi Postingan @if (Auth::user()->editorRole())
+                                        <span class="star-required">*</span>
+                                    @endif
+                                </label>
+
+                                <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="input_post_desc"
+                                    onkeyup="countCharBlog(this)" cols="2" rows="8" placeholder="Masukkan deskripsi postingan kamu..">{{ old('description') }}</textarea>
+
+                                <span class="float-right" id="charNumBlog"></span>
+
+                                @error('description')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
 
                         {{-- Content --}}
                         <div class="form-group">
@@ -287,9 +219,10 @@
                                 </span>
                             @enderror
                         </div>
+
                     </div>
-                    <div class="card-footer">
-                        <div class="float-right">
+                    <div class="card">
+                        <div class="card-body float-right">
                             <a class="btn btn-info px-4" href="{{ route('posts.index') }}#posts">Kembali</a>
                             <button type="submit" name="submitbtn" class="btn btn-success px-4">Posting</button>
                         </div>
@@ -335,6 +268,8 @@
         });
 
         $(document).ready(function() {
+
+
             // SELECT CATEGORY
             $('#select_category').select2({
                 theme: 'bootstrap4',
@@ -383,13 +318,6 @@
                 }
             });
 
-            $('input[name="title"]').on('keyup', function() {
-                var title = $(this).val();
-                var slug = title.toLowerCase().trim().replace(/ +/g, '-').replace(/[^\w-]+/g, '');
-                $('input[name="slug"]').val(slug);
-            });
-
-
             // MEMANGGIL FILE MANAGER
             $("#button_post_thumbnail").filemanager('image');
 
@@ -416,18 +344,6 @@
                     }
                 }
             });
-
-            // Show name file
-            $(document).on('change', 'input[type="file"]', function(event) {
-                let fileName = $(this).val();
-
-                if (fileName == undefined || fileName == "") {
-                    $(this).next('.custom-file-label').html('Tidak ada gambar yang dipilih..')
-                } else {
-                    $(this).next('.custom-file-label').html(event.target.files[0].name);
-                }
-            });
-
 
         });
 

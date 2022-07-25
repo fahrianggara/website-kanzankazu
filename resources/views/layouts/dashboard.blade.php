@@ -31,7 +31,11 @@
     <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:image" content="{{ asset('logo-web/android-chrome-512x512.png') }}" />
     {{-- title --}}
-    <title>@yield('title') | Dashboard - {{ $setting->site_name }}</title>
+    @if (url()->current() == route('dashboard.index'))
+        <title>Dashboard - {{ $setting->site_name }}</title>
+    @else
+        <title>@yield('title') | Dashboard - {{ $setting->site_name }}</title>
+    @endif
     {{-- Logo / icon --}}
     <link rel="shortcut icon" href="{{ asset('logo-web/favicon.ico') }}" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('logo-web/apple-icon-180x180.png') }}">
@@ -46,17 +50,26 @@
     <link rel="stylesheet" href="{{ asset('vendor/dashboard/plugins/datatables/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/dashboard/plugins/datatables/buttons.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/dashboard/plugins/datatables/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/blog/assets/jquery-ui/jquery-ui.css') }}">
     <link rel="stylesheet"
         href="{{ asset('vendor/dashboard/plugins/colorpicker/jquery-asColorPicker/dist/css/asColorPicker.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/dashboard/plugins/dropzone/dist/dropzone.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/dashboard/plugins/dropify/css/dropify.min.css') }}">
     {{-- icons --}}
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link href="{{ asset('vendor/blog/assets/fontawesome/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('vendor/dashboard/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('vendor/dashboard/css/icons.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('vendor/dashboard/css/asd.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('vendor/dashboard/css/dss.css') }}" rel="stylesheet" type="text/css">
     {{-- CALL CSS --}}
     @stack('css-external')
     @stack('css-internal')
+
+    <style>
+        .dropify-wrapper, .dropify-wrapper .dropify-clear {
+            font-family: "Rubik", sans-serif !important;
+        }
+    </style>
 </head>
 
 
@@ -109,10 +122,10 @@
 
     <script src="{{ asset('vendor/dashboard/js/jquery.min.js') }}"></script>
     <script src="{{ asset('vendor/dashboard/plugins/colorpicker/jquery-asColor/dist/jquery-asColor.js') }}"></script>
-    <script src="{{ asset('vendor/dashboard/plugins/colorpicker/jquery-asGradient/dist/jquery-asGradient.js') }}">
-    </script>
+    <script src="{{ asset('vendor/dashboard/plugins/colorpicker/jquery-asGradient/dist/jquery-asGradient.js') }}"></script>
     <script src="{{ asset('vendor/dashboard/plugins/colorpicker/jquery-asColorPicker/dist/jquery-asColorPicker.js') }}">
     </script>
+    <script src="{{ asset('vendor/blog/assets/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('vendor/dashboard/js/popper.min.js') }}"></script>
     <script src="{{ asset('vendor/dashboard/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendor/dashboard/js/modernizr.min.js') }}"></script>
@@ -127,6 +140,8 @@
     <script src="{{ asset('vendor/dashboard/plugins/ijabocroptool/ijaboCropTool.min.js') }}"></script>
     <script src="{{ asset('vendor/blog/assets/sweetalert2/sweetalert2.js') }}"></script>
     <script src="{{ asset('vendor/blog/assets/prehighlight/prehighlights.js') }}"></script>
+    <script src="{{ asset('vendor/dashboard/plugins/dropzone/dist/dropzone.js') }}"></script>
+    <script src="{{ asset('vendor/dashboard/plugins/dropify/js/dropify.min.js') }}"></script>
     {{-- ttiny mce --}}
     <script src="{{ asset('vendor/dashboard/plugins/tinymce5/jquery.tinymce.min.js') }}"></script>
     <script src="{{ asset('vendor/dashboard/plugins/tinymce5/tinymce.min.js') }}"></script>
@@ -181,6 +196,19 @@
                     $('[data-target="#modalCreate"]').click();
                 }
             });
+
+            $('.dropify').dropify({
+                messages: {
+                    'default': 'Klik atau tarik dan lepaskan gambar untuk diupload',
+                    'replace': 'Ganti',
+                    'remove': 'Hapus',
+                    'error': 'error'
+                },
+                error: {
+                    'fileSize': 'Ukuran file terlalu besar (maks. 1 MB)',
+                    'imageFormat': 'Format gambar tidak didukung'
+                }
+            });
         });
 
         // Notif status
@@ -196,7 +224,9 @@
             relative_urls: false,
             language: "en",
             selector: 'textarea',
-            height: 600,
+            skin: 'oxide-dark',
+            height: 500,
+            width: '100%',
             extended_valid_elements: 'img[class=popup img-fluid|src|width|height|style=z-index:9999999!important]',
             plugins: [
                 "advlist autolink lists link image charmap print preview hr anchor pagebreak emoticons save",
@@ -248,7 +278,7 @@
                 },
             ],
             toolbar1: "restoredraft | save | insertfile undo redo | link image media",
-            toolbar2: "fullscreen preview | styleselect | fontselect | fontsizeselect | bold italic | codesample emoticons | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
+            toolbar2: "fullscreen preview | styleselect fontselect fontsizeselect | bold italic codesample emoticons | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
             // toolbar3: "",
             codesample_content_css: "/public/vendor/dashboard/css/sty.css",
             // MENGKONEKKAN CONTENT GAMBAR KE FILE MANAGER

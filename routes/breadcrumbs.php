@@ -174,6 +174,11 @@ Breadcrumbs::for('userProviders', function (BreadcrumbTrail $trail) {
     $trail->push('Pengguna Provider', route('user-providers.index'));
 });
 
+Breadcrumbs::for('databaseRealtime', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Data User', route('firebase.index'));
+});
+
 // =================================================================
 
 Breadcrumbs::for('chat', function (BreadcrumbTrail $trail) {

@@ -4,6 +4,48 @@
  * For LGPL see License.txt in the project root for license information.
  * For commercial licenses see https://www.tiny.cloud/
  */
+ :root {
+    --first-color: #00829b;
+    --primary-color: #00b2cc;
+    --primLight-color: #60e4ff;
+    --primDark-color: #00829b;
+    --container-color: #fff;
+    --containerSec-color: #fff;
+    --sectionBg-color: #f2f5f4;
+    --text-color: #000;
+    --text2-color: #212121;
+    --codeText-color: #f2f5f4;
+    --sidebarCate-color: #f2f5f4;
+    --header-color: rgb(244, 244, 244);
+}
+
+/* DARK THEME COLOR */
+body.dark-theme {
+    --first-color: #00b2cc;
+    --primary-color: #00b2cc;
+    --primLight-color: #60e4ff;
+    --primDark-color: #00829b;
+    --container-color: #121212;
+    --containerSec-color: #1e1e1e;
+    --sectionBg-color: #1f1f1f;
+    --text-color: #fff;
+    --text2-color: #fafafa;
+    --codeText-color: #1e1e1e;
+    --sidebarCate-color: #121212;
+    --header-color: #181818;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 0;
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(158, 165, 171, 0.605);
+    border-radius: 7px;
+}
+
 .mce-content-body .mce-item-anchor {
     background: transparent url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D'8'%20height%3D'12'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cpath%20d%3D'M0%200L8%200%208%2012%204.09117821%209%200%2012z'%20fill%3D%22%23cccccc%22%2F%3E%3C%2Fsvg%3E%0A") no-repeat center;
     cursor: default;
@@ -47,7 +89,7 @@
 }
 
 .tox-checklist li:not(.tox-checklist--hidden).tox-checklist--checked::before {
-    content: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cg%20id%3D%22checklist-checked%22%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Crect%20id%3D%22Rectangle%22%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%234099FF%22%20fill-rule%3D%22nonzero%22%20rx%3D%222%22%2F%3E%3Cpath%20id%3D%22Path%22%20fill%3D%22%23FFF%22%20fill-rule%3D%22nonzero%22%20d%3D%22M11.5703186%2C3.14417309%20C11.8516238%2C2.73724603%2012.4164781%2C2.62829933%2012.83558%2C2.89774797%20C13.260121%2C3.17069355%2013.3759736%2C3.72932262%2013.0909105%2C4.14168582%20L7.7580587%2C11.8560195%20C7.43776896%2C12.3193404%206.76483983%2C12.3852142%206.35607322%2C11.9948725%20L3.02491697%2C8.8138662%20C2.66090143%2C8.46625845%202.65798871%2C7.89594698%203.01850234%2C7.54483354%20C3.373942%2C7.19866177%203.94940006%2C7.19592841%204.30829608%2C7.5386474%20L6.85276923%2C9.9684299%20L11.5703186%2C3.14417309%20Z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E%0A")
+    content: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cg%20id%3D%22checklist-checked%22%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Crect%20id%3D%22Rectangle%22%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2300829b%22%20fill-rule%3D%22nonzero%22%20rx%3D%222%22%2F%3E%3Cpath%20id%3D%22Path%22%20fill%3D%22%23FFF%22%20fill-rule%3D%22nonzero%22%20d%3D%22M11.5703186%2C3.14417309%20C11.8516238%2C2.73724603%2012.4164781%2C2.62829933%2012.83558%2C2.89774797%20C13.260121%2C3.17069355%2013.3759736%2C3.72932262%2013.0909105%2C4.14168582%20L7.7580587%2C11.8560195%20C7.43776896%2C12.3193404%206.76483983%2C12.3852142%206.35607322%2C11.9948725%20L3.02491697%2C8.8138662%20C2.66090143%2C8.46625845%202.65798871%2C7.89594698%203.01850234%2C7.54483354%20C3.373942%2C7.19866177%203.94940006%2C7.19592841%204.30829608%2C7.5386474%20L6.85276923%2C9.9684299%20L11.5703186%2C3.14417309%20Z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E%0A")
 }
 
 [dir=rtl] .tox-checklist>li:not(.tox-checklist--hidden)::before {
@@ -327,7 +369,7 @@ pre[class*=language-] {
 }
 
 .mce-content-body[data-mce-placeholder]:not(.mce-visualblocks)::before {
-    color: rgba(34, 47, 62, .7);
+    color: #6c757d !important;
     content: attr(data-mce-placeholder);
     position: absolute
 }
@@ -341,8 +383,8 @@ pre[class*=language-] {
 }
 
 .mce-content-body div.mce-resizehandle {
-    background-color: #4099ff;
-    border-color: #4099ff;
+    background-color: #00829b;
+    border-color: #00829b;
     border-style: solid;
     border-width: 1px;
     box-sizing: border-box;
@@ -353,7 +395,7 @@ pre[class*=language-] {
 }
 
 .mce-content-body div.mce-resizehandle:hover {
-    background-color: #4099ff
+    background-color: #00829b
 }
 
 .mce-content-body div.mce-resizehandle:nth-of-type(1) {
@@ -514,25 +556,25 @@ pre[class*=language-] {
 .mce-content-body object[data-mce-selected],
 .mce-content-body table[data-mce-selected],
 .mce-content-body video[data-mce-selected] {
-    outline: 3px solid #4099ff
+    outline: 3px solid #00829b
 }
 
 .mce-content-body hr[data-mce-selected] {
-    outline: 3px solid #4099ff;
+    outline: 3px solid #00829b;
     outline-offset: 1px
 }
 
 .mce-content-body [contentEditable=false] [contentEditable=true]:focus {
-    outline: 3px solid #4099ff
+    outline: 3px solid #00829b
 }
 
 .mce-content-body [contentEditable=false] [contentEditable=true]:hover {
-    outline: 3px solid #4099ff
+    outline: 3px solid #00829b
 }
 
 .mce-content-body [contentEditable=false][data-mce-selected] {
     cursor: not-allowed;
-    outline: 3px solid #4099ff
+    outline: 3px solid #00829b
 }
 
 .mce-content-body.mce-content-readonly [contentEditable=true]:focus,
@@ -541,11 +583,11 @@ pre[class*=language-] {
 }
 
 .mce-content-body [data-mce-selected=inline-boundary] {
-    background-color: #4099ff
+    background-color: #00829b
 }
 
 .mce-content-body .mce-edit-focus {
-    outline: 3px solid #4099ff
+    outline: 3px solid #00829b
 }
 
 .mce-content-body td[data-mce-selected],
@@ -604,7 +646,7 @@ pre[class*=language-] {
 }
 
 .ephox-snooker-resizer-bar {
-    background-color: #4099ff;
+    background-color: #00829b;
     opacity: 0;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -794,7 +836,7 @@ table[style*="border-width: 0px"] th {
 .mce-visualblocks:not([dir=rtl]) pre,
 .mce-visualblocks:not([dir=rtl]) section,
 .mce-visualblocks:not([dir=rtl]) ul {
-    margin-left: 3px
+    margin-left: 3px;
 }
 
 .mce-visualblocks[dir=rtl] address,
@@ -818,7 +860,7 @@ table[style*="border-width: 0px"] th {
 .mce-visualblocks[dir=rtl] section,
 .mce-visualblocks[dir=rtl] ul {
     background-position-x: right;
-    margin-right: 3px
+    margin-right: 3px;
 }
 
 .mce-nbsp,
@@ -831,7 +873,8 @@ table[style*="border-width: 0px"] th {
 }
 
 body {
-    font-family: sans-serif
+    font-family: sans-serif;
+    color: #5f676e;
 }
 
 table {

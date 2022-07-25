@@ -36,7 +36,6 @@
     {{-- Assets CSS --}}
     <link rel="stylesheet" href="{{ asset('vendor/blog/assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/blog/assets/alertify/css/alertifi.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/blog/assets/jquery-ui/jquery-ui.css') }}">
     {{-- Icon --}}
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link rel="stylesheet" href="{{ asset('vendor/blog/assets/icofont/icofont.min.css') }}">
@@ -90,7 +89,6 @@
     <script src="{{ asset('vendor/blog/assets/sharerjs/sharer.min.js') }}"></script>
     <script src="{{ asset('vendor/blog/assets/prehighlight/prehighlights.js') }}"></script>
     <script src="{{ asset('vendor/blog/assets/alertify/js/alertify.js') }}"></script>
-    <script src="{{ asset('vendor/blog/assets/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('vendor/blog/js/medium-zoom.min.js') }}"></script>
     <script src="{{ asset('vendor/blog/assets/jquery-mousewheel/jquery.mousewheel.min.js') }}"></script>
     {{-- Main Js --}}

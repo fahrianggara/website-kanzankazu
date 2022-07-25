@@ -1,7 +1,7 @@
 @component('mail::message')
 # Halo, {{ $contact['name'] }}.
 
-Balasan dari inbox : *{{ $contact['message'] }}*
+Balasan dari inbox : {{ $contact['message'] }}
 <br>
 
 {{ $contact['replay'] }}

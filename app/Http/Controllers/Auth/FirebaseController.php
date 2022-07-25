@@ -19,11 +19,12 @@ use Spatie\Permission\Models\Role;
 
 class FirebaseController extends Controller
 {
-    public function __construct(FirebaseAuth $auth)
+    public function __construct(FirebaseAuth $auth, Database $database)
     {
         $this->table = 'users';
         $this->setting = WebSetting::find(1);
         $this->auth = $auth;
+        $this->db = $database;
     }
 
     public function redirectToGoogle(Request $request)
@@ -78,7 +79,7 @@ class FirebaseController extends Controller
                     'uid' => $request->uid,
                     'name' => $request->name,
                     'slug' => Str::slug($request->name) . '-' . strtolower(Str::random(3)),
-                    'user_image' => $request->user_image,
+                    'user_image' => $request->user_image ?? "https://www.gravatar.com/avatar/" . md5(strtolower(trim($request->uid))) . "?d=wavatar&f=y.jpg",
                     'email' => $request->email,
                     'email_verified_at' => now(),
                     'provider' => 'google',
@@ -155,7 +156,7 @@ class FirebaseController extends Controller
                     'uid' => $request->uid,
                     'name' => $request->name ?? $siteName,
                     'slug' => Str::slug($request->name ?? $siteName) . '-' . strtolower(Str::random(3)),
-                    'user_image' => $request->user_image,
+                    'user_image' => $request->user_image ?? "https://www.gravatar.com/avatar/" . md5(strtolower(trim($request->uid))) . "?d=wavatar&f=y.jpg",
                     'email' => $request->email,
                     'email_verified_at' => now(),
                     'provider' => 'github',
@@ -215,6 +216,7 @@ class FirebaseController extends Controller
                 'slug' => Str::slug($randomStr),
                 'email_verified_at' => now(),
                 'provider' => 'anonymous',
+                "user_image" => "https://www.gravatar.com/avatar/" . md5(strtolower(trim($request->uid))) . "?d=wavatar&f=y.jpg",
             ];
 
             $user = User::create($userData);
@@ -228,6 +230,34 @@ class FirebaseController extends Controller
                 "status" => 200,
                 "msg" => "Selamat datang di " . $this->setting->site_name . '!',
                 "redirect" => route('homepage'),
+            ]);
+        }
+    }
+
+    public function index()
+    {
+        $users = Firebase::database()->getReference($this->table)->
+        getSnapshot()->getValue();
+        //dd($users);
+        return view('dashboard.firebase.realtime-database.index', compact('users'));
+    }
+
+    // delete user
+    public function destroy($id)
+    {
+        $key = $id;
+
+        $user = Firebase::database()->getReference($this->table)->getChild($key)->remove();
+
+        if ($user) {
+            return response()->json([
+                "status" => 200,
+                "msg" => "User berhasil dihapus.",
+            ]);
+        } else {
+            return response()->json([
+                "status" => 400,
+                "msg" => "Terjadi kesalahan saat menghapus user.",
             ]);
         }
     }

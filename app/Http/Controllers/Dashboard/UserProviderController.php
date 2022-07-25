@@ -31,7 +31,7 @@ class UserProviderController extends Controller
     {
         // $users = Firebase::database()->getReference($this->table)->getValue();
         $users = $this->auth->listUsers();
-        return view('dashboard.manage-users.user-providers.index', compact('users'));
+        return view('dashboard.firebase.authentication.index', compact('users'));
     }
 
     public function disableProvider($uid)

@@ -4,10 +4,41 @@
  * For LGPL see License.txt in the project root for license information.
  * For commercial licenses see https://www.tiny.cloud/
  */
+ :root {
+    --first-color: #00829b;
+    --primary-color: #00b2cc;
+    --primLight-color: #60e4ff;
+    --primDark-color: #00829b;
+    --container-color: #fff;
+    --containerSec-color: #fff;
+    --sectionBg-color: #f2f5f4;
+    --text-color: #000;
+    --text2-color: #212121;
+    --codeText-color: #f2f5f4;
+    --sidebarCate-color: #f2f5f4;
+    --header-color: rgb(244, 244, 244);
+}
+
+/* DARK THEME COLOR */
+body.dark-theme {
+    --first-color: #00b2cc;
+    --primary-color: #00b2cc;
+    --primLight-color: #60e4ff;
+    --primDark-color: #00829b;
+    --container-color: #121212;
+    --containerSec-color: #1e1e1e;
+    --sectionBg-color: #1f1f1f;
+    --text-color: #fff;
+    --text2-color: #fafafa;
+    --codeText-color: #1e1e1e;
+    --sidebarCate-color: #121212;
+    --header-color: #181818;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     line-height: 1.4;
-    margin: 1rem
+    margin: 1rem;
 }
 
 table {
