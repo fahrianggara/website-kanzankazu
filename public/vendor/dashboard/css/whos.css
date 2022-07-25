@@ -6444,3 +6444,75 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     color: #fff;
     border-radius: 4px;
 }
+
+.dropify-wrapper,
+.dropify-wrapper .dropify-clear {
+    font-family: "Rubik", sans-serif !important;
+}
+
+.tox-tinymce,
+.tox-tinymce-aux,
+.tox .tox-dialog__title,
+.mce-content-body {
+    font-family: "Rubik", sans-serif !important;
+}
+
+.todo-list #titleTodo {
+    cursor: default !important;
+    padding: 0;
+}
+
+.tox .tox-menubar,
+.tox .tox-toolbar,
+.tox .tox-toolbar__overflow,
+.tox .tox-toolbar__primary {
+    border-bottom: 1px solid var(--first-color);
+    background: none !important;
+}
+
+.tox .tox-menu {
+    border: 1px solid var(--first-color) !important;
+}
+
+.tox .tox-insert-table-picker>div {
+    border-color: #6c757d !important;
+}
+
+.tox .tox-tbtn,
+.tox .tox-mbtn,
+.tox,
+.tox-collection__item-label,
+.tox-collection__item-label * {
+    color: var(--text-color) !important;
+}
+
+.tox .tox-collection__item-checkmark svg,
+.tox .tox-collection__item-icon svg {
+    fill: var(--first-color) !important;
+}
+
+.tox .tox-tbtn svg {
+    fill: var(--text-color) !important;
+}
+
+.tox .tox-tbtn:hover,
+.tox .tox-tbtn:focus,
+.tox .tox-mbtn:hover,
+.tox .tox-mbtn:focus {
+    background: var(--first-color) !important;
+    color: #fff !important;
+}
+
+.tox .tox-tbtn:hover svg {
+    fill: #fff !important;
+    background: var(--first-color) !important;
+}
+
+.tox .tox-tbtn--disabled svg,
+.tox .tox-tbtn--disabled:hover svg {
+    fill: rgba(255, 255, 255, .5) !important;
+}
+
+.tox .tox-dialog__body-nav-item {
+    color: var(--text-color) !important;
+}

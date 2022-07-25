@@ -556,25 +556,25 @@ pre[class*=language-] {
 .mce-content-body object[data-mce-selected],
 .mce-content-body table[data-mce-selected],
 .mce-content-body video[data-mce-selected] {
-    outline: 3px solid #00829b
+    outline: 3px solid #b4d7ff
 }
 
 .mce-content-body hr[data-mce-selected] {
-    outline: 3px solid #00829b;
+    outline: 3px solid #b4d7ff;
     outline-offset: 1px
 }
 
 .mce-content-body [contentEditable=false] [contentEditable=true]:focus {
-    outline: 3px solid #00829b
+    outline: 3px solid #b4d7ff
 }
 
 .mce-content-body [contentEditable=false] [contentEditable=true]:hover {
-    outline: 3px solid #00829b
+    outline: 3px solid #b4d7ff
 }
 
 .mce-content-body [contentEditable=false][data-mce-selected] {
     cursor: not-allowed;
-    outline: 3px solid #00829b
+    outline: 3px solid #b4d7ff
 }
 
 .mce-content-body.mce-content-readonly [contentEditable=true]:focus,
@@ -583,11 +583,11 @@ pre[class*=language-] {
 }
 
 .mce-content-body [data-mce-selected=inline-boundary] {
-    background-color: #00829b
+    background-color: #b4d7ff
 }
 
 .mce-content-body .mce-edit-focus {
-    outline: 3px solid #00829b
+    outline: 3px solid #b4d7ff
 }
 
 .mce-content-body td[data-mce-selected],
