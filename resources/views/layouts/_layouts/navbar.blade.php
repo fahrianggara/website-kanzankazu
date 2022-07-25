@@ -181,7 +181,7 @@
                 if (currentUrl === window.location.href) {
                     window.location.href = targetUrl;
                 } else if (history.back() === undefined) {
-                    window.location.href = "{{ route('blog.author') }}";
+                    window.location.href = "{{ route('blog.authors') }}";
                 }
             }, 100);
         }
