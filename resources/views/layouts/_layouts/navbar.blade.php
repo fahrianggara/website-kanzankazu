@@ -177,8 +177,8 @@
         }
 
         function historyBackAuthor(targetUrl) {
-            var currentUrl = window.history.go(-1);
-
+            var currentUrl = window.location.href;
+            window.history.go(-1);
             setTimeout(function() {
                 if (currentUrl === window.location.href) {
                     window.location.href = targetUrl;
