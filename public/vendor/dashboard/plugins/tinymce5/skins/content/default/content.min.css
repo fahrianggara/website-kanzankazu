@@ -87,7 +87,7 @@ hr {
 }
 
 code {
-    background-color: #e8e8e8;
+    background-color: #e8e8e8 !important;
     border-radius: 3px;
     padding: .1rem .2rem
 }
