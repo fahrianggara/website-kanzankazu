@@ -6519,3 +6519,22 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 .tox-button {
     font-family: "Rubik", sans-serif !important;
 }
+
+.tox .tox-tbtn--enabled,
+.tox .tox-tbtn--enabled:hover {
+    background: var(--first-color) !important;
+    color: #fff !important;
+}
+
+.tox .tox-tbtn--enabled svg,
+.tox .tox-tbtn--enabled:hover svg {
+    fill: #fff !important;
+}
+
+.tox-textarea {
+    font-family: monospace !important;
+}
+
+.tox.tox-tinymce.tox-fullscreen {
+    background: var(--container-color) !important;
+}
