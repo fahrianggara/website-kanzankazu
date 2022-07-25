@@ -177,7 +177,13 @@
         }
 
         function historyBackAuthor(targetUrl) {
-            window.history.back();
+            var currentUrl = window.history.go(-1);
+
+            setTimeout(function() {
+                if (currentUrl === window.location.href) {
+                    window.location.href = targetUrl;
+                }
+            }, 100);
         }
 
         function goBackOrTo(targetUrl) {

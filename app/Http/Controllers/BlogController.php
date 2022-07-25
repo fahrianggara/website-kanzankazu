@@ -64,7 +64,7 @@ class BlogController extends Controller
         SEOMeta::setDescription($post->description);
         SEOMeta::addMeta('article:published_time', Carbon::parse($post->created_at)->toW3cString() . PHP_EOL, 'property');
         SEOMeta::addMeta('article:section', $post->categories->pluck('title')->first(), 'property');
-        SEOMeta::addKeyword($post->keywords);
+        SEOMeta::addKeyword($post->title . ' ' . $setting->site_name);
 
         OpenGraph::setDescription($post->description);
         OpenGraph::setTitle($post->title . ' - ' . $setting->site_name);
