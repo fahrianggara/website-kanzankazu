@@ -109,7 +109,8 @@
             }, 100);
         }
 
-        $(document).find('.copy-to-clipboard-button').addClass('mr-1').text('Salin Kode');
+        $(function () {
+            $(document).find('.copy-to-clipboard-button').addClass('mr-1').text('Salin Kode');
             // copy to clipboard
             $(document).on('click', '.copy-to-clipboard-button', function() {
                 var $temp = $("<input>");
@@ -122,6 +123,7 @@
                     $(this).text('Salin Kode');
                 }.bind(this), 5000);
             });
+        });
 
         window.onload = function() {
             if (!localStorage.justOnce) {
