@@ -50,12 +50,10 @@
                     <ul>
                         <li
                             class="{{ set_active(['blog.tutorials', 'blog.posts.tutorials', 'blog.posts.tutorials.author']) }}">
-                            <a href="{{ route('blog.tutorials') }}"><i
-                                    class="uil uil-layer-group mr-2"></i>Tutorial</a>
+                            <a href="{{ route('blog.tutorials') }}"><i class="uil uil-layer-group mr-2"></i>Tutorial</a>
                         </li>
                         <li class="{{ set_active(['blog.categories', 'blog.posts.categories']) }}"><a
-                                href="{{ route('blog.categories') }}"><i
-                                    class="uil uil-bookmark mr-2"></i>Kategori</a>
+                                href="{{ route('blog.categories') }}"><i class="uil uil-bookmark mr-2"></i>Kategori</a>
                         </li>
                         <li class="{{ set_active(['blog.tags', 'blog.posts.tags']) }}"><a
                                 href=" {{ route('blog.tags') }}"><i class="uil uil-tag-alt mr-2"></i>Tag</a>
@@ -183,7 +181,7 @@
                 if (currentUrl === window.location.href) {
                     window.location.href = targetUrl;
                 }
-            }, 100);
+            }, 800);
         }
 
         function goBackOrTo(targetUrl) {
