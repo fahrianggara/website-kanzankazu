@@ -175,16 +175,15 @@
         }
 
         function historyBackAuthor(targetUrl) {
-            fallbackUrl = fallbackUrl || "{{ route('blog.authors') }}";
-            var prevPage = window.location.href;
-
+            var currentUrl = window.location.href;
             window.history.go(-1);
-
             setTimeout(function() {
-                if (window.location.href == prevPage) {
-                    window.location.href = fallbackUrl;
+                if (currentUrl === window.location.href) {
+                    window.location.href = targetUrl;
+                } else if (history.back() === undefined) {
+                    window.location.href = "{{ route('blog.author') }}";
                 }
-            }, 0);
+            }, 100);
         }
 
         function goBackOrTo(targetUrl) {
