@@ -64,6 +64,11 @@
     {{-- CALL CSS --}}
     @stack('css-external')
     @stack('css-internal')
+
+    <style>
+
+
+    </style>
 </head>
 
 
@@ -221,6 +226,10 @@
             skin: 'oxide-dark',
             height: 500,
             width: '100%',
+            content_css: [
+                "{{ asset('vendor/dashboard/plugins/tinymce5/skins/ui/oxide-dark/content.min.css') }}",
+                "{{ asset('vendor/dashboard/plugins/tinymce5/skins/content/default/content.min.css') }}"
+            ],
             extended_valid_elements: 'img[class=popup img-fluid|src|width|height|style=z-index:9999999!important]',
             plugins: [
                 "advlist autolink lists link image charmap print preview hr anchor pagebreak emoticons save",
@@ -273,8 +282,6 @@
                 },
             ],
             toolbar1: "restoredraft save | insertfile undo redo | fullscreen preview | styleselect fontselect fontsizeselect | bold italic codesample emoticons | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
-            // toolbar3: "",
-            codesample_content_css: "/public/vendor/dashboard/css/sty.css",
             // MENGKONEKKAN CONTENT GAMBAR KE FILE MANAGER
             file_picker_callback: function(callback, value, meta) {
                 let x = window.innerWidth || document.documentElement.clientWidth || document

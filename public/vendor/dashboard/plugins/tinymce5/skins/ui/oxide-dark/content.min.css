@@ -873,8 +873,8 @@ table[style*="border-width: 0px"] th {
 }
 
 body {
-    font-family: sans-serif;
-    color: #5f676e;
+    font-family: "Rubik", sans-serif;
+    color: #868e96 !important;
 }
 
 table {
