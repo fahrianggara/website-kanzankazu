@@ -60,7 +60,7 @@
     <link href="{{ asset('vendor/blog/assets/fontawesome/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('vendor/dashboard/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('vendor/dashboard/css/icons.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('vendor/dashboard/css/dss.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('vendor/dashboard/css/who.css') }}" rel="stylesheet" type="text/css">
     {{-- CALL CSS --}}
     @stack('css-external')
     @stack('css-internal')
