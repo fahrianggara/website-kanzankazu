@@ -255,24 +255,28 @@
             fontsize_formats: '8pt 9pt 10pt 11pt 12pt 14pt 18pt 24pt 30pt 36pt 48pt 60pt 72pt 96pt',
             codesample_global_prismjs: true,
             codesample_languages: [{
-                    text: 'HTML/XML',
-                    value: 'markup'
+                    text: 'HTML',
+                    value: 'HTML'
+                },
+                {
+                    text: 'XML',
+                    value: 'XML'
                 },
                 {
                     text: 'Javascript',
-                    value: 'javascript'
+                    value: 'Javascript'
                 },
                 {
                     text: 'CSS',
-                    value: 'css'
+                    value: 'CSS'
                 },
                 {
                     text: 'PHP',
-                    value: 'php'
+                    value: 'PHP'
                 },
                 {
                     text: 'Python',
-                    value: 'python'
+                    value: 'Python'
                 },
                 {
                     text: 'C++',
@@ -280,11 +284,11 @@
                 },
                 {
                     text: "JSON",
-                    value: "json"
+                    value: "Json"
                 },
                 {
                     text: "bash",
-                    value: "bash"
+                    value: "Bash"
                 },
                 {
                     text: "Mel",
