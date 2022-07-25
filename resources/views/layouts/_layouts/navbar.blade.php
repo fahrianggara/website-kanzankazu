@@ -174,16 +174,17 @@
             }, 0);
         }
 
-        function historyBackAuthor(targetUrl) {
-            var currentUrl = window.location.href;
+        function historyBackAuthor(fallbackUrl) {
+            fallbackUrl = fallbackUrl || "{{ route('blog.authors') }}";
+            var prevPage = window.location.href;
+
             window.history.go(-1);
+
             setTimeout(function() {
-                if (currentUrl === window.location.href) {
-                    window.location.href = targetUrl;
-                } else if (history.back() === undefined) {
-                    window.location.href = "{{ route('blog.authors') }}";
+                if (window.location.href == prevPage) {
+                    window.location.href = fallbackUrl;
                 }
-            }, 100);
+            }, 0);
         }
 
         function goBackOrTo(targetUrl) {
