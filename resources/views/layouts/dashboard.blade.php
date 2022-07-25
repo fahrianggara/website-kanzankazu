@@ -204,6 +204,20 @@
                     'imageFormat': 'Format gambar tidak didukung'
                 }
             });
+
+            $(document).find('.copy-to-clipboard-button').addClass('mr-1').text('Salin Kode');
+            // copy to clipboard
+            $(document).on('click', '.copy-to-clipboard-button', function() {
+                var $temp = $("<input>");
+                $("body").append($temp);
+                $temp.val($(this).text()).select();
+                document.execCommand("Salin Kode");
+                $temp.remove();
+                $(this).text('Kode Tersalin');
+                setTimeout(function() {
+                    $(this).text('Salin Kode');
+                }.bind(this), 5000);
+            });
         });
 
         // Notif status
