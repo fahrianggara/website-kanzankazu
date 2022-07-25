@@ -556,25 +556,25 @@ pre[class*=language-] {
 .mce-content-body object[data-mce-selected],
 .mce-content-body table[data-mce-selected],
 .mce-content-body video[data-mce-selected] {
-    outline: 3px solid #b4d7ff
+    outline: 3px solid #b4d7ff !important
 }
 
 .mce-content-body hr[data-mce-selected] {
-    outline: 3px solid #b4d7ff;
+    outline: 3px solid #b4d7ff !important;
     outline-offset: 1px
 }
 
 .mce-content-body [contentEditable=false] [contentEditable=true]:focus {
-    outline: 3px solid #b4d7ff
+    outline: 3px solid #b4d7ff !important
 }
 
 .mce-content-body [contentEditable=false] [contentEditable=true]:hover {
-    outline: 3px solid #b4d7ff
+    outline: 3px solid #b4d7ff !important
 }
 
 .mce-content-body [contentEditable=false][data-mce-selected] {
     cursor: not-allowed;
-    outline: 3px solid #b4d7ff
+    outline: 3px solid #b4d7ff !important
 }
 
 .mce-content-body.mce-content-readonly [contentEditable=true]:focus,
@@ -583,11 +583,11 @@ pre[class*=language-] {
 }
 
 .mce-content-body [data-mce-selected=inline-boundary] {
-    background-color: #b4d7ff
+    background-color: #b4d7ff !important
 }
 
 .mce-content-body .mce-edit-focus {
-    outline: 3px solid #b4d7ff
+    outline: 3px solid #b4d7ff !important
 }
 
 .mce-content-body td[data-mce-selected],
