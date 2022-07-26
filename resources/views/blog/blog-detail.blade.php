@@ -234,7 +234,7 @@
                     @comments([
                         'model' => $post,
                         'approved' => true,
-                        'maxIndentationLevel' => 3,
+                        'maxIndentationLevel' => 1,
                     ])
                 </article>
 
