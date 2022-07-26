@@ -41,9 +41,9 @@ $markdown->setSafeMode(true);
                     @endif
                 </div>
             </div>
-            <div class="comTitleTime loading ml-1">
+            {{-- <div class="comTitleTime loading ml-1">
                 <small class="text-muted">- {{ $comment->created_at->diffForHumans() }}</small>
-            </div>
+            </div> --}}
         </div>
 
         <div class="loading comText" style="margin-top: 1px">
