@@ -7,8 +7,9 @@ $markdown->setSafeMode(true);
 
 <div id="comment-{{ $comment->getKey() }}" class="media">
 
-    <div class="comImg loading-cicle">
 
+
+    <div class="comImg loading-cicle">
         @if ($comment->guest_name != null)
             <img class="mr-2 rounded-circle profileImg"
                 src="https://www.gravatar.com/avatar/{{ md5($comment->commenter->email ?? $comment->guest_email) }}?d=wavatar&f=y.jpg"
@@ -22,30 +23,32 @@ $markdown->setSafeMode(true);
                 alt="{{ $comment->commenter->name }} Avatar">
         @endif
 
+        <div class="vl"></div>
     </div>
 
     <div class="media-body">
 
         <div class="d-flex">
-            <div class="comTitle loading">
-                <div class="comment-title guestName" style="font-family: 'Rubik', sans-serif;">
-                    @if ($comment->guest_name != null)
-                        {{ $comment->guest_name ?? 'kanzankazu' }}
-                    @else
-                        <a href="{{ route('blog.author', ['author' => $comment->commenter->slug]) }}">
-                            {{ $comment->commenter->name }}
-                        </a>
-                        @if ($comment->commenter->id == $comment->commentable->user_id)
-                            <span class="badge badge-info d-inline">
-                                Pembuat
-                            </span>
+            <div class="d-block">
+                <div class="comTitle loading">
+                    <div class="comment-title guestName" style="font-family: 'Rubik', sans-serif;">
+                        @if ($comment->guest_name != null)
+                            {{ $comment->guest_name ?? 'kanzankazu' }}
+                        @else
+                            <a href="{{ route('blog.author', ['author' => $comment->commenter->slug]) }}">
+                                {{ $comment->commenter->name }}
+                            </a>
+                            @if ($comment->commenter->id == $comment->commentable->user_id)
+                                <span class="badge badge-info d-inline">
+                                    Pembuat
+                                </span>
+                            @endif
                         @endif
-                    @endif
+                        <div class="small text-secondary">{{ $comment->created_at->longAbsoluteDiffForHumans() }}</div>
+                    </div>
                 </div>
             </div>
-            {{-- <div class="comTitleTime loading ml-1">
-                <small class="text-muted">· {{ $comment->created_at->longAbsoluteDiffForHumans() }}</small>
-            </div> --}}
+
             @if (Auth::check())
                 <div class="btn-group dropright btn_setting ">
                     <button class="btn btn-link dropdown-toggle dropdown-toggle-split m-0 p-0" data-toggle="dropdown"
@@ -91,35 +94,12 @@ $markdown->setSafeMode(true);
             <div class="comment-text commentMsg">{!! Markdown::convert($comment->comment)->getContent() !!} </div>
         </div>
 
-        {{-- <div style="margin-top: 2px">
-            @can('reply-to-comment', $comment)
-                <button data-toggle="modal" data-target="#reply-modal-{{ $comment->getKey() }}"
-                    class="btn btn-sm btn-link text-uppercase">Balas</button>
-            @endcan
-            @can('edit-comment', $comment)
-                <button data-toggle="modal" data-target="#comment-modal-{{ $comment->getKey() }}"
-                    class="btn btn-sm btn-link text-uppercase">Edit</button>
-            @endcan
-            @can('delete-comment', $comment)
-                <a href="{{ route('comments.destroy', $comment->getKey()) }}"
-                    onclick="event.preventDefault();document.getElementById('comment-delete-form-{{ $comment->getKey() }}').submit();"
-                    class="btn btn-sm btn-link text-danger text-uppercase">Hapus</a>
-                <form id="comment-delete-form-{{ $comment->getKey() }}"
-                    action="{{ route('comments.destroy', $comment->getKey()) }}" method="POST" style="display: none;">
-                    @method('DELETE')
-                    @csrf
-                </form>
-            @endcan
-        </div> --}}
-
-        {{-- <div style="margin: 0"> --}}
-            <small class="text-muted waktuKomen">{{ $comment->created_at->longAbsoluteDiffForHumans() }}</small>
-        {{-- </div> --}}
+        {{-- <small class="text-muted waktuKomen">{{ $comment->created_at->longAbsoluteDiffForHumans() }}</small> --}}
 
         @can('edit-comment', $comment)
             <div class="modal fade" id="comment-modal-{{ $comment->getKey() }}" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content modal-centered">
                         <form id="formCommentUpdate" method="POST" class="form-modal-comment"
                             action="{{ route('comments.update', $comment->getKey()) }}">
                             @method('PUT')
@@ -134,7 +114,7 @@ $markdown->setSafeMode(true);
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label for="message">Edit komentar kamu disini.</label>
-                                    <textarea class="form-control" required name="message" rows="3" autofocus>{{ $comment->comment }}</textarea>
+                                    <textarea class="form-control" required name="message" rows="8" autofocus>{{ $comment->comment }}</textarea>
                                     <small class="form-text text-muted">@lang('comments::comments.markdown_cheatsheet', ['url' => 'https://help.github.com/articles/basic-writing-and-formatting-syntax'])</small>
                                 </div>
                             </div>
@@ -152,8 +132,8 @@ $markdown->setSafeMode(true);
 
         @can('reply-to-comment', $comment)
             <div class="modal fade" id="reply-modal-{{ $comment->getKey() }}" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content modal-centered">
                         <form id="formCommentReply" method="POST"
                             action="{{ route('comments.reply', $comment->getKey()) }}">
                             @csrf
@@ -166,7 +146,7 @@ $markdown->setSafeMode(true);
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label for="message">Masukkan komentar kamu disini</label>
-                                    <textarea required class="form-control" name="message" rows="3"></textarea>
+                                    <textarea required class="form-control" name="message" rows="8"></textarea>
                                     <span class="invalid-feedback d-block error-text message_error"></span>
                                     <small class="form-text text-muted">@lang('comments::comments.markdown_cheatsheet', ['url' => 'https://help.github.com/articles/basic-writing-and-formatting-syntax'])</small>
                                 </div>

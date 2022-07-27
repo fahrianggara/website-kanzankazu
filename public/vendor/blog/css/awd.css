@@ -3814,7 +3814,7 @@ div.code-toolbar>.toolbar>.toolbar-item>span:hover {
     border-color: var(--text-color);
 }
 
-.sect-coment .hr~div {
+.sect-coment .hr~div:not(.form-card) {
     overflow: auto;
     max-height: 340px;
 }
@@ -3828,7 +3828,7 @@ div.code-toolbar>.toolbar>.toolbar-item>span:hover {
     width: 50px;
     height: 50px;
     margin-left: 5px;
-    margin-top: 7px;
+    margin-top: 10px;
 }
 
 .sect-coment .media {
@@ -3855,7 +3855,7 @@ div.code-toolbar>.toolbar>.toolbar-item>span:hover {
 }
 
 .sect-coment .media .media-body .media {
-    border-top: 3.8px solid var(--containerSec-color);
+    border-top: 1px solid #6c757d;
 }
 
 .sect-coment .media .media-body .media .profileImg {
@@ -3879,22 +3879,22 @@ div.code-toolbar>.toolbar>.toolbar-item>span:hover {
 }
 
 .sect-coment .media .comText code {
-    background-color: var(--header-color);
     color: var(--text-color);
     border-radius: 4px;
-    padding: 2px 4px;
     font-size: 12px;
     font-weight: 500;
-    display: inline-block;
-    position: relative;
-    overflow: hidden;
-    z-index: 10;
 }
 
-.sect-coment .media .comText :not(pre)>code[class*="language-"], pre[class*="language-"] {
-    background-color: var(--header-color);
-    border: 1px solid var(--text-color);
+.sect-coment .media .comText .commentMsg div.code-toolbar {
+    margin-bottom: 16px !important;
 }
+
+.sect-coment .media .comText .commentMsg> :not(pre)>code[class*="language-"],
+pre[class*="language-"] {
+    background-color: var(--container-color);
+    border: 1px solid #6c757d !important;
+}
+
 .sect-coment .media .comText blockquote {
     background-color: var(--containerSec-color);
     /* margin: 0 15px; */
@@ -4680,7 +4680,7 @@ ul li.ui-menu-item p:hover {
 
 .btn_setting {
     position: relative;
-    top: -4px;
+    bottom: 11.5px;
     left: 5px;
 }
 
