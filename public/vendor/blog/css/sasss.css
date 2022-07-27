@@ -18,6 +18,7 @@
     --codeText-color: #f2f5f4;
     --sidebarCate-color: #f2f5f4;
     --preText-color: #0d6779;
+    --header-color: #f3f3f3;
 }
 
 /* DARK THEME COLOR */
@@ -34,6 +35,7 @@ body.dark-theme {
     --codeText-color: #1e1e1e;
     --sidebarCate-color: #121212;
     --preText-color: #60e4ff;
+    --header-color: #181818;
 }
 
 /* SEMUA PAGE */
@@ -108,7 +110,7 @@ h6 {
     top: 0;
     left: 0;
     width: 100%;
-    height: 5px;
+    height: 2px;
     background: var(--container-color);
     z-index: 999;
 }
@@ -3479,6 +3481,7 @@ div.code-toolbar>.toolbar>.toolbar-item>span:hover {
     .main-blog .post-related a {
         font-size: 16px;
     }
+
     .main-blog .post-related .link-moreblog {
         line-height: 20px !important;
     }
@@ -3811,23 +3814,136 @@ div.code-toolbar>.toolbar>.toolbar-item>span:hover {
     border-color: var(--text-color);
 }
 
-.sect-coment .media img {
+.sect-coment .hr~div {
+    overflow: auto;
+    max-height: 340px;
+}
+
+.sect-coment .waktuKomen {
+    margin-left: 8px !important;
+}
+
+.sect-coment .media .profileImg {
     border-radius: 100%;
-    width: 55px;
-    height: 55px;
-    border: 2px solid var(--first-color);
+    width: 50px;
+    height: 50px;
+    margin-left: 5px;
+    margin-top: 7px;
+}
+
+.sect-coment .media {
+    margin: 0 !important;
 }
 
 .sect-coment .media .media-body {
     color: var(--text-color);
+    margin-top: 5px;
+    background-color: var(--header-color);
+    border-radius: 5px;
+    padding: 8px 10px 10px 10px !important;
+}
+
+.sect-coment .media .media-body .media-body {
     margin-top: 3px;
 }
 
+.sect-coment .media .media-body .media-body,
+.sect-coment .media .media-body .media {
+    background-color: var(--header-color);
+    border-radius: 0 0 5px;
+    padding: 10px 0 0 10px;
+}
+
+.sect-coment .media .media-body .media {
+    border-top: 3.8px solid var(--containerSec-color);
+}
+
+.sect-coment .media .media-body .media .profileImg {
+    margin-top: 12px;
+    margin-left: 0px;
+}
+
+.sect-coment .media .comTitleTime small {
+    position: relative;
+    bottom: 1px;
+}
+
+.sect-coment .media .media-body .media .comText {
+    margin-top: 5px;
+
+}
+
+.sect-coment .media .comText img {
+    width: 140px !important;
+    height: 140px !important;
+}
+
+.sect-coment .media .comText code {
+    background-color: var(--header-color);
+    color: var(--text-color);
+    border-radius: 4px;
+    padding: 2px 4px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.sect-coment .media .comText :not(pre)>code[class*="language-"], pre[class*="language-"] {
+    background-color: var(--header-color);
+    border: 1px solid var(--text-color);
+}
+.sect-coment .media .comText blockquote {
+    background-color: var(--containerSec-color);
+    /* margin: 0 15px; */
+    border-left: 5px solid var(--first-color);
+    margin: 10px 10px 16px 10px;
+    padding: 0.5em 10px;
+}
+
+.sect-coment .media .comText blockquote p {
+    display: inline;
+}
+
+.sect-coment .media .comText a {
+    color: var(--first-color);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.sect-coment .media .comText a:hover {
+    color: var(--first-color);
+    text-decoration: underline;
+}
+
+.sect-coment .media .comment-title a {
+    color: var(--first-color);
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.sect-coment .media .comment-title a:hover {
+    /* color: var(--text-color); */
+    text-decoration: underline;
+}
+
+.sect-coment .media .badge {
+    background-color: var(--first-color);
+    color: #fff;
+    transition: none !important;
+    font-size: 11px;
+    font-weight: bold;
+    position: relative;
+    bottom: 1px;
+}
+
 .sect-coment .media .media-body .comment-title {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
     color: var(--first-color);
-    font-family: "Roboto Condensed", sans-serif;
+    margin-bottom: 8px !important;
 }
 
 .sect-coment .media .media-body small {
@@ -3835,12 +3951,18 @@ div.code-toolbar>.toolbar>.toolbar-item>span:hover {
 }
 
 .sect-coment .media .media-body .comment-text {
-    font-size: 17px;
+    font-size: 14px;
+    margin-bottom: 8px !important;
+}
+
+.sect-coment .media .media-body .comment-text p {
+    margin-bottom: 0;
 }
 
 .sect-coment .media .media-body .comment-title,
 .sect-coment .media .media-body .comment-text {
     margin-left: 8px;
+
 }
 
 .sect-coment .modal form,
@@ -3854,6 +3976,7 @@ div.code-toolbar>.toolbar>.toolbar-item>span:hover {
     background-color: var(--sidebarCate-color);
     padding: 12px 12px;
     border-radius: 3px;
+    margin-top: 20px;
 }
 
 .sect-coment .form_comment input,
@@ -4542,4 +4665,84 @@ ul li.ui-menu-item p:hover {
     .main-blog .related-post h2 {
         font-size: 27px !important;
     }
+}
+
+.dropdown-toggle::after,
+.dropleft .dropdown-toggle::before,
+.dropright .dropdown-toggle::after {
+    display: none;
+}
+
+.uil-ellipsis-v {
+    font-size: 16px;
+    color: var(--text-color);
+}
+
+.btn_setting {
+    position: relative;
+    top: -4px;
+    left: 5px;
+}
+
+.btn:focus,
+.btn:active {
+    outline: none !important;
+    box-shadow: none;
+}
+
+.btn_setting i.iconsetting {
+    font-size: 18px;
+    padding: 3px 5px 3px 5px;
+    border-radius: 50%;
+}
+
+.btn_setting i.iconsetting:hover {
+    background-color: rgba(0, 0, 0, 0.20);
+}
+
+.btn-group .text-dark i {
+    font-size: 25px;
+    background-color: none;
+    padding: 3px 5px 3px 5px;
+    border-radius: 50%;
+    color: var(--text-color);
+}
+
+.btn-group .text-dark i:hover {
+    background-color: rgba(0, 0, 0, 0.30);
+}
+
+.dashboard-dropdown {
+    margin-top: 10px !important;
+}
+
+.dropdown-menu {
+    padding: 4px 0;
+    font-size: 15px;
+    -webkit-box-shadow: 0 2px 30px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 30px rgba(0, 0, 0, 0.08);
+    /* border-color: gray; */
+    background: var(--container-color);
+}
+
+.dropdown-menu i {
+    font-size: 16px;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+    color: var(--text-color);
+    text-decoration: none;
+    background-color: var(--container-color);
+}
+
+.dropdown-item {
+    padding: .55rem 1.5rem;
+    color: var(--text-color);
+    z-index: 999;
+}
+
+.dropdown-item:hover {
+    background-color: var(--sectionBg-color);
+    color: var(--text-color);
 }

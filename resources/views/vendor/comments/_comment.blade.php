@@ -6,51 +6,92 @@ $markdown->setSafeMode(true);
 
 
 <div id="comment-{{ $comment->getKey() }}" class="media">
+
     <div class="comImg loading-cicle">
 
         @if ($comment->guest_name != null)
-            <img class="mr-2 rounded-circle"
+            <img class="mr-2 rounded-circle profileImg"
                 src="https://www.gravatar.com/avatar/{{ md5($comment->commenter->email ?? $comment->guest_email) }}?d=wavatar&f=y.jpg"
                 alt="{{ $comment->commenter->name ?? $comment->guest_name }} Avatar">
         @elseif (file_exists('vendor/dashboard/image/picture-profiles/' . $comment->commenter->user_image))
-            <img class="mr-2 rounded-circle"
+            <img class="mr-2 rounded-circle profileImg"
                 src="{{ asset('vendor/dashboard/image/picture-profiles') . '/' . $comment->commenter->user_image ?? 'https://www.gravatar.com/avatar/?d=wavatar&f=y.jpg' }}"
                 alt="{{ $comment->commenter->name }} Avatar">
         @else
-            <img class="mr-2 rounded-circle" src="{{ asset('vendor/dashboard/image/avatar.png') }}"
+            <img class="mr-2 rounded-circle profileImg" src="{{ asset('vendor/dashboard/image/avatar.png') }}"
                 alt="{{ $comment->commenter->name }} Avatar">
         @endif
 
     </div>
+
     <div class="media-body">
 
-        <div class="d-flex mb-1">
+        <div class="d-flex">
             <div class="comTitle loading">
                 <div class="comment-title guestName" style="font-family: 'Rubik', sans-serif;">
                     @if ($comment->guest_name != null)
                         {{ $comment->guest_name ?? 'kanzankazu' }}
                     @else
-                        <a class="underline" href="{{ route('blog.author', ['author' => $comment->commenter->slug]) }}">
+                        <a href="{{ route('blog.author', ['author' => $comment->commenter->slug]) }}">
                             {{ $comment->commenter->name }}
                         </a>
                         @if ($comment->commenter->id == $comment->commentable->user_id)
-                            <span class="badge badge-info d-inline" style="font-size: 11px">
+                            <span class="badge badge-info d-inline">
                                 Pembuat
                             </span>
                         @endif
                     @endif
                 </div>
             </div>
-            <div class="comTitleTime loading ml-1">
+            {{-- <div class="comTitleTime loading ml-1">
                 <small class="text-muted">· {{ $comment->created_at->longAbsoluteDiffForHumans() }}</small>
-            </div>
+            </div> --}}
+            @if (Auth::check())
+                <div class="btn-group dropright btn_setting ">
+                    <button class="btn btn-link dropdown-toggle dropdown-toggle-split m-0 p-0" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="iconsetting uil uil-ellipsis-v "></i>
+                    </button>
+                    <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mt-5 py-1">
+                        @can('reply-to-comment', $comment)
+                            <button data-toggle="modal" data-target="#reply-modal-{{ $comment->getKey() }}"
+                                class="dropdown-item d-flex align-items-center">
+                                <i class="uil uil-corner-up-left-alt text-primary"></i>
+                                <span class="ml-2">Balas</span>
+                            </button>
+                        @endcan
+                        @can('edit-comment', $comment)
+                            <button data-toggle="modal" data-target="#comment-modal-{{ $comment->getKey() }}"
+                                class="dropdown-item d-flex align-items-center">
+                                <i class="uil uil-comment-alt-edit text-warning"></i>
+                                <span class="ml-2">Edit</span>
+                            </button>
+                        @endcan
+                        @can('delete-comment', $comment)
+                            <a href="{{ route('comments.destroy', $comment->getKey()) }}"
+                                onclick="event.preventDefault();document.getElementById('comment-delete-form-{{ $comment->getKey() }}').submit();"
+                                class="dropdown-item d-flex align-items-center">
+                                <i class="uil uil-trash-alt text-danger"></i>
+                                <span class="ml-2">Hapus</span>
+                            </a>
+                            <form id="comment-delete-form-{{ $comment->getKey() }}"
+                                action="{{ route('comments.destroy', $comment->getKey()) }}" method="POST"
+                                style="display: none;">
+                                @method('DELETE')
+                                @csrf
+                            </form>
+                        @endcan
+                    </div>
+                </div>
+            @endif
         </div>
 
         <div class="loading comText" style="margin-top: 1px">
-            <div class="comment-text commentMsg">{!! $markdown->line($comment->comment) !!} </div>
+            {{-- <div class="comment-text commentMsg">{!! $markdown->line($comment->comment) !!} </div> --}}
+            <div class="comment-text commentMsg">{!! Markdown::convert($comment->comment)->getContent() !!} </div>
         </div>
 
-        <div style="margin-top: 2px">
+        {{-- <div style="margin-top: 2px">
             @can('reply-to-comment', $comment)
                 <button data-toggle="modal" data-target="#reply-modal-{{ $comment->getKey() }}"
                     class="btn btn-sm btn-link text-uppercase">Balas</button>
@@ -69,9 +110,11 @@ $markdown->setSafeMode(true);
                     @csrf
                 </form>
             @endcan
-        </div>
+        </div> --}}
 
-        <div style="margin-top: 5px"></div>
+        {{-- <div style="margin: 0"> --}}
+            <small class="text-muted waktuKomen">{{ $comment->created_at->longAbsoluteDiffForHumans() }}</small>
+        {{-- </div> --}}
 
         @can('edit-comment', $comment)
             <div class="modal fade" id="comment-modal-{{ $comment->getKey() }}" tabindex="-1" role="dialog">
@@ -140,7 +183,7 @@ $markdown->setSafeMode(true);
             </div>
         @endcan
 
-        <br />{{-- Margin bottom --}}
+        {{-- Margin bottom --}}
 
         <?php
         if (!isset($indentationLevel)) {
@@ -162,7 +205,10 @@ $markdown->setSafeMode(true);
         @endif
 
     </div>
+
 </div>
+
+
 
 {{-- Recursion for children --}}
 @if ($grouped_comments->has($comment->getKey()) && $indentationLevel > $maxIndentationLevel)
