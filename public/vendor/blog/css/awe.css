@@ -104,6 +104,22 @@ h6 {
     background-color: var(--primLight-color);
 }
 
+/* input */
+textarea:focus,
+textarea.form-control:focus,
+input.form-control:focus,
+input[type=text]:focus,
+input[type=password]:focus,
+input[type=email]:focus,
+input[type=number]:focus,
+[type=text].form-control:focus,
+[type=password].form-control:focus,
+[type=email].form-control:focus,
+[type=tel].form-control:focus,
+[contenteditable].form-control:focus {
+  box-shadow: inset 0 -1px 0 transparent;
+}
+
 /* Progress Read bar */
 .progress-read {
     position: fixed;
@@ -3795,12 +3811,27 @@ div.code-toolbar>.toolbar>.toolbar-item>span:hover {
 }
 
 /* SECTION BG COMENT */
-.sect-coment {
+.count-title .sect-title {
+    color: var(--first-color);
+    font-size: 23px;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 5px;
+}
+.count-title {
     background: var(--containerSec-color);
     box-shadow: 0 1.95px 3px 1px rgba(0, 0, 0, 0.3);
     border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.sect-coment {
+    /* background: var(--containerSec-color);
+    box-shadow: 0 1.95px 3px 1px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
     padding: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 20px; */
 }
 
 .sect-coment .sect-title {
@@ -3828,39 +3859,41 @@ div.code-toolbar>.toolbar>.toolbar-item>span:hover {
     width: 50px;
     height: 50px;
     margin-left: 5px;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 .sect-coment .media {
     margin: 0 !important;
 }
-
 .sect-coment .media .media-body {
+    margin-top: 4px;
+}
+
+.sect-coment .media .media-body .body {
     color: var(--text-color);
-    margin-top: 5px;
     background-color: var(--header-color);
     border-radius: 5px;
     padding: 8px 10px 10px 10px !important;
+    margin-top: 5px;
 }
 
 .sect-coment .media .media-body .media-body {
-    margin-top: 3px;
+    margin-top: 0;
 }
 
-.sect-coment .media .media-body .media-body,
-.sect-coment .media .media-body .media {
+.sect-coment .media .media-body > .media .media-body{
     background-color: var(--header-color);
-    border-radius: 0 0 5px;
-    padding: 10px 0 0 10px;
+    border-radius: 5px;
+    margin-top: 5px;
 }
 
 .sect-coment .media .media-body .media {
-    border-top: 1px solid #6c757d;
+    /* border-top: 1px solid #6c757d; */
 }
 
 .sect-coment .media .media-body .media .profileImg {
-    margin-top: 12px;
-    margin-left: 0px;
+    margin-top: 15px;
+    margin-left: 10px;
 }
 
 .sect-coment .media .comTitleTime small {
@@ -3918,7 +3951,7 @@ pre[class*="language-"] {
     text-decoration: underline;
 }
 
-.sect-coment .media .comment-title a {
+.sect-coment .media .comment-title>a {
     color: var(--first-color);
     font-size: 16px;
     font-weight: 500;
@@ -3969,24 +4002,27 @@ pre[class*="language-"] {
 .sect-coment .modal form textarea {
     background: var(--sectionBg-color);
     color: var(--text-color);
+
 }
 
 /* FORM SECT COMMENT */
 .sect-coment .form-card {
-    background-color: var(--sidebarCate-color);
+    background: var(--containerSec-color);
+    box-shadow: 0 1.95px 3px 1px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
     padding: 12px 12px;
     border-radius: 3px;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 .sect-coment .form_comment input,
 .sect-coment .form_comment textarea {
-    background: var(--containerSec-color);
+    background: var(--container-color);
     color: var(--text-color);
     border-color: var(--first-color);
 }
 
-.sect-coment .form_comment button {
+.sect-coment .form_comment button[type="submit"] {
     display: inline-block;
     border: 1px solid var(--first-color);
     background: transparent;
@@ -3999,7 +4035,7 @@ pre[class*="language-"] {
     transition: all 0.3s ease;
 }
 
-.sect-coment .form_comment button:after {
+.sect-coment .form_comment button[type="submit"]:after {
     position: absolute;
     content: "";
     width: 0;
@@ -4011,16 +4047,16 @@ pre[class*="language-"] {
     transition: all 0.3s ease;
 }
 
-.sect-coment .form_comment button:hover {
+.sect-coment .form_comment button[type="submit"]:hover {
     color: #fff;
 }
 
-.sect-coment .form_comment button:hover::after {
+.sect-coment .form_comment button[type="submit"]:hover::after {
     left: 0;
     width: 100%;
 }
 
-.sect-coment .form_comment button:hover:active {
+.sect-coment .form_comment button[type="submit"]:hover:active {
     bottom: 1px;
 }
 
@@ -4680,8 +4716,7 @@ ul li.ui-menu-item p:hover {
 
 .btn_setting {
     position: relative;
-    bottom: 11.5px;
-    left: 5px;
+    bottom: 1px;
 }
 
 .btn:focus,
@@ -4745,4 +4780,109 @@ ul li.ui-menu-item p:hover {
 .dropdown-item:hover {
     background-color: var(--sectionBg-color);
     color: var(--text-color);
+}
+
+.tox {
+    border-radius: 5px !important;
+}
+
+.tox .tox-edit-area__iframe {
+    background-color: var(--header-color) !important;
+}
+
+.tox-tinymce:not(.tox-tinymce-inline) .tox-editor-header:not(:first-child) .tox-toolbar-overlord:first-child .tox-toolbar__primary, .tox-tinymce:not(.tox-tinymce-inline) .tox-editor-header:not(:first-child) .tox-toolbar:first-child {
+    border-top: 1px solid var(--first-color) !important;
+}
+
+.tox.tox-tinymce-aux .tox-toolbar__overflow {
+    border: 1px solid var(--first-color) !important;
+}
+
+.tox-tinymce,
+.tox-tinymce-aux,
+.tox .tox-dialog__title,
+.mce-content-body {
+    font-family: "Rubik", sans-serif !important;
+}
+
+.todo-list #titleTodo {
+    cursor: default !important;
+    padding: 0;
+}
+
+.tox .tox-menubar,
+.tox .tox-toolbar,
+.tox .tox-toolbar__overflow,
+.tox .tox-toolbar__primary {
+    border-bottom: 1px solid var(--first-color);
+    background: none !important;
+}
+
+.tox .tox-menu {
+    border: 1px solid var(--first-color) !important;
+}
+
+.tox .tox-insert-table-picker>div {
+    border-color: #6c757d !important;
+}
+
+.tox .tox-tbtn,
+.tox .tox-mbtn,
+.tox,
+.tox-collection__item-label,
+.tox-collection__item-label * {
+    color: var(--text-color) !important;
+}
+
+.tox .tox-collection__item-checkmark svg,
+.tox .tox-collection__item-icon svg {
+    fill: var(--first-color) !important;
+}
+
+.tox .tox-tbtn svg {
+    fill: var(--text-color) !important;
+}
+
+.tox .tox-tbtn:hover,
+.tox .tox-tbtn:focus,
+.tox .tox-mbtn:hover,
+.tox .tox-mbtn:focus,
+.tox .tox-tbtn--disabled:hover svg {
+    background: var(--first-color) !important;
+    color: #fff !important;
+}
+
+.tox .tox-tbtn:hover svg {
+    fill: #fff !important;
+}
+
+.tox .tox-tbtn--disabled svg{
+    fill: #6c757d !important;
+}
+
+.tox .tox-dialog__body-nav-item {
+    color: var(--text-color) !important;
+}
+
+.tox-button {
+    font-family: "Rubik", sans-serif !important;
+}
+
+.tox .tox-tbtn--enabled,
+.tox .tox-tbtn--enabled:hover {
+    background: var(--first-color) !important;
+    color: #fff !important;
+}
+
+.tox .tox-tbtn--enabled svg,
+.tox .tox-tbtn--enabled:hover svg {
+    fill: #fff !important;
+}
+
+.tox-textarea {
+    font-family: monospace !important;
+}
+
+.tox.tox-tinymce.tox-fullscreen {
+    background: var(--container-color) !important;
 }

@@ -44,7 +44,7 @@
     {{-- jQuery Ui --}}
     <link rel="stylesheet" href="{{ asset('vendor/blog/assets/jquery-ui/jquery-ui.css') }}">
     {{-- Main CSS --}}
-    <link rel="stylesheet" href="{{ asset('vendor/blog/css/awd.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/blog/css/awe.css') }}">
     {{-- CSS EXT --}}
     @stack('css-external')
     {{-- CSS INT --}}
@@ -91,6 +91,9 @@
     <script src="{{ asset('vendor/blog/assets/alertify/js/alertify.js') }}"></script>
     <script src="{{ asset('vendor/blog/js/medium-zoom.min.js') }}"></script>
     <script src="{{ asset('vendor/blog/assets/jquery-mousewheel/jquery.mousewheel.min.js') }}"></script>
+    {{-- ttiny mce --}}
+    <script src="{{ asset('vendor/dashboard/plugins/tinymce5/jquery.tinymce.min.js') }}"></script>
+    <script src="{{ asset('vendor/dashboard/plugins/tinymce5/tinymce.min.js') }}"></script>
     {{-- Main Js --}}
     <script src="{{ asset('vendor/blog/js/app.js') }}"></script>
     {{-- JS Ext --}}
@@ -99,6 +102,16 @@
     @stack('js-internal')
     {{-- Script --}}
     <script>
+
+        let A = 10;
+        let B = 7;
+        if (A > B && B != 0) {
+            $result = 2 + A * B;
+        } else {
+            $result = 2 * A + B;
+        }
+        console.log($result);
+
         function buttonBack(targetUrl) {
             var currentUrl = window.location.href;
             window.history.go(-1);
@@ -125,8 +138,10 @@
             });
 
             $("[data-toggle='tooltip']").tooltip().on("click", function() {
-            $(this).tooltip("hide")
-        });
+                $(this).tooltip("hide")
+            });
+
+
         });
 
         window.onload = function() {
@@ -152,8 +167,6 @@
         document.getElementById('buttonBack').onclick = function() {
             window.location = document.referrer;
         }
-
-
     </script>
 </body>
 

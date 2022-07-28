@@ -223,18 +223,21 @@
                     @include('blog.sub-blog.related-post')
                 </div>
 
-                <article class="sect-coment" id="sectComment">
+                <div class="count-title">
                     @if ($post->comments->count() >= 1)
                         <h2 class="sect-title"> {{ $post->comments->count() }} Komentar</h2>
                     @else
                         <h2 class="sect-title"> Belum ada komentar</h2>
                     @endif
-                    <hr class="hr" style="padding-bottom: 5px">
+                </div>
+
+                <article class="sect-coment" id="sectComment">
 
                     @comments([
                         'model' => $post,
                         'approved' => true,
                         'maxIndentationLevel' => 1,
+                        'perPage' => null
                     ])
                 </article>
 

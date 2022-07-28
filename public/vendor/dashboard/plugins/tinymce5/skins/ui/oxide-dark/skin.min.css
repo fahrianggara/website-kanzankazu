@@ -1812,7 +1812,7 @@ body.tox-dialog__disable-scroll {
 }
 
 .tox .tox-edit-area__iframe {
-    background-color: var(--container-color) !important;
+    background-color: var(--container-color);
     color: var(--text-color);
     border: 0;
     box-sizing: border-box;
@@ -3129,7 +3129,7 @@ body.tox-dialog__disable-scroll {
 
 .tox .tox-statusbar__resize-handle svg {
     display: block;
-    fill: #6c757d !important
+    fill: #6c757d
 }
 
 .tox:not([dir=rtl]) .tox-statusbar__path>* {
