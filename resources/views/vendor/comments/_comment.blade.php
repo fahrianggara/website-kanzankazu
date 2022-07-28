@@ -84,22 +84,23 @@ $markdown->setSafeMode(true);
                             @endif
                             <div class="small text-secondary">
                                 @if ($comment->child_id != null)
-                                    @if ($comment->commenter_type !== null)
+                                    <i class="uil uil-share"></i>
+                                    @if ($comment->parent->guest_name != null)
                                         @if (strlen($comment->parent->guest_name) > 12)
-                                            <i class="uil uil-share"></i>
-                                            {{ substr($comment->parent->guest_name, 0, 12) }}.. •
+                                            {{ substr($comment->parent->guest_name, 0, 12) }}..
                                         @else
-                                            <i class="uil uil-share"></i> {{ $comment->parent->guest_name }} •
+                                            {{ $comment->parent->guest_name }}
                                         @endif
                                     @else
                                         @if (strlen($comment->parent->commenter->name) > 12)
-                                            <i class="uil uil-share"></i>
-                                            {{ substr($comment->parent->commenter->name, 0, 12) }}.. •
+                                            {{ substr($comment->parent->commenter->name, 0, 12) }}..
                                         @else
-                                            <i class="uil uil-share"></i> {{ $comment->parent->commenter->name }} •
+                                            {{ $comment->parent->commenter->name }}
                                         @endif
                                     @endif
+                                    •
                                 @endif
+
                                 {{ $comment->created_at->longAbsoluteDiffForHumans() }}
                             </div>
                         </div>
@@ -163,7 +164,7 @@ $markdown->setSafeMode(true);
                             <div class="modal-body">
                                 <div class="form-group">
                                     <textarea id="replay" required class="form-control" name="message" rows="8"></textarea>
-                                    <small class="form-text text-muted">@slang('comments::comments.markdown_cheatsheet', ['url' => 'https://help.github.com/articles/basic-writing-and-formatting-syntax'])</small>
+                                    <small class="form-text text-muted">@lang('comments::comments.markdown_cheatsheet', ['url' => 'https://help.github.com/articles/basic-writing-and-formatting-syntax'])</small>
                                 </div>
                             </div>
                             <div class="modal-footer">
