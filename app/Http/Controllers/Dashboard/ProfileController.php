@@ -77,9 +77,9 @@ class ProfileController extends Controller
                 $query->instagram = $request->input('instagram');
                 $query->github  = $request->input('github');
 
-                if ($key != null) {
-                    $this->database->getReference($this->table . '/' . $key)->update($query->toArray());
-                }
+                // if ($key != null) {
+                //     $this->database->getReference($this->table . '/' . $key)->update($query->toArray());
+                // }
 
                 if ($query->isDirty()) {
                     $query->update();
@@ -131,10 +131,10 @@ class ProfileController extends Controller
                 'user_image' => $new_name
             ]);
 
-            $uid = $user->uid;
-            if ($uid != null) {
-                $this->database->getReference($this->table . '/' . $uid)->set($user->toArray());
-            }
+            // $uid = $user->uid;
+            // if ($uid != null) {
+            //     $this->database->getReference($this->table . '/' . $uid)->set($user->toArray());
+            // }
 
 
             if (!$updateImageProfile) {
