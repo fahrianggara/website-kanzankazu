@@ -16,5 +16,5 @@ return [
     'failed' => 'Akun tidak ditemukan, silahkan coba lagi.',
     'password' => 'Kata sandi yang diberikan salah.',
     'throttle' => 'Terlalu banyak upaya login. silahkan coba lagi dalam :seconds detik.',
-
+    'search' => 'Cari :data yang ingin kamu cari..',
 ];

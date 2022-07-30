@@ -54,7 +54,8 @@ if (isset($approved) and $approved == true) {
 </div>
 
 @isset($perPage)
-    {{ $grouped_comments->links() }}s
+    {{-- {{ $grouped_comments->links() }} --}}
+    {{ $grouped_comments->links('pagination::comments') }}
 @endisset
 
 <div id="formComment">

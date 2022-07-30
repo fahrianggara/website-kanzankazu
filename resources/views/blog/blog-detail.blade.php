@@ -223,7 +223,7 @@
                     @include('blog.sub-blog.related-post')
                 </div>
 
-                <div class="count-title">
+                <div class="count-title" id="comments">
                     @if ($post->comments->count() >= 1)
                         <h2 class="sect-title"> {{ $post->comments->count() }} Komentar</h2>
                     @else
@@ -237,7 +237,7 @@
                         'model' => $post,
                         'approved' => true,
                         'maxIndentationLevel' => 1,
-                        'perPage' => null
+                        'perPage' => 10
                     ])
                 </article>
 

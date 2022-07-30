@@ -287,6 +287,8 @@
                                     }
                                 });
 
+                                $('input#checkList').css('cursor', 'pointer');
+
                                 ln = $('#todoList li.notDone').length;
                                 todoListLn = ln - $('#todoList li').length;
 

@@ -11,30 +11,7 @@
 @section('content')
     <div class="row">
 
-        <div class="col-lg-12 m-b-20">
-            <div class="row flex-row-reverse">
-                <div class="col-xl-9 col-lg-9 col-md-7">
-                    <div class="card">
-                        <div class="card-body">
-
-                            <div class="col-12">
-                                <div class="input-group mx-1">
-                                    <input autocomplete="off" id="keyword" type="search" class="form-control cariData"
-                                        placeholder="Cari user yang ingin kamu cari..">
-
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary">
-                                            <i class="uil uil-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @include('dashboard.menu-search.menu')
 
         <div class="col-lg-12">
             <div class="card m-b-30">
@@ -242,7 +219,7 @@
 
                         html += `
                             <tr>
-                                <td>${user.uid}</td>
+                                <td>${key}</td>
                                 <td>
                                     <a href="javascript:void(0)" class="d-flex align-items-center" style="cursor: default">
                                         <img src="${user.user_image}" width="40" class="avatar rounded-circle me-3">
@@ -259,7 +236,7 @@
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="uil uil-ellipsis-v"></i>
                                         </button>
-                                        <div class="dropdown-menu dashboard-dropdown dropdown-menu-start py-1" style="margin-bottom: 80px">
+                                        <div class="dropdown-menu dashboard-dropdown dropdown-menu-start py-1" style="margin-bottom: 20px">
                                             <button id="editUser" value="${key}" data-uid="${user.uid}" data-name="${user.name}" data-email="${user.email}" data-provider="${user.provider}" data-userimage="${user.user_image}" class="edit_btn dropdown-item d-flex align-items-center">
                                                 <i class="uil uil-pen text-warning"></i>
                                                 <span class="ml-2">Edit User</span>
@@ -285,7 +262,7 @@
 
                     let tableUser = $('#dataUsers').dataTable({
                         "order": [
-                            [0, "asc"]
+                            [0, "desc"]
                         ],
                         "columnDefs": [{
                             "targets": [0],
@@ -294,16 +271,13 @@
                         }],
                         "bInfo": false,
                         "pageLength": 10,
-                        "language": {
-                            "emptyTable": "Tidak ada data yang tersedia",
-                        }
                     });
 
                     $('#keyword').on('keyup', function() {
-                        tableUser.fnFilter(this.value);
+                        tableUser.search(this.value).draw();
                     });
                     $('#selectData').on('change', function() {
-                        tableUser.page.len(this.value);
+                        tableUser.page.len(this.value).draw();
                     });
                     $('.dataTables_wrapper').find('.col-sm-12.col-md-5').remove();
                 });

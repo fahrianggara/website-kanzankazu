@@ -11,34 +11,24 @@
 @section('content')
     <div class="row">
 
-        <div class="col-lg-12 m-b-20">
-            <div class="row flex-row-reverse">
-                <div class="col-xl-9 col-lg-9 col-md-7">
-                    <div class="card">
-                        <div class="card-body">
-
-                            <div class="col-12">
-                                <div class="input-group mx-1">
-                                    <input autocomplete="off" id="keyword" type="search" class="form-control cariData"
-                                        placeholder="Cari user yang ingin kamu cari..">
-
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary">
-                                            <i class="uil uil-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @include('dashboard.menu-search.menu')
 
         <div class="col-lg-12">
             <div class="card m-b-30">
-                <div id="tableUsers" class="card-body table-responsive shadow-sm table-wrapper">
+                <div class="card-body table-responsive shadow-sm table-wrapper">
+
+                    <table id="dataUsers" class="table table-hover align-items-center overflow-hidden">
+                        <thead>
+                            <tr>
+                                <th>KEY</th>
+                                <th>User Data</th>
+                                <th>Provider</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body">
+                        </tbody>
+                    </table>
 
                 </div>
             </div>
@@ -146,7 +136,7 @@
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" class="form-control" id="edit_email" name="email"
-                            placeholder="Masukkan email user" required autocomplete="off" readonly>
+                            placeholder="Masukkan email user" required autocomplete="off">
                         <span class="invalid-feedback d-block error-text email_error"></span>
                     </div>
                     <div class="form-group">
@@ -217,98 +207,54 @@
             const app = initializeApp(firebaseConfig);
             const db = getDatabase(app);
 
-            const showTable = document.getElementById('tableUsers');
+            const tbody = document.getElementById('table-body');
 
             function fetchItemToTable() {
                 const dbRef = ref(db, "users");
 
                 onValue(dbRef, (snapshot) => {
-                    let html = '';
-                    html += `
-                    <table id="dataUsers" class="table table-hover align-items-center overflow-hidden">
-                        <thead>
-                            <tr>
-                                <th>UID</th>
-                                <th>User Data</th>
-                                <th>Provider</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                    `;
+                    tbody.innerHTML = '';
                     snapshot.forEach(function(childSnapshot) {
                         let user = childSnapshot.val();
                         let key = childSnapshot.key;
 
-                        html += `
-                            <tr>
-                                <td>${user.uid}</td>
-                                <td>
-                                    <a href="javascript:void(0)" class="d-flex align-items-center" style="cursor: default">
-                                        <img src="${user.user_image}" width="40" class="avatar rounded-circle me-3">
-                                        <div class="d-block ml-3">
-                                            <span id="namaUser" class="fw-bold name-user">${user.name}</span>
-                                            <div id="emailUser" class="small text-secondary">${user.email}</div>
-                                        </div>
-                                    </a>
-                                </td>
-                                <td>${user.provider}</td>
-                                <td>
-                                    <div class="btn-group dropleft">
-                                        <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="uil uil-ellipsis-v"></i>
-                                        </button>
-                                        <div class="dropdown-menu dashboard-dropdown dropdown-menu-start py-1" style="margin-bottom: 80px">
-                                            <button id="editUser" value="${key}" data-uid="${user.uid}" data-name="${user.name}" data-email="${user.email}" data-provider="${user.provider}" data-userimage="${user.user_image}" class="edit_btn dropdown-item d-flex align-items-center">
-                                                <i class="uil uil-pen text-warning"></i>
-                                                <span class="ml-2">Edit User</span>
-                                            </button>
-                                            <button id="hapusUser" value="${key}" data-name="${user.name}"
-                                                class="del_btn dropdown-item d-flex align-items-center">
-                                                <i class="uil uil-trash text-danger"></i>
-                                                <span class="ml-2">Hapus User</span>
-                                            </button>
-                                        </div>
+                        let tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>${key}</td>
+                            <td>
+                                <a href="javascript:void(0)" class="d-flex align-items-center" style="cursor: default">
+                                    <img src="${user.user_image}" width="40" class="avatar rounded-circle me-3">
+                                    <div class="d-block ml-3">
+                                        <span id="namaUser" class="fw-bold name-user">${user.name}</span>
+                                        <div id="emailUser" class="small text-secondary">${user.email}</div>
                                     </div>
-                                </td>
-                            </tr>
+                                </a>
+                            </td>
+                            <td>${user.provider}</td>
+                            <td>
+                                <div class="btn-group dropleft">
+                                    <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="uil uil-ellipsis-v"></i>
+                                    </button>
+                                    <div class="dropdown-menu dashboard-dropdown dropdown-menu-start py-1" style="margin-bottom: 20px">
+                                        <button id="editUser" value="${key}" data-uid="${user.uid}" data-name="${user.name}" data-email="${user.email}" data-provider="${user.provider}" data-userimage="${user.user_image}" class="edit_btn dropdown-item d-flex align-items-center">
+                                            <i class="uil uil-pen text-warning"></i>
+                                            <span class="ml-2">Edit User</span>
+                                        </button>
+                                        <button id="hapusUser" value="${key}" data-name="${user.name}"
+                                            class="del_btn dropdown-item d-flex align-items-center">
+                                            <i class="uil uil-trash text-danger"></i>
+                                            <span class="ml-2">Hapus User</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
                         `;
+                        tbody.appendChild(tr);
                     });
-
-                    html += `
-                        </tbody>
-                    </table>
-                    `;
-
-                    showTable.innerHTML = html;
-
-                    let tableUser = $('#dataUsers').dataTable({
-                        "order": [
-                            [0, "asc"]
-                        ],
-                        "columnDefs": [{
-                            "targets": [0],
-                            "visible": true,
-                            "searchable": true,
-                        }],
-                        "bInfo": false,
-                        "pageLength": 10,
-                        "language": {
-                            "emptyTable": "Tidak ada data yang tersedia",
-                        }
-                    });
-
-                    $('#keyword').on('keyup', function() {
-                        tableUser.fnFilter(this.value);
-                    });
-                    $('#selectData').on('change', function() {
-                        tableUser.page.len(this.value);
-                    });
-                    $('.dataTables_wrapper').find('.col-sm-12.col-md-5').remove();
                 });
             }
-
             window.addEventListener('load', function() {
                 fetchItemToTable();
             });

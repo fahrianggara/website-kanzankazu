@@ -76,7 +76,7 @@
             //     e.preventDefault();
             // });
 
-            $(document).on('click', '.simple-pagination a', function(e) {
+            $(document).on('click', '#related.simple-pagination a', function(e) {
                 e.preventDefault();
 
                 $('li').removeClass('active');

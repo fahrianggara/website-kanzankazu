@@ -187,9 +187,9 @@
                     }
                 }
 
-                if (e.which == 16) {
-                    $('[data-target="#modalCreate"]').click();
-                }
+                // if (e.which == 17 + 32) {
+                //     $('[data-target="#modalCreate"]').click();
+                // }
             });
 
             $('.dropify').dropify({

@@ -83,8 +83,10 @@ $markdown->setSafeMode(true);
                                 </div>
                             @endif
                             <div class="small text-secondary">
+
                                 @if ($comment->child_id != null)
                                     <i class="uil uil-share"></i>
+
                                     @if ($comment->parent->guest_name != null)
                                         @if (strlen($comment->parent->guest_name) > 12)
                                             {{ substr($comment->parent->guest_name, 0, 12) }}..
@@ -98,6 +100,7 @@ $markdown->setSafeMode(true);
                                             {{ $comment->parent->commenter->name }}
                                         @endif
                                     @endif
+
                                     •
                                 @endif
 

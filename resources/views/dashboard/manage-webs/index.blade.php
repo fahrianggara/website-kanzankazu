@@ -100,8 +100,8 @@
 
                         {{-- Setting Profile --}}
                         <div class="tab-pane p-3" id="setting-1" role="tabpanel">
-                            <form action="{{ route('dashboard.setting.update') }}#website" method="POST" class="form-horizontal"
-                                id="formWebSetting" autocomplete="off">
+                            <form action="{{ route('dashboard.setting.update') }}#website" method="POST"
+                                class="form-horizontal" id="formWebSetting" autocomplete="off">
                                 @csrf
                                 @method('put')
 
@@ -136,7 +136,8 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="site_description" class="col-sm-2 col-form-label">Website Deskripsi</label>
+                                    <label for="site_description" class="col-sm-2 col-form-label">Website
+                                        Deskripsi</label>
                                     <div class="col-sm-10">
                                         <textarea class="form-control site_description" id="site_description" name="site_description"
                                             placeholder="Masukkan deskripsi website kamu" onkeyup="countChar(this)" cols="2" rows="6">{{ $setting->site_description }}</textarea>
@@ -159,8 +160,8 @@
                                     <label for="image_banner" class="col-sm-2 col-form-label">Gambar Banner</label>
                                     <div class="col-sm-10">
                                         <div class="custom-file">
-                                            <input type="file" name="image_banner" class="custom-file-input image_banner"
-                                                id="image_banner">
+                                            <input type="file" name="image_banner"
+                                                class="custom-file-input image_banner" id="image_banner">
                                             <label class="custom-file-label"
                                                 for="image_banner">{{ $setting->image_banner }}</label>
                                         </div>
@@ -279,7 +280,8 @@
                                 .log(response.message);
 
                             setTimeout((function() {
-                                window.location.href = '{{ route("dashboard.setting") }}#website';
+                                window.location.href =
+                                    '{{ route('dashboard.setting') }}#website';
                                 window.location.reload();
                             }), 980);
                         }
