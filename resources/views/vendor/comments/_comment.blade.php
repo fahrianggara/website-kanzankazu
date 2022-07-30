@@ -104,7 +104,7 @@ $markdown->setSafeMode(true);
                                     •
                                 @endif
 
-                                @if ($comment->guest_name != null) Guest Account • @endif {{ $comment->created_at->longAbsoluteDiffForHumans() }}
+                                @if ($comment->guest_name != null) Guest Comment • @endif {{ $comment->created_at->longAbsoluteDiffForHumans() }}
                             </div>
                         </div>
                     </div>
