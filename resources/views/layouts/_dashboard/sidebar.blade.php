@@ -141,8 +141,8 @@
                     <li>
                         <a href="{{ route('user-providers.index', '#firebase') }}"
                             class="waves-effect {{ set_active(['user-providers.index', 'user-providers.create', 'user-providers.edit']) }}">
-                            <i class="uil uil-social-distancing"></i>
-                            <span>Otentikasi Users</span>
+                            <i class="uil uil-users-alt"></i>
+                            <span>Authentication</span>
                         </a>
                     </li>
 
@@ -150,7 +150,7 @@
                         <a href="{{ route('firebase.index', '#firebase') }}"
                             class="waves-effect {{ set_active(['firebase.index']) }}">
                             <i class="uil uil-database"></i>
-                            <span>Database Users</span>
+                            <span>Realtime Database</span>
                         </a>
                     </li>
                 @endcan

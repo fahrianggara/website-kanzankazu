@@ -14,7 +14,7 @@ $markdown->setSafeMode(true);
             <img class="mr-2 rounded-circle profileImg"
                 src="https://www.gravatar.com/avatar/{{ md5($comment->commenter->email ?? $comment->guest_email) }}?d=wavatar&f=y.jpg"
                 alt="{{ $comment->commenter->name ?? $comment->guest_name }} Avatar">
-        @elseif (file_exists('vendor/dashboard/image/picture-profiles/' . $comment->commenter->user_image))
+        @elseif ($comment->commenter->user_image != null)
             <img class="mr-2 rounded-circle profileImg"
                 src="{{ asset('vendor/dashboard/image/picture-profiles') . '/' . $comment->commenter->user_image ?? 'https://www.gravatar.com/avatar/?d=wavatar&f=y.jpg' }}"
                 alt="{{ $comment->commenter->name }} Avatar">
