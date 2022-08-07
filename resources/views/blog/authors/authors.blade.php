@@ -16,8 +16,10 @@
                     </div>
                     <div class="intro-btn">
                         <a href="#about" class="btn btn-explore">EXPLORE</a>
-                        <a href="{{ route('blog.author.resume', ['author' => $user->slug, 'resume' => $user->pf_resume]) }}"
-                            target="_blank" class="btn btn-resume">RESUME</a>
+                        @if ($user->pf_resume != null)
+                            <a href="{{ route('blog.author.resume', ['author' => $user->slug, 'resume' => $user->pf_resume]) }}"
+                                target="_blank" class="btn btn-resume">RESUME</a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -404,8 +406,7 @@
                             <div class="col-lg-6 info d-flex flex-column align-items-stretch">
                                 <i class="uil uil-envelope"></i>
                                 <h4>{{ trans('home.contact.infos.info3.title') }}</h4>
-                                <a
-                                    href="mailto:fahriangga30@gmail.com">fahriangga30@gmail.com</a>
+                                <a href="mailto:fahriangga30@gmail.com">fahriangga30@gmail.com</a>
                             </div>
                             <div class="col-lg-6 info d-flex flex-column align-items-stretch">
                                 <i class="uil uil-facebook"></i>
