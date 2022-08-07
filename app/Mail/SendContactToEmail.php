@@ -30,8 +30,7 @@ class SendContactToEmail extends Mailable
      */
     public function build()
     {
-        return $this->from($this->message['email'])
-            ->subject($this->message['subject'])
+        return $this->subject($this->message['subject'])
             ->markdown('mails.send-message-to-email');
     }
 }
