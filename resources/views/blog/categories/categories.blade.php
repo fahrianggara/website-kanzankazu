@@ -39,29 +39,11 @@
                                 href="{{ route('blog.posts.categories', ['slug' => $category->slug]) }}">{{ $category->title }}</a>
                         </h2>
 
-                        <div class="entry-meta">
-                            <ul>
-                                <li class="d-flex align-items-center">
-                                    <div class="loading">
-                                        <i class="uil uil-file-info-alt"></i>
-                                        <span>{{ $category->posts->count() }}</span>
-                                    </div>
-                                </li>
-
-                                <li class="d-flex align-items-center">
-                                    <div class="loading">
-                                        <i class="uil uil-calendar-alt"></i>
-                                        <span>{{ $category->created_at->format('j M, Y') }}</span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-
                         <div class="entry-content">
                             <div class="loading">
                                 <p>
                                     @if ($category->description == null)
-                                        Kategori blog postingan tentang {{ $category->title }}
+                                        {{ $category->title }}
                                     @else
                                         @if (strlen($category->description) > 150)
                                             {{ substr($category->description, 0, 150) }}...
@@ -71,11 +53,17 @@
                                     @endif
                                 </p>
                             </div>
-                            <div class="read-more loading">
-                                <a href=" {{ route('blog.posts.categories', ['slug' => $category->slug]) }}">
-                                    Lihat Blog-nya
-                                </a>
-                            </div>
+                        </div>
+
+                        <div class="entry-meta">
+                            <ul>
+                                <li class="d-flex align-items-center">
+                                    <div class="loading">
+                                        <i class="uil uil-file-info-alt"></i>
+                                        <span>{{ $category->posts->count() }}</span>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </article>
 

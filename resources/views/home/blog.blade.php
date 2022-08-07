@@ -23,16 +23,46 @@
                                 </a>
                             </div>
 
+                            <div class="tag">
+                                @foreach ($post->tags as $tag)
+                                    <a href="{{ route('blog.posts.tags', ['slug' => $tag->slug]) }}"
+                                        class="badge badge-primary">
+                                        {{ $tag->title }}
+                                    </a>
+                                @endforeach
+                            </div>
+
                             <h2 class="entry-title loading">
                                 <a class="underline"
                                     href="{{ route('blog.detail', ['slug' => $post->slug]) }}">{{ $post->title }}</a>
                             </h2>
 
+                            <div class="entry-content">
+                                <p>
+                                    @if (strlen($post->description) > 150)
+                                        {{ substr($post->description, 0, 150) }}...
+                                    @else
+                                        {{ substr($post->description, 0, 150) }}
+                                    @endif
+                                </p>
+                            </div>
+
                             <div class="entry-meta">
                                 <ul>
                                     <li class="d-flex align-items-center">
-                                        <div class="loading">
-                                            <i class="icofont-user"></i>
+                                        @php
+                                            if (file_exists('vendor/dashboard/image/picture-profiles/' . $post->user->user_image)) {
+                                                $avatar = asset('vendor/dashboard/image/picture-profiles/' . $post->user->user_image);
+                                            } elseif ($post->user->status == 'banned') {
+                                                $avatar = asset('vendor/blog/img/avatar.png');
+                                            } elseif ($post->user->provider == 'google' || $post->user->provider == 'github') {
+                                                $avatar = $post->user->user_image;
+                                            } else {
+                                                $avatar = asset('vendor/blog/img/avatar.png');
+                                            }
+                                        @endphp
+                                        <div class="author-thumbnail">
+                                            <img class="img-circle img-fluid" src="{{ $avatar }}">
                                             @if ($post->user->status == 'banned')
                                                 <a class="underline iconAuthor" href="javascript:void(0)"
                                                     style="cursor: default">Akun
@@ -44,30 +74,7 @@
                                             @endif
                                         </div>
                                     </li>
-                                    <li class="d-flex align-items-center">
-                                        <div class="loading">
-                                            <i class="uil uil-calendar-alt"></i>
-                                            <span>{{ $post->created_at->format('j M, Y') }}</span>
-                                        </div>
-                                    </li>
                                 </ul>
-                            </div>
-
-                            <div class="entry-content">
-                                <div class="loading">
-                                    <p>
-                                        @if (strlen($post->description) > 150)
-                                            {{ substr($post->description, 0, 150) }}...
-                                        @else
-                                            {{ substr($post->description, 0, 150) }}
-                                        @endif
-                                    </p>
-                                </div>
-                                <div class="read-more loading">
-                                    <a href=" {{ route('blog.detail', ['slug' => $post->slug]) }}">
-                                        Baca Selengkapnya
-                                    </a>
-                                </div>
                             </div>
                         </article>
 

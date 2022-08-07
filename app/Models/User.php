@@ -38,7 +38,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'uid',
         'provider',
         'banned_at',
-        'status'
+        'status',
+        'pf_vision',
+        'pf_mission',
+        'pf_resume',
+        'pf_skill_desc',
     ];
 
     /**
@@ -95,7 +99,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Comment::class, 'commenter_id');
     }
 
-    public function message() {
+    public function message()
+    {
         return $this->hasMany(Message::class);
     }
 
@@ -123,6 +128,26 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsToMany(Tutorial::class, 'post_tutorial')
             ->withTimestamps();
+    }
+
+    public function portofolios()
+    {
+        return $this->hasMany(Portfolio::class);
+    }
+
+    public function portfolioSkills()
+    {
+        return $this->hasMany(PortfolioSkill::class, 'user_id');
+    }
+
+    public function titlePorts()
+    {
+        return $this->hasMany(Project::class);
+    }
+
+    public function titlePortfolio()
+    {
+        return $this->belongsToMany(Project::class, 'portfolio_project');
     }
 
     public function publish($query)
@@ -185,5 +210,4 @@ class User extends Authenticatable implements MustVerifyEmail
             ->orWhere('email', 'LIKE', "%{$data}%")
             ->orWhere('provider', 'LIKE', "%{$data}%");
     }
-
 }

@@ -24,7 +24,7 @@
             <div class="col-lg-12 ">
                 <div class="m-b-30">
                     <div class="">
-
+                        <input type="hidden" name="slug">
                         <div class="row">
                             {{-- TITLE --}}
                             <div class="col-lg-6 form-group">

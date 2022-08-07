@@ -42,6 +42,10 @@ class ProfileController extends Controller
                 'twitter'  => 'nullable|url_www',
                 'instagram' => 'nullable|url_www',
                 'github'  => 'nullable|url_www',
+                'pf_vision' => 'nullable|max:50',
+                'pf_mission' => 'nullable|max:500',
+                'pf_skill_desc' => 'nullable|max:500',
+                'pf_resume' => 'nullable|mimes:pdf',
             ],
             [
                 'name.required' => 'Masukkan nama kamu',
@@ -55,6 +59,10 @@ class ProfileController extends Controller
                 'twitter.url_www'  => 'URL tidak valid',
                 'instagram.url_www' => 'URL tidak valid',
                 'github.url_www'  => 'URL tidak valid',
+                'pf_vision.max' => 'Maksimal 50 karakter',
+                'pf_mission.max' => 'Maksimal 500 karakter',
+                'pf_skill_desc.max' => 'Maksimal 500 karakter',
+                'pf_resume.mimes' => 'Format file harus PDF!',
             ]
         );
 
@@ -76,10 +84,31 @@ class ProfileController extends Controller
                 $query->twitter  = $request->input('twitter');
                 $query->instagram = $request->input('instagram');
                 $query->github  = $request->input('github');
+                $query->pf_vision = $request->input('pf_vision');
+                $query->pf_mission = $request->input('pf_mission');
+                $query->pf_skill_desc = $request->input('pf_skill_desc');
 
-                // if ($key != null) {
-                //     $this->database->getReference($this->table . '/' . $key)->update($query->toArray());
-                // }
+
+                if (Auth::user()->pf_resume == null) {
+                    if ($request->hasFile('pf_resume')) {
+                        $path = 'vendor/dashboard/documents/resume/';
+                        $file = $request->file('pf_resume');
+                        $filename = 'resume-' . Auth::user()->slug . '-' . Str::slug(Str::random(3)) . '.' . $file->getClientOriginalExtension();
+                        $file->move($path, $filename);
+                        $query->pf_resume = $filename;
+                    }
+                } else {
+                    if ($request->hasFile('pf_resume')) {
+                        $path = 'vendor/dashboard/documents/resume/';
+                        if (File::exists($path . Auth::user()->pf_resume)) {
+                            File::delete($path . Auth::user()->pf_resume);
+                        }
+                        $file = $request->file('pf_resume');
+                        $filename = 'resume-' . Auth::user()->slug . '-' . Str::slug(Str::random(3)) . '.' . $file->getClientOriginalExtension();
+                        $file->move($path, $filename);
+                        $query->pf_resume = $filename;
+                    }
+                }
 
                 if ($query->isDirty()) {
                     $query->update();
@@ -130,12 +159,6 @@ class ProfileController extends Controller
             $updateImageProfile = $user->update([
                 'user_image' => $new_name
             ]);
-
-            // $uid = $user->uid;
-            // if ($uid != null) {
-            //     $this->database->getReference($this->table . '/' . $uid)->set($user->toArray());
-            // }
-
 
             if (!$updateImageProfile) {
                 return response()->json([

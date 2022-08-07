@@ -86,6 +86,11 @@
                                         <a href="{{ route('profile.index') }}"><i class="uil uil-house-user mr-2"></i>
                                             Profile Kamu</a>
                                     </li>
+                                    <li class="{{ set_active('blog.author') }}">
+                                        <a href="{{ route('blog.author', ['author' => Auth::user()->slug]) }}"><i
+                                                class="uil uil uil-document-layout-left mr-2"></i>
+                                            Blog Kamu</a>
+                                    </li>
                                     <hr style="background-color: #00b2cc; height: 1px; border: 0; margin: 10px 0 10px 0;">
                                 @endif
                                 <li>

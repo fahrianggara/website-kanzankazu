@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ReplayInbox;
+use App\Mail\SendContactToEmail;
 use App\Models\Contact;
 use App\Models\WebSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\View;
@@ -201,6 +203,51 @@ class ContactController extends Controller
                     'redirect' => back()
                 ]
             );
+        }
+    }
+
+    public function sendToEmail(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|alpha_spaces|min:3|max:20',
+            'email' => 'required|email',
+            'subject' => 'required|string|max:50|min:3',
+            'message' => 'required|min:3|max:500',
+        ], [
+            'name.required' => 'Please input your name',
+            'name.alpha_spaces' => 'Must be alphabetic and spaces',
+            'name.min' => 'Your name must be at least 3 characters',
+            'name.max' => 'Your name must be less than 20 characters',
+            'email.required' => 'Please input your valid email address',
+            'email.email' => 'Your email address is not valid',
+            'subject.required' => 'Please input your subject',
+            'subject.string' => 'Your subject is not valid',
+            'subject.max' => 'Your subject must be less than 50 characters',
+            'subject.min' => 'Your subject must be at least 3 characters',
+            'message.required' => 'Please input your message',
+            'message.min' => 'Your message must be at least 3 characters',
+            'message.max' => 'Your message must be less than 500 characters',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'messages' => $validator->errors()->toArray()
+            ]);
+        } else {
+            $message = [
+                'name' => $request->name,
+                'email' => $request->email,
+                'subject' => $request->subject,
+                'message' => $request->message,
+            ];
+
+            Mail::to('fahriangga30@gmail.com')->send(new SendContactToEmail($message));
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Your message has been sent, thank you!'
+            ]);
         }
     }
 }

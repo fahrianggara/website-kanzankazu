@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Dashboard\ProjectPortfolioController;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Portfolio;
+use App\Models\PortfolioSkill;
+use App\Models\Project;
 use App\Models\RecommendationPost;
 use App\Models\Tag;
 use App\Models\Tutorial;
@@ -23,6 +27,8 @@ use Artesaos\SEOTools\Facades\JsonLd;
 // OR with multi
 use Artesaos\SEOTools\Facades\JsonLdMulti;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Response;
+use Illuminate\View\View as ViewView;
 
 class BlogController extends Controller
 {
@@ -438,6 +444,8 @@ class BlogController extends Controller
                 ->with('success', 'kamu tidak bisa mengakses halaman ini');
         }
 
+        $skills = PortfolioSkill::where('user_id', $author->id)->get();
+
         $recommendationPosts = RecommendationPost::select('post_id')
             ->where('recommendation_posts.user_id', $author->id)
             ->join('posts', 'posts.id', '=', 'recommendation_posts.post_id')
@@ -445,6 +453,12 @@ class BlogController extends Controller
             ->orderBy('recommendation_posts.post_id', 'desc')
             ->take(3)
             ->get();
+
+        $titleProject_ids = [];
+        foreach ($author->titlePortfolio as $data) {
+            array_push($titleProject_ids, $data->id);
+        }
+        $titleProjects = Project::whereIn('id', $titleProject_ids)->select('id', 'title')->get();
 
         $setting = WebSetting::find(1);
 
@@ -500,6 +514,8 @@ class BlogController extends Controller
             'posts',
             'recommendationPosts',
             'user',
+            'titleProjects',
+            'skills'
         ));
     }
 
@@ -527,10 +543,10 @@ class BlogController extends Controller
         $tutorial = Tutorial::where('slug', $slug)->first();
 
         $users = User::allowable()->with(['posts' => fn ($query) => $query->where('status', 'publish')])
-            ->whereHas('posts', fn ($query) => $query->where('status', 'publish')
+            ->whereHas('posts', fn ($query) => $query->where('posts.status', 'publish')
                 ->where('tutorial_id', $tutorial->id))
-            ->with(['tutorials' => fn ($query) => $query->where('slug', $slug)])
-            ->whereHas('tutorials', fn ($query) => $query->where('slug', $slug))
+            ->with(['tutorials' => fn ($query) => $query->where('tutorials.slug', $slug)])
+            ->whereHas('tutorials', fn ($query) => $query->where('tutorials.slug', $slug))
             ->get();
 
         $setting = WebSetting::find(1);
@@ -551,20 +567,18 @@ class BlogController extends Controller
 
     public function showPostsByTutorialByAuthor($slug, $user)
     {
-        $author = User::allowable()->where('name', $user)->firstOrFail();
+        $author = User::allowable()->where('slug', $user)->first();
 
         $tutorial = Tutorial::with(['posts' => function ($q) use ($author) {
             return $q->whereHas('user', function ($q) use ($author) {
-                return $q->where('name', $author->name);
+                return $q->where('slug', $author->slug);
             });
-        }])
-            ->where('slug', $slug)
-            ->firstOrFail();
+        }])->where('slug', $slug)->first();
 
         $posts = Post::publish()->whereHas('tutorials', function ($query) use ($slug) {
             return $query->where('slug', $slug);
         })->whereHas('user', function ($query) use ($user) {
-            return $query->where('name', $user);
+            return $query->where('slug', $user);
         })->orderBy('id', 'asc')->get();
 
         $setting = WebSetting::find(1);
@@ -627,6 +641,17 @@ class BlogController extends Controller
             'posts' => $posts,
             'tutorial' => $tutorial,
             'author' => $author,
+        ]);
+    }
+
+    public function resumeAuthor(User $author, $resume)
+    {
+        $resume = $author->pf_resume;
+        $path = 'vendor/dashboard/documents/resume/' . $resume;
+
+        return Response::make(file_get_contents($path), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="' . $resume . '"'
         ]);
     }
 

@@ -241,6 +241,7 @@ return [
         'JsonLdMulti'   => Artesaos\SEOTools\Facades\JsonLdMulti::class,
         'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
         'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
+        'HTMLMin' => HTMLMin\HTMLMin\Facades\HTMLMin::class,
     ],
 
 ];

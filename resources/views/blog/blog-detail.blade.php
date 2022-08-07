@@ -171,15 +171,18 @@
                                     <a target="_blank" href="{{ $post->user->facebook }}">
                                         <i class="fab fa-facebook-f"></i>
                                     </a>
-                                @elseif ($post->user->twitter != null)
+                                @endif
+                                @if ($post->user->twitter != null)
                                     <a target="_blank" href="{{ $post->user->twitter }}">
                                         <i class="fab fa-twitter"></i>
                                     </a>
-                                @elseif ($post->user->instagram != null)
+                                @endif
+                                @if ($post->user->instagram != null)
                                     <a target="_blank" href="{{ $post->user->instagram }}">
                                         <i class="fab fa-instagram"></i>
                                     </a>
-                                @elseif ($post->user->github != null)
+                                @endif
+                                @if ($post->user->github != null)
                                     <a target="_blank" href="{{ $post->user->github }}">
                                         <i class="fab fa-github"></i>
                                     </a>
@@ -200,8 +203,8 @@
                     <article class="entry-bottom" style="margin-bottom: 20px">
                         @if ($prev)
                             <div class="float-right">
-                                <a href="{{ route('blog.detail', ['slug' => $prev->slug]) }}" class="btn-Next" data-toggle="tooltip" data-placement="bottom"
-                                    title="{{ $prev->title }}">
+                                <a href="{{ route('blog.detail', ['slug' => $prev->slug]) }}" class="btn-Next"
+                                    data-toggle="tooltip" data-placement="bottom" title="{{ $prev->title }}">
                                     Berikutnya <i class="icofont-rounded-right"></i>
                                 </a>
                             </div>
@@ -209,8 +212,8 @@
 
                         @if ($next)
                             <div class="float-left">
-                                <a href="{{ route('blog.detail', ['slug' => $next->slug]) }}" class="btn-Prev" data-toggle="tooltip" data-placement="bottom"
-                                    title="{{ $next->title }}">
+                                <a href="{{ route('blog.detail', ['slug' => $next->slug]) }}" class="btn-Prev"
+                                    data-toggle="tooltip" data-placement="bottom" title="{{ $next->title }}">
                                     <i class="icofont-rounded-left"></i> Sebelumnya
                                 </a>
                             </div>
@@ -237,7 +240,7 @@
                         'model' => $post,
                         'approved' => true,
                         'maxIndentationLevel' => 1,
-                        'perPage' => 10
+                        'perPage' => 10,
                     ])
                 </article>
 
@@ -309,7 +312,7 @@
                                     </h4>
                                     <time class="timeSidebar loading">
                                         <p>
-                                            {{ $category->created_at->format('j M, Y') }}
+                                            {{ substr($category->description, 0, 23) }}..
                                         </p>
                                     </time>
                                 </div>
@@ -349,7 +352,7 @@
                                     </h4>
                                     <time class="timeSidebar loading">
                                         <p>
-                                            {{ $tutorial->created_at->format('j M, Y') }}
+                                            {{ substr($tutorial->description, 0, 23) }}..
                                         </p>
                                     </time>
                                 </div>

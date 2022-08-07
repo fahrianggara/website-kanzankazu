@@ -56,11 +56,11 @@
                                     {{ substr($post->description, 0, 200) }}...
                                 </p>
                             </div>
-                            <div class="read-more loading">
+                            {{-- <div class="read-more loading">
                                 <a href="{{ route('blog.detail', ['slug' => $post->slug]) }}">
                                     {{ trans('blog.button.btnDetail') }}
                                 </a>
-                            </div>
+                            </div> --}}
                         </div>
                     </article>
 

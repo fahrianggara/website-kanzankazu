@@ -5,7 +5,7 @@
             @if ($paginator->onFirstPage())
                 <li class="disabled"><i class="icofont-rounded-left"></i></li>
             @else
-                <li><a href="{{ $paginator->previousPageUrl() }}"><i class="icofont-rounded-left"></i></a></li>
+                <li><a href="{{ $paginator->previousPageUrl() }}#blog"><i class="icofont-rounded-left"></i></a></li>
             @endif
 
             @foreach ($elements as $element)
@@ -18,7 +18,7 @@
                         @if ($page == $paginator->currentPage())
                             <li class="active" aria-current="page"><span>{{ $page }}</span></li>
                         @else
-                            <li><a href="{{ $url }}">{{ $page }}</a></li>
+                            <li><a href="{{ $url }}#blog">{{ $page }}</a></li>
                         @endif
                     @endforeach
                 @endif
@@ -26,7 +26,7 @@
 
             @if ($paginator->hasMorePages())
                 <li>
-                    <a href="{{ $paginator->nextPageUrl() }}" rel="next">
+                    <a href="{{ $paginator->nextPageUrl() }}#blog" rel="next">
                         <i class="icofont-rounded-right"></i>
                     </a>
                 </li>

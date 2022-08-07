@@ -59,6 +59,30 @@
                         <span>Profile</span>
                     </a>
                 </li>
+                @if (Auth::id() == 2)
+                    <li id="profile" class="menu-title">Kelola Portfolio</li>
+                    <li>
+                        <a href="{{ route('portfolio.index', '#profile') }}"
+                            class="{{ set_active('portfolio.index') }} waves-effect">
+                            <i class="uil uil-images"></i>
+                            <span>Project</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('project.index', '#profile') }}"
+                            class="{{ set_active('project.index') }} waves-effect">
+                            <i class="uil uil-text"></i>
+                            <span>Title Project</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('skill.index', '#profile') }}"
+                            class="{{ set_active('skill.index') }} waves-effect">
+                            <i class="uil uil-chart-bar"></i>
+                            <span>My Skills</span>
+                        </a>
+                    </li>
+                @endif
 
                 @can('manage_website')
                     {{-- Settings website --}}

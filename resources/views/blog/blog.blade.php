@@ -20,7 +20,7 @@
 
         <div class="row">
             @forelse ($posts as $post)
-                <div class="col-sm-6 col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up">
+                <div class="col-lg-4 col-md-6">
 
                     <article class="entry-thumbnail">
                         <div class="entry-img ">
@@ -35,33 +35,20 @@
                             </a>
                         </div>
 
-                        <h2 class="entry-title ">
+                        <div class="tag">
+                            @foreach ($post->tags as $tag)
+                                <a href="{{ route('blog.posts.tags', ['slug' => $tag->slug]) }}"
+                                    class="badge badge-primary">
+                                    {{ $tag->title }}
+                                </a>
+                            @endforeach
+                        </div>
+
+                        <h2 class="entry-title">
                             <a class="underline"
                                 href="{{ route('blog.detail', ['slug' => $post->slug]) }}">{{ $post->title }}
                             </a>
                         </h2>
-
-                        <div class="entry-meta">
-                            <ul>
-                                <li class="d-flex align-items-center">
-                                    <div class="">
-                                        <i class="icofont-user"></i>
-                                        @if ($post->user->status == 'banned')
-                                            <a class="underline iconAuthor" href="javascript:void(0)">Akun diblokir</a>
-                                        @else
-                                            <a class="underline iconAuthor"
-                                                href="{{ route('blog.author', ['author' => $post->user->slug]) }}">{{ $post->user->name }}</a>
-                                        @endif
-                                    </div>
-                                </li>
-                                <li class="d-flex align-items-center">
-                                    <div class="">
-                                        <i class="uil uil-calendar-alt"></i>
-                                        <span>{{ $post->created_at->format('j M, Y') }}</span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
 
                         <div class="entry-content">
                             <div class="">
@@ -73,11 +60,36 @@
                                     @endif
                                 </p>
                             </div>
-                            <div class="read-more">
-                                <a href="{{ route('blog.detail', ['slug' => $post->slug]) }}">
-                                    Baca Selengkapnya
-                                </a>
-                            </div>
+                        </div>
+
+                        <div class="entry-meta">
+                            <ul>
+                                <li class="d-flex align-items-center">
+                                    @php
+                                        if (file_exists('vendor/dashboard/image/picture-profiles/' . $post->user->user_image)) {
+                                            $avatar = asset('vendor/dashboard/image/picture-profiles/' . $post->user->user_image);
+                                        } elseif ($post->user->status == 'banned') {
+                                            $avatar = asset('vendor/blog/img/avatar.png');
+                                        } elseif ($post->user->provider == 'google' || $post->user->provider == 'github') {
+                                            $avatar = $post->user->user_image;
+                                        } else {
+                                            $avatar = asset('vendor/blog/img/avatar.png');
+                                        }
+                                    @endphp
+                                    <div class="author-thumbnail">
+                                        <img class="img-circle img-fluid" src="{{ $avatar }}">
+                                        @if ($post->user->status == 'banned')
+                                            <a class="underline iconAuthor" href="javascript:void(0)"
+                                                style="cursor: default">Akun
+                                                diblokir
+                                            </a>
+                                        @else
+                                            <a class="underline iconAuthor"
+                                                href="{{ route('blog.author', ['author' => $post->user->slug]) }}">{{ $post->user->name }}</a>
+                                        @endif
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </article>
 

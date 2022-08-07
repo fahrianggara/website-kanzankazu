@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use HTMLMin\HTMLMin\Http\Middleware\MinifyMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -71,5 +72,6 @@ class Kernel extends HttpKernel
         'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
         'prevent-back-history' => \App\Http\Middleware\PreventBackHistory::class,
         'is-anonymous' => \App\Http\Middleware\IsAnonymous::class,
+        'htmlmin' => MinifyMiddleware::class,
     ];
 }

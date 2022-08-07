@@ -24,8 +24,7 @@
                                     class="profile-user-img img-circle userImage">
                             @else
                                 <img class="profile-user-img img-circle userImage"
-                                    src="{{ asset('vendor/dashboard/image/avatar.png') }}"
-                                    alt="{{ Auth::user()->name }}">
+                                    src="{{ asset('vendor/dashboard/image/avatar.png') }}" alt="{{ Auth::user()->name }}">
                             @endif
                         </div>
                         <div class="dropdown-divider mt-4 mb-3"></div>
@@ -177,6 +176,10 @@
                                     </div>
 
                                     <div class="dropdown-divider mb-3 mt-3"></div>
+                                    <div class="row mb-4">
+                                        <div class="col-sm-4"><b>SOCIALS MEDIA</b></div>
+                                        <div class="col-sm-8"></div>
+                                    </div>
 
                                     <div class="form-group row">
                                         <label for="instagram" class="col-sm-2 col-form-label">Instagram</label>
@@ -212,11 +215,67 @@
                                         <label for="github" class="col-sm-2 col-form-label">Github</label>
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control gh" id="github"
-                                                placeholder="Github" value="{{ Auth::user()->github }}"
-                                                name="github">
+                                                placeholder="Github" value="{{ Auth::user()->github }}" name="github">
                                             <span class="text-danger error-text github_error"></span>
                                         </div>
                                     </div>
+
+                                    @if (Auth::id() == 2)
+                                        <div class="dropdown-divider mb-3 mt-3"></div>
+                                        <div class="row mb-4">
+                                            <div class="col-sm-4"><b>PORTFOLIO</b></div>
+                                            <div class="col-sm-8"></div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="vision" class="col-sm-2 col-form-label">Vision</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="pf_vision"
+                                                    placeholder="enter your vision.."
+                                                    value="{{ Auth::user()->pf_vision }}" name="pf_vision">
+                                                <span class="text-danger error-text pf_vision_error"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="mission" class="col-sm-2 col-form-label">Mission</label>
+                                            <div class="col-sm-10">
+                                                <textarea class="form-control" id="pf_mission" name="pf_mission" placeholder="enter your mission.."
+                                                    onkeyup="countChar(this)" cols="2" rows="3">{{ Auth::user()->pf_mission }}</textarea>
+                                                <span class="mt-5 text-danger error-text pf_mission_error"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="skill_desc" class="col-sm-2 col-form-label">Skill Desc</label>
+                                            <div class="col-sm-10">
+                                                <textarea class="form-control" id="pf_skill_desc" name="pf_skill_desc" placeholder="enter your skill desc.."
+                                                    onkeyup="countChar(this)" cols="2" rows="3">{{ Auth::user()->pf_skill_desc }}</textarea>
+                                                <span class="mt-5 text-danger error-text pf_skill_desc_error"></span>
+                                            </div>
+                                        </div>
+
+                                        {{-- CV --}}
+                                        @php
+                                            if (Auth::user()->pf_resume != null) {
+                                                $cv = Auth::user()->pf_resume;
+                                            } else {
+                                                $cv = 'search your resume..';
+                                            }
+                                        @endphp
+                                        <div class="form-group row">
+                                            <label for="pf_resume" class="col-sm-2 col-form-label">CV</label>
+                                            <div class="col-sm-10">
+                                                <div class="custom-file">
+                                                    <input type="file" name="pf_resume" value="{{ $cv }}" class="custom-file-input"
+                                                        id="pf_resume">
+                                                    <label class="custom-file-label"
+                                                        for="pf_resume">{{ $cv }}</label>
+                                                </div>
+                                                <span class="invalid-feedback d-block error-text pf_resume_error"></span>
+                                            </div>
+                                        </div>
+                                    @endif
 
                                     <div class="form-group row">
                                         <div class="offset-sm-2 col-sm-10">
@@ -339,6 +398,11 @@
                 $('#slug').val(username);
             });
 
+            $('input[type="file"]').on('change', function() {
+                var fileName = $(this).val().split('\\').pop();
+                $(this).next('.custom-file-label').addClass('selected').html(fileName);
+            });
+
             // Update user info
             $('#formUpdateProfile').on('submit', function(e) {
                 e.preventDefault();
@@ -372,7 +436,6 @@
                             });
 
                         } else {
-
                             setTimeout((function() {
                                 window.location.href =
                                     '{{ route('profile.index') }}#profile';

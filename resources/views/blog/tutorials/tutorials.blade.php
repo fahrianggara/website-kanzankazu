@@ -39,29 +39,11 @@
                                 href="{{ route('blog.posts.tutorials', ['slug' => $tutorial->slug]) }}">{{ $tutorial->title }}</a>
                         </h2>
 
-                        <div class="entry-meta">
-                            <ul>
-                                <li class="d-flex align-items-center">
-                                    <div class="loading">
-                                        <i class="uil uil-file-info-alt"></i>
-                                        <span>{{ $tutorial->posts->count() }}</span>
-                                    </div>
-                                </li>
-
-                                <li class="d-flex align-items-center">
-                                    <div class="loading">
-                                        <i class="uil uil-calendar-alt"></i>
-                                        <span>{{ $tutorial->created_at->format('j M, Y') }}</span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-
                         <div class="entry-content">
                             <div class="loading">
                                 <p>
                                     @if ($tutorial->description == null)
-                                        Seputar tutorial tentang {{ $tutorial->title }}
+                                        {{ $tutorial->title }}
                                     @else
                                         @if (strlen($tutorial->description) > 150)
                                             {{ substr($tutorial->description, 0, 150) }}...
@@ -71,11 +53,17 @@
                                     @endif
                                 </p>
                             </div>
-                            <div class="read-more loading">
-                                <a href="{{ route('blog.posts.tutorials', ['slug' => $tutorial->slug]) }}">
-                                    Lihat Tutorial
-                                </a>
-                            </div>
+                        </div>
+
+                        <div class="entry-meta">
+                            <ul>
+                                <li class="d-flex align-items-center">
+                                    <div class="loading">
+                                        <i class="uil uil-file-info-alt"></i>
+                                        <span>{{ $tutorial->posts->count() }}</span>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </article>
 

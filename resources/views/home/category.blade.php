@@ -28,7 +28,7 @@
                             </a>
                         </h2>
 
-                        <div class="entry-meta">
+                        {{-- <div class="entry-meta">
                             <ul>
                                 <li class="d-flex align-items-center">
                                     <div class="loading">
@@ -37,7 +37,7 @@
                                     </div>
                                 </li>
                             </ul>
-                        </div>
+                        </div> --}}
 
                         <div class="entry-content">
                             <div class="loading">
@@ -53,11 +53,11 @@
                                     @endif
                                 </p>
                             </div>
-                            <div class="read-more loading">
+                            {{-- <div class="read-more loading">
                                 <a href=" {{ route('blog.posts.categories', ['slug' => $category->slug]) }}">
                                     Lihat Blog
                                 </a>
-                            </div>
+                            </div> --}}
                         </div>
                     </article>
 

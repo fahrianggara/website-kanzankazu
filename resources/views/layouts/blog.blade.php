@@ -44,7 +44,7 @@
     {{-- jQuery Ui --}}
     <link rel="stylesheet" href="{{ asset('vendor/blog/assets/jquery-ui/jquery-ui.css') }}">
     {{-- Main CSS --}}
-    <link rel="stylesheet" href="{{ asset('vendor/blog/css/awe.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/blog/css/awds.css') }}">
     {{-- CSS EXT --}}
     @stack('css-external')
     {{-- CSS INT --}}
@@ -59,7 +59,7 @@
     -->
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Anek+Latin:wght@300;500;700&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,700&family=Noto+Sans+Display:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Noto+Sans+JP:wght@300;400;700&family=Poppins:ital,wght@0,300;0,500;0,700;1,300;1,500&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,400&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,500&family=Rubik:ital,wght@0,300;0,500;0,600;1,300;1,500&display=swap');
+
     </style>
 </head>
 
@@ -102,15 +102,6 @@
     @stack('js-internal')
     {{-- Script --}}
     <script>
-
-        let A = 10;
-        let B = 7;
-        if (A > B && B != 0) {
-            $result = 2 + A * B;
-        } else {
-            $result = 2 * A + B;
-        }
-        console.log($result);
 
         function buttonBack(targetUrl) {
             var currentUrl = window.location.href;
@@ -164,9 +155,6 @@
                 .log(notif);
         }
 
-        document.getElementById('buttonBack').onclick = function() {
-            window.location = document.referrer;
-        }
     </script>
 </body>
 
