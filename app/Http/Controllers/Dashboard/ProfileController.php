@@ -88,27 +88,44 @@ class ProfileController extends Controller
                 $query->pf_mission = $request->input('pf_mission');
                 $query->pf_skill_desc = $request->input('pf_skill_desc');
 
-
-                if (Auth::user()->pf_resume == null) {
-                    if ($request->hasFile('pf_resume')) {
+                if ($request->hasFile('pf_resume')) {
+                    if (Auth::user()->pf_resume == null) {
                         $path = 'vendor/dashboard/documents/resume/';
                         $file = $request->file('pf_resume');
-                        $filename = 'resume-' . Auth::user()->slug . '-' . Str::slug(Str::random(3)) . '.' . $file->getClientOriginalExtension();
+                        $filename = 'resume-' . Auth::user()->slug . '-' . Str::slug(Str::random(3)) . '.' . $file->extension();
                         $file->move($path, $filename);
                         $query->pf_resume = $filename;
-                    }
-                } else {
-                    if ($request->hasFile('pf_resume')) {
+                    } else {
                         $path = 'vendor/dashboard/documents/resume/';
                         if (File::exists($path . Auth::user()->pf_resume)) {
                             File::delete($path . Auth::user()->pf_resume);
                         }
                         $file = $request->file('pf_resume');
-                        $filename = 'resume-' . Auth::user()->slug . '-' . Str::slug(Str::random(3)) . '.' . $file->getClientOriginalExtension();
+                        $filename = 'resume-' . Auth::user()->slug . '-' . Str::slug(Str::random(3)) . '.' . $file->extension();
                         $file->move($path, $filename);
                         $query->pf_resume = $filename;
                     }
                 }
+                // if (Auth::user()->pf_resume == null) {
+                //     if ($request->hasFile('pf_resume')) {
+                //         $path = 'vendor/dashboard/documents/resume/';
+                //         $file = $request->file('pf_resume');
+                //         $filename = 'resume-' . Auth::user()->slug . '-' . Str::slug(Str::random(3)) . '.' . $file->extension();
+                //         $file->move($path, $filename);
+                //         $query->pf_resume = $filename;
+                //     }
+                // } else {
+                //     if ($request->hasFile('pf_resume')) {
+                //         $path = 'vendor/dashboard/documents/resume/';
+                //         if (File::exists($path . Auth::user()->pf_resume)) {
+                //             File::delete($path . Auth::user()->pf_resume);
+                //         }
+                //         $file = $request->file('pf_resume');
+                //         $filename = 'resume-' . Auth::user()->slug . '-' . Str::slug(Str::random(3)) . '.' . $file->extension();
+                //         $file->move($path, $filename);
+                //         $query->pf_resume = $filename;
+                //     }
+                // }
 
                 if ($query->isDirty()) {
                     $query->update();
