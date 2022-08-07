@@ -190,7 +190,11 @@
                             </div>
                             <p>
                                 @if ($post->user->bio != null)
-                                    " {{ $post->user->bio }} "
+                                    @if (strlen($post->user->bio) > 100)
+                                        {{ substr($post->user->bio, 0, 100) }}...
+                                    @else
+                                        {{ $post->user->bio }}
+                                    @endif
                                 @else
                                     " KanzanKazu "
                                 @endif
