@@ -85,7 +85,7 @@ $markdown->setSafeMode(true);
                             <div class="small text-secondary">
 
                                 @if ($comment->child_id != null)
-                                    <i class="uil uil-share"></i>
+                                    <i class="uil uil-share mr-1"></i>
 
                                     @if ($comment->parent->guest_name != null)
                                         @if (strlen($comment->parent->guest_name) > 12)

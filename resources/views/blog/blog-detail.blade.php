@@ -373,7 +373,7 @@
                             <ul>
                                 @foreach ($tags as $tag)
                                     <li>
-                                        <a class="m-0" href="{{ route('blog.posts.tags', ['slug' => $tag->slug]) }}">
+                                        <a class="m-0 mr-1" href="{{ route('blog.posts.tags', ['slug' => $tag->slug]) }}">
                                             # {{ $tag->title }}
                                         </a>
                                     </li>
