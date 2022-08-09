@@ -12,6 +12,8 @@ class WelcomeUserEmail extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    protected $user;
+
     /**
      * Create a new notification instance.
      *
@@ -43,7 +45,7 @@ class WelcomeUserEmail extends Notification implements ShouldQueue
     {
         return (new MailMessage)
             ->subject('Selamat Datang di Website Kami')
-            ->greeting('Haloo, ' . $this->user['name'])
+            ->greeting('Haloo, ' . $this->user->name)
             ->line('Selamat datang di KanzanKazu.')
             ->action('Explore', route('homepage'))
             ->line('Terimakasih sudah bergabung di website kami!');
