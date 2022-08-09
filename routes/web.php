@@ -16,13 +16,21 @@ use Illuminate\Support\Facades\Artisan;
 |
 */
 
+// SITEMAP XML
+
 Route::group(['middleware' => 'htmlmin'], function () {
+    // Route::get('post-sitemap', [\App\Http\Controllers\SitemapXmlController::class, 'index'])->name('sitemap');
+    Route::get('user-sitemap.xml', [\App\Http\Controllers\SitemapXmlController::class, 'user'])->name('sitemap.user');
+    Route::get('tag-sitemap.xml', [\App\Http\Controllers\SitemapXmlController::class, 'tag'])->name('sitemap.tag');
+    Route::get('category-sitemap.xml', [\App\Http\Controllers\SitemapXmlController::class, 'category'])->name('sitemap.category');
+    Route::get('tutorial-sitemap.xml', [\App\Http\Controllers\SitemapXmlController::class, 'tutorial'])->name('sitemap.tutorial');
+    Route::get('post-sitemap.xml', [\App\Http\Controllers\SitemapXmlController::class, 'post'])->name('sitemap.posts');
+    Route::get('sitemap.xml', [\App\Http\Controllers\SitemapXmlController::class, 'sitemap'])->name('sitemap');
+    Route::get('feed', [\App\Http\Controllers\SitemapXmlController::class, 'feed'])->name('feed');
     // redirect to google
     Route::post('/auth/google', [\App\Http\Controllers\Auth\FirebaseController::class, 'redirectToGoogle'])->name('google.login');
     Route::post('/auth/github', [\App\Http\Controllers\Auth\FirebaseController::class, 'redirectToGithub'])->name('github.login');
     Route::post('/auth/anonymous', [\App\Http\Controllers\Auth\FirebaseController::class, 'redirectToAnonym'])->name('anonymous.login');
-    // SITEMAP XML
-    Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapXmlController::class, 'index'])->name('sitemap');
     // LANGUAGE
     Route::get('/localization/{language}', [App\Http\Controllers\LocalizationController::class, 'switch'])
         ->name('localization.switch');

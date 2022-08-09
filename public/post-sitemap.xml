@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    <url>
+        <loc>http://web-kanzan.test/1-pengenalan-html</loc>
+        <lastmod>2022-08-08T21:58:05+07:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+    <image:loc>http://web-kanzan.test/POST-62b06a3b159d70.27543322.png</image:loc>
+    <image:caption>#1 - Pengenalan HTML</image:caption>
+</image:image>
+</url>
+    <url>
+        <loc>http://web-kanzan.test/lorem-ipsum</loc>
+        <lastmod>2022-07-26T04:19:25+07:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+    <image:loc>http://web-kanzan.test/POST-62b071ad82a661.49737970.png</image:loc>
+    <image:caption>#3 - Lorem Ipsum</image:caption>
+</image:image>
+</url>
+    <url>
+        <loc>http://web-kanzan.test/membuat-dark-mode</loc>
+        <lastmod>2022-08-08T20:56:44+07:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+    <image:loc>http://web-kanzan.test/POST-62b078f9049e64.00321756.png</image:loc>
+    <image:caption>Membuat Dark Mode</image:caption>
+</image:image>
+</url>
+    <url>
+        <loc>http://web-kanzan.test/t-eu-ante-eget</loc>
+        <lastmod>2022-08-08T22:02:46+07:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+    <image:loc>http://web-kanzan.test/POST-62b08da4e745b3.86848540.png</image:loc>
+    <image:caption>t eu ante eget</image:caption>
+</image:image>
+</url>
+    <url>
+        <loc>http://web-kanzan.test/banned-user</loc>
+        <lastmod>2022-08-06T04:12:49+07:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+    <image:loc>http://web-kanzan.test/POST-62c44531ce73c6.73275946.png</image:loc>
+    <image:caption>Banned User</image:caption>
+</image:image>
+</url>
+    <url>
+        <loc>http://web-kanzan.test/id-venenatis</loc>
+        <lastmod>2022-08-08T21:36:41+07:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+    <image:loc>http://web-kanzan.test/POST-62da3e3e3d35e9.99211680.jpg</image:loc>
+    <image:caption>Id venenatis</image:caption>
+</image:image>
+</url>
+    <url>
+        <loc>http://web-kanzan.test/auctor-elit-sed-vulputate</loc>
+        <lastmod>2022-08-09T22:45:30+07:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+    <image:loc>http://web-kanzan.test/POST-62da952529a4b0.52704184.jpg</image:loc>
+    <image:caption>Auctor elit sed vulputate</image:caption>
+</image:image>
+</url>
+    <url>
+        <loc>http://web-kanzan.test/sit-amet-porttitor</loc>
+        <lastmod>2022-08-09T22:44:37+07:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+    <image:loc>http://web-kanzan.test/POST-62de6d0eed9000.22112447.jpg</image:loc>
+    <image:caption>Sit amet porttitor</image:caption>
+</image:image>
+</url>
+    <url>
+        <loc>http://web-kanzan.test/consequat-interdum-varius-sit-amet-mattis-vulputate-enim-nulla</loc>
+        <lastmod>2022-08-09T22:50:03+07:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+    <image:loc>http://web-kanzan.test/POST-62eff5f8d0c066.25967976.jpg</image:loc>
+    <image:caption>Consequat interdum varius sit amet mattis vulputate enim nulla</image:caption>
+</image:image>
+</url>
+</urlset>
