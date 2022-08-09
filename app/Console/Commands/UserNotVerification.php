@@ -41,16 +41,21 @@ class UserNotVerification extends Command
     public function handle()
     {
         $now = Carbon::now();
-        $week = $now->endOfWeek(Carbon::MONDAY);
+        $week = $now->endOfWeek(Carbon::TUESDAY);
 
-        $user = User::where('email_verified_at', '=', null)
+        $users = User::where('email_verified_at', null)
+            ->where('status', 'notverification')
             ->where('created_at', '>=', $week)
-            ->delete();
+            ->get();
         $path = "vendor/dashboard/image/picture-profiles/";
-        if (File::exists($path . $user->user_image)) {
-            File::delete($path . $user->user_image);
+
+        foreach ($users as $user) {
+            if (File::exists($path . $user->user_image)) {
+                File::delete($path . $user->user_image);
+            }
+            $user->comments()->delete();
+            $user->removeRole($user->roles->first());
+            $user->delete();
         }
-        $user->comments()->delete();
-        $user->removeRole($user->roles->first());
     }
 }
