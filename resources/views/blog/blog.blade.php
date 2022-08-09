@@ -73,11 +73,11 @@
                                         if (file_exists('vendor/dashboard/image/picture-profiles/' . $post->user->user_image)) {
                                             $avatar = asset('vendor/dashboard/image/picture-profiles/' . $post->user->user_image);
                                         } elseif ($post->user->status == 'banned') {
-                                            $avatar = asset('vendor/blog/img/avatar.png');
+                                            $avatar = asset('vendor/dashboard/image/avatar.png');
                                         } elseif ($post->user->provider == 'google' || $post->user->provider == 'github') {
                                             $avatar = $post->user->user_image;
                                         } else {
-                                            $avatar = asset('vendor/blog/img/avatar.png');
+                                            $avatar = asset('vendor/dashboard/image/avatar.png');
                                         }
                                     @endphp
                                     <div class="author-thumbnail">

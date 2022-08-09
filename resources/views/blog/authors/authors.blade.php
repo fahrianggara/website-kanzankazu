@@ -39,7 +39,7 @@
                                 <img src="{{ asset('vendor/dashboard/image/picture-profiles/' . $user->user_image) }}"
                                     class="img-fluid">
                             @else
-                                <img src="{{ asset('vendor/blog/img/avatar.png') }}" class="img-fluid">
+                                <img src="{{ asset('vendor/dashboard/image/avatar.png') }}" class="img-fluid">
                             @endif
 
                         </div>
@@ -206,11 +206,11 @@
                                                     if (file_exists('vendor/dashboard/image/picture-profiles/' . $recommended->post->user->user_image)) {
                                                         $avatar = asset('vendor/dashboard/image/picture-profiles/' . $recommended->post->user->user_image);
                                                     } elseif ($recommended->post->user->status == 'banned') {
-                                                        $avatar = asset('vendor/blog/img/avatar.png');
+                                                        $avatar = asset('vendor/dashboard/image/avatar.png');
                                                     } elseif ($recommended->post->user->provider == 'google' || $recommended->post->user->provider == 'github') {
                                                         $avatar = $recommended->post->user->user_image;
                                                     } else {
-                                                        $avatar = asset('vendor/blog/img/avatar.png');
+                                                        $avatar = asset('vendor/dashboard/image/avatar.png');
                                                     }
                                                 @endphp
                                                 <div class="author-thumbnail">
@@ -326,11 +326,11 @@
                                                 if (file_exists('vendor/dashboard/image/picture-profiles/' . $post->user->user_image)) {
                                                     $avatar = asset('vendor/dashboard/image/picture-profiles/' . $post->user->user_image);
                                                 } elseif ($post->user->status == 'banned') {
-                                                    $avatar = asset('vendor/blog/img/avatar.png');
+                                                    $avatar = asset('vendor/dashboard/image/avatar.png');
                                                 } elseif ($post->user->provider == 'google' || $post->user->provider == 'github') {
                                                     $avatar = $post->user->user_image;
                                                 } else {
-                                                    $avatar = asset('vendor/blog/img/avatar.png');
+                                                    $avatar = asset('vendor/dashboard/image/avatar.png');
                                                 }
                                             @endphp
                                             <div class="author-thumbnail">
@@ -742,11 +742,11 @@
                                                 if (file_exists('vendor/dashboard/image/picture-profiles/' . $recommended->post->user->user_image)) {
                                                     $avatar = asset('vendor/dashboard/image/picture-profiles/' . $recommended->post->user->user_image);
                                                 } elseif ($recommended->post->user->status == 'banned') {
-                                                    $avatar = asset('vendor/blog/img/avatar.png');
+                                                    $avatar = asset('vendor/dashboard/image/avatar.png');
                                                 } elseif ($recommended->post->user->provider == 'google' || $recommended->post->user->provider == 'github') {
                                                     $avatar = $recommended->post->user->user_image;
                                                 } else {
-                                                    $avatar = asset('vendor/blog/img/avatar.png');
+                                                    $avatar = asset('vendor/dashboard/image/avatar.png');
                                                 }
                                             @endphp
                                             <div class="author-thumbnail">
@@ -865,11 +865,11 @@
                                             if (file_exists('vendor/dashboard/image/picture-profiles/' . $post->user->user_image)) {
                                                 $avatar = asset('vendor/dashboard/image/picture-profiles/' . $post->user->user_image);
                                             } elseif ($post->user->status == 'banned') {
-                                                $avatar = asset('vendor/blog/img/avatar.png');
+                                                $avatar = asset('vendor/dashboard/image/avatar.png');
                                             } elseif ($post->user->provider == 'google' || $post->user->provider == 'github') {
                                                 $avatar = $post->user->user_image;
                                             } else {
-                                                $avatar = asset('vendor/blog/img/avatar.png');
+                                                $avatar = asset('vendor/dashboard/image/avatar.png');
                                             }
                                         @endphp
                                         <div class="author-thumbnail">
