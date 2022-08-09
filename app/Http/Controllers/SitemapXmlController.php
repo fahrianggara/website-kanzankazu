@@ -94,7 +94,7 @@ class SitemapXmlController extends Controller
         })->get();
         $sitemap = Sitemap::create();
         foreach ($users as $user) {
-            $sitemap->add(Url::create($user->slug)->addImage($user->user_image, $user->name));
+            $sitemap->add(Url::create(route('blog.author', $user->slug))->addImage($user->user_image, $user->name));
         }
         return $sitemap->writeToFile('user-sitemap.xml');
     }
