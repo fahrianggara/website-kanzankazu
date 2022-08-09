@@ -169,6 +169,7 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
         Kreait\Laravel\Firebase\ServiceProvider::class,
+        Jorenvh\Share\Providers\ShareServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -242,6 +243,7 @@ return [
         'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
         'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
         'HTMLMin' => HTMLMin\HTMLMin\Facades\HTMLMin::class,
+        'Share' => Jorenvh\Share\ShareFacade::class,
     ],
 
 ];

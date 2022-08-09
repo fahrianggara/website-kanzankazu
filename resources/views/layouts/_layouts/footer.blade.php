@@ -104,7 +104,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalContactUs">Kontak Kami</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close closefirstmodal" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -121,13 +121,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="name">Nama kamu</label>
+                        <label for="name">Nama</label>
                         <input type="text" class="form-control" id="name" name="name"
                             placeholder="Masukkan nama kamu">
                         <span class="invalid-feedback d-block error-text name_error"></span>
                     </div>
                     <div class="form-group">
-                        <label for="email">Email kamu</label>
+                        <label for="email">Email</label>
                         <input type="text" class="form-control" id="email" name="email"
                             placeholder="Masukkan alamat email kamu">
                         <span class="invalid-feedback d-block error-text email_error"></span>
@@ -140,7 +140,9 @@
                     </div>
                     <div class="form-group">
                         <label for="message">Isi Pesan</label>
-                        <textarea class="form-control" id="message" rows="3" name="messages" placeholder="Masukkan isi pesan kamu"></textarea>
+                        <textarea onkeyup="countChars(this)" class="form-control" id="messages" rows="4" name="messages"
+                            placeholder="Masukkan isi pesan kamu"></textarea>
+                        <span class="float-right" id="charNum"></span>
                         <span class="invalid-feedback d-block error-text messages_error"></span>
                     </div>
 
@@ -150,6 +152,18 @@
                     <button type="submit" id="btn_contactUs" class="btn btn-success">Kirim Pesan</button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+<div id="Warning" class="modal fade" role="dialog" data-backdrop="false">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>This Is A Warning Message</p>
+                <button type="button" class="btn btn-danger confirmclosed">Confirm Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel Close</button>
+            </div>
         </div>
     </div>
 </div>
@@ -197,6 +211,29 @@
     </script> --}}
 
     <script>
+        function countChars(val) {
+            let max = 500
+            let limit = val.value.length;
+            if (limit >= max) {
+                val.value = val.value.substring(0, max);
+                $('#charNum').text('You have reached the limit');
+                $('#charNum').addClass('text-danger');
+            } else {
+                var char = max - limit;
+                $('#charNum').text(char + ' characters left');
+                $('#charNum').removeClass('text-danger');
+            };
+        }
+
+        // hide charNum when input is empty
+        $('#messages').on('keyup', function() {
+            if ($(this).val().length == 0) {
+                $('#charNum').text('');
+            } else {
+                countChars(this);
+            }
+        });
+
         $(function() {
             $.ajaxSetup({
                 headers: {
@@ -205,12 +242,35 @@
             });
 
             $('[data-dismiss="modal"]').on('click', function() {
-                $(document).find('span.error-text').text('');
-                $(document).find('input.form-control').removeClass(
-                    'is-invalid');
-                $(document).find('textarea.form-control').removeClass(
-                    'is-invalid');
-                $('#formContactUs')[0].reset();
+                let name = $('#name').val() !== '';
+                let email = $('#email').val() !== '';
+                let subject = $('#subject').val() !== '';
+                let message = $('#messages').val() !== '';
+
+                if (name || email || message || subject) {
+                    let closeDialog = confirm('Batal mengirim pesan?');
+                    if (closeDialog == true) {
+                        $(document).find('span.error-text').text('');
+                        $(document).find('input.form-control').removeClass(
+                            'is-invalid');
+                        $(document).find('textarea.form-control').removeClass(
+                            'is-invalid');
+                        $('#formContactUs')[0].reset();
+                        $('#charNum').text('');
+                    } else {
+                        return false;
+                    }
+                } else {
+                    $('#modalContactUs').modal('hide');
+                }
+
+                if ($('.error-text').hasClass('d-block')) {
+                    $(document).find('span.error-text').text('');
+                    $(document).find('input.form-control').removeClass(
+                        'is-invalid');
+                    $(document).find('textarea.form-control').removeClass(
+                        'is-invalid');
+                }
             });
 
             // Contact Us Modal
@@ -248,6 +308,7 @@
                         } else {
                             $('#formContactUs')[0].reset();
                             $('#modalContactUs').modal('hide');
+                            $('#charNum').text('');
                             // Notif
                             alertify
                                 .delay(3500)

@@ -44,9 +44,13 @@
                             @endforeach
                         </div>
 
-                        <h2 class="entry-title">
-                            <a class="underline"
-                                href="{{ route('blog.detail', ['slug' => $post->slug]) }}">{{ $post->title }}
+                        <h2 class="entry-title d-block">
+                            <a class="underline" href="{{ route('blog.detail', ['slug' => $post->slug]) }}">
+                                @if (strlen($post->title) > 65)
+                                    {{ substr($post->title, 0, 65) . '...' }}
+                                @else
+                                    {{ $post->title }}
+                                @endif
                             </a>
                         </h2>
 

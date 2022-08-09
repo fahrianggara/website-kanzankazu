@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
-
+use Carbon\Carbon;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -44,7 +44,7 @@ class AppServiceProvider extends ServiceProvider
         //     URL::forceScheme('https');
         // }
 
-        \Carbon\Carbon::setLocale('id');
+        Carbon::setLocale('id');
 
         //Add this custom validation rule.
         Validator::extend('alpha_spaces', function ($attribute, $value) {

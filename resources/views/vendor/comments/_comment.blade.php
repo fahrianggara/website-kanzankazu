@@ -127,7 +127,7 @@ $markdown->setSafeMode(true);
                             @csrf
 
                             <div class="modal-header">
-                                <h5 class="modal-title">Edit komentar kamu</h5>
+                                <h5 class="modal-title">Edit Komentar</h5>
                                 <button type="button" class="close" data-dismiss="modal">
                                     <span>&times;</span>
                                 </button>
@@ -159,7 +159,7 @@ $markdown->setSafeMode(true);
                             action="{{ route('comments.reply', $comment->getKey()) }}">
                             @csrf
                             <div class="modal-header">
-                                <h5 class="modal-title">Balas komentar</h5>
+                                <h5 class="modal-title">Balas Komentar</h5>
                                 <button type="button" class="close" data-dismiss="modal">
                                     <span>&times;</span>
                                 </button>

@@ -437,8 +437,8 @@
 
                         } else {
                             setTimeout((function() {
-                                window.location.href =
-                                    '{{ route('profile.index') }}#profile';
+                                // window.location.href =
+                                //     '{{ route('profile.index') }}#profile';
                                 window.location.reload();
                             }), 980);
 

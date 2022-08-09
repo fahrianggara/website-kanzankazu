@@ -439,7 +439,7 @@
 
                                     <input type="text" name="name" id="name" class="form-control"
                                         placeholder="Enter your name here..">
-                                    <span class="text-danger error-text name_error"></span>
+                                    <span id="formContacMe" class="text-danger error-text name_error"></span>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="email" class="email">{{ trans('home.contact.form.email.label') }}
@@ -450,7 +450,7 @@
                                     </label>
                                     <input type="text" name="email" id="email" class="form-control"
                                         placeholder="Enter your email here..">
-                                    <span class="text-danger error-text email_error"></span>
+                                    <span id="formContacMe" class="text-danger error-text email_error"></span>
                                 </div>
                             </div>
 
@@ -459,15 +459,16 @@
 
                                 <input type="text" class="form-control fm-error-subject" name="subject"
                                     id="subject" placeholder="Enter your subject message here.." />
-                                <span class="text-danger error-text subject_error"></span>
+                                <span id="formContacMe" class="text-danger error-text subject_error"></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="message">{{ trans('home.contact.form.message.label') }}</label>
 
-                                <textarea class="form-control fm-error-message" name="message" id="message" rows="8"
-                                    placeholder="Enter your message here.."></textarea>
-                                <span class="text-danger error-text message_error"></span>
+                                <textarea onkeyup="countCharMessage(this)" class="form-control fm-error-message" name="message" id="message"
+                                    rows="8" placeholder="Enter your message here.."></textarea>
+                                <span class="float-right" id="countCharMessage"></span>
+                                <span id="formContacMe" class="text-danger error-text message_error"></span>
                             </div>
 
                             <div class="text-center mt-5">
@@ -490,6 +491,29 @@
             <script src="{{ asset('vendor/blog/assets/isotope-layout/isotope.pkgd.min.js') }}"></script>
 
             <script>
+                function countCharMessage(val) {
+                    let max = 500
+                    let limit = val.value.length;
+                    if (limit >= max) {
+                        val.value = val.value.substring(0, max);
+                        $('#countCharMessage').text('You have reached the limit');
+                        $('#countCharMessage').addClass('text-danger');
+                    } else {
+                        var char = max - limit;
+                        $('#countCharMessage').text(char + ' characters left');
+                        $('#countCharMessage').removeClass('text-danger');
+                    };
+                }
+
+                // hide charNum when input is empty
+                $('#message').on('keyup', function() {
+                    if ($(this).val().length == 0) {
+                        $('#countCharMessage').text('');
+                    } else {
+                        countCharMessage(this);
+                    }
+                });
+
                 $(function() {
                     $.ajaxSetup({
                         headers: {
@@ -523,10 +547,11 @@
                             success: function(response) {
                                 if (response.status == 400) {
                                     $.each(response.messages, function(key, value) {
-                                        $('span.' + key + '_error').text(value[0]);
+                                        $('#formContacMe.' + key + '_error').text(value[0]);
                                     });
                                 } else {
                                     $('#formContact')[0].reset();
+                                    $('#charNum').text('');
                                     $('#formContact').find('span.error-text').text('');
                                     alertify.delay(4000).log(response.message);
                                 }
@@ -585,23 +610,16 @@
                         // Initiate venobox (lightbox feature used in portofilo)
                         $(document).ready(function() {
                             $('.venobox').venobox({
-                                framewidth: '800px',
+                                framewidth: '1000px',
                                 frameheight: 'auto',
                                 numeratio: true,
                                 infinigall: true,
-                                share: ['twitter', 'download'],
+                                share: ['download'],
                                 spinner: 'cube-grid',
                                 spinColor: '#00b2cc',
+                                titlePosition: 'bottom',
                             });
                         });
-                    });
-
-                    // gallery details carousel
-                    $(".gallery-details-carousel").owlCarousel({
-                        autoplay: true,
-                        dots: true,
-                        loop: true,
-                        items: 1
                     });
                 });
             </script>
