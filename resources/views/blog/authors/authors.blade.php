@@ -102,10 +102,20 @@
                     <div class="row">
                         <div class="col-lg-12 d-flex justify-content-center">
                             <ul id="gallery-filters">
-                                <li data-filter="*" class="filter-active">All</li>
-                                @foreach ($titleProjects as $data)
-                                    <li data-filter=".{{ $data->title }}">{{ $data->title }}</li>
-                                @endforeach
+                                @if ($titleProjects->count() > 1)
+                                    <li data-filter="*" class="filter-active">All</li>
+                                @endif
+
+                                @if ($titleProjects->count() == 1)
+                                    @foreach ($titleProjects as $data)
+                                        <li data-filter=".{{ $data->title }}" class="filter-active">{{ $data->title }}
+                                        </li>
+                                    @endforeach
+                                @else
+                                    @foreach ($titleProjects as $data)
+                                        <li data-filter=".{{ $data->title }}">{{ $data->title }}</li>
+                                    @endforeach
+                                @endif
                             </ul>
                         </div>
                     </div>
