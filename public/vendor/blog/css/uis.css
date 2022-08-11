@@ -259,39 +259,12 @@ a.underline:hover {
     transition: 0.4s ease-in-out;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 990px) {
     #header .change-theme {
         font-size: 24px;
         right: 65px;
         position: absolute;
         padding: 9.5px 0;
-        text-align: right;
-        z-index: 99;
-    }
-}
-
-/* change theme blog */
-#header .change-theme-blog {
-    font-size: 23px;
-    margin: 0;
-    padding: 11px 0;
-    line-height: 1;
-    font-weight: 400;
-    cursor: pointer;
-    color: var(--text-color);
-}
-
-#header .change-theme-blog:hover {
-    color: var(--first-color);
-    transition: 0.4s ease-in-out;
-}
-
-@media (max-width: 991px) {
-    #header .change-theme-blog {
-        font-size: 24px;
-        right: 108px;
-        position: absolute;
-        padding: 10.5px 0;
         text-align: right;
         z-index: 99;
     }
@@ -318,7 +291,7 @@ input[type="search"]:focus::-webkit-search-cancel-button {
     margin: 0;
     padding: 5px 0;
     line-height: 1;
-    margin-left: 20px;
+    /* margin-left: 20px; */
     z-index: 10;
 }
 
@@ -338,7 +311,7 @@ input[type="search"]:focus::-webkit-search-cancel-button {
 
 #header form .search-blog {
     height: 100%;
-    width: 334px;
+    width: 300px;
     padding: 0 10px;
     color: var(--text-color);
     background: var(--container-color);
@@ -359,8 +332,43 @@ input[type="search"]:focus::-webkit-search-cancel-button {
     color: #fff;
 }
 
-#header .search-icon,
+/* #header .search-icon,
 #header .cancel-icon {
+    font-size: 23px;
+    margin: 0;
+    padding: 11px 0;
+    line-height: 1;
+    font-weight: 400;
+    cursor: pointer;
+    color: var(--text-color);
+    display: none;
+} */
+
+/* change theme blog */
+#header .change-theme-blog {
+    margin: 0;
+    padding: 10px 13px;
+    margin-right: 15px;
+    color: var(--text-color);
+}
+
+#header .change-theme-blog:hover {
+    background: var(--header-color);
+    border-radius: 50%;
+    color: var(--first-color);
+}
+
+#header .change-theme-blog i {
+    position: relative;
+    top: 3px;
+    font-size: 23px;
+    font-weight: 400;
+    line-height: 1;
+    cursor: pointer;
+}
+
+#header .searchButton .uil-search,
+#header .searchButton .uil-times {
     font-size: 23px;
     margin: 0;
     padding: 11px 0;
@@ -371,13 +379,38 @@ input[type="search"]:focus::-webkit-search-cancel-button {
     display: none;
 }
 
+#header .menuButton {
+    margin: 0;
+    padding: 11px 0;
+    line-height: 1;
+}
+
 @media (max-width: 1200px) {
     #header form .search-blog {
-        width: 230px;
+        width: 210px;
+    }
+    #header .change-theme-blog {
+        padding: 4px;
+    }
+    #header .change-theme-blog:hover {
+        background: transparent;
+        color: var(--first-color);
+    }
+    #header .change-theme-blog i {
+        top: 9px;
     }
 }
 
 @media (max-width: 991px) {
+    #header .change-theme-blog {
+        padding: 10.5px 0;
+        z-index: 99;
+        margin-right: 0;
+        text-align: right;
+    }
+    #header .change-theme-blog i {
+        top: 0px;
+    }
 
     #header form {
         position: absolute;
@@ -430,35 +463,44 @@ input[type="search"]:focus::-webkit-search-cancel-button {
         border: 1px solid var(--first-color);
     }
 
-    #header .search-icon {
+    #header .searchButton .uil-search {
         display: block;
         font-size: 23px;
         margin: 0;
-        position: absolute;
-        padding: 11.5px 0;
+        padding: 11.5px 0 0 20px;
         text-align: right;
         z-index: 99;
-        right: 65px;
         margin-left: 0;
     }
 
-    #header .cancel-icon {
-        font-size: 23px;
+    #header .searchButton .uil-times {
+        font-size: 25px;
         margin: 0;
-        position: absolute;
-        padding: 11.5px 0;
+        padding: 11.5px 0 0 20px;
         text-align: right;
         z-index: 99;
-        right: 65px;
         margin-left: 0;
     }
 
-    #header .search-icon.hide {
+    #header .searchButton .uil-search.hide {
         display: none;
     }
 
-    #header .cancel-icon.show {
+    #header .searchButton .uil-times.show {
         display: block;
+        color: var(--first-color);
+    }
+}
+
+@media (max-width: 400px) {
+
+    #header .searchButton .uil-search,
+    #header .searchButton .uil-times {
+        padding: 11.5px 0 0 15px;
+    }
+
+    .mobile-nav-toggle {
+        margin-left: 10px !important;
     }
 }
 
@@ -480,6 +522,7 @@ input[type="search"]:focus::-webkit-search-cancel-button {
     display: block;
     position: relative;
     color: var(--text-color);
+    top: 1px;
     padding: 14px 15px;
     font-size: 13px;
     font-weight: 500;
@@ -623,7 +666,8 @@ input[type="search"]:focus::-webkit-search-cancel-button {
     background: var(--container-color);
     opacity: 1;
     transition: 0.4s;
-    box-shadow: 5px 0 6px -6px #333;
+    /* box-shadow: 5px 0 6px -6px #333; */
+    border-right: .1px solid var(--first-color);
 }
 
 .mobile-nav * {
@@ -694,10 +738,10 @@ input[type="search"]:focus::-webkit-search-cancel-button {
 }
 
 .mobile-nav-toggle {
-    position: fixed;
-    top: 20px;
-    right: 15px;
-    z-index: 9998;
+    /* position: fixed; */
+    /* top: 20px;
+    right: 15px; */
+    z-index: 99999;
     border: 0;
     background: none;
     font-size: 24px;
@@ -706,6 +750,7 @@ input[type="search"]:focus::-webkit-search-cancel-button {
     line-height: 1;
     cursor: pointer;
     text-align: right;
+    margin-left: 15px;
 }
 
 .mobile-nav-toggle i {
@@ -738,11 +783,11 @@ input[type="search"]:focus::-webkit-search-cancel-button {
     left: 0;
 }
 
-.mobile-nav-active .mobile-nav-toggle i {
+.mobile-nav-active #header .mobile-nav-toggle i {
     color: var(--text-color);
 }
 
-.mobile-nav-active .mobile-nav-toggle i:hover {
+.mobile-nav-active #header .mobile-nav-toggle i:hover {
     color: var(--first-color);
 }
 
@@ -1069,8 +1114,8 @@ section {
 
 .intro .intro-div h2 {
     display: block;
-    font-size: 60px;
-    line-height: 1.4;
+    font-size: 55px;
+    line-height: 1;
     font-family: "Poppins", sans-serif;
     font-weight: bolder;
     background: rgb(2, 0, 36);
@@ -1086,6 +1131,10 @@ span.kutip::after {
     content: "\201C";
     font-family: Arial, Helvetica, sans-serif;
     margin-right: 3px;
+}
+
+.intro .intro-div .intro-visMis {
+    padding: 0 200px 0 0;
 }
 
 .intro .intro-div .intro-desc {
@@ -1192,7 +1241,22 @@ span.kutip::after {
     }
 }
 
+@media (max-width: 769px) {
+    .intro .intro-div h2 {
+        line-height: 1.1 !important;
+        margin-top: 10px;
+    }
+}
+
 @media (max-width: 992px) {
+    .intro .intro-div .intro-visMis {
+        padding: 0;
+    }
+
+    .intro .intro-div h2 {
+        line-height: 1.4;
+    }
+
     .intro .intro-div .intro-desc {
         margin: 20px 0 0 0;
         padding: 0 0 0 0;
@@ -1377,10 +1441,12 @@ span.kutip::after {
     .about ul.skill-lists {
         display: block;
     }
+
     .about ul.skill-lists li {
         margin-bottom: 10px;
         font-size: 15px;
     }
+
     .about ul.skill-lists li::before {
         font-size: 14px;
         line-height: 22px;
@@ -1751,6 +1817,7 @@ span.kutip::after {
     background: var(--containerSec-color);
     position: relative;
 }
+
 .blog .entry-thumbnail:hover {
     bottom: 5px;
     box-shadow: 0 8px 8px 0px rgba(0, 0, 0, 0.3);
@@ -1759,6 +1826,7 @@ span.kutip::after {
 .blog .flex-nowrap.overflow-auto {
     padding-top: 5px;
 }
+
 .blog .entry-thumbnail .tag .badge:hover {
     opacity: 0.8;
 }
@@ -1778,6 +1846,7 @@ span.kutip::after {
 .blog .entry-thumbnail .entry-img img:hover {
     transform: scale(1.1);
 }
+
 .blog .entry-thumbnail .entry-title {
     font-weight: bold;
     padding: 0;
@@ -1879,6 +1948,7 @@ span.kutip::after {
     .blog .entry-thumbnail .entry-title {
         line-height: 25px;
     }
+
     .blog .entry-thumbnail .entry-title a {
         font-size: 24px;
     }
@@ -2766,16 +2836,19 @@ span.kutip::after {
     color: #797979;
     border-bottom: 1px solid var(--text-color);
 }
+
 .main-blog .entry .entry-meta .author-post {
     padding-bottom: 10px;
     display: flex !important;
 }
+
 .main-blog .entry .entry-meta .author-post .author-info {
     display: block;
     position: relative;
     top: 3px;
     margin-left: 5px;
 }
+
 .main-blog .entry .entry-meta .author-post img {
     width: 40px;
     height: 40px;
@@ -2783,13 +2856,16 @@ span.kutip::after {
     margin-right: 8px;
     overflow: hidden;
 }
+
 .main-blog .entry .entry-meta .author-post span.name {
     margin-right: 4px;
 
 }
+
 .main-blog .entry .entry-meta .author-post span {
     font-size: 15px;
 }
+
 .main-blog .entry .entry-meta .author-post time {
     font-size: 14px;
 }
@@ -2800,6 +2876,7 @@ span.kutip::after {
         height: 35px;
         margin-right: 4px;
     }
+
     .main-blog .entry .entry-meta .author-post span.name {
         margin-right: 1px;
     }
@@ -2811,6 +2888,7 @@ span.kutip::after {
     .main-blog .entry .entry-meta .author-post span {
         font-size: 13px;
     }
+
     .main-blog .entry .entry-meta .author-post time {
         font-size: 12px;
     }
@@ -3260,9 +3338,7 @@ div.code-toolbar>.toolbar>.toolbar-item>span:hover {
 }
 
 /* ===== ENTRY FOOTER ===== */
-.main-blog .entry .entry-footer {
-
-}
+.main-blog .entry .entry-footer {}
 
 .main-blog .entry .entry-footer #social-links {
     /* border-top: 1px solid var(--text-color);
@@ -3278,6 +3354,7 @@ div.code-toolbar>.toolbar>.toolbar-item>span:hover {
     position: relative;
     bottom: 3px;
 }
+
 .main-blog .entry .entry-footer #social-links span.uil-share:hover {
     color: var(--first-color);
 }
@@ -3287,6 +3364,7 @@ div.code-toolbar>.toolbar>.toolbar-item>span:hover {
     margin: 0 0 15px 0;
     padding: 0;
 }
+
 .main-blog .entry .entry-footer #social-links ul li {
     display: inline-block;
     margin-right: 4px;
@@ -3413,6 +3491,7 @@ div.code-toolbar>.toolbar>.toolbar-item>span:hover {
 .main-blog .blog-author .social-links a {
     color: #797979;
 }
+
 .main-blog .blog-author .social-links a:hover {
     color: var(--first-color);
 }
@@ -4109,7 +4188,7 @@ div.code-toolbar>.toolbar>.toolbar-item>span:hover {
 
 .main-blog .sidebar .tags ul li {
     display: inline-block;
-    margin: 0 1px 1px ;
+    margin: 0 1px 1px;
 }
 
 .main-blog .sidebar .tags ul a {
@@ -4881,22 +4960,22 @@ ul li.ui-menu-item p:hover {
 }
 
 .blog-author {
-    padding: 20px ;
-    margin-bottom: 20px ;
+    padding: 20px;
+    margin-bottom: 20px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 .blog-author img {
-    width: 120px ;
+    width: 120px;
     margin-right: 20px;
 }
 
 .blog-author a.nameAuthor {
-    font-weight: 600 ;
-    font-size: 24px ;
-    padding: 0 ;
-    margin: 0 ;
-    margin-bottom: 3px ;
+    font-weight: 600;
+    font-size: 24px;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 3px;
     color: var(--text-color);
 }
 
@@ -4913,13 +4992,13 @@ ul li.ui-menu-item p:hover {
 }
 
 .blog-author p {
-    margin: 0 ;
+    margin: 0;
     font-style: italic;
-    color: #a4a2a2 ;
+    color: #a4a2a2;
 }
 
 .authorSec {
-    padding: 40px 0 1px 0 ;
+    padding: 40px 0 1px 0;
     margin: 0 0 40px 0;
 }
 
@@ -5048,11 +5127,11 @@ ul li.ui-menu-item p:hover {
 
     .main-blog .entry .entry-footer .tuto_post,
     .main-blog .entry .entry-footer .cat_post {
-        margin-top: 7px ;
+        margin-top: 7px;
     }
 
     .main-blog .entry .entry-footer i {
-        margin-right: 4px ;
+        margin-right: 4px;
     }
 }
 
@@ -5062,29 +5141,29 @@ ul li.ui-menu-item p:hover {
     }
 
     .blog-author a.nameAuthor {
-        font-size: 20px ;
+        font-size: 20px;
     }
 
     .main-blog .blog-author p {
-        font-size: 15px ;
+        font-size: 15px;
     }
 }
 
 @media (max-width: 297px) {
     .main-blog .entry .entry-meta i {
-        font-size: 12.6px ;
+        font-size: 12.6px;
     }
 
     .main-blog .entry .entry-meta span {
-        font-size: 12.6px ;
+        font-size: 12.6px;
     }
 
     .main-blog .entry .entry-title span {
-        font-size: 24px ;
+        font-size: 24px;
     }
 
     .main-blog .entry .entry-title {
-        margin: 8px 0 8px 0 ;
+        margin: 8px 0 8px 0;
     }
 }
 
@@ -5100,7 +5179,7 @@ ul li.ui-menu-item p:hover {
     }
 
     .main-blog .related-post h2 {
-        font-size: 27px ;
+        font-size: 27px;
     }
 }
 
@@ -5110,20 +5189,20 @@ ul li.ui-menu-item p:hover {
     }
 
     .blog-author a.nameAuthor {
-        font-size: 17px ;
+        font-size: 17px;
     }
 
     .main-blog .blog-author p {
-        font-size: 13px ;
+        font-size: 13px;
     }
 
     .main-blog .entry-single .entry-title {
-        line-height: 27px ;
+        line-height: 27px;
     }
 
     .entry-bottom .btn-Next,
     .entry-bottom .btn-Prev {
-        font-size: 13px ;
+        font-size: 13px;
     }
 }
 
@@ -5132,24 +5211,24 @@ ul li.ui-menu-item p:hover {
     .main-blog .sidebar .recent-posts h4 a,
     .main-blog .sidebar .recent-posts h4 a.active,
     .main-blog .sidebar .categories h4 a {
-        font-size: 15px ;
+        font-size: 15px;
     }
 
     .main-blog .sidebar .recent-posts time p,
     .main-blog .sidebar .categories time p {
-        font-size: 13px ;
+        font-size: 13px;
     }
 
     .main-blog .sidebar .tags ul a {
-        font-size: 13px ;
+        font-size: 13px;
     }
 
     .main-blog .sidebar .categories {
-        overflow-x: hidden ;
+        overflow-x: hidden;
     }
 
     .sect-coment .sect-title {
-        font-size: 20px ;
+        font-size: 20px;
     }
 }
 
@@ -5164,6 +5243,7 @@ ul li.ui-menu-item p:hover {
     .main-blog .entry .entry-meta {
         margin-bottom: 9px;
     }
+
     .main-blog .entry .entry-meta i {
         font-size: 12px;
         padding-right: .1px;
@@ -5175,7 +5255,7 @@ ul li.ui-menu-item p:hover {
     }
 
     .main-blog .entry-single .entry-title {
-        line-height: 24px ;
+        line-height: 24px;
     }
 
     .main-blog .entry .entry-content p,
@@ -5184,16 +5264,16 @@ ul li.ui-menu-item p:hover {
     }
 
     .main-blog .entry .entry-footer .cats {
-        font-size: 12px ;
+        font-size: 12px;
     }
 
     .main-blog .entry .entry-footer .tags {
-        font-size: 12px ;
+        font-size: 12px;
     }
 
     .main-blog .entry .entry-footer .tuto_post,
     .main-blog .entry .entry-footer .cat_post {
-        margin-top: 4px ;
+        margin-top: 4px;
     }
 
     /* navbar */
@@ -5206,72 +5286,72 @@ ul li.ui-menu-item p:hover {
     }
 
     .blog-author a.nameAuthor {
-        font-size: 16px ;
+        font-size: 16px;
     }
 
     .main-blog .blog-author p {
-        font-size: 12px ;
+        font-size: 12px;
     }
 
     /* comment */
     .sect-coment .sect-title {
-        font-size: 18px ;
+        font-size: 18px;
     }
 
     /* sidebar blog */
     .main-blog .sidebar .recent-posts h4 a,
     .main-blog .sidebar .recent-posts h4 a.active,
     .main-blog .sidebar .categories h4 a {
-        font-size: 14px ;
+        font-size: 14px;
     }
 
     .main-blog .sidebar .recent-posts time p,
     .main-blog .sidebar .categories time p {
-        font-size: 12px ;
+        font-size: 12px;
     }
 
     .main-blog .sidebar .tags ul a {
-        font-size: 12px ;
+        font-size: 12px;
     }
 
     .main-blog .sidebar .categories {
-        overflow-x: hidden ;
+        overflow-x: hidden;
     }
 
     /* footer */
     #footer .post-title a {
-        font-size: 14px ;
-        line-height: .1px ;
+        font-size: 14px;
+        line-height: .1px;
     }
 
     #footer .footer-top .popular-post .post-time .text-time {
-        font-size: 12px ;
+        font-size: 12px;
     }
 
     #footer .footer-top .footer-newsletter form button[type=submit] {
-        font-size: 14px ;
+        font-size: 14px;
     }
 
     #footer .footer-top .footer-newsletter form input[type=text] {
-        width: calc(100% - 100px) ;
+        width: calc(100% - 100px);
     }
 
     .to-the-top {
-        right: 10px ;
-        bottom: 25px ;
+        right: 10px;
+        bottom: 25px;
     }
 
     .entry-bottom .btn-Next,
     .entry-bottom .btn-Prev {
-        font-size: 12px ;
+        font-size: 12px;
     }
 
     .main-blog .post-related .img-moreBlog .img-read {
-        font-size: 9px ;
+        font-size: 9px;
     }
 
     .main-blog .related-post h2 {
-        font-size: 27px ;
+        font-size: 27px;
     }
 }
 
@@ -5470,7 +5550,8 @@ ul li.ui-menu-item p:hover {
     color: var(--first-color) !important;
 }
 
-#charNum, #countCharMessage {
+#charNum,
+#countCharMessage {
     font-size: 14px;
     color: #797979;
 }

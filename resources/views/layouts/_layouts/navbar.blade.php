@@ -119,25 +119,31 @@
         </nav>
 
         {{-- darktheme --}}
-        <i class="uil uil-moon change-theme-blog btn-tooltip-hide" data-toggle="tooltip" data-placement="bottom"
-            title="Ganti Tema" id="theme-toggle">
-        </i>
+        <div class="d-flex tombolNavbar">
+            <div class="change-theme-blog" data-toggle="tooltip" data-placement="bottom" title="Ganti Tema">
+                <i class="uil uil-moon btn-tooltip-hide" id="theme-toggle">
+                </i>
+            </div>
 
-        {{-- search --}}
-        <div class="search-icon btn-tooltip-hide" data-toggle="tooltip" data-placement="bottom" title="Pencarian">
-            <span class="uil uil-search"></span>
-        </div>
-        <div class="cancel-icon btn-tooltip-hide" data-toggle="tooltip" data-placement="bottom" title="Tutup">
-            <span class="uil uil-times"></span>
-        </div>
+            {{-- search --}}
+            <div class="searchButton">
+                <span class="uil uil-search"></span>
+                <span class="uil uil-times"></span>
+            </div>
+            <div class="menuButton"></div>
+            {{-- <div class="search-icon btn-tooltip-hide" data-toggle="tooltip" data-placement="bottom" title="Pencarian">
+            </div>
+            <div class="cancel-icon btn-tooltip-hide" data-toggle="tooltip" data-placement="bottom" title="Tutup">
+            </div> --}}
 
-        <div class="search-nav">
-            <form action="{{ route('blog.search') }}" method="GET" autocomplete="off">
-                <input id="search" type="search" name="keyword" value="{{ request()->get('keyword') }}"
-                    class="search-blog" placeholder="Cari blog apapun disini...">
-                <button id="buttonSubmit" type="submit" class="uil btn-tooltip-hide" data-toggle="tooltip"
-                    data-placement="bottom" title="Telusuri"><i class="uil uil-search"></i></button>
-            </form>
+            <div class="search-nav">
+                <form action="{{ route('blog.search') }}" method="GET" autocomplete="off">
+                    <input id="search" type="search" name="keyword" value="{{ request()->get('keyword') }}"
+                        class="search-blog" placeholder="Cari blog apapun disini...">
+                    <button id="buttonSubmit" type="submit" class="uil btn-tooltip-hide" data-toggle="tooltip"
+                        data-placement="bottom" title="Telusuri"><i class="uil uil-search"></i></button>
+                </form>
+            </div>
         </div>
 
     </div>

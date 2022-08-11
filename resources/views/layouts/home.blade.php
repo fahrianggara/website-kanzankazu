@@ -43,7 +43,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/blog/assets/fontawesome/css/all.min.css') }}">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     {{-- Main CSS --}}
-    <link rel="stylesheet" href="{{ asset('vendor/blog/css/esss.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/blog/css/uis.css') }}">
     {{-- CSS EXT --}}
     @stack('css-external')
     {{-- CSS INT --}}
@@ -106,7 +106,7 @@
     <script src="{{ asset('vendor/blog/assets/jquery-sticky/jquery.sticky.js') }}"></script>
     <script src="{{ asset('vendor/blog/assets/alertify/js/alertify.js') }}"></script>
     {{-- Main Js --}}
-    <script src="{{ asset('vendor/blog/js/apps.js') }}"></script>
+    <script src="{{ asset('vendor/blog/js/function.js') }}"></script>
     {{-- JS Ext --}}
     @stack('js-external')
     {{-- JS Int --}}

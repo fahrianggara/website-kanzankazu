@@ -60,7 +60,7 @@
             class: 'mobile-nav d-lg-none'
         });
         $('body').append($mobile_nav);
-        $('body').prepend(
+        $('#header .container .tombolNavbar .menuButton').prepend(
             '<button type="button" class="mobile-nav-toggle d-lg-none"><i id="toggleNav" class="uil uil-bars"></i></button>'
         );
         $('body').append('<div class="mobile-nav-overly"></div>');
@@ -166,8 +166,8 @@
     });
 
     // search
-    const searchBtn = document.querySelector(".search-icon");
-    const cancelBtn = document.querySelector(".cancel-icon");
+    const searchBtn = document.querySelector(".uil-search");
+    const cancelBtn = document.querySelector(".uil-times");
     const form = document.querySelector("form");
 
     cancelBtn.onclick = () => {

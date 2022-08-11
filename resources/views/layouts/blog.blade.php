@@ -44,7 +44,7 @@
     {{-- jQuery Ui --}}
     <link rel="stylesheet" href="{{ asset('vendor/blog/assets/jquery-ui/jquery-ui.css') }}">
     {{-- Main CSS --}}
-    <link rel="stylesheet" href="{{ asset('vendor/blog/css/esss.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/blog/css/uis.css') }}">
     {{-- CSS EXT --}}
     @stack('css-external')
     {{-- CSS INT --}}
@@ -95,7 +95,7 @@
     <script src="{{ asset('vendor/dashboard/plugins/tinymce5/jquery.tinymce.min.js') }}"></script>
     <script src="{{ asset('vendor/dashboard/plugins/tinymce5/tinymce.min.js') }}"></script>
     {{-- Main Js --}}
-    <script src="{{ asset('vendor/blog/js/apps.js') }}"></script>
+    <script src="{{ asset('vendor/blog/js/function.js') }}"></script>
     {{-- JS Ext --}}
     {{-- @stack('js-external') --}}
     {{-- JS Int --}}

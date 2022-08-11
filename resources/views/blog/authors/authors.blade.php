@@ -7,8 +7,10 @@
             <div class="intro-container">
                 <div class="intro-div">
                     <p>Hi, my name is</p>
-                    <h1>{{ $user->name }}</h1>
-                    <h2><span class="kutip"></span>{{ $user->pf_vision }}</h2>
+                    <div class="intro-visMis">
+                        <h1>{{ $user->name }}</h1>
+                        <h2><span class="kutip"></span>{{ $user->pf_vision }}.</h2>
+                    </div>
                     <div class="intro-desc">
                         <span>
                             {{ $user->pf_mission }}

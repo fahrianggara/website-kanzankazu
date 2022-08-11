@@ -42,7 +42,7 @@ class ProfileController extends Controller
                 'twitter'  => 'nullable|url_www',
                 'instagram' => 'nullable|url_www',
                 'github'  => 'nullable|url_www',
-                'pf_vision' => 'nullable|max:50',
+                'pf_vision' => 'nullable|max:50|alpha_spaces',
                 'pf_mission' => 'nullable|max:500',
                 'pf_skill_desc' => 'nullable|max:500',
                 'pf_resume' => 'nullable|mimes:pdf',
@@ -60,6 +60,7 @@ class ProfileController extends Controller
                 'instagram.url_www' => 'URL tidak valid',
                 'github.url_www'  => 'URL tidak valid',
                 'pf_vision.max' => 'Maksimal 50 karakter',
+                'pf_vision.alpha_spaces' => 'Hanya boleh berisi huruf dan spasi',
                 'pf_mission.max' => 'Maksimal 500 karakter',
                 'pf_skill_desc.max' => 'Maksimal 500 karakter',
                 'pf_resume.mimes' => 'Format file harus PDF!',
@@ -106,26 +107,6 @@ class ProfileController extends Controller
                         $query->pf_resume = $filename;
                     }
                 }
-                // if (Auth::user()->pf_resume == null) {
-                //     if ($request->hasFile('pf_resume')) {
-                //         $path = 'vendor/dashboard/documents/resume/';
-                //         $file = $request->file('pf_resume');
-                //         $filename = 'resume-' . Auth::user()->slug . '-' . Str::slug(Str::random(3)) . '.' . $file->extension();
-                //         $file->move($path, $filename);
-                //         $query->pf_resume = $filename;
-                //     }
-                // } else {
-                //     if ($request->hasFile('pf_resume')) {
-                //         $path = 'vendor/dashboard/documents/resume/';
-                //         if (File::exists($path . Auth::user()->pf_resume)) {
-                //             File::delete($path . Auth::user()->pf_resume);
-                //         }
-                //         $file = $request->file('pf_resume');
-                //         $filename = 'resume-' . Auth::user()->slug . '-' . Str::slug(Str::random(3)) . '.' . $file->extension();
-                //         $file->move($path, $filename);
-                //         $query->pf_resume = $filename;
-                //     }
-                // }
 
                 if ($query->isDirty()) {
                     $query->update();
