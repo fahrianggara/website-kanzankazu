@@ -48,7 +48,7 @@
                     </div>
                     <div class="col-lg-6 pt-4 pt-lg-0 content">
                         <p>
-                            {{ $user->bio }}
+                            {!! Markdown::convert($user->bio)->getContent() !!}
                         </p>
                         <div class="author-sosmed">
                             @if ($user->facebook != null)

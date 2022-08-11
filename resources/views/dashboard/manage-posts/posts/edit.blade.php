@@ -12,7 +12,6 @@
 
     <form action="{{ route('posts.update', ['post' => $post]) }}#posts" method="POST" enctype="multipart/form-data"
         autocomplete="off">
-
         @method('PUT')
         @csrf
 
@@ -31,8 +30,9 @@
                             {{-- TITLE --}}
                             <div class="col-lg-6 form-group">
                                 <label for="input_post_title">Judul Postingan @if (Auth::user()->editorRole())
-                                    <span class="star-required">*</span>
-                                @endif</label>
+                                        <span class="star-required">*</span>
+                                    @endif
+                                </label>
 
                                 <input type="text" id="input_post_title" name="title"
                                     class="form-control @error('title') is-invalid @enderror"
@@ -49,8 +49,8 @@
                             {{-- SELECT TAG --}}
                             <div class="col-lg-6 form-group">
                                 <label for="select_post_tag" class="">Tag Postingan @if (Auth::user()->editorRole())
-                                    <span class="star-required">*</span>
-                                @endif
+                                        <span class="star-required">*</span>
+                                    @endif
                                 </label>
 
                                 <select name="tag[]" id="select_post_tag" data-placeholder="Choose Tags"
@@ -110,7 +110,9 @@
                                     <div class="form-group col-lg-6">
                                         <label for="select_tutorial">
                                             Tutorial Postingan
-                                            <i class="uil uil-info-circle text-primary" data-toggle="tooltip" data-placement="top" title="Tutorial postingan ini seperti urutan dari awal sampai akhir konten. pilih datanya sesuai dengan konten kamu, jika tidak maka abaikan saja"></i>
+                                            <i class="uil uil-info-circle text-primary" data-toggle="tooltip"
+                                                data-placement="top"
+                                                title="Tutorial postingan ini seperti urutan dari awal sampai akhir konten. pilih datanya sesuai dengan konten kamu, jika tidak maka abaikan saja"></i>
                                         </label>
                                         <select id="select_tutorial" name="tutorial" data-placeholder="Pilih tutorial post"
                                             class="custom-select w-100 @error('tutorial') is-invalid @enderror">
@@ -131,7 +133,9 @@
                                     <div class="form-group col-lg-6">
                                         <label for="select_tutorial">
                                             Tutorial Postingan
-                                            <i class="uil uil-info-circle text-primary" data-toggle="tooltip" data-placement="top" title="Tutorial postingan ini seperti urutan dari awal sampai akhir konten. pilih datanya sesuai dengan konten kamu, jika tidak maka abaikan saja"></i>
+                                            <i class="uil uil-info-circle text-primary" data-toggle="tooltip"
+                                                data-placement="top"
+                                                title="Tutorial postingan ini seperti urutan dari awal sampai akhir konten. pilih datanya sesuai dengan konten kamu, jika tidak maka abaikan saja"></i>
                                         </label>
                                         <select id="select_tutorial" name="tutorial" data-placeholder="Pilih tutorial post"
                                             class="custom-select w-100 @error('tutorial') is-invalid @enderror">
@@ -185,10 +189,10 @@
                                     <div class="input-group">
 
                                         @php
-                                            if ($post->thumbnail == 'default.png') {
-                                                $thumbnail = asset('vendor/blog/img/default.png');
-                                            } else {
+                                            if (file_exists('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail)) {
                                                 $thumbnail = asset('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail);
+                                            } else {
+                                                $thumbnail = asset('vendor/blog/img/default.png');
                                             }
                                         @endphp
 
@@ -205,7 +209,8 @@
 
                                 {{-- DESCRIPTION --}}
                                 <div class="col-lg-6 form-group">
-                                    <label for="input_post_desc">Deskripsi Postingan <span class="star-required">*</span></label>
+                                    <label for="input_post_desc">Deskripsi Postingan <span
+                                            class="star-required">*</span></label>
 
                                     <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="input_post_desc"
                                         cols="2" rows="8" placeholder="Masukkan deskripsi postingan kamu..">{{ old('description', $post->description) }}</textarea>
@@ -226,10 +231,10 @@
                                     <div class="input-group">
 
                                         @php
-                                            if ($post->thumbnail == 'default.png') {
-                                                $thumbnail = asset('vendor/blog/img/default.png');
-                                            } else {
+                                            if (file_exists('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail)) {
                                                 $thumbnail = asset('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail);
+                                            } else {
+                                                $thumbnail = asset('vendor/blog/img/default.png');
                                             }
                                         @endphp
 
@@ -263,8 +268,8 @@
                         <div class="form-group" id="content">
                             <label for="input_post_content">
                                 Konten Postingan @if (Auth::user()->editorRole())
-                                <span class="star-required">*</span>
-                            @endif
+                                    <span class="star-required">*</span>
+                                @endif
                             </label>
 
                             <textarea name="content" id="input_post_content" cols="30" rows="30"
