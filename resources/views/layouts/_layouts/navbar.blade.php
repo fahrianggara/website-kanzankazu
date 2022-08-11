@@ -130,7 +130,7 @@
                 <span class="uil uil-search"></span>
                 <span class="uil uil-times"></span>
             </div>
-            <div class="menuButton"></div>
+
             {{-- <div class="search-icon btn-tooltip-hide" data-toggle="tooltip" data-placement="bottom" title="Pencarian">
             </div>
             <div class="cancel-icon btn-tooltip-hide" data-toggle="tooltip" data-placement="bottom" title="Tutup">
@@ -144,6 +144,7 @@
                         data-placement="bottom" title="Telusuri"><i class="uil uil-search"></i></button>
                 </form>
             </div>
+            <div class="menuButton"></div>
         </div>
 
     </div>
