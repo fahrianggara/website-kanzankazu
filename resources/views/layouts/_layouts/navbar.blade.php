@@ -120,7 +120,7 @@
 
         {{-- darktheme --}}
         <div class="d-flex tombolNavbar">
-            <div class="change-theme-blog" data-toggle="tooltip" data-placement="bottom" title="Ganti Tema">
+            <div class="change-theme-blog" data-toggle="tooltip" data-placement="bottom">
                 <i class="uil uil-moon btn-tooltip-hide" id="theme-toggle">
                 </i>
             </div>
@@ -258,6 +258,7 @@
                     .append(inner_html)
                     .appendTo(ul);
             };
+
         })
     </script>
 @endpush
