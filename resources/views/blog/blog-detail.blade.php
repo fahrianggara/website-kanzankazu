@@ -62,7 +62,7 @@
                                             @endif
 
                                             <span> •
-                                                {{ \Carbon\Carbon::parse($post->created_at)->translatedFormat('j F Y') }}</span>
+                                                {{ \Carbon\Carbon::parse($post->created_at)->translatedFormat('j M Y') }}</span>
                                         </div>
                                         <time>Dilihat {{ $post->views }} kali</time>
                                     </div>

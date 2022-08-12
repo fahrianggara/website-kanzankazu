@@ -178,21 +178,7 @@
     });
 
     // search
-    const searchBtn = document.querySelector(".uil-search");
-    const cancelBtn = document.querySelector(".uil-times");
-    const form = document.querySelector("form");
 
-    cancelBtn.onclick = () => {
-        searchBtn.classList.remove("hide");
-        cancelBtn.classList.remove("show");
-        form.classList.remove("active");
-    }
-
-    searchBtn.onclick = () => {
-        form.classList.add("active");
-        searchBtn.classList.add("hide");
-        cancelBtn.classList.add("show");
-    }
 
     // Progress bar
     function progress() {

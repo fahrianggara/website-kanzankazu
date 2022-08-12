@@ -44,7 +44,7 @@
     {{-- jQuery Ui --}}
     <link rel="stylesheet" href="{{ asset('vendor/blog/assets/jquery-ui/jquery-ui.css') }}">
     {{-- Main CSS --}}
-    <link rel="stylesheet" href="{{ asset('vendor/blog/css/uis.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/blog/css/1.css') }}">
     {{-- CSS EXT --}}
     @stack('css-external')
     {{-- CSS INT --}}
@@ -68,13 +68,15 @@
 
     @include('layouts._layouts.navbar')
 
-    <main id="main">
-        <section id="main-blog" class="main-blog">
-            @yield('content')
-        </section>
-    </main>
+    <div id="overlay">
+        <main id="main">
+            <section id="main-blog" class="main-blog">
+                @yield('content')
+            </section>
+        </main>
 
-    @include('layouts._layouts.footer')
+        @include('layouts._layouts.footer')
+    </div>
 
     {{-- <a href="#" class="to-the-top btn-tooltip-hide" data-toggle="tooltip" data-placement="left" title="Keatas">
         <i class="uil uil-angle-up"></i>
@@ -102,7 +104,6 @@
     @stack('js-internal')
     {{-- Script --}}
     <script>
-
         function buttonBack(targetUrl) {
             var currentUrl = window.location.href;
             window.history.go(-1);
@@ -154,7 +155,6 @@
                 .delay(5000)
                 .log(notif);
         }
-
     </script>
 </body>
 

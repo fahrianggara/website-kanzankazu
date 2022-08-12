@@ -43,7 +43,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/blog/assets/fontawesome/css/all.min.css') }}">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     {{-- Main CSS --}}
-    <link rel="stylesheet" href="{{ asset('vendor/blog/css/uis.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/blog/css/1.css') }}">
     {{-- CSS EXT --}}
     @stack('css-external')
     {{-- CSS INT --}}
@@ -59,40 +59,42 @@
     {{-- HEADER --}}
     @include('layouts._layouts.navbar')
 
-    <main id="main">
-        @if (Session::has('status'))
-            <div class="status-success" data-status="{{ Session::get('status') }}"></div>
-        @endif
+    <div id="overlay">
+        <main id="main">
+            @if (Session::has('status'))
+                <div class="status-success" data-status="{{ Session::get('status') }}"></div>
+            @endif
 
-        {{-- ABOUT --}}
-        {{-- @include('home.about') --}}
+            {{-- ABOUT --}}
+            {{-- @include('home.about') --}}
 
-        {{-- SOCIAL MEDIA --}}
-        {{-- @include('home.social-media') --}}
+            {{-- SOCIAL MEDIA --}}
+            {{-- @include('home.social-media') --}}
 
-        {{-- Banner --}}
-        @include('home.banner')
+            {{-- Banner --}}
+            @include('home.banner')
 
-        {{-- BLOG --}}
-        @include('home.blog')
+            {{-- BLOG --}}
+            @include('home.blog')
 
-        {{-- TUTORIAL --}}
-        @include('home.tutorial')
+            {{-- TUTORIAL --}}
+            @include('home.tutorial')
 
-        {{-- CATEGORIES --}}
-        @include('home.category')
+            {{-- CATEGORIES --}}
+            @include('home.category')
 
-        {{-- GALLERY --}}
-        {{-- @include('home.gallery') --}}
+            {{-- GALLERY --}}
+            {{-- @include('home.gallery') --}}
 
-        {{-- CONTACT --}}
-        {{-- @include('home.contact') --}}
+            {{-- CONTACT --}}
+            {{-- @include('home.contact') --}}
 
 
-    </main>
+        </main>
 
-    {{-- FOOTER --}}
-    @include('layouts._layouts.footer')
+        {{-- FOOTER --}}
+        @include('layouts._layouts.footer')
+    </div>
 
     {{-- <a href="#" class="to-the-top btn-tooltip-hide" data-toggle="tooltip" data-placement="left" title="Keatas">
         <i class="uil uil-angle-up"></i>

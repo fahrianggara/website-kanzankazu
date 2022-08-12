@@ -215,13 +215,24 @@ class BlogController extends Controller
         $search =  $request->term;
 
         $posts = Post::publish()->where('title', 'LIKE', "%{$search}%")
-            ->latest()->limit(8)->get();
+            ->popular()->limit(9)->get();
 
         if (!$posts->isEmpty()) {
             foreach ($posts as $post) {
 
-                $new_row['title'] = substr($post->title, 0, 25);
+                if (strlen($post->title) > 25) {
+                    $title = substr($post->title, 0, 25) . '...';
+                } else {
+                    $title = $post->title;
+                }
+
+                $new_row['title'] = $title;
                 $new_row['url'] = route('blog.detail', ['slug' => $post->slug]);
+
+                // if title same as search term, then remove it from the results
+                if (strtolower($new_row['title']) == strtolower($search)) {
+                    continue;
+                }
 
                 $row_set[] = $new_row;
             }
