@@ -47,9 +47,9 @@
                         </div>
                     </div>
                     <div class="col-lg-6 pt-4 pt-lg-0 content">
-                        <p>
-                            {!! Markdown::convert($user->bio)->getContent() !!}
-                        </p>
+
+                        {!! Markdown::convert($user->bio)->getContent() !!}
+
                         <div class="author-sosmed">
                             @if ($user->facebook != null)
                                 <a target="_blank" href="{{ $user->facebook }}">
