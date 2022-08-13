@@ -2,21 +2,20 @@
 
 @section('content')
     @if ($user->id == 2)
-
         <section id="intro" class="intro">
             <div class="intro-container">
                 <div class="intro-div">
-                    <p>Hi, my name is</p>
-                    <div class="intro-visMis">
+                    <p data-aos="fade-down" data-aos-delay="50">Hi, my name is</p>
+                    <div class="intro-visMis" data-aos="fade-left" data-aos-delay="150">
                         <h1>{{ $user->name }}</h1>
                         <h2><span class="kutip"></span>{{ $user->pf_vision }}.</h2>
                     </div>
-                    <div class="intro-desc">
+                    <div class="intro-desc" data-aos="fade-right" data-aos-delay="250">
                         <span>
                             {{ $user->pf_mission }}
                         </span>
                     </div>
-                    <div class="intro-btn">
+                    <div class="intro-btn" data-aos="fade-up" data-aos-delay="350">
                         <a href="#about" class="btn btn-explore">EXPLORE</a>
                         @if ($user->pf_resume != null)
                             <a href="{{ route('blog.author.resume', ['author' => $user->slug, 'resume' => $user->pf_resume]) }}"
@@ -30,13 +29,13 @@
         <section id="about" class="about section-bg">
             <div class="container">
 
-                <div class="section-title text-center">
+                <div class="section-title text-center" data-aos="fade-down" data-aos-delay="150">
                     <h2>About me</h2>
                 </div>
 
                 <div class="row">
                     <div class="col-lg-6">
-                        <div class="img_about loading">
+                        <div class="img_about loading" data-aos="fade-right" data-aos-delay="350">
                             @if (file_exists('vendor/dashboard/image/picture-profiles/' . $user->user_image))
                                 <img src="{{ asset('vendor/dashboard/image/picture-profiles/' . $user->user_image) }}"
                                     class="img-fluid">
@@ -48,9 +47,9 @@
                     </div>
                     <div class="col-lg-6 pt-4 pt-lg-0 content">
 
-                        {!! Markdown::convert($user->bio)->getContent() !!}
+                        <div class="author-sosmed" data-aos="fade-left" data-aos-delay="550">
+                            {!! Markdown::convert($user->bio)->getContent() !!}
 
-                        <div class="author-sosmed">
                             @if ($user->facebook != null)
                                 <a target="_blank" href="{{ $user->facebook }}">
                                     <i class="fab fa-facebook-f"></i>
@@ -75,10 +74,10 @@
 
                         <div class="skills">
 
-                            <h4>My Skills</h4>
-                            <p>{{ $user->pf_skill_desc }}</p>
+                            <h4 data-aos="fade-left" data-aos-delay="750">My Skills</h4>
+                            <p data-aos="fade-left" data-aos-delay="950">{{ $user->pf_skill_desc }}</p>
 
-                            <ul class="skill-lists">
+                            <ul class="skill-lists" data-aos="fade-left" data-aos-delay="1000">
                                 @foreach ($skills as $skill)
                                     <li>{{ $skill->title }}</li>
                                 @endforeach
@@ -94,13 +93,13 @@
         @if ($user->portofolios()->count() > 0)
             <section id="gallery" class="gallery">
                 <div class="container">
-                    <div class="section-title text-center">
+                    <div class="section-title text-center" data-aos="fade-down" data-aos-delay="150">
                         <h2>Projects</h2>
                     </div>
 
                     {{-- filter image --}}
                     <div class="row">
-                        <div class="col-lg-12 d-flex justify-content-center">
+                        <div class="col-lg-12 d-flex justify-content-center" data-aos="fade-top" data-aos-delay="350">
                             <ul id="gallery-filters">
                                 @if ($titleProjects->count() > 1)
                                     <li data-filter="*" class="filter-active">All</li>
@@ -124,7 +123,7 @@
                         @foreach ($user->portofolios()->get() as $portfolio)
                             <div
                                 class="col-lg-4 col-md-6 gallery-item {{ $portfolio->projects()->pluck('title')->first() }}">
-                                <div class="gallery-wrap">
+                                <div class="gallery-wrap" data-aos="fade-down" data-aos-delay="550">
                                     <div class="img_gallery loading">
                                         @php
                                             if (file_exists('vendor/dashboard/image/thumbnail-posts/' . $portfolio->thumbnail)) {
@@ -161,16 +160,16 @@
             @if ($recommendationPosts->isNotEmpty())
                 <div class="container">
                     <div class="section-title title-blog-author">
-                        <h2>Rekomendasi Blog</h2>
-                        <p>Ada {{ $recommendationPosts->count() }} blog yang direkomendasikan oleh <span
-                                class="titleFilter">{{ $user->name }}</span>.</p>
+                        <h2 data-aos="fade-right" data-aos-delay="250">Rekomendasi Blog</h2>
+                        <p data-aos="fade-left" data-aos-delay="350">Ada {{ $recommendationPosts->count() }} blog yang
+                            direkomendasikan oleh <span class="titleFilter">{{ $user->name }}</span>.</p>
                     </div>
 
                     <div class="row">
                         @forelse ($recommendationPosts as $recommended)
-                            <div class="col-lg-4 col-md-6" data-aos="fade-up">
+                            <div class="col-lg-4 col-md-6">
 
-                                <article class="entry-thumbnail">
+                                <article class="entry-thumbnail" data-aos="fade-down" data-aos-delay="550">
                                     <div class="entry-img loading">
                                         @if (file_exists('vendor/dashboard/image/thumbnail-posts/' . $recommended->post->thumbnail))
                                             <a href="{{ route('blog.detail', ['slug' => $recommended->post->slug]) }}">
@@ -280,8 +279,8 @@
             <div class="container" id="blog">
                 @if ($posts->count() >= 1)
                     <div class="section-title title-blog-author">
-                        <h2>by {{ $user->name }}.</h2>
-                        <p>Ada {{ $posts->count() }} blog yang ditulis oleh
+                        <h2 data-aos="fade-left" data-aos-delay="150">by {{ $user->name }}.</h2>
+                        <p data-aos="fade-right" data-aos-delay="350">Ada {{ $posts->count() }} blog yang ditulis oleh
                             <span class="titleFilter">{{ $user->name }}</span>.
                         </p>
                     </div>
@@ -289,9 +288,9 @@
 
                 <div class="row">
                     @forelse ($posts as $post)
-                        <div class="col-sm-6 col-lg-4 col-md-6" data-aos="fade-up">
+                        <div class="col-sm-6 col-lg-4 col-md-6">
 
-                            <article class="entry-thumbnail">
+                            <article class="entry-thumbnail" data-aos="fade-down" data-aos-delay="550">
                                 <div class="entry-img ">
                                     <a href="{{ route('blog.detail', ['slug' => $post->slug]) }}">
                                         @if (file_exists('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail))
@@ -400,14 +399,14 @@
         <section id="contact" class="contact">
 
             <div class="container">
-                <div class="section-title text-center">
+                <div class="section-title text-center" data-aos="fade-down" data-aos-delay="150">
                     <h2>Contact me</h2>
                 </div>
             </div>
 
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-6 d-flex infos align-items-stretch">
+                    <div class="col-lg-6 d-flex infos align-items-stretch" data-aos="fade-right" data-aos-delay="350">
                         <div class="row">
 
                             <div class="col-lg-6 info d-flex flex-column align-items-stretch">
@@ -437,7 +436,8 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-6 d-flex align-items-stretch contact-form-wrap">
+                    <div class="col-lg-6 d-flex align-items-stretch contact-form-wrap" data-aos="fade-left"
+                        data-aos-delay="550">
 
                         <form id="formContact" action="{{ route('contact.sendEmail') }}" method="POST"
                             class="form_contact" autocomplete="off">
@@ -497,12 +497,27 @@
 
         @push('css-internal')
             <link rel="stylesheet" href="{{ asset('vendor/blog/assets/venobox/venobox.css') }}">
+            <link rel="stylesheet" href="{{ asset('vendor/blog/assets/aos/aos.css') }}">
         @endpush
         @push('js-internal')
+            <script src="{{ asset('vendor/blog/assets/aos/aos.js') }}"></script>
             <script src="{{ asset('vendor/blog/assets/venobox/venobox.min.js') }}"></script>
             <script src="{{ asset('vendor/blog/assets/isotope-layout/isotope.pkgd.min.js') }}"></script>
 
             <script>
+                // Init AOS
+                function aos_init() {
+                    AOS.init({
+                        duration: 500,
+                        easing: "ease-in-out",
+                        once: true,
+                        mirror: false
+                    });
+                }
+                $(window).on('load', function() {
+                    aos_init();
+                });
+
                 function countCharMessage(val) {
                     let max = 500
                     let limit = val.value.length;
@@ -640,7 +655,7 @@
         <div class="authorSec section-bg">
             <div class="container mb-5">
                 <div class="row">
-                    <div class="col-md-12 text-center authorBlog" data-aos="fade-up">
+                    <div class="col-md-12 text-center authorBlog">
                         <div class="entry-img loading">
                             @if (file_exists('vendor/dashboard/image/picture-profiles/' . $user->user_image))
                                 <img src="{{ asset('vendor/dashboard/image/picture-profiles/' . $user->user_image) }}"
@@ -704,7 +719,7 @@
 
                 <div class="row">
                     @forelse ($recommendationPosts as $recommended)
-                        <div class="col-lg-4 col-md-6" data-aos="fade-up">
+                        <div class="col-lg-4 col-md-6">
 
                             <article class="entry-thumbnail">
                                 <div class="entry-img loading">
@@ -827,7 +842,7 @@
 
             <div class="row">
                 @forelse ($posts as $post)
-                    <div class="col-lg-4 col-md-6" data-aos="fade-up">
+                    <div class="col-lg-4 col-md-6">
 
                         <article class="entry-thumbnail">
                             <div class="entry-img loading">

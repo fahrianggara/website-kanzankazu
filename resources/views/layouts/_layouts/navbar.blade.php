@@ -256,10 +256,13 @@
 
                     // remove mobile-nav-overly
                     $('body').removeClass('mobile-nav-active');
-                    $('div').removeClass('mobile-nav-overly');
+                    $('#mobileOverly').removeClass('mobile-nav-overly');
                     $('#toggleNav').removeClass('icofont-close');
                     $('#toggleNav').addClass('uil uil-bars');
+                    // remove ui autocomplete
+                    $('ul.ui-autocomplete').hide();
                 } else {
+                    $('ul.ui-autocomplete').show();
                     if ($(cancelBtn).hasClass('show')) {
                         $('#overlay').addClass('overlay-search');
                     } else {

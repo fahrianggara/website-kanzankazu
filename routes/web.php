@@ -45,8 +45,8 @@ Route::group(['middleware' => 'htmlmin'], function () {
     Route::get('autocompleteajax', [\App\Http\Controllers\BlogController::class, 'autocompleteajax'])->name('blog.autocomplete');
     // AUTHORS
     Route::get('/authors', [\App\Http\Controllers\BlogController::class, 'showAuthors'])->name('blog.authors');
-    Route::get('/authors/{author}', [\App\Http\Controllers\BlogController::class, 'showPostsByAuthor'])->name('blog.author');
-    Route::get('/authors/{author}/{resume}', [\App\Http\Controllers\BlogController::class, 'resumeAuthor'])->name('blog.author.resume');
+    Route::get('/author/{author}', [\App\Http\Controllers\BlogController::class, 'showPostsByAuthor'])->name('blog.author');
+    Route::get('/author/{author}/{resume}', [\App\Http\Controllers\BlogController::class, 'resumeAuthor'])->name('blog.author.resume');
     // Filter blog by Month and year
     Route::get('blog/{year}/{month}', [\App\Http\Controllers\BlogController::class, 'showPostsbyMonthYear'])->name('blog.monthYear');
     // Tutorials

@@ -63,7 +63,7 @@
         $('#header .container .tombolNavbar .menuButton').prepend(
             '<button type="button" class="mobile-nav-toggle d-lg-none"><i id="toggleNav" class="uil uil-bars"></i></button>'
         );
-        $('body').append('<div class="mobile-nav-overly"></div>');
+        $('body').append('<div id="mobileOverly" class="mobile-nav-overly"></div>');
 
         $(document).on('click', '.mobile-nav-toggle', function (e) {
             $('body').toggleClass('mobile-nav-active');
