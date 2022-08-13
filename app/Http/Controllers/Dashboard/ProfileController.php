@@ -32,40 +32,77 @@ class ProfileController extends Controller
 
     public function updateProfile(Request $request)
     {
-        $validator = Validator::make(
-            $request->all(),
-            [
-                'name' => 'required|alpha_spaces|min:3|max:20',
-                'bio'  => 'nullable|min:10|max:500',
-                'slug' => 'string|unique:users,slug,' . Auth::user()->id,
-                'facebook' => 'nullable|url_www',
-                'twitter'  => 'nullable|url_www',
-                'instagram' => 'nullable|url_www',
-                'github'  => 'nullable|url_www',
-                'pf_vision' => 'nullable|max:50|alpha_spaces',
-                'pf_mission' => 'nullable|max:500',
-                'pf_skill_desc' => 'nullable|max:500',
-                'pf_resume' => 'nullable|mimes:pdf',
-            ],
-            [
-                'name.required' => 'Masukkan nama kamu',
-                'name.alpha_spaces' => 'Hanya boleh berisi huruf dan spasi',
-                'name.min' => 'Minimal 3 karakter',
-                'name.max' => 'Maksimal 20 karakter',
-                'bio.min' => 'Minimal 10 karakter',
-                'bio.max' => 'Maksimal 500 karakter',
-                'slug.unique' => 'Username ini sudah digunakan',
-                'facebook.url_www' => 'URL tidak valid',
-                'twitter.url_www'  => 'URL tidak valid',
-                'instagram.url_www' => 'URL tidak valid',
-                'github.url_www'  => 'URL tidak valid',
-                'pf_vision.max' => 'Maksimal 50 karakter',
-                'pf_vision.alpha_spaces' => 'Hanya boleh berisi huruf dan spasi',
-                'pf_mission.max' => 'Maksimal 500 karakter',
-                'pf_skill_desc.max' => 'Maksimal 500 karakter',
-                'pf_resume.mimes' => 'Format file harus PDF!',
-            ]
-        );
+        if (Auth::id() == 2) {
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'name' => 'required|alpha_spaces|min:3|max:20',
+                    'bio'  => 'nullable|min:10|max:1000',
+                    'slug' => 'string|unique:users,slug,' . Auth::user()->id,
+                    'facebook' => 'nullable|url_www',
+                    'twitter'  => 'nullable|url_www',
+                    'instagram' => 'nullable|url_www',
+                    'github'  => 'nullable|url_www',
+                    'pf_vision' => 'nullable|max:50|alpha_spaces',
+                    'pf_mission' => 'nullable|max:500',
+                    'pf_skill_desc' => 'nullable|max:500',
+                    'pf_resume' => 'nullable|mimes:pdf',
+                ],
+                [
+                    'name.required' => 'Masukkan nama kamu',
+                    'name.alpha_spaces' => 'Hanya boleh berisi huruf dan spasi',
+                    'name.min' => 'Minimal 3 karakter',
+                    'name.max' => 'Maksimal 20 karakter',
+                    'bio.min' => 'Minimal 10 karakter',
+                    'bio.max' => 'Maksimal 1000 karakter',
+                    'slug.unique' => 'Username ini sudah digunakan',
+                    'facebook.url_www' => 'URL tidak valid',
+                    'twitter.url_www'  => 'URL tidak valid',
+                    'instagram.url_www' => 'URL tidak valid',
+                    'github.url_www'  => 'URL tidak valid',
+                    'pf_vision.max' => 'Maksimal 50 karakter',
+                    'pf_vision.alpha_spaces' => 'Hanya boleh berisi huruf dan spasi',
+                    'pf_mission.max' => 'Maksimal 500 karakter',
+                    'pf_skill_desc.max' => 'Maksimal 500 karakter',
+                    'pf_resume.mimes' => 'Format file harus PDF!',
+                ]
+            );
+        } else {
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'name' => 'required|alpha_spaces|min:3|max:20',
+                    'bio'  => 'nullable|min:10|max:500',
+                    'slug' => 'string|unique:users,slug,' . Auth::user()->id,
+                    'facebook' => 'nullable|url_www',
+                    'twitter'  => 'nullable|url_www',
+                    'instagram' => 'nullable|url_www',
+                    'github'  => 'nullable|url_www',
+                    'pf_vision' => 'nullable|max:50|alpha_spaces',
+                    'pf_mission' => 'nullable|max:500',
+                    'pf_skill_desc' => 'nullable|max:500',
+                    'pf_resume' => 'nullable|mimes:pdf',
+                ],
+                [
+                    'name.required' => 'Masukkan nama kamu',
+                    'name.alpha_spaces' => 'Hanya boleh berisi huruf dan spasi',
+                    'name.min' => 'Minimal 3 karakter',
+                    'name.max' => 'Maksimal 20 karakter',
+                    'bio.min' => 'Minimal 10 karakter',
+                    'bio.max' => 'Maksimal 500 karakter',
+                    'slug.unique' => 'Username ini sudah digunakan',
+                    'facebook.url_www' => 'URL tidak valid',
+                    'twitter.url_www'  => 'URL tidak valid',
+                    'instagram.url_www' => 'URL tidak valid',
+                    'github.url_www'  => 'URL tidak valid',
+                    'pf_vision.max' => 'Maksimal 50 karakter',
+                    'pf_vision.alpha_spaces' => 'Hanya boleh berisi huruf dan spasi',
+                    'pf_mission.max' => 'Maksimal 500 karakter',
+                    'pf_skill_desc.max' => 'Maksimal 500 karakter',
+                    'pf_resume.mimes' => 'Format file harus PDF!',
+                ]
+            );
+        }
 
         if ($validator->fails()) {
             return response()->json([

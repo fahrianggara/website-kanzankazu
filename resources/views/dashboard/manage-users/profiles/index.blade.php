@@ -165,15 +165,27 @@
                                                 placeholder="Email" value="{{ Auth::user()->email }}" readonly>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="bio" class="col-sm-2 col-form-label">Bio</label>
-                                        <div class="col-sm-10">
-                                            <textarea class="form-control" id="bio" name="bio" placeholder="enter your bio.."
-                                                onkeyup="countChar(this)" cols="2" rows="6">{{ Auth::user()->bio }}</textarea>
-                                            <span class="float-right" id="charNum"></span>
-                                            <span class="mt-5 text-danger error-text bio_error"></span>
+                                    @if (Auth::id() == 2)
+                                        <div class="form-group row">
+                                            <label for="bio" class="col-sm-2 col-form-label">Bio</label>
+                                            <div class="col-sm-10">
+                                                <textarea class="form-control" id="bio" name="bio" placeholder="enter your bio.."
+                                                    onkeyup="countChar2(this)" cols="2" rows="6">{{ Auth::user()->bio }}</textarea>
+                                                <span class="float-right" id="charNum"></span>
+                                                <span class="mt-5 text-danger error-text bio_error"></span>
+                                            </div>
                                         </div>
-                                    </div>
+                                    @else
+                                        <div class="form-group row">
+                                            <label for="bio" class="col-sm-2 col-form-label">Bio</label>
+                                            <div class="col-sm-10">
+                                                <textarea class="form-control" id="bio" name="bio" placeholder="enter your bio.."
+                                                    onkeyup="countChar(this)" cols="2" rows="6">{{ Auth::user()->bio }}</textarea>
+                                                <span class="float-right" id="charNum"></span>
+                                                <span class="mt-5 text-danger error-text bio_error"></span>
+                                            </div>
+                                        </div>
+                                    @endif
 
                                     <div class="dropdown-divider mb-3 mt-3"></div>
                                     <div class="row mb-4">
@@ -267,8 +279,8 @@
                                             <label for="pf_resume" class="col-sm-2 col-form-label">CV</label>
                                             <div class="col-sm-10">
                                                 <div class="custom-file">
-                                                    <input type="file" name="pf_resume" value="{{ $cv }}" class="custom-file-input"
-                                                        id="pf_resume">
+                                                    <input type="file" name="pf_resume" value="{{ $cv }}"
+                                                        class="custom-file-input" id="pf_resume">
                                                     <label class="custom-file-label"
                                                         for="pf_resume">{{ $cv }}</label>
                                                 </div>
@@ -380,6 +392,17 @@
         // Count limit character
         function countChar(val) {
             let max = 500
+            let limit = val.value.length;
+            if (limit >= max) {
+                val.value = val.value.substring(0, max);
+                $('#charNum').text('Kamu telah mencapai batas');
+            } else {
+                var char = max - limit;
+                $('#charNum').text(char + ' Karakter tersisa');
+            };
+        }
+        function countChar2(val) {
+            let max = 1000
             let limit = val.value.length;
             if (limit >= max) {
                 val.value = val.value.substring(0, max);
