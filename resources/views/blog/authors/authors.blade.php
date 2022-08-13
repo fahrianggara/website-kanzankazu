@@ -77,9 +77,9 @@
                             <h4 data-aos="fade-in" data-aos-delay="750">My Skills</h4>
                             <p data-aos="fade-in" data-aos-delay="950">{{ $user->pf_skill_desc }}</p>
 
-                            <ul class="skill-lists">
+                            <ul class="skill-lists" data-aos="fade-in" data-aos-delay="1000">
                                 @foreach ($skills as $skill)
-                                    <li data-aos="fade-in" data-aos-delay="1000">{{ $skill->title }}</li>
+                                    <li>{{ $skill->title }}</li>
                                 @endforeach
                             </ul>
 
