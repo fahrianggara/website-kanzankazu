@@ -232,7 +232,7 @@
                 form.querySelector("input").value = "";
                 $('#overlay').removeClass('overlay-search');
                 $('.overlay-search').hide();
-                $('.ui-autocomplete').hide();
+                $('ul.ui-autocomplete').hide();
             }
 
             searchBtn.onclick = () => {
