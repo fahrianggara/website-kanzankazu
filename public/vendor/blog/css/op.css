@@ -413,7 +413,7 @@ input[type="search"]:focus::-webkit-search-cancel-button {
     }
 
     #header .change-theme-blog i {
-        top: 2px;
+        top: 1.5px;
     }
 
     #header form {
