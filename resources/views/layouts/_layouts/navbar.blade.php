@@ -254,7 +254,6 @@
                 if ($(window).width() > 768) {
                     $('#overlay').removeClass('overlay-search');
                     form.querySelector("input").readOnly = false;
-
                     // remove mobile-nav-overly
                     $('body').removeClass('mobile-nav-active');
                     $('#mobileOverly').removeClass('mobile-nav-overly');
@@ -264,12 +263,10 @@
                     $('ul.ui-autocomplete').hide();
                 } else {
                     // if body has class mobile-nav-active remove overlay-search
-
                     if ($(cancelBtn).hasClass('show')) {
                         $('#overlay').addClass('overlay-search');
                     } else {
                         $('#overlay').removeClass('overlay-search');
-                        // $('ul.ui-autocomplete').hide();
                     }
                 }
             }).trigger('resize');
