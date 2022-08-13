@@ -232,11 +232,11 @@
                 form.querySelector("input").value = "";
                 $('#overlay').removeClass('overlay-search');
                 $('.overlay-search').hide();
-                $('ul.ui-autocomplete').hide();
+                $('ui-autocomplete').hide();
             }
 
             searchBtn.onclick = () => {
-                $('ul.ui-autocomplete').show();
+                $('ui-autocomplete').show();
                 form.classList.add("active");
                 searchBtn.classList.add("hide");
                 cancelBtn.classList.add("show");
