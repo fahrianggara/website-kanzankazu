@@ -69,6 +69,23 @@
             $('body').toggleClass('mobile-nav-active');
             $('.mobile-nav-toggle i').toggleClass('uil uil-bars icofont-close');
             $('.mobile-nav-overly').toggle();
+
+            let searchBtn = document.querySelector(".uil-search");
+            let cancelBtn = document.querySelector(".uil-times");
+            let form = document.querySelector("form");
+
+            if ($('.uil-times').hasClass('show')) {
+                searchBtn.classList.remove("hide");
+                cancelBtn.classList.remove("show");
+                form.classList.remove("active");
+                // add readonly to input
+                form.querySelector("input").readOnly = true;
+                // reset input value
+                form.querySelector("input").value = "";
+                $('#overlay').removeClass('overlay-search');
+                $('.overlay-search').hide();
+            }
+
         });
 
         $(document).on('click', '.mobile-nav .drop-down > a', function (e) {

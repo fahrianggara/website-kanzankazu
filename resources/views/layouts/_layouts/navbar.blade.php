@@ -235,7 +235,6 @@
             }
 
             searchBtn.onclick = () => {
-                // $('.ui-autocomplete').show();
                 form.classList.add("active");
                 searchBtn.classList.add("hide");
                 cancelBtn.classList.add("show");
@@ -243,6 +242,7 @@
                 form.querySelector("input").readOnly = false;
                 // focus input
                 form.querySelector("input").focus();
+
                 $('#overlay').addClass('overlay-search');
                 $('.overlay-search').show();
                 // overlay-search add transition css
@@ -263,7 +263,7 @@
                     // remove ui autocomplete
                     $('ul.ui-autocomplete').hide();
                 } else {
-                    // $('ul.ui-autocomplete').show();
+                    // if body has class mobile-nav-active remove overlay-search
 
                     if ($(cancelBtn).hasClass('show')) {
                         $('#overlay').addClass('overlay-search');
