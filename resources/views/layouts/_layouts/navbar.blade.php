@@ -232,7 +232,6 @@
                 form.querySelector("input").value = "";
                 $('#overlay').removeClass('overlay-search');
                 $('.overlay-search').hide();
-                $('ul.ui-autocomplete').hide();
             }
 
             searchBtn.onclick = () => {
@@ -264,11 +263,13 @@
                     // remove ui autocomplete
                     $('ul.ui-autocomplete').hide();
                 } else {
-                    $('ul.ui-autocomplete').show();
+                    // $('ul.ui-autocomplete').show();
+
                     if ($(cancelBtn).hasClass('show')) {
                         $('#overlay').addClass('overlay-search');
                     } else {
                         $('#overlay').removeClass('overlay-search');
+                        // $('ul.ui-autocomplete').hide();
                     }
                 }
             }).trigger('resize');
