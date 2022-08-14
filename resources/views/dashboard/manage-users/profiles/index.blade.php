@@ -109,9 +109,9 @@
                             <div class="tab-pane active p-3" id="profile-1" role="tabpanel">
                                 {{-- Bio --}}
                                 <strong class="font-18">Bio</strong>
-                                <p class="font-16 mt-2 text-justify user_bio">
-                                    {{ Auth::user()->bio }}
-                                </p>
+                                <div class="font-16 mt-1 text-justify user_bio">
+                                    {!! Markdown::convert(Auth::user()->bio)->getContent() !!}
+                                </div>
 
                                 <div class="dropdown-divider mt-3 mb-3"></div>
 
