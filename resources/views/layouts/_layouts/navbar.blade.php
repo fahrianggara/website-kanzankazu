@@ -18,7 +18,7 @@
                 <a onclick="goBackOrTo()" class="btn">
                     <i class="fas fa-arrow-left"></i>
                 </a>
-            @elseif(Request::is('authors/*'))
+            @elseif(Request::is('author/*'))
                 <a onclick="historyBackAuthor()" class="btn">
                     <i class="fas fa-arrow-left"></i>
                 </a>
