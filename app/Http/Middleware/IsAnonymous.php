@@ -19,7 +19,7 @@ class IsAnonymous
     {
         // user is anonymous
         if (Auth::user()->provider == 'anonymous') {
-            return redirect()->back()->with('success', 'Oops.. tidak masuk kehalaman dashoard, dikarenakan kamu login dengan anonymous.');
+            return redirect()->back()->with('info', 'Oops.. kamu tidak bisa masuk ke-halaman Dashoard, dikarenakan kamu login menggunakan Anonymous!');
         }
         return $next($request);
     }

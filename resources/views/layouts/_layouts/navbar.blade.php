@@ -159,9 +159,8 @@
             <div class="modal-footer">
                 <button id="close-logOut" type="button" class="btn btn-secondary"
                     data-dismiss="modal">Tutup</button>
-                <a href="{{ route('logout') }}" type="button" class="btn btn-danger"
-                    onclick="event.preventDefault();
-                document.getElementById('logout-form').submit();">Logout
+
+                <a href="{{ route('logout') }}" onclick="logout()" type="button" class="btn btn-danger">Logout
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
                     </form>
@@ -173,6 +172,16 @@
 
 @push('js-internal')
     <script type="text/javascript">
+        function logout() {
+            event.preventDefault();
+            document.getElementById('logout-form').submit();
+            $('#logout-form').submit();
+
+            localStorage.removeItem('anonymousLogin');
+            localStorage.removeItem('logined');
+            localStorage.removeItem('messageStorage');
+        }
+
         function historyBackBlog(fallbackUrl) {
             fallbackUrl = fallbackUrl || "{{ route('blog.home') }}";
             var prevPage = window.location.href;
@@ -226,9 +235,11 @@
                 searchBtn.classList.remove("hide");
                 cancelBtn.classList.remove("show");
                 form.classList.remove("active");
+                $('body').removeAttr('style');
                 // add readonly to input
                 form.querySelector("input").readOnly = true;
                 // reset input value
+                $(document).find('.chat-btn').attr('disabled', false);
                 form.querySelector("input").value = "";
                 $('#overlay').removeClass('overlay-search');
                 $('.overlay-search').hide();
@@ -238,11 +249,12 @@
                 form.classList.add("active");
                 searchBtn.classList.add("hide");
                 cancelBtn.classList.add("show");
+                $('body').css('overflow', 'hidden');
                 // remove readonly to input
                 form.querySelector("input").readOnly = false;
                 // focus input
                 form.querySelector("input").focus();
-
+                $(document).find('.chat-btn').attr('disabled', true);
                 $('#overlay').addClass('overlay-search');
                 $('.overlay-search').show();
                 // overlay-search add transition css
@@ -259,11 +271,15 @@
                     $('#mobileOverly').removeClass('mobile-nav-overly');
                     $('#toggleNav').removeClass('icofont-close');
                     $('#toggleNav').addClass('uil uil-bars');
+                    if ($(cancelBtn).hasClass('show')) {
+                        $('body').removeAttr('style');
+                    }
                     // remove ui autocomplete
                     $('ul.ui-autocomplete').hide();
                 } else {
                     // if body has class mobile-nav-active remove overlay-search
                     if ($(cancelBtn).hasClass('show')) {
+                        $('body').css('overflow', 'hidden');
                         $('#overlay').addClass('overlay-search');
                     } else {
                         $('#overlay').removeClass('overlay-search');

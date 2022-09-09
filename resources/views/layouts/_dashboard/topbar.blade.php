@@ -22,7 +22,6 @@
                             @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-menu-lg">
-
                             <div class="dropdown-item noti-title">
                                 <h5>
                                     Notifikasi
@@ -35,8 +34,7 @@
                             </div>
 
                             @forelse ($postApprove as $post)
-                                <a href="{{ url('dashboard/posts') }}?status=approve"
-                                    class="dropdown-item notify-item">
+                                <a href="{{ url('dashboard/posts') }}?status=approve" class="dropdown-item notify-item">
                                     <div class="notify-icon bg-primary"><i class="uil uil-file-check-alt"></i></div>
                                     <p class="notify-details">
                                         <b>Persetujuan</b>
@@ -56,14 +54,13 @@
                             @endforelse
 
                             @if ($postApprove->count() >= 3)
-                                <a href="{{ url('dashboard/posts') }}?status=approve"
-                                    class="dropdown-item notify-item">
+                                <a href="{{ url('dashboard/posts') }}?status=approve" class="dropdown-item notify-item">
                                     Lihat Semua
                                 </a>
                             @endif
                         </div>
-
                     @endif
+
                 @else
                     {{-- Editor --}}
                     <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#"
@@ -154,8 +151,7 @@
                         Profile</a>
                     <div class="dropdown-divider"></div>
 
-                    <a class="dropdown-item" href="{{ route('logout') }}" data-toggle="modal"
-                        data-target="#logModal">
+                    <a class="dropdown-item" href="{{ route('logout') }}" data-toggle="modal" data-target="#logModal">
                         <i class="uil uil-signout m-r-5 text-muted"></i>
                         Logout
                     </a>
@@ -186,9 +182,14 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                <a href="{{ route('logout') }}" type="button" class="btn btn-danger"
+                {{-- <a href="{{ route('logout') }}" type="button" class="btn btn-danger"
                     onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">Logout
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </a> --}}
+                <a href="{{ route('logout') }}" onclick="logout()" type="button" class="btn btn-danger">Logout
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
                     </form>
@@ -197,3 +198,17 @@
         </div>
     </div>
 </div>
+
+@push('js-internal')
+    <script>
+        function logout() {
+            event.preventDefault();
+            document.getElementById('logout-form').submit();
+            $('#logout-form').submit();
+
+            localStorage.removeItem('anonymousLogin');
+            localStorage.removeItem('logined');
+            localStorage.removeItem('messageStorage');
+        }
+    </script>
+@endpush

@@ -226,7 +226,9 @@
                             </div>
                         </form>
 
-                        <div id="fetchLists"></div>
+                        <div id="fetchLists">
+
+                        </div>
 
                     </div>
                 </div>
@@ -263,31 +265,28 @@
                     //     $(this).closest('li').find('input[type="checkbox"]').click();
                     // });
 
-                    // csrf
                     $.ajaxSetup({
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         }
                     });
 
-                    fetchLists()
+                    fetchLists();
 
-                    // fetch
                     function fetchLists() {
                         $.ajax({
                             type: "get",
                             url: "{{ route('todolist.index') }}",
                             success: function(response) {
                                 $('#fetchLists').html(response);
+
                                 $('#todoList').sortable({
                                     items: 'li',
                                     opacity: 0.8,
                                     update: function() {
-                                        sortAbleItems()
+                                        sortAbleItems();
                                     }
                                 });
-
-                                $('input#checkList').css('cursor', 'pointer');
 
                                 ln = $('#todoList li.notDone').length;
                                 todoListLn = ln - $('#todoList li').length;
@@ -299,13 +298,12 @@
                                         '#todoList li.done').length + ')');
                                 }
 
-                                if ($('#todoList li.notDone').length == 0) {
+                                if (ln == 0) {
                                     $('.titleTask').addClass('d-none');
                                     $('.titleCompleted').addClass('d-none');
                                     $('#ul.titleCompleted').removeClass('d-none');
                                 } else {
-                                    $('.titleTask').text('Tugas (' + $('#todoList li.notDone').length + ')');
-
+                                    $('.titleTask').text('Tugas (' + ln + ')');
                                 }
                             }
                         });
@@ -314,7 +312,7 @@
                     function sortAbleItems() {
                         var sort = [];
 
-                        $("li.itemLists").each(function(index, element) {
+                        $("li.item-list").each(function(index, element) {
                             sort.push({
                                 id: $(this).attr('data-id'),
                                 position: index + 1
@@ -329,7 +327,7 @@
                             },
                             dataType: "json",
                             success: function(response) {
-                                fetchLists()
+                                fetchLists();
                             },
                             error: function(xhr, ajaxOptions, thrownError) {
                                 alert(xhr.status + "\n" + xhr

@@ -43,7 +43,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/blog/assets/fontawesome/css/all.min.css') }}">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     {{-- Main CSS --}}
-    <link rel="stylesheet" href="{{ asset('vendor/blog/css/op.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/blog/css/main.css') }}">
     {{-- CSS EXT --}}
     @stack('css-external')
     {{-- CSS INT --}}
@@ -94,6 +94,7 @@
 
         {{-- FOOTER --}}
         @include('layouts._layouts.footer')
+        @include('layouts._layouts.chat.index')
     </div>
 
     {{-- <a href="#" class="to-the-top btn-tooltip-hide" data-toggle="tooltip" data-placement="left" title="Keatas">

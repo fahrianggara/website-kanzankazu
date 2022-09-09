@@ -14,17 +14,18 @@ class Message extends Model
     protected $guarded = [];
 
     protected $fillable = [
-        'from_user',
-        'to_user',
-        'content',
+        'user_id',
+        'receiver_id',
+        'message',
+        'is_read'
     ];
 
-    public function fromUser()
+    public function receiver()
     {
-        return $this->belongsTo(User::class, 'from_user');
+        return $this->belongsTo(User::class, 'receiver_id');
     }
-    public function toUser()
+    public function user()
     {
-        return $this->belongsTo(User::class, 'to_user');
+        return $this->belongsTo(User::class);
     }
 }

@@ -412,6 +412,7 @@
                 $('#nameUser').val(name);
                 $('#text_del').text('Apakah anda yakin ingin menghapus user ' + name + '?');
             });
+
             $('.btnDelete').click(function() {
                 let key = $('#del_id').val();
                 let name = $('#nameUser').val();

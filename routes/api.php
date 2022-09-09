@@ -16,17 +16,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
 // Categories
 Route::get('/category/index', [CategoryController::class, 'index']);
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
-    // Categories
     Route::get('/category/select', [CategoryController::class, 'select']);
-    // Logout
     Route::get('/logout', [AuthController::class, 'logout']);
 });
 

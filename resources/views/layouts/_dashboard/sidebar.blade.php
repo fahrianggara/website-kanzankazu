@@ -199,6 +199,14 @@
                             <span>Pelanggan</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('chat', '#contact') }}"
+                            class="waves-effect {{ set_active('chat') }}">
+                            <i class="uil uil-comments-alt"></i>
+                            <span>Balas Chat</span>
+                            <span id="{{ Auth::id() }}" class="badge chat-sidebar badge-pill badge-danger float-right"></span>
+                        </a>
+                    </li>
                 @endcan
 
                 {{-- FILEMANAGER --}}
@@ -208,15 +216,6 @@
                         class="waves-effect {{ set_active('filemanager.index') }}">
                         <i class="uil uil-folder-open"></i>
                         <span> File Manager</span>
-                    </a>
-                </li>
-
-                {{-- Logout --}}
-                <li class="menu-title">Sign Out</li>
-                <li>
-                    <a href="{{ route('logout') }}" data-toggle="modal" data-target="#logModal" class="waves-effect">
-                        <i class="uil uil-signout"></i>
-                        <span>Logout</span>
                     </a>
                 </li>
 

@@ -42,9 +42,12 @@ class Controller extends BaseController
             ->get()
             ->toArray();
 
+        $newPosts = Post::publish()->take(3)->latest()->get();
+
         View::share('footerPost', $footerPost);
         View::share('postIndex', $postIndex);
         View::share('archiveBlogs', $archiveBlogs);
         View::share('setting', $setting);
+        View::share('newPosts', $newPosts);
     }
 }

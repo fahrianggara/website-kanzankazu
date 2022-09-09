@@ -9,6 +9,7 @@ use App\Notifications\WelcomeUserEmail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Str;
@@ -229,7 +230,7 @@ class FirebaseController extends Controller
             return response()->json([
                 "status" => 200,
                 "msg" => "Selamat datang di " . $this->setting->site_name . '!',
-                "redirect" => route('homepage'),
+                "redirect" => redirect()->back(),
             ]);
         }
     }

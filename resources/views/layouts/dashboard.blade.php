@@ -60,13 +60,12 @@
     <link href="{{ asset('vendor/blog/assets/fontawesome/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('vendor/dashboard/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('vendor/dashboard/css/icons.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('vendor/dashboard/css/whoms.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('vendor/dashboard/css/dashboard.css') }}" rel="stylesheet" type="text/css">
     {{-- CALL CSS --}}
     @stack('css-external')
     @stack('css-internal')
 
 </head>
-
 
 <body class="fixed-left">
 
@@ -151,6 +150,8 @@
     <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
     <!-- App js -->
     <script src="{{ asset('vendor/dashboard/js/apps.js') }}"></script>
+    {{-- pusher --}}
+    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
     {{-- CALL JS --}}
     @stack('js-external')
     @stack('js-internal')
@@ -169,7 +170,7 @@
             history.replaceState('', document.title, window.location.origin + window
                 .location.pathname + window
                 .location.search);
-        }, 0);
+        }, 100);
 
         $(function() {
             $("[data-toggle='tooltip']").tooltip().on("click", function() {
@@ -323,8 +324,6 @@
                 });
             }
         });
-
-
     </script>
 
     {{-- CALL SWEETALERT2 --}}

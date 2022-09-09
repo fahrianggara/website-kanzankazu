@@ -10,23 +10,76 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
+use Pusher\Pusher;
 
 class MessageController extends Controller
 {
     public function index()
     {
-        return view('dashboard.chat.index');
+        $auth_id = Auth::id();
+        $users = DB::table('users')
+            ->select(
+                'users.id',
+                'users.name',
+                'users.user_image',
+                'users.last_seen',
+                'users.uid',
+                'users.email',
+                DB::raw('count(is_read) as unread')
+            )
+            ->leftJoin('messages', function ($join) use ($auth_id) {
+                $join->on('users.id', '=', 'messages.user_id')->where('messages.is_read', 0)
+                    ->where('receiver_id', $auth_id);
+            })->where('users.id', '!=', $auth_id)
+            ->groupBy(
+                'users.id',
+                'users.name',
+                'users.user_image',
+                'users.last_seen',
+                'users.uid'
+            )
+            ->orderBy('users.last_seen', 'DESC')
+            ->get();
+
+        return view('dashboard.contact.chat.index', [
+            'users' => $users,
+        ]);
     }
 
     public function fetchUsers()
     {
         $output = '';
-        $users = User::where('id', '!=', Auth::id())->where('provider', '!=', 'anonymous')->get();
+        $my_id = Auth::id();
+
+        $users = DB::table('users')
+            ->select(
+                'users.id',
+                'users.name',
+                'users.user_image',
+                'users.last_seen',
+                'users.uid',
+                'users.email',
+                DB::raw('count(is_read) as unread')
+            )
+            ->leftJoin('messages', function ($join) use ($my_id) {
+                $join->on('users.id', '=', 'messages.user_id')->where('messages.is_read', 0)
+                    ->where('receiver_id', $my_id);
+            })->where('users.id', '!=', $my_id)
+            ->groupBy(
+                'users.id',
+                'users.name',
+                'users.user_image',
+                'users.last_seen',
+                'users.uid'
+            )
+            ->orderBy('users.last_seen', 'DESC')
+            ->get();
+
 
         if ($users->count() > 0) {
             foreach ($users as $user) {
-                // Image
                 if (file_exists("vendor/dashboard/image/picture-profiles/" . $user->user_image)) {
                     $userImage = asset("vendor/dashboard/image/picture-profiles/" . $user->user_image);
                 } else if ($user->uid != null) {
@@ -36,11 +89,9 @@ class MessageController extends Controller
                 }
 
                 if (Cache::has('user-is-online-' . $user->id)) {
-                    $statusIcon = '<div class="status-circle online"></div>';
                     $statusText = '<div class="status text-success">Online</div>';
                 } else {
-                    $statusIcon = '<div class="status-circle offline"></div>';
-                    $statusText = '<div class="status text-secondary">Offline</div>';
+                    $statusText = '<div class="status text-secondary">' . Carbon::parse($user->last_seen)->diffForHumans() . '</div>';
                 }
 
                 if (strlen($user->name) > 10) {
@@ -49,24 +100,51 @@ class MessageController extends Controller
                     $name = $user->name;
                 }
 
+                if ($user->unread) {
+                    $read = '<span class="badge badge-danger badge-pill">' . $user->unread . '</span>';
+                } else {
+                    $read = '';
+                }
+
+                if ($user->email == null) {
+                    $email = 'Anonymous';
+                } else {
+                    $email = $user->email;
+                }
+
                 $output .= '
-                    <li id="selectChatUser" class="clearfix">
-                        <a href="javascript:void(0)" class="chat-toggle" data-id="' . $user->id . '" data-name="' . $user->name . '" data-lastseen="Terakhir dilihat ' . Carbon::parse($user->last_seen)->diffForHumans() . '" data-avatar="' . $userImage . '">
-                            <img class="rounded-circle user-image" src="' . $userImage . '" alt="">
-                            ' . $statusIcon . '
-                            <div class="about">
-                                <div class="name">
-                                    ' . $name . '
-                                </div>
-                                ' . $statusText . '
+
+                    <li id="' . $user->id . '" class="clearfix chat-toggle" style="cursor: pointer;">
+                        <img class="user-image rounded-circle" src="' . $userImage . '" alt="">
+                        <div class="about">
+                            <div class="name" >
+                                ' . $name . '
+                                ' . $read . '
                             </div>
-                        </a>
+                            ' .  $statusText . '
+                        </div>
                     </li>
-                    ';
+
+                ';
             }
         } else {
-            $output .= '<a href="javascript:void(0)" class="text-center"><li class="clearfix">Pengguna tidak ditemukan</li></a>';
+            $output .= '<a href="javascript:void(0)" class="text-center"><li class="clearfix">hmm, sepertinya belum ada yang menge-chat.</li></a>';
         }
+
+        $options = [
+            'cluster' => env('PUSHER_APP_CLUSTER'),
+            'useTLS' => true
+        ];
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+        $data = [
+            'users' => $users,
+        ];
+        $pusher->trigger('users', 'fetch', $data);
 
         echo $output;
     }
@@ -74,7 +152,32 @@ class MessageController extends Controller
     public function searchUsersChat(Request $request)
     {
         $output = '';
-        $users = User::where('id', '!=', Auth::id())->where('provider', '!=', 'anonymous')->where('name', 'LIKE', '%' . $request->search . '%')->get();
+        $my_id = Auth::id();
+
+        $users = DB::table('users')
+            ->select(
+                'users.id',
+                'users.name',
+                'users.user_image',
+                'users.last_seen',
+                'users.uid',
+                'users.email',
+                DB::raw('count(is_read) as unread')
+            )
+            ->leftJoin('messages', function ($join) use ($my_id) {
+                $join->on('users.id', '=', 'messages.user_id')->where('messages.is_read', 0)
+                    ->where('receiver_id', $my_id);
+            })->where('users.id', '!=', $my_id)
+            ->where('name', 'LIKE', '%' . $request->search . '%')
+            ->groupBy(
+                'users.id',
+                'users.name',
+                'users.user_image',
+                'users.last_seen',
+                'users.uid'
+            )
+            ->orderBy('users.last_seen', 'DESC')
+            ->get();
 
         if ($users->count() > 0) {
             foreach ($users as $user) {
@@ -88,11 +191,9 @@ class MessageController extends Controller
                 }
 
                 if (Cache::has('user-is-online-' . $user->id)) {
-                    $statusIcon = '<div class="status-circle online"></div>';
                     $statusText = '<div class="status text-success">Online</div>';
                 } else {
-                    $statusIcon = '<div class="status-circle offline"></div>';
-                    $statusText = '<div class="status text-secondary">Offline</div>';
+                    $statusText = '<div class="status text-secondary">' . Carbon::parse($user->last_seen)->diffForHumans() . '</div>';
                 }
 
                 if (strlen($user->name) > 10) {
@@ -101,20 +202,32 @@ class MessageController extends Controller
                     $name = $user->name;
                 }
 
+                if ($user->unread) {
+                    $read = '<span class="badge badge-danger badge-pill">' . $user->unread . '</span>';
+                } else {
+                    $read = '';
+                }
+
+                if ($user->email == null) {
+                    $email = 'Anonymous';
+                } else {
+                    $email = $user->email;
+                }
+
                 $output .= '
-                    <li id="selectChatUser" class="clearfix">
-                        <a href="javascript:void(0)" class="chat-toggle" data-id="' . $user->id . '" data-name="' . $user->name . '" data-lastseen="Terakhir dilihat ' . Carbon::parse($user->last_seen)->diffForHumans() . '" data-avatar="' . $userImage . '">
-                            <img class="rounded-circle user-image" src="' . $userImage . '" alt="">
-                            ' . $statusIcon . '
-                            <div class="about">
-                                <div class="name">
-                                    ' . $name . '
-                                </div>
-                                ' . $statusText . '
+
+                    <li id="' . $user->id . '" class="clearfix chat-toggle" style="cursor: pointer;">
+                        <img class="user-image rounded-circle" src="' . $userImage . '" alt="">
+                        <div class="about">
+                            <div class="name" >
+                                ' . $name . '
+                                ' . $read . '
                             </div>
-                        </a>
+                            ' .  $statusText . '
+                        </div>
                     </li>
-                    ';
+
+                ';
             }
         } else {
             $output .= '<a href="javascript:void(0)" class="text-center"><li class="clearfix">Pengguna tidak ditemukan</li></a>';
@@ -123,87 +236,116 @@ class MessageController extends Controller
         return response($output);
     }
 
-    public function getLoadLatestMessage(Request $request)
+    public function getMessageAdmin($user_id)
     {
-        if (!$request->user_id) {
-            return;
-        }
+        $my_id = Auth::id();
+        $user = User::find($user_id);
 
-        $messages = Message::where(function ($q) use ($request) {
-            $q->where('from_user', '=', Auth::user()->id)->where('to_user', '=', $request->user_id);
-        })->orWhere(function ($q) use ($request) {
-            $q->where('from_user', '=', $request->user_id)->where('to_user', '=', Auth::user()->id);
-        })->orderBy('created_at', 'ASC')->get();
+        Message::where([
+            'user_id' => $user_id,
+            'receiver_id' => $my_id,
+        ])->update(['is_read' => 1]);
 
-        $return = [];
+        $messages = Message::where(function ($query) use ($user_id, $my_id) {
+            $query->where('user_id', $my_id)->where('receiver_id', $user_id);
+        })->orWhere(function ($query) use ($user_id, $my_id) {
+            $query->where('user_id', $user_id)->where('receiver_id', $my_id);
+        })->get();
 
-        foreach ($messages as $message) {
-            $return[] = view('dashboard.chat.layouts.message-line')->with('message', $message)->render();
-        }
-        return response()->json([
-            'messages' => $return,
-            'state' => 1
+        return view('dashboard.contact.chat.layouts.chat-box', [
+            'messages' => $messages,
+            'user' => $user
         ]);
     }
 
-    public function postSendMessage(Request $request, Message $message)
+    public function sendToClient(Request $request)
     {
-        if (!$request->to_user || !$request->message) {
-            return;
-        }
+        $user_id = Auth::id();
+        $receiver_id = $request->receiver_id;
+        $message = $request->message;
 
-        $message->from_user = Auth::user()->id;
-        $message->to_user = $request->to_user;
-        $message->content = $request->message;
-        $message->save();
+        $data = new Message();
+        $data->user_id = $user_id;
+        $data->receiver_id = $receiver_id;
+        $data->message = $message;
+        $data->is_read = 0;
+        $data->save();
 
-        $message->dateTimeStr = date("H.i T", strtotime($message->created_at->toDateTimeString()));
-        $message->userImage = $message->fromUser->user_image;
-        $message->userUid = $message->fromUser->uid;
-        $message->from_user_id = Auth::id();
-        $message->to_user_id = $request->to_user;
-        PusherFactory::make()->trigger('chat', 'send', ['data' => $message]);
-        return response()->json([
-            'data' => $message,
-            'state' => 1,
-            'status' => 200
+        $options = [
+            'cluster' => env('PUSHER_APP_CLUSTER'),
+            'useTLS' => true
+        ];
+
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+
+        $data = [
+            'receiver_id' => $receiver_id,
+            'user_id' => $user_id,
+        ];
+        $pusher->trigger('my-channel', 'my-event', $data);
+    }
+
+    public function listAdmin()
+    {
+        // ada di appservice provider
+    }
+
+    public function getMessageClient($user_id)
+    {
+        $my_id = Auth::id();
+        $user = User::find($user_id);
+
+        Message::where([
+            'user_id' => $user_id,
+            'receiver_id' => $my_id,
+        ])->update(['is_read' => 1]);
+
+        $messages = Message::where(function ($query) use ($user_id, $my_id) {
+            $query->where('user_id', $my_id)->where('receiver_id', $user_id);
+        })->orWhere(function ($query) use ($user_id, $my_id) {
+            $query->where('user_id', $user_id)->where('receiver_id', $my_id);
+        })->get();
+
+        return view('layouts._layouts.chat.chat-box', [
+            'messages' => $messages,
+            'user' => $user
         ]);
     }
 
-    public function getOldMessages(Request $request)
+    public function sendToAdmin(Request $request)
     {
-        if (!$request->old_message_id || !$request->to_user) {
-            return;
-        }
+        $user_id = Auth::id();
+        $receiver_id = $request->receiver_id;
+        $message = $request->message;
 
-        $message = Message::find($request->old_message_id);
-        $lastMessage = Message::where(function ($q) use ($request, $message) {
-            $q->where('from_user', '=', Auth::user()->id)
-                ->where('to_user', '=', $request->to_user)
-                ->where('id', '<', $message->id);
-        })->orWhere(function ($q) use ($request, $message) {
-            $q->where('from_user', '=', $request->to_user)
-                ->where('to_user', '=', Auth::user()->id)
-                ->where('id', '<', $message->id);
-        })->orderBy('created_at', 'ASC')->get();
+        $data = new Message();
+        $data->user_id = $user_id;
+        $data->receiver_id = $receiver_id;
+        $data->message = $message;
+        $data->is_read = 0;
+        $data->save();
 
-        $return = [];
+        $options = [
+            'cluster' => env('PUSHER_APP_CLUSTER'),
+            'useTLS' => true
+        ];
 
-        if ($lastMessage->count() > 0) {
-            foreach ($lastMessage as $message) {
-                $return[] = view('dashboard.chat.layouts.message-line')->with('message', $message)->render();
-            }
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
 
-            PusherFactory::make()->trigger('chat', 'oldMsgs', [
-                'to_user' => $request->to_user,
-                'data' => $return,
-            ]);
-        }
-
-        return response()->json([
-            'data' => $return,
-            'state' => 1,
-            'status' => 200
-        ]);
+        $data = [
+            'receiver_id' => $receiver_id,
+            'user_id' => $user_id,
+        ];
+        $pusher->trigger('my-channel', 'my-event', $data);
     }
 }

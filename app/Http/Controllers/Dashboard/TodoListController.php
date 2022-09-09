@@ -33,20 +33,21 @@ class TodoListController extends Controller
                 if ($todo->completed == true) {
 
                     $completed = '
-                        <li class="mb-1 itemLists done" data-id="' . $todo->id . '">
-                            <span class="handle">
-                                <i class="fas fa-ellipsis-v"></i>
-                                <i class="fas fa-ellipsis-v"></i>
-                            </span>
-
-                            <div class="icheck-primary d-inline ml-2">
-                                <input type="checkbox" value="' . $todo->id . '" name="completed" id="checkList" checked>
-                                <label for="checkList"></label>
+                        <li class="item-list done" data-id="' . $todo->id . '">
+                            <div class="tools-left">
+                                <span class="handle">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </span>
+                                <div class="icheck-primary">
+                                    <input type="checkbox" value="' . $todo->id . '" name="completed" id="checkList" checked>
+                                    <label for="checkList"></label>
+                                </div>
                             </div>
 
-                            <span id="titleTodo" class="text">' . $todo->title . '</span>
+                            <span id="titleTodo" class="content">' . $todo->title . '</span>
 
-                            <div class="tools">
+                            <div class="tools-right">
                                 <a href="javascript:void(0)" data-id="' . $todo->id . '" class="del_btn">
                                     <i class="uil uil-trash" data-toggle="tooltip" data-placement="top" title="Hapus"></i>
                                 </a>
@@ -55,24 +56,25 @@ class TodoListController extends Controller
                     ';
                 } else {
                     $completed = '
-                        <li class="mb-1 itemLists notDone" data-id="' . $todo->id . '">
-                            <span class="handle">
-                                <i class="fas fa-ellipsis-v"></i>
-                                <i class="fas fa-ellipsis-v"></i>
-                            </span>
-
-                            <div class="icheck-primary d-inline ml-2">
-                                <input type="checkbox" value="' . $todo->id . '" name="completed" id="checkList">
-                                <label for="checkList"></label>
+                        <li class="item-list notDone" data-id="' . $todo->id . '">
+                            <div class="tools-left">
+                                <span class="handle">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </span>
+                                <div class="icheck-primary">
+                                    <input type="checkbox" value="' . $todo->id . '" name="completed" id="checkList">
+                                    <label for="checkList"></label>
+                                </div>
                             </div>
 
-                            <span id="titleTodo" class="text" style="cursor:pointer;">' . $todo->title . '</span>
+                            <span id="titleTodo" class="content">' . $todo->title . '</span>
 
-                            <div class="tools">
-                                <a href="javascript:void(0)" data-id="' . $todo->id . '" class="edit_btn" >
+                            <div class="tools-right">
+                                <a href="javascript:void(0)" data-id="' . $todo->id . '" class="edit_btn">
                                     <i class="uil uil-pen" data-toggle="tooltip" data-placement="top" title="Edit"></i>
                                 </a>
-                                <a href="javascript:void(0)" data-id="' . $todo->id . '" class="del_btn" >
+                                <a href="javascript:void(0)" data-id="' . $todo->id . '"  class="del_btn">
                                     <i class="uil uil-trash" data-toggle="tooltip" data-placement="top" title="Hapus"></i>
                                 </a>
                             </div>

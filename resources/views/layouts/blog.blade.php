@@ -44,27 +44,16 @@
     {{-- jQuery Ui --}}
     <link rel="stylesheet" href="{{ asset('vendor/blog/assets/jquery-ui/jquery-ui.css') }}">
     {{-- Main CSS --}}
-    <link rel="stylesheet" href="{{ asset('vendor/blog/css/op.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/blog/css/main.css') }}">
     {{-- CSS EXT --}}
     @stack('css-external')
     {{-- CSS INT --}}
     @stack('css-internal')
-    <!--
-    -- Credits --
-    <a href="https://www.flaticon.com/free-icons/search" title="search icons">Search icons created by Freepik - Flaticon</a>
-    <a href="https://www.flaticon.com/free-icons/video-game" title="video game icons">Video game icons created by juicy_fish - Flaticon</a>
-    <a href="https://www.flaticon.com/free-icons/code" title="code icons">Code icons created by Freepik - Flaticon</a>
-    <a href="https://www.flaticon.com/free-icons/app-development" title="app development icons">App development icons created by Assia Benkerroum  - Flaticon</a>
-    <a href="https://www.flaticon.com/free-icons/developer" title="developer icons">Developer icons created by Freepik - Flaticon</a>
-    -->
-
-    <style>
-
-    </style>
 </head>
 
 <body>
-    <div class="notif-success" data-notif="{{ Session::get('success') }}"></div>
+    <div class="notif-success" data-notifsuccess="{{ Session::get('success') }}"></div>
+    <div class="notif-info" data-notifinfo="{{ Session::get('info') }}"></div>
 
     @include('layouts._layouts.navbar')
 
@@ -76,8 +65,8 @@
         </main>
 
         @include('layouts._layouts.footer')
+        @include('layouts._layouts.chat.index')
     </div>
-
     {{-- <a href="#" class="to-the-top btn-tooltip-hide" data-toggle="tooltip" data-placement="left" title="Keatas">
         <i class="uil uil-angle-up"></i>
     </a> --}}
@@ -149,11 +138,15 @@
                 .location.search);
         }, 100);
 
-        const notif = $('.notif-success').data('notif');
-        if (notif) {
+        const notifSuccess = $('.notif-success').data('notifsuccess');
+        const notifInfo = $('.notif-info').data('notifinfo');
+
+        if (notifSuccess) {
             alertify
                 .delay(5000)
-                .log(notif);
+                .log(notifSuccess);
+        } else if (notifInfo) {
+            alertify.okBtn("OK").alert(notifInfo);
         }
     </script>
 </body>

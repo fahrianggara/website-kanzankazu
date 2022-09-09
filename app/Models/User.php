@@ -35,6 +35,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'slug',
         'email_verified_at',
         'remember_token',
+        'fcm_token',
         'uid',
         'provider',
         'banned_at',
@@ -99,11 +100,18 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Comment::class, 'commenter_id');
     }
 
-    public function message()
+    public function messages()
     {
-        return $this->hasMany(Message::class);
+        return $this->hasMany(Message::class)->latest();
     }
-
+    public function messageReceiver()
+    {
+        $this->hasOne(Message::class, 'receiver_id')->latest();
+    }
+    public function messageSender()
+    {
+        $this->hasOne(Message::class, 'user_id')->latest();
+    }
     public function post()
     {
         return $this->hasMany(Post::class, 'user_id');

@@ -72,6 +72,9 @@ Route::group(['middleware' => 'htmlmin'], function () {
     Route::post('sendcontact', [\App\Http\Controllers\ContactController::class, 'sendToEmail'])->name('contact.sendEmail');
     // Newsletter
     Route::post('newsletter', [App\Http\Controllers\Dashboard\NewsLetterController::class, 'storeEmail'])->name('newsletter.store');
+    // insertChat
+    Route::get('message/{id}', [\App\Http\Controllers\Dashboard\MessageController::class, 'getMessageClient'])->name('chat.getMessageClient');
+    Route::post('send-to-admin', [App\Http\Controllers\Dashboard\MessageController::class, 'sendToAdmin'])->name('chat.sendToAdmin');
 
     Route::group(['middleware' => 'prevent-back-history'], function () {
         Auth::routes([
@@ -180,12 +183,14 @@ Route::group(['middleware' => 'htmlmin'], function () {
                 Route::get('/newsletter', [\App\Http\Controllers\Dashboard\NewsLetterController::class, 'index'])->name('newsletter.index');
                 Route::delete('/newsletter/{newsletter}', [\App\Http\Controllers\Dashboard\NewsLetterController::class, 'destroy'])->name('newsletter.destroy');
                 // Chat
-                Route::get('/chat-users', [\App\Http\Controllers\Dashboard\MessageController::class, 'index'])->name('chat.index');
+                Route::get('/chat', [\App\Http\Controllers\Dashboard\MessageController::class, 'index'])->name('chat');
+                // Route::get('/chat-users', [\App\Http\Controllers\Dashboard\MessageController::class, 'index'])->name('chat.index');
+                Route::get('/chat-side-left', [\App\Http\Controllers\Dashboard\MessageController::class, 'chatSideLeft'])->name('chat.sideLeft');
+                Route::get('/get-users', [\App\Http\Controllers\Dashboard\MessageController::class, 'users'])->name('chat.users');
                 Route::get('/fetch-users', [\App\Http\Controllers\Dashboard\MessageController::class, 'fetchUsers'])->name('chat.fetchUsers');
                 Route::get('/search-users', [\App\Http\Controllers\Dashboard\MessageController::class, 'searchUsersChat'])->name('chat.searchUsers');
-                Route::get('/load-latest-message', [\App\Http\Controllers\Dashboard\MessageController::class, 'getLoadLatestMessage'])->name('chat.getLoadLatestMessage');
-                Route::post('/send', [\App\Http\Controllers\Dashboard\MessageController::class, 'postSendMessage'])->name('chat.send');
-                Route::get('/fetch-old-messages', [\App\Http\Controllers\Dashboard\MessageController::class, 'getOldMessages'])->name('chat.getOldMessages');
+                Route::get('/get-message/{id}', [\App\Http\Controllers\Dashboard\MessageController::class, 'getMessageAdmin'])->name('chat.getMessageAdmin');
+                Route::post('/send-message', [\App\Http\Controllers\Dashboard\MessageController::class, 'sendToClient'])->name('chat.sendToClient');
                 // firebase table
                 Route::get('/firebase', [\App\Http\Controllers\Auth\FirebaseController::class, 'index'])->name('firebase.index');
                 Route::delete('/firebase/destroy/{id}', [\App\Http\Controllers\Auth\FirebaseController::class, 'destroy'])->name('firebase.destroy');

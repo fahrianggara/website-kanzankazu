@@ -130,6 +130,7 @@ class CategoryController extends Controller
             </div>
             ';
         }
+
         echo $output;
     }
 
