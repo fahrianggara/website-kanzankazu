@@ -140,7 +140,7 @@
                 }
             @endphp
 
-            @if ($message->receiver_id === Auth::id())
+            @if ($message->receiver_id == Auth::id())
                 <div class="incoming-msg">
                     <div class="img">
                         <img src="{{ $userImage }}">
@@ -162,6 +162,7 @@
                     </div>
                 </div>
             @endif
+
         @empty
             <div class="empty-chat">
                 <i class="uil uil-comment-alt-exclamation"></i>
