@@ -52,7 +52,8 @@
                     <time id="date">{{ date('H.i T', strtotime($message->created_at)) }}</time>
                 </div>
             </div>
-        @elseif ($message->receiver_id === Auth::id())
+        @endif
+        {{-- @else
             <div class="incoming-msg">
                 <div class="img">
                     @php
@@ -76,7 +77,7 @@
                     <time id="date">{{ date('H.i T', strtotime($message->created_at)) }}</time>
                 </div>
             </div>
-        @endif
+        @endif --}}
     @endforeach
 </div>
 
