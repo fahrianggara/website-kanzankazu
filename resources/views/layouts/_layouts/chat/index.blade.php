@@ -255,7 +255,7 @@
             }
 
             function scrollToBottom() {
-                // $('#chatInput').focus();
+                $('#chatInput').focus();
 
                 $('.chat-area').animate({
                     scrollTop: $('.chat-area').get(0).scrollHeight
