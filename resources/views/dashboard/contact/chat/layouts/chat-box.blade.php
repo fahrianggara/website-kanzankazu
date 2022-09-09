@@ -41,7 +41,18 @@
 
 <div class="chat-history chat-area chat-msg-box">
     @foreach ($messages as $message)
-        @if ($message->receiver_id === Auth::id())
+        @if ($message->user_id === Auth::id())
+            <div class="my-msg">
+                <div class="container-msg">
+                    <div class="msg">
+                        <span>
+                            {{ $message->message }}
+                        </span>
+                    </div>
+                    <time id="date">{{ date('H.i T', strtotime($message->created_at)) }}</time>
+                </div>
+            </div>
+        @else
             <div class="incoming-msg">
                 <div class="img">
                     @php
@@ -65,17 +76,6 @@
                     <time id="date">{{ date('H.i T', strtotime($message->created_at)) }}</time>
                 </div>
             </div>
-        @else
-            <div class="my-msg">
-                <div class="container-msg">
-                    <div class="msg">
-                        <span>
-                            {{ $message->message }}
-                        </span>
-                    </div>
-                    <time id="date">{{ date('H.i T', strtotime($message->created_at)) }}</time>
-                </div>
-            </div>
         @endif
     @endforeach
 </div>
@@ -84,8 +84,8 @@
     <div class="row">
         <div class="col d-flex">
             <div class="input-group text-box">
-                <input class="form-control chat_input input-txt-bx" id="chatInput" autofocus type="text" name="message-to-send"
-                    placeholder="Type a message......" data-original-title="" title="">
+                <input class="form-control chat_input input-txt-bx" id="chatInput" autofocus type="text"
+                    name="message-to-send" placeholder="Type a message......" data-original-title="" title="">
                 <div class="input-group-append">
                     <button id="chatSubmit" class="btn btn-primary btn-chat" type="button">
                     </button>
