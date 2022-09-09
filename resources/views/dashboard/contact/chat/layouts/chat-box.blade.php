@@ -52,7 +52,7 @@
                     <time id="date">{{ date('H.i T', strtotime($message->created_at)) }}</time>
                 </div>
             </div>
-        @else
+        @elseif ($message->receiver_id === Auth::id())
             <div class="incoming-msg">
                 <div class="img">
                     @php
