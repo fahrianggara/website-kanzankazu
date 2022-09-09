@@ -41,7 +41,31 @@
 
 <div class="chat-history chat-area chat-msg-box">
     @foreach ($messages as $message)
-        @if ($message->user_id === Auth::id())
+        @if ($message->receiver_id == Auth::id())
+            <div class="incoming-msg">
+                <div class="img">
+                    @php
+                        if (file_exists('vendor/dashboard/image/picture-profiles/' . $message->user->user_image)) {
+                            $userImage = asset('vendor/dashboard/image/picture-profiles/' . $message->user->user_image);
+                        } elseif ($message->user->uid != null) {
+                            $userImage = $message->user->user_image;
+                        } else {
+                            $userImage = asset('vendor/dashboard/image/avatar.png');
+                        }
+                    @endphp
+
+                    <img src="{{ $userImage }}" alt="">
+                </div>
+                <div class="container-msg">
+                    <div class="msg">
+                        <span>
+                            {{ $message->message }}
+                        </span>
+                    </div>
+                    <time id="date">{{ date('H.i T', strtotime($message->created_at)) }}</time>
+                </div>
+            </div>
+        @else
             <div class="my-msg">
                 <div class="container-msg">
                     <div class="msg">
