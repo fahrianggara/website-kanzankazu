@@ -82,7 +82,8 @@ class AppServiceProvider extends ServiceProvider
                 'users.name',
                 'users.user_image',
                 'users.last_seen',
-                'users.uid'
+                'users.uid',
+                'users.email',
             )
             ->orderBy('users.last_seen', 'DESC')
             ->limit(2)
