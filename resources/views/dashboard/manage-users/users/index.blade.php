@@ -429,7 +429,7 @@
         .deleteAllButton {
             position: fixed;
             bottom: 12%;
-            z-index: 1;
+            z-index: 4;
             border-radius: 50%;
             width: 60px;
             height: 60px;
