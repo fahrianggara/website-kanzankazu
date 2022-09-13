@@ -341,15 +341,14 @@
             });
 
             // show edit modal categories
-
             $(document).on('click', '.edit_btn', function() {
 
-                let id = $(this).val();
+                let id = $(this).val(); // dari attribute value
                 $("#modalEdit").modal('show');
 
                 $.ajax({
                     type: "GET",
-                    url: "{{ url('dashboard/categories/edit') }}/" + id,
+                    url: "{{ url('dashboard/categories/edit') }}/" + id, // var id, dipanggil kesini
                     success: function(response) {
                         if (response.status == 200) {
                             $('h5#modalEdit').text("Edit Kategori: " + response.data.title);

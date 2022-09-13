@@ -45,7 +45,7 @@ class UserController extends Controller
 
         if ($statusSelected == "allowable") {
             $users = User::allowable()->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
-                ->orderBy('model_has_roles.role_id', 'asc');
+                ->orderBy('model_has_roles.role_id', 'asc')->where('id', '!=', Auth::id())->where('users.id', '!=', 1)->where('users.id', '!=', 2);
         } else if ($statusSelected == "banned") {
             $users = User::banned()->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
                 ->orderBy('model_has_roles.role_id', 'asc');
@@ -185,7 +185,6 @@ class UserController extends Controller
         } else {
             return redirect()->route('users.index')->with('success', 'Tidak dapat mengedit pengguna ini!');
         }
-
     }
 
     /**
@@ -304,6 +303,42 @@ class UserController extends Controller
         } finally {
             DB::commit();
             return redirect()->back()->with('success', 'Pengguna dengan nama ' . $user->name . ' berhasil dihapus!');
+        }
+    }
+
+    // delete all users
+    public function destroyAll(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $ids = $request->ids;
+            $users = User::whereIn('id', $ids)->get();
+            foreach ($users as $user) {
+
+                $path = "vendor/dashboard/image/picture-profiles/";
+                if (File::exists($path . $user->user_image)) {
+                    File::delete($path . $user->user_image);
+                }
+
+                $user->comments()->delete();
+                $user->removeRole($user->roles->first());
+                $user->delete();
+            }
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            Alert::error(
+                'Error',
+                'Terjadi kesalahan saat menghapus data.
+                    Pesan: ' . $th->getMessage()
+            )->autoClose(false);
+        } finally {
+            DB::commit();
+
+            return response()->json([
+                'status' => '200',
+                'message' => 'Pengguna berhasil dihapus!'
+            ]);
         }
     }
 

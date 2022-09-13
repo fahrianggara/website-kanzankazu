@@ -193,6 +193,7 @@
         });
 
         $(function() {
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -287,6 +288,9 @@
                     method: $(this).attr('method'),
                     url: $(this).attr('action'),
                     data: new FormData(this),
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content');
+                    },
                     contentType: false,
                     processData: false,
                     dataType: 'json',

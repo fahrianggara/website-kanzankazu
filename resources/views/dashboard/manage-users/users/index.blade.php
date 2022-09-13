@@ -89,6 +89,9 @@
                         <table id="tableUsers" class="table table-hover align-items-center overflow-hidden">
                             <thead>
                                 <tr>
+                                    <th>
+                                        <input type="checkbox" id="checkAllUser">
+                                    </th>
                                     <th>Nama</th>
                                     <th>Role</th>
                                     @if (request()->get('status') == 'banned')
@@ -105,8 +108,11 @@
                             </thead>
                             <tbody>
                                 @foreach ($users as $user)
-                                    <tr>
-
+                                    <tr id="dataUser{{ $user->id }}">
+                                        <td>
+                                            <input type="checkbox" class="checkboxUser" name="ids"
+                                                value="{{ $user->id }}" />
+                                        </td>
                                         <td>
                                             <a href="javascript:void(0)" class="d-flex align-items-center"
                                                 style="cursor: default">
@@ -144,8 +150,7 @@
                                                         src="{{ asset('vendor/blog/img/github.png') }}" width="27">
                                                 @elseif ($user->provider == 'anonymous')
                                                     <img class="logo-provider"
-                                                        src="{{ asset('vendor/blog/img/anonymous.png') }}"
-                                                        width="27">
+                                                        src="{{ asset('vendor/blog/img/anonymous.png') }}" width="27">
                                                 @else
                                                     <img class="logo-provider"
                                                         src="{{ asset('logo-web/android-chrome-512x512.png') }}"
@@ -193,7 +198,8 @@
                                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     <i class="uil uil-ellipsis-v"></i>
                                                 </button>
-                                                <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mb-2 py-1">
+                                                <div
+                                                    class="dropdown-menu dashboard-dropdown dropdown-menu-start mb-2 py-1">
 
                                                     @if ($user->status == 'allowable')
                                                         @if ($user->provider == 'anonymous')
@@ -402,7 +408,40 @@
         </div>
     </div>
 
+    <a href="javascript:void(0)" class="btn btn-danger deleteAllButton d-none" data-toggle="tooltip"
+        data-placement="right" title="Delete user">
+        <i class="uil uil-trash"></i>
+    </a>
+
 @endsection
+
+@push('css-internal')
+    <style>
+        input[type="checkbox"] {
+            cursor: pointer;
+            width: 15px;
+            height: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: end;
+        }
+
+        .deleteAllButton {
+            position: fixed;
+            bottom: 12%;
+            z-index: 1;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+        }
+
+        .deleteAllButton i {
+            font-size: 25px;
+            position: relative;
+            top: 4px;
+        }
+    </style>
+@endpush
 
 @push('js-internal')
     <script>
@@ -415,6 +454,98 @@
 
             $('#statusUser').on('change', function() {
                 $('#submitStatus').click();
+            });
+
+            // checkbox all
+            $('#checkAllUser').click(function(e) {
+                let checkedCount = $('.checkboxUser').length;
+                $('.deleteAllButton').attr('data-original-title', 'Hapus ' + checkedCount + ' User');
+
+                if ($(this).is(':checked')) {
+                    $('.checkboxUser').prop('checked', true);
+                    $('.deleteAllButton').removeClass('d-none');
+                } else {
+                    $('.checkboxUser').prop('checked', false);
+                    $('.deleteAllButton').addClass('d-none');
+                }
+            });
+
+            // checked user
+            $('.checkboxUser').click(function(e) {
+
+                let checkedLength = $('.checkboxUser').filter(':checked').length;
+                let checkedCount = $('input:checkbox[name="ids"]:checked').length;
+
+                if ($(this).is(':checked')) {
+                    $('.deleteAllButton').removeClass('d-none');
+                    $('.deleteAllButton').attr('data-original-title', 'Hapus ' + checkedCount + ' User');
+                } else {
+                    $('.deleteAllButton').attr('data-original-title', 'Hapus ' + checkedCount + ' User');
+                }
+
+                if (checkedLength == 0) {
+                    $('.deleteAllButton').addClass('d-none');
+
+                    if ($('#checkAllUser').is(':checked')) {
+                        $('#checkAllUser').prop('checked', false);
+                    }
+                } else if (checkedLength == $('.checkboxUser').length) {
+                    if (!$('#checkAllUser').is(':checked')) {
+                        $('#checkAllUser').prop('checked', true);
+                    }
+                }
+            });
+
+            $('.deleteAllButton').click('click', function(e) {
+                e.preventDefault();
+                let checkedCount = $('input:checkbox[name="ids"]:checked').length;
+
+                Swal.fire({
+                    title: "Warning",
+                    text: `Apakah kamu yakin? akan menghapus user sebanyak ${checkedCount} data ?`,
+                    icon: "warning",
+                    allowOutsideClick: false,
+                    showCancelButton: true,
+                    cancelButtonText: "Ga, batalkan!",
+                    confirmButtonText: 'Iya, Hapus!',
+                    confirmButtonColor: '#d33',
+                    reverseButtons: true,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        let userAll = [];
+
+                        $('input:checkbox[name="ids"]:checked').each(function() {
+                            userAll.push($(this).val());
+                        });
+
+                        $.ajax({
+                            type: "DELETE",
+                            url: "{{ route('users.deleteAllUser') }}",
+                            data: {
+                                ids: userAll,
+                            },
+                            success: function(response) {
+                                $.each(userAll, function(key, val) {
+                                    $('tr#dataUser' + val).remove();
+                                });
+
+                                alertify.delay(2000).log(
+                                    'User sebanyak ' + checkedCount + ' data, berhasil dihapus!'
+                                );
+
+                                $('.deleteAllButton').addClass('d-none');
+
+                                setTimeout(() => {
+                                    location.reload();
+                                }, 1000);
+                            },
+                            error: function(xhr, ajaxOptions, thrownError) {
+                                alert(xhr.status + "\n" + xhr.responseText + "\n" +
+                                    thrownError);
+                            }
+                        });
+                    }
+                });
             });
 
             // show data user

@@ -162,6 +162,7 @@ Route::group(['middleware' => 'htmlmin'], function () {
                 Route::get('/roles/select', [\App\Http\Controllers\Dashboard\RoleController::class, 'select'])->name('roles.select');
                 Route::resource('/roles', \App\Http\Controllers\Dashboard\RoleController::class);
                 // User
+                Route::delete('/delete-all-user', [\App\Http\Controllers\Dashboard\UserController::class, 'destroyAll'])->name('users.deleteAllUser');
                 Route::get('/users-show/{id}', [\App\Http\Controllers\Dashboard\UserController::class, 'showUserModal'])->name('users.showModal');
                 Route::post('/user-blokir/{id}', [\App\Http\Controllers\Dashboard\UserController::class, 'blokirUser'])->name('users.blokir');
                 Route::put('/user-unblokir/{user}', [\App\Http\Controllers\Dashboard\UserController::class, 'unBlokirUser'])->name('users.unblokir');
