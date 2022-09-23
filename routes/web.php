@@ -44,14 +44,14 @@ Route::group(['middleware' => 'htmlmin'], function () {
     Route::get('autocompleteajax', [\App\Http\Controllers\BlogController::class, 'autocompleteajax'])->name('blog.autocomplete');
     // AUTHORS
     Route::get('/author', [\App\Http\Controllers\BlogController::class, 'showAuthors'])->name('blog.authors');
-    Route::get('/author/{author}', [\App\Http\Controllers\BlogController::class, 'showPostsByAuthor'])->name('blog.author');
-    Route::get('/author/{author}/{resume}', [\App\Http\Controllers\BlogController::class, 'resumeAuthor'])->name('blog.author.resume');
+    Route::get('/@{author}', [\App\Http\Controllers\BlogController::class, 'showPostsByAuthor'])->name('blog.author');
+    Route::get('/@{author}/{resume}', [\App\Http\Controllers\BlogController::class, 'resumeAuthor'])->name('blog.author.resume');
     // Filter blog by Month and year
     Route::get('blog/{year}/{month}', [\App\Http\Controllers\BlogController::class, 'showPostsbyMonthYear'])->name('blog.monthYear');
     // Tutorials
     Route::get('/tutorials', [\App\Http\Controllers\BlogController::class, 'showTutorial'])->name('blog.tutorials');
     Route::get('/tutorials/{slug}', [\App\Http\Controllers\BlogController::class, 'showPostsByTutorial'])->name('blog.posts.tutorials');
-    Route::get('/tutorials/{slug}/@{user}', [\App\Http\Controllers\BlogController::class, 'showPostsByTutorialByAuthor'])->name('blog.posts.tutorials.author');
+    Route::get('/tutorials/{slug}/by-{user}', [\App\Http\Controllers\BlogController::class, 'showPostsByTutorialByAuthor'])->name('blog.posts.tutorials.author');
     // CATEGORIES
     Route::get('/categories', [\App\Http\Controllers\BlogController::class, 'showCategory'])->name('blog.categories');
     Route::get('/category/{slug}', [

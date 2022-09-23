@@ -1,7 +1,7 @@
 <header id="header">
     <div class="container d-flex">
         {{-- Button history back --}}
-        <div class="history-back">
+        {{-- <div class="history-back">
             @if (Request::is('blog/*'))
                 <a onclick="goBackOrTo()" class="btn">
                     <i class="fas fa-arrow-left"></i>
@@ -27,12 +27,14 @@
                     <i class="fas fa-arrow-left"></i>
                 </a>
             @endif
-        </div>
+        </div> --}}
 
         <div class="logo mr-auto">
             {{-- <h1 class="text-light"><a href="{{ route('blog.home') }}"><span>{{ $setting->site_name }}</span></a></h1> --}}
-            <a href="{{ route('homepage') }}"><img src="{{ asset('logo-web/android-chrome-192x192.png') }}"
-                    alt="{{ $setting->site_name }}" class="img-fluid"></a>
+            <a href="{{ route('homepage') }}">
+                <img src="{{ asset('logo-web/android-chrome-192x192.png') }}" alt="{{ $setting->site_name }}"
+                    class="img-fluid">
+            </a>
         </div>
 
         <nav class="nav-menu d-none d-lg-block">
@@ -86,7 +88,7 @@
                                         <a href="{{ route('profile.index') }}"><i class="uil uil-house-user mr-2"></i>
                                             Profile Kamu</a>
                                     </li>
-                                    <li class="{{ set_active('blog.author') }}">
+                                    <li class="{{ request()->is('@' . Auth::user()->slug) ? 'active' : '' }}">
                                         <a href="{{ route('blog.author', ['author' => Auth::user()->slug]) }}"><i
                                                 class="uil uil uil-document-layout-left mr-2"></i>
                                             Blog Kamu</a>
@@ -157,8 +159,7 @@
                 Apakah kamu ingin Logout?
             </div>
             <div class="modal-footer">
-                <button id="close-logOut" type="button" class="btn btn-secondary"
-                    data-dismiss="modal">Tutup</button>
+                <button id="close-logOut" type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
 
                 <a href="{{ route('logout') }}" onclick="logout()" type="button" class="btn btn-danger">Logout
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
