@@ -52,8 +52,6 @@
 </head>
 
 <body>
-    <div class="notif-success" data-notifsuccess="{{ Session::get('success') }}"></div>
-    <div class="notif-info" data-notifinfo="{{ Session::get('info') }}"></div>
 
     @include('layouts._layouts.navbar')
 
@@ -137,17 +135,6 @@
                 .location.pathname + window
                 .location.search);
         }, 100);
-
-        const notifSuccess = $('.notif-success').data('notifsuccess');
-        const notifInfo = $('.notif-info').data('notifinfo');
-
-        if (notifSuccess) {
-            alertify
-                .delay(5000)
-                .log(notifSuccess);
-        } else if (notifInfo) {
-            alertify.okBtn("OK").alert(notifInfo);
-        }
     </script>
 </body>
 

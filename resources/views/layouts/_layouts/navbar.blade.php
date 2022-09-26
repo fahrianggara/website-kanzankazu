@@ -1,3 +1,6 @@
+<div class="notif-success" data-notifsuccess="{{ Session::get('success') }}"></div>
+<div class="notif-info" data-notifinfo="{{ Session::get('info') }}"></div>
+
 <header id="header">
     <div class="container d-flex">
         {{-- Button history back --}}
@@ -56,7 +59,8 @@
                     <ul>
                         <li
                             class="{{ set_active(['blog.tutorials', 'blog.posts.tutorials', 'blog.posts.tutorials.author']) }}">
-                            <a href="{{ route('blog.tutorials') }}"><i class="uil uil-layer-group mr-2"></i>Tutorial</a>
+                            <a href="{{ route('blog.tutorials') }}"><i
+                                    class="uil uil-layer-group mr-2"></i>Tutorial</a>
                         </li>
                         <li class="{{ set_active(['blog.categories', 'blog.posts.categories']) }}"><a
                                 href="{{ route('blog.categories') }}"><i class="uil uil-bookmark mr-2"></i>Kategori</a>
@@ -220,6 +224,19 @@
                     window.location.href = targetUrl;
                 }
             }, 100);
+        }
+
+        // NOTIF
+
+        const notifSuccess = $('.notif-success').data('notifsuccess');
+        const notifInfo = $('.notif-info').data('notifinfo');
+
+        if (notifSuccess) {
+            alertify
+                .delay(5000)
+                .log(notifSuccess);
+        } else if (notifInfo) {
+            alertify.okBtn("OK").alert(notifInfo);
         }
 
         $(function() {
