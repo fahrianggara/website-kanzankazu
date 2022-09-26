@@ -16,7 +16,10 @@
                         </span>
                     </div>
                     <div class="intro-btn" data-aos="fade-in" data-aos-delay="400">
-                        <a href="#about" class="btn btn-explore">EXPLORE</a>
+                        <div class="containerExp">
+                            <a href="#about" class="btn btn-explore">EXPLORE</a>
+                            <i class="uil uil-arrow-down"></i>
+                        </div>
                         @if ($user->pf_resume != null)
                             <a href="{{ route('blog.author.resume', ['author' => $user->slug, 'resume' => $user->pf_resume]) }}"
                                 target="_blank" class="btn btn-resume">RESUME</a>
@@ -288,9 +291,9 @@
 
                 <div class="row">
                     @forelse ($posts as $post)
-                        <div class="col-sm-6 col-lg-4 col-md-6">
+                        <div class="col-sm-6 col-lg-4 col-md-6" data-aos="fade-in" data-aos-delay="500">
 
-                            <article class="entry-thumbnail" data-aos="fade-in" data-aos-delay="500">
+                            <article class="entry-thumbnail">
                                 <div class="entry-img ">
                                     <a href="{{ route('blog.detail', ['slug' => $post->slug]) }}">
                                         @if (file_exists('vendor/dashboard/image/thumbnail-posts/' . $post->thumbnail))

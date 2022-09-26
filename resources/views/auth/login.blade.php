@@ -30,6 +30,7 @@
                     @include('auth.nav')
 
                     <h4 class="title text-center mt-4">
+                        {{-- {{ request()->getClientIp(true) }} --}}
                         Login
                     </h4>
 

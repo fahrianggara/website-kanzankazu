@@ -294,7 +294,8 @@ label.active {
 }
 
 .form-box button[type="submit"]:hover {
-    color: var(--text-color);
+    color: #fff;
+    transition: all 0.3s ease;
 }
 
 .form-box button[type="submit"]:hover:after {

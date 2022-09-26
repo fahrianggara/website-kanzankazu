@@ -15,9 +15,20 @@ $(document).ready(function () {
     const getCurrentTheme = () => document.body.classList.contains(darkTheme) ? 'dark' : 'light'
     const getCurrentIcon = () => themeToggle.classList.contains(ligthTheme) ? 'uil-moon' : 'uil_sun'
 
+    const changeTitleTooltip = () => {
+        const currentTheme = getCurrentTheme()
+
+        if (currentTheme === 'dark') {
+            themeToggle.setAttribute('data-original-title', 'Light Theme')
+        } else {
+            themeToggle.setAttribute('data-original-title', 'Dark Theme')
+        }
+    }
+
     if (selectedTheme) {
         document.body.classList[selectedTheme === 'dark' ? 'add' : 'remove'](darkTheme)
         themeToggle.classList[selectedIcon === 'uil-moon' ? 'add' : 'remove'](ligthTheme)
+        changeTitleTooltip()
     }
 
     themeToggle.addEventListener('click', () => {
@@ -26,6 +37,8 @@ $(document).ready(function () {
 
         localStorage.setItem('selected-theme', getCurrentTheme())
         localStorage.setItem('selected-icon', getCurrentIcon())
+
+        changeTitleTooltip()
     });
 
     // Active label to the top

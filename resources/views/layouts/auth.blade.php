@@ -26,7 +26,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('logo-web/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('logo-web/favicon-16x16.png') }}">
     {{-- CSS --}}
-    <link rel="stylesheet" href="{{ asset('vendor/blog/css/sign.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/blog/css/signs.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/blog/assets/fontawesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/blog/assets/bootstrap-icon/bootstrap-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/blog/assets/bootstrap/css/bootstrap.min.css') }}">
@@ -43,7 +43,7 @@
 
     <script src="{{ asset('vendor/blog/assets/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('vendor/blog/assets/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('vendor/blog/js/login.js') }}"></script>
+    <script src="{{ asset('vendor/blog/js/log.js') }}"></script>
     <script src="{{ asset('vendor/dashboard/plugins/alertify/js/alerts.js') }}"></script>
 
     <script>

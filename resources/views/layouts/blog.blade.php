@@ -86,7 +86,7 @@
     <script src="{{ asset('vendor/dashboard/plugins/tinymce5/jquery.tinymce.min.js') }}"></script>
     <script src="{{ asset('vendor/dashboard/plugins/tinymce5/tinymce.min.js') }}"></script>
     {{-- Main Js --}}
-    <script src="{{ asset('vendor/blog/js/fun.js') }}"></script>
+    <script src="{{ asset('vendor/blog/js/main.js') }}"></script>
     {{-- JS Ext --}}
     {{-- @stack('js-external') --}}
     {{-- JS Int --}}

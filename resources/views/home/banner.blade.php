@@ -15,9 +15,11 @@
                 <p>
                     {{ $setting->site_description }}
                 </p>
-                <a href="#blog" class="bannerLinks">
-                    Explore
-                </a>
+
+                {{-- <div class="bannerLinkCont"> --}}
+                <a href="#blog" class="bannerLinks">Explore</a>
+                {{-- <i class="uil uil-arrow-down"></i> --}}
+                {{-- </div> --}}
             </div>
         </div>
     </div>

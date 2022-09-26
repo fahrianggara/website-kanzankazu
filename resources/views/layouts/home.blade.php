@@ -109,7 +109,7 @@
     <script src="{{ asset('vendor/blog/assets/jquery-sticky/jquery.sticky.js') }}"></script>
     <script src="{{ asset('vendor/blog/assets/alertify/js/alertify.js') }}"></script>
     {{-- Main Js --}}
-    <script src="{{ asset('vendor/blog/js/fun.js') }}"></script>
+    <script src="{{ asset('vendor/blog/js/main.js') }}"></script>
     {{-- JS Ext --}}
     @stack('js-external')
     {{-- JS Int --}}

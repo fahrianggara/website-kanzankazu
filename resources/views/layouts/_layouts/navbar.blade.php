@@ -38,7 +38,11 @@
         </div>
 
         <nav class="nav-menu d-none d-lg-block">
-            <ul>
+            <div class="closeSideBar">
+                <i class="uil uil-arrow-left"></i>
+            </div>
+
+            <ul id="menuList">
                 <li class="{{ set_active(['homepage']) }}"><a href="{{ route('homepage') }}"><i
                             class="uil uil-estate mr-2" style="color: #00b2cc"></i>Beranda</a></li>
                 <li class="{{ set_active(['blog.home', 'blog.detail', 'blog.monthYear']) }} blogDetailActive">
@@ -118,6 +122,10 @@
                 @endif
 
             </ul>
+
+            <div class="footer-nav">
+                {{ $setting->site_footer }}
+            </div>
         </nav>
 
         {{-- darktheme --}}
@@ -132,11 +140,6 @@
                 <span class="uil uil-search"></span>
                 <span class="uil uil-times"></span>
             </div>
-
-            {{-- <div class="search-icon btn-tooltip-hide" data-toggle="tooltip" data-placement="bottom" title="Pencarian">
-            </div>
-            <div class="cancel-icon btn-tooltip-hide" data-toggle="tooltip" data-placement="bottom" title="Tutup">
-            </div> --}}
 
             <div class="search-nav">
                 <form action="{{ route('blog.search') }}" method="GET" autocomplete="off">
@@ -223,9 +226,18 @@
 
             $(document).on('click', '#log-out', function() {
                 $('body').removeClass('mobile-nav-active');
-                $('div').removeClass('mobile-nav-overly');
+                $('.mobile-nav-overly').fadeOut();
                 $('#toggleNav').removeClass('icofont-close');
                 $('#toggleNav').addClass('uil uil-bars');
+                $('.closeSideBar').removeClass('show');
+            });
+
+            $(document).on('click', '.closeSideBar', function() {
+                $('body').removeClass('mobile-nav-active');
+                $('.mobile-nav-overly').fadeOut();
+                $('#toggleNav').removeClass('icofont-close');
+                $('#toggleNav').addClass('uil uil-bars');
+                $('.closeSideBar').removeClass('show');
             });
 
             const searchBtn = document.querySelector(".uil-search");
@@ -269,7 +281,9 @@
                     form.querySelector("input").readOnly = false;
                     // remove mobile-nav-overly
                     $('body').removeClass('mobile-nav-active');
-                    $('#mobileOverly').removeClass('mobile-nav-overly');
+                    // $('#mobileOverly').removeClass('mobile-nav-overly');
+                    $('.closeSideBar').removeClass('show');
+                    $('.mobile-nav-overly').fadeOut();
                     $('#toggleNav').removeClass('icofont-close');
                     $('#toggleNav').addClass('uil uil-bars');
                     if ($(cancelBtn).hasClass('show')) {

@@ -33,7 +33,8 @@
 
                 if ($('body').hasClass('mobile-nav-active')) {
                     $('body').removeClass('mobile-nav-active');
-                    $('.mobile-nav-toggle i').toggleClass('uil uil-bars icofont-close');
+                    $('.closeSideBar').removeClass('show');
+                    // $('.mobile-nav-toggle i').toggleClass('uil uil-bars icofont-close');
                     $('.mobile-nav-overly').fadeOut();
                 }
                 return false;
@@ -60,14 +61,17 @@
             class: 'mobile-nav d-lg-none'
         });
         $('body').append($mobile_nav);
+
         $('#header .container .tombolNavbar .menuButton').prepend(
             '<button type="button" class="mobile-nav-toggle d-lg-none"><i id="toggleNav" class="uil uil-bars"></i></button>'
         );
+
         $('body').append('<div id="mobileOverly" class="mobile-nav-overly"></div>');
 
         $(document).on('click', '.mobile-nav-toggle', function (e) {
+            $('.closeSideBar').addClass('show');
             $('body').toggleClass('mobile-nav-active');
-            $('.mobile-nav-toggle i').toggleClass('uil uil-bars icofont-close');
+            // $('.mobile-nav-toggle i').toggleClass('uil uil-bars icofont-close');
             $('.mobile-nav-overly').toggle();
 
             let searchBtn = document.querySelector(".uil-search");
@@ -83,29 +87,36 @@
                 // reset input value
                 form.querySelector("input").value = "";
                 $('#overlay').removeClass('overlay-search');
-                $('.overlay-search').hide();
+                $('.overlay-search').fadeOut();
+
+                if ($('body').filter('style')) {
+                    $('body').removeAttr('style');
+                }
             }
 
         });
 
         $(document).on('click', '.mobile-nav .drop-down > a', function (e) {
             e.preventDefault();
-            $(this).next().slideToggle(300);
+
             $(this).parent().toggleClass('active');
+            $(this).next().slideToggle(300);
         });
 
+
         $(document).click(function (e) {
-            var container = $(".mobile-nav, .mobile-nav-toggle");
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
+            var container1 = $(".mobile-nav, .mobile-nav-toggle");
+            if (!container1.is(e.target) && container1.has(e.target).length === 0) {
                 if ($('body').hasClass('mobile-nav-active')) {
                     $('body').removeClass('mobile-nav-active');
-                    $('.mobile-nav-toggle i').toggleClass('uil uil-bars icofont-close');
+                    $('.closeSideBar').removeClass('show');
+                    // $('.mobile-nav-toggle i').toggleClass('uil uil-bars icofont-close');
                     $('.mobile-nav-overly').fadeOut();
                 }
             }
         });
-    } else if ($(".mobile-nav, .mobile-nav-toggle").length) {
-        $(".mobile-nav, .mobile-nav-toggle").hide();
+    } else if ($(".mobile-nav, .mobile-nav-toggle, .closeSideBar").length) {
+        $(".mobile-nav, .mobile-nav-toggle,  .closeSideBar").hide();
     }
 
     // add shadow when scroll background header
