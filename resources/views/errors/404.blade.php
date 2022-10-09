@@ -35,13 +35,17 @@
 </html>
 
 <script>
-    function buttonBack(targetUrl) {
-        var currentUrl = window.location.href;
-        window.history.go(-1);
-        setTimeout(function() {
-            if (currentUrl === window.location.href) {
-                window.location.href = targetUrl;
-            }
-        }, 100);
+    // function buttonBack(targetUrl) {
+    //     var currentUrl = window.location.href;
+    //     window.history.go(-1);
+    //     setTimeout(function() {
+    //         if (currentUrl === window.location.href) {
+    //             window.location.href = targetUrl;
+    //         }
+    //     }, 100);
+    // }
+
+    function buttonBack() {
+        window.history.back();
     }
 </script>

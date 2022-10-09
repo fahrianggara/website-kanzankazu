@@ -17,7 +17,11 @@ class PortfolioSkillController extends Controller
      */
     public function index()
     {
-        return view('dashboard.manage-users.profiles.portfolio.skill.index');
+        if (Auth::id() == '2') {
+            return view('dashboard.manage-users.profiles.portfolio.skill.index');
+        } else {
+            abort(404);
+        }
     }
 
     public function fetch()

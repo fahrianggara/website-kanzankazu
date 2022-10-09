@@ -19,10 +19,15 @@ class PortfolioController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
-        return view('dashboard.manage-users.profiles.portfolio.index', [
-            'projects' => $projects,
-        ]);
+        if (Auth::id() == '2') {
+            $projects = Project::all();
+            return view('dashboard.manage-users.profiles.portfolio.index', [
+                'projects' => $projects,
+            ]);
+        } else {
+            abort(404);
+        }
+
     }
 
     public function fetch()
