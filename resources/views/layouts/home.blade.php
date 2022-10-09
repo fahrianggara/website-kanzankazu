@@ -124,10 +124,10 @@
         }
 
         $(function() {
-            $(".btn-tooltip-hide").tooltip().on("click", function() {
-                $(this).tooltip("hide")
-            });
         })
+        $("[data-toggle='tooltip']").tooltip().on("click", function() {
+            $(this).tooltip("hide")
+        });
 
 
         // Notif status
