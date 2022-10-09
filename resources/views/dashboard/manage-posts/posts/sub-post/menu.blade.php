@@ -6,7 +6,7 @@
     <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mt-2 py-1">
         {{-- detail --}}
         @can('post_detail')
-            @if (($post->title != null && $post->description != null) && ($post->categories->first() != null && $post->tags->first() != null))
+            @if ($post->description != null && ($post->categories->first() != null && $post->tags->first() != null))
                 <a href="{{ route('posts.show', ['slug' => $post->slug]) }}#posts"
                     class="dropdown-item d-flex align-items-center">
                     <i class="uil uil-eye text-info"></i>
@@ -40,13 +40,14 @@
                 </form>
             @endcan
 
-            @if (($post->title != null && $post->description != null) && ($post->categories->first() != null && $post->tags->first() != null))
+            @if ($post->description != null && ($post->categories->first() != null && $post->tags->first() != null))
                 <div class="dropdown-divider"></div>
             @endif
 
             @if ($post->status == 'publish')
+
                 {{-- RECOMMENDED --}}
-                @if (($post->title != null && $post->description != null) && ($post->categories->first() != null && $post->tags->first() != null))
+                @if ($post->description != null && ($post->categories->first() != null && $post->tags->first() != null))
                     <form action="{{ route('posts.recommend', ['id' => $post->id]) }}#posts" method="POST"
                         class="d-inline">
                         @csrf
@@ -61,9 +62,8 @@
                 @endif
 
                 {{-- DRAFT --}}
-                @if (($post->title != null && $post->description != null) && ($post->categories->first() != null && $post->tags->first() != null))
-                    <form action="{{ route('posts.draft', ['post' => $post]) }}#posts" method="POST"
-                        class="d-inline">
+                @if ($post->description != null && ($post->categories->first() != null && $post->tags->first() != null))
+                    <form action="{{ route('posts.draft', ['post' => $post]) }}#posts" method="POST" class="d-inline">
                         @csrf
                         @method('PUT')
 
@@ -74,7 +74,7 @@
                     </form>
                 @endif
             @elseif ($post->status == 'draft')
-                @if (($post->title != null && $post->description != null) && ($post->categories->first() != null && $post->tags->first() != null))
+                {{-- @if ($post->description != null && ($post->categories->first() != null && $post->tags->first() != null))
                     <form action="{{ route('posts.recommend', ['id' => $post->id]) }}#posts" method="POST"
                         class="d-inline">
                         @csrf
@@ -86,10 +86,10 @@
                                 class="ml-2">{{ $post->recommendedPost ? 'Batal Rekomendasikan' : 'Rekomendasikan' }}</span>
                         </button>
                     </form>
-                @endif
+                @endif --}}
 
                 {{-- PUBLISH --}}
-                @if (($post->title != null && $post->description != null) && ($post->categories->first() != null && $post->tags->first() != null))
+                @if ($post->description != null && ($post->categories->first() != null && $post->tags->first() != null))
                     <form action="{{ route('posts.publish', ['post' => $post]) }}#posts" method="POST"
                         class="d-inline">
                         @csrf

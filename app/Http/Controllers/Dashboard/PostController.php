@@ -52,7 +52,7 @@ class PostController extends Controller
         if (in_array($request->get('status'), ['publish', 'draft', 'approve'])) {
             if ($request->get('status') == "approve") {
                 if (Auth::user()->roles->pluck('name')->contains('Editor')) {
-                    return redirect()->route('posts.index')->with('success', 'Oops.. kamu tidak bisa mengakses halaman ini.');
+                    abort(404);
                 } else {
                     $statusSelected = $request->get('status');
                 }
@@ -141,15 +141,16 @@ class PostController extends Controller
 
     public function recommend($id)
     {
-        $post = Post::join('recommendation_posts', 'posts.id', '=', 'recommendation_posts.post_id')
+        $recomenPost = Post::join('recommendation_posts', 'posts.id', '=', 'recommendation_posts.post_id')
             ->where('post_id', $id)
             ->get();
 
-        $recommendPost = RecommendationPost::where('user_id', Auth::id())->get();
+        $recommendPostUserId = RecommendationPost::where('user_id', Auth::id())->get();
 
-        if ($post->isEmpty()) {
+        if ($recomenPost->isEmpty()) {
             // validation max 3
-            if ($recommendPost->count() >= 3) {
+            if ($recommendPostUserId->count() >= 3) {
+
                 Alert::warning(
                     'Oops..',
                     'Rekomendasi maksimal 3 postingan! silahkan hapus rekomandasi yang lainnya untuk direkomendasikan.'
@@ -158,19 +159,26 @@ class PostController extends Controller
                 RecommendationPost::where('post_id', $id)
                     ->where('user_id', Auth::id())
                     ->delete();
+
                 return redirect()->back();
             } else {
                 RecommendationPost::create([
                     'post_id' => $id,
                     'user_id' => Auth::id(),
                 ]);
-                return redirect()->back()->with('success', 'Postingan kamu telah direkomendasikan.');
+
+                return redirect()
+                    ->back()
+                    ->with('success', 'Postingan kamu telah direkomendasikan.');
             }
         } else {
             RecommendationPost::where('post_id', $id)
                 ->where('user_id', Auth::id())
                 ->delete();
-            return redirect()->back()->with('success', 'Postingan kamu batal direkomendasikan.');
+
+            return redirect()
+                ->back()
+                ->with('success', 'Postingan kamu batal direkomendasikan.');
         }
     }
 
@@ -184,10 +192,32 @@ class PostController extends Controller
 
     public function draft(Post $post)
     {
-        $post->status = 'draft';
-        $post->update();
+        $id = $post->id;
+        $rekomendasiPost = RecommendationPost::where('post_id', $id)->get();
 
-        return redirect()->back()->with('success', 'Postingan kamu telah disimpan ke dalam arsip!');
+        if ($rekomendasiPost->isNotEmpty()) {
+            RecommendationPost::where('post_id', $id)
+                ->where('user_id', Auth::id())
+                ->delete();
+
+            $post->status = 'draft';
+            $post->update();
+
+            Alert::info(
+                '',
+                'Postingan rekomendasi kamu telah disimpan ke dalam arsip dan otomatis
+                rekomendasinya dihilangkan karena sudah diarsip!'
+            )->autoClose(false);
+
+            return redirect()->back();
+        } else {
+            $post->status = 'draft';
+            $post->update();
+
+            return redirect()
+                ->back()
+                ->with('success', 'Postingan kamu telah disimpan ke dalam arsip!');
+        }
     }
 
     public function approve(Post $post)
@@ -467,7 +497,6 @@ class PostController extends Controller
     public function edit($slug)
     {
         $post = Post::with('categories', 'tags', 'tutorials')->where('slug', $slug)->first();
-        $cateOld = $post->categories->first();
 
         if ($post->user_id == Auth::user()->id) {
 
@@ -479,12 +508,7 @@ class PostController extends Controller
                 'tutoOld' => $post->tutorials->first(),
             ]);
         } else {
-            Alert::error(
-                'Error',
-                'Oops.. Kamu tidak dapat mengedit postingan ini!'
-            )->autoClose(false);
-
-            return redirect()->route('posts.index');
+            abort(404);
         }
     }
 
@@ -652,14 +676,18 @@ class PostController extends Controller
                     )->autoClose(false);
 
                     return Redirect::to(
-                        URL::route('posts.edit',['slug' => $post->slug]
+                        URL::route(
+                            'posts.edit',
+                            ['slug' => $post->slug]
                         )
                     );
                 } else {
                     $post->update();
 
                     return Redirect::to(
-                        URL::route('posts.edit',['slug' => $post->slug]
+                        URL::route(
+                            'posts.edit',
+                            ['slug' => $post->slug]
                         ) . '#content'
                     );
                 }
