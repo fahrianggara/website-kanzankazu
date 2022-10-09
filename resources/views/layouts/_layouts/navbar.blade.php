@@ -81,7 +81,7 @@
 
                             @if (strlen(Auth::user()->name) > 10)
                                 <a href="javascript:void(0)" data-toggle="tooltip" data-placement="left"
-                                    title="{{ Auth::user()->name }} (You)">
+                                    title="{{ Auth::user()->name }}">
                                     <i class="uil uil-user mr-2"></i>
                                     {{ substr(Auth::user()->name, 0, 10) }}..
                                 </a>
