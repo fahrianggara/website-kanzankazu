@@ -78,14 +78,18 @@
                 @if (Route::has('login'))
                     @auth
                         <li class="drop-down">
-                            <a href="javascript:void(0)">
-                                <i class="uil uil-user mr-2"></i>
-                                @if (strlen(Auth::user()->name) > 10)
+                            @if (strlen(Auth::user()->name) > 10)
+                                <a href="javascript:void(0)" data-toggle="tooltip" data-placement="left"
+                                    title="{{ Auth::user()->name }} (You)">
+                                    <i class="uil uil-user mr-2"></i>
                                     {{ substr(Auth::user()->name, 0, 10) }}..
+                                </a>
                                 @else
+                                <a href="javascript:void(0)">
+                                    <i class="uil uil-user mr-2"></i>
                                     {{ substr(Auth::user()->name, 0, 10) }}
-                                @endif
-                            </a>
+                                </a>
+                            @endif
                             <ul>
                                 @if (Auth::user()->provider != 'anonymous')
                                     <li>
