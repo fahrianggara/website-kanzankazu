@@ -18,7 +18,7 @@
                             href="#" role="button" aria-haspopup="false" aria-expanded="false">
                             <i class="uil uil-bell noti-icon"></i>
                             @if ($postApprove->count() >= 1)
-                                <span class="badge badge-success noti-icon-badge">{{ $postApprove->count() }}</span>
+                                <span class="badge badge-danger noti-icon-badge">{{ $postApprove->count() }}</span>
                             @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-menu-lg">
@@ -70,7 +70,7 @@
                         @if ($postUserApprove->count() ||
                             auth()->user()->unreadNotifications->count() >= 1)
                             <span
-                                class="badge badge-success noti-icon-badge">{{ $postUserApprove->count() +auth()->user()->unreadNotifications->count() }}</span>
+                                class="badge badge-danger noti-icon-badge">{{ $postUserApprove->count() +auth()->user()->unreadNotifications->count() }}</span>
                         @endif
                     </a>
 

@@ -44,11 +44,11 @@ class UserPostApproved extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-            ->greeting('Haloo, ' . $this->user->name)
-            ->line('Postingan kamu sudah disetujui oleh ' . Auth::user()->roles->first()->name . '.')
-            ->action('Lihat Postingan', route('posts.index'))
-            ->line('Terima kasih sudah berkonstribusi di website kami!');
+        // return (new MailMessage)
+        //     ->greeting('Haloo, ' . $this->user->name)
+        //     ->line('Postingan kamu sudah disetujui oleh ' . Auth::user()->roles->first()->name . '.')
+        //     ->action('Lihat Postingan', route('posts.index'))
+        //     ->line('Terima kasih sudah berkonstribusi di website kami!');
     }
 
     /**

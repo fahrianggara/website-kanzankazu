@@ -96,12 +96,18 @@
                                         <a href="{{ route('profile.index') }}"><i class="uil uil-house-user mr-2"></i>
                                             Profile Kamu</a>
                                     </li>
+                                    <hr
+                                        style="background-color: #00b2cc; height: .1px; border: 0; margin: 11px 0 10px 0; width:90%; position: relative; transform: translateX(5%)">
+                                    <li>
+                                        <a href="{{ route('posts.create') }}"><i class="uil uil-plus mr-2"></i>
+                                            Buat Blog Baru</a>
+                                    </li>
                                     <li class="{{ request()->is('@' . Auth::user()->slug) ? 'active' : '' }}">
                                         <a href="{{ route('blog.author', ['author' => Auth::user()->slug]) }}"><i
                                                 class="uil uil uil-document-layout-left mr-2"></i>
                                             Blog Kamu</a>
                                     </li>
-                                    <hr style="background-color: #00b2cc; height: 1px; border: 0; margin: 10px 0 10px 0;">
+                                    <hr style="background-color: #00b2cc; height: .1px; border: 0; margin: 10px 0 10px 0;">
                                 @endif
                                 <li>
                                     <a id="log-out" href="" data-toggle="modal" data-target="#logModal">Log Out <i
@@ -128,7 +134,7 @@
             </ul>
 
             <div class="footer-nav">
-                {{ $setting->site_footer }}
+                {{ '©' . ' ' . date('Y') . ' ' . $setting->site_name }}.
             </div>
         </nav>
 
@@ -166,7 +172,8 @@
                 Apakah kamu ingin Logout?
             </div>
             <div class="modal-footer">
-                <button id="close-logOut" type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                <button id="close-logOut" type="button" class="btn btn-secondary"
+                    data-dismiss="modal">Tutup</button>
 
                 <a href="{{ route('logout') }}" onclick="logout()" type="button" class="btn btn-danger">Logout
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

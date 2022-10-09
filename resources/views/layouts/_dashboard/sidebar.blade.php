@@ -35,20 +35,10 @@
                 {{-- BLOG --}}
                 <li>
                     <a href="{{ route('blog.author', ['author' => Auth::user()->slug]) }}" class="waves-effect">
-                        <i class="uil uil-create-dashboard"></i>
-                        <span>Blog</span>
+                        <i class="uil uil-document-layout-left"></i>
+                        <span>Halaman Blog</span>
                     </a>
                 </li>
-
-                {{-- Chat --}}
-                {{-- <li id="chat" class="menu-title">Diskusi</li>
-                <li>
-                    <a href="{{ route('chat.index') }}"
-                        class="{{ set_active('chat.index') }} waves-effect">
-                        <i class="uil uil-comments-alt"></i>
-                        <span>Ngobrol</span>
-                    </a>
-                </li> --}}
 
                 {{-- Profile --}}
                 <li id="profile" class="menu-title">Kelola Profile</li>
@@ -171,12 +161,20 @@
                     </li>
 
                     <li>
-                        <a href="{{ route('firebase.index', '#firebase') }}"
-                            class="waves-effect {{ set_active(['firebase.index']) }}">
+                        <a href="{{ route('firebase.realtime', '#firebase') }}"
+                            class="waves-effect {{ set_active(['firebase.realtime']) }}">
                             <i class="uil uil-database"></i>
                             <span>Realtime Database</span>
                         </a>
                     </li>
+
+                    {{-- <li>
+                        <a href="{{ route('firebase.storage', '#firebase') }}"
+                            class="waves-effect {{ set_active(['firebase.storage']) }}">
+                            <i class="uil uil-servers"></i>
+                            <span>Storage</span>
+                        </a>
+                    </li> --}}
                 @endcan
 
                 {{-- INBOX CONTACT --}}

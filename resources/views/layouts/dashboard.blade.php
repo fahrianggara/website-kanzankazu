@@ -65,6 +65,18 @@
     @stack('css-external')
     @stack('css-internal')
 
+    <style>
+        .swal2-html-container, .swal2-title {
+            color: var(--text-color) !important;
+        }
+
+        .menu-title {
+            text-transform: uppercase;
+            font-weight: 600 !important;
+            color: var(--first-color);
+        }
+    </style>
+
 </head>
 
 <body class="fixed-left">
@@ -92,7 +104,23 @@
                                     <div class="btn-group float-right">
                                         @yield('breadcrumbs')
                                     </div>
-                                    <h4 class="page-title">@yield('title')</h4>
+
+                                    <h4 class="page-title">
+                                        @yield('title')
+
+                                        @if (!Auth::user()->editorRole())
+                                            @if (Request::url() == route('posts.create'))
+                                                <i class="uil uil-info-circle text-primary ml-1" data-toggle="tooltip"
+                                                    data-placement="bottom"
+                                                    title="Untuk membuat postingan otomatis jadi ke arsip, silahkan abaikan form : Judul, Tag, Kategori dan Deskripsi. Dan untuk form konten wajib diisi!"></i>
+                                            @endif
+                                            @if (Request::url() == url("dashboard/posts/". request()->slug ."/edit"))
+                                                <i class="uil uil-info-circle text-primary ml-1" data-toggle="tooltip"
+                                                    data-placement="bottom"
+                                                    title="Jika kamu mau update konten tanpa keluar dari halaman edit, silahkan kosongkan salah satu form: Tag, Kategori dan Deskripsi. Jika semua form tersebut sudah terisi kembali.. maka ketika update konten, kamu akan kembali lagi ke halaman list blog."></i>
+                                            @endif
+                                        @endif
+                                    </h4>
                                 </div>
                             </div>
                         </div>
@@ -107,7 +135,7 @@
 
             {{-- footer --}}
             <footer class="footer site_footer">
-                {{ $setting->site_footer }}
+                {{ '©' . ' ' . date('Y') . ' ' . $setting->site_name }}.
             </footer>
 
         </div>

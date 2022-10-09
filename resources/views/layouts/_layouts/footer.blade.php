@@ -91,7 +91,7 @@
 
     <div class="container">
         <div class="footer-bottom">
-            {{ $setting->site_footer }}
+            {{ '©' . ' ' . date('Y') . ' ' . $setting->site_name }}.
         </div>
     </div>
 

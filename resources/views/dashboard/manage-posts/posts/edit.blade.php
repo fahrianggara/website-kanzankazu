@@ -267,8 +267,14 @@
                         {{-- Content --}}
                         <div class="form-group" id="content">
                             <label for="input_post_content">
-                                Konten Postingan @if (Auth::user()->editorRole())
+                                Konten Postingan
+                                @if (Auth::user()->editorRole())
                                     <span class="star-required">*</span>
+                                @endif
+                                @if (!Auth::user()->editorRole())
+                                    <i class="uil uil-info-circle text-primary ml-1" data-toggle="tooltip"
+                                        data-placement="bottom"
+                                        title="Fokuskan(klik) konten lalu tekan ctrl + s untuk simpan konten"></i>
                                 @endif
                             </label>
 

@@ -193,8 +193,9 @@ Route::group(['middleware' => 'htmlmin'], function () {
                 Route::get('/get-message/{id}', [\App\Http\Controllers\Dashboard\MessageController::class, 'getMessageAdmin'])->name('chat.getMessageAdmin');
                 Route::post('/send-message', [\App\Http\Controllers\Dashboard\MessageController::class, 'sendToClient'])->name('chat.sendToClient');
                 // firebase table
-                Route::get('/firebase', [\App\Http\Controllers\Auth\FirebaseController::class, 'index'])->name('firebase.index');
+                Route::get('/firebase-realtime', [\App\Http\Controllers\Auth\FirebaseController::class, 'realtime'])->name('firebase.realtime');
                 Route::delete('/firebase/destroy/{id}', [\App\Http\Controllers\Auth\FirebaseController::class, 'destroy'])->name('firebase.destroy');
+                Route::get("/firebase-storage", [\App\Http\Controllers\Auth\FirebaseController::class, 'storage'])->name('firebase.storage');
                 // Todo List
                 Route::get('/todolist', [\App\Http\Controllers\Dashboard\TodoListController::class, 'index'])->name('todolist.index');
                 Route::post('/todolist/store', [\App\Http\Controllers\Dashboard\TodoListController::class, 'store'])->name('todolist.store');

@@ -77,7 +77,8 @@
                                     @endif
                                 </label>
 
-                                <select id="select_category" name="category" data-placeholder="Pilih kategori sesuai postingan kamu.."
+                                <select id="select_category" name="category"
+                                    data-placeholder="Pilih kategori sesuai postingan kamu.."
                                     class="custom-select w-100 @error('category') is-invalid @enderror">
                                     @if (old('category'))
                                         <option value="{{ old('category')->id }}">
@@ -96,8 +97,10 @@
                             {{-- STATUS --}}
                             @if (Auth::user()->editorRole())
                                 <div class="col-lg-6 form-group">
-                                    <label for="select_post_status" class="">Status Postingan<span
-                                            class="star-required"></span>
+                                    <label for="select_post_status" class="">
+                                        Status Postingan
+                                        <span class="star-required"></span>
+                                        <i class="uil uil-info-circle text-primary" data-toggle="tooltip" data-placement="top" title="Konten kamu akan menunggu persetujuan dari admin/mimin"></i>
                                     </label>
 
                                     <select name="status" id="select_post_status"
@@ -142,9 +145,12 @@
                                 <div class="form-group col-lg-6">
                                     <label for="select_tutorial">
                                         Tutorial Postingan
-                                        <i class="uil uil-info-circle text-primary" data-toggle="tooltip" data-placement="top" title="Tutorial postingan ini seperti urutan dari awal sampai akhir konten. pilih datanya sesuai dengan konten kamu, jika tidak maka abaikan saja"></i>
+                                        <i class="uil uil-info-circle text-primary" data-toggle="tooltip"
+                                            data-placement="top"
+                                            title="Tutorial postingan ini seperti urutan dari awal sampai akhir konten. pilih tutorialnya sesuai dengan konten kamu, jika tidak maka abaikan saja"></i>
                                     </label>
-                                    <select id="select_tutorial" name="tutorial" data-placeholder="Pilih tutorial sesuai postingan kamu.."
+                                    <select id="select_tutorial" name="tutorial"
+                                        data-placeholder="Pilih tutorial sesuai postingan kamu.."
                                         class="custom-select w-100 @error('tutorial') is-invalid @enderror">
                                         @if (old('tutorial'))
                                             <option id="tutorial_id" value="{{ old('tutorial')->id }}">

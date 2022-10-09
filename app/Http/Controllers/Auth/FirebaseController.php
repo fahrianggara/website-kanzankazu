@@ -235,11 +235,10 @@ class FirebaseController extends Controller
         }
     }
 
-    public function index()
+    public function realtime()
     {
-        $users = Firebase::database()->getReference($this->table)->
-        getSnapshot()->getValue();
-        //dd($users);
+        $users = Firebase::database()->getReference($this->table)
+            ->getSnapshot()->getValue();
         return view('dashboard.firebase.realtime-database.index', compact('users'));
     }
 
@@ -261,5 +260,10 @@ class FirebaseController extends Controller
                 "msg" => "Terjadi kesalahan saat menghapus user.",
             ]);
         }
+    }
+
+    public function storage()
+    {
+        return view("dashboard.firebase.storage.index");
     }
 }

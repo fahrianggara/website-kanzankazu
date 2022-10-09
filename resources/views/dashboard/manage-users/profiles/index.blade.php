@@ -110,25 +110,38 @@
                                 {{-- Bio --}}
                                 <strong class="font-18">Bio</strong>
                                 <div class="font-16 mt-1 text-justify user_bio">
-                                    {!! Markdown::convert(Auth::user()->bio)->getContent() !!}
+                                    @if (Auth::user()->bio != null)
+                                        {!! Markdown::convert(Auth::user()->bio)->getContent() !!}
+                                    @endif
                                 </div>
 
                                 <div class="dropdown-divider mt-3 mb-3"></div>
 
                                 {{-- Social media --}}
                                 <div class="social-links">
-                                    <a href="{{ Auth::user()->facebook }}">
-                                        <i class="fab fa-facebook-f"></i>
-                                    </a>
-                                    <a href="{{ Auth::user()->twitter }}">
-                                        <i class="fab fa-twitter"></i>
-                                    </a>
-                                    <a href="{{ Auth::user()->instagram }}">
-                                        <i class="fab fa-instagram"></i>
-                                    </a>
-                                    <a href="{{ Auth::user()->github }}">
-                                        <i class="fab fa-github"></i>
-                                    </a>
+                                    @if (Auth::user()->facebook != null)
+                                        <a href="{{ Auth::user()->facebook }}">
+                                            <i class="fab fa-facebook-f"></i>
+                                        </a>
+                                    @endif
+
+                                    @if (Auth::user()->twitter != null)
+                                        <a href="{{ Auth::user()->twitter }}">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                    @endif
+
+                                    @if (Auth::user()->instagram != null)
+                                        <a href="{{ Auth::user()->instagram }}">
+                                            <i class="fab fa-instagram"></i>
+                                        </a>
+                                    @endif
+
+                                    @if (Auth::user()->github != null)
+                                        <a href="{{ Auth::user()->github }}">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    @endif
                                 </div>
                             </div>
 
@@ -401,6 +414,7 @@
                 $('#charNum').text(char + ' Karakter tersisa');
             };
         }
+
         function countChar2(val) {
             let max = 1000
             let limit = val.value.length;

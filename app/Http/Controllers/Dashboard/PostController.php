@@ -320,10 +320,8 @@ class PostController extends Controller
             try {
                 $randomStr = Str::random(5);
 
-                $statusDraft = $request->title == '' || $request->description == '' || $request->keywords == '' || $request->tag == '' || $request->category == '';
-
                 // Validation lebih dari 3 tag
-                if (count((array)$request['tag']) >= 4) {
+                if (count((array)$request['tag']) > 3) {
                     if ($request['tag']) {
                         $request['tag'] = Tag::select('id', 'title')->whereIn('id', $request['tag'])->get();
                     }
@@ -365,19 +363,51 @@ class PostController extends Controller
                         'views' => 0,
                     ]);
                 } else {
-                    $post = Post::create([
-                        'title' => $request->title ?? $randomStr,
-                        'slug' => Str::slug($request->title ?? $randomStr) ?? strtolower($randomStr),
-                        'thumbnail' => $newThumbnail ?? 'default.png',
-                        'description' => $request->description,
-                        'content' => $request->content,
-                        'author' => Auth::user()->name,
-                        'status' => $statusDraft ? 'draft' : $request->status,
-                        'keywords' => $request->title ?? $randomStr . ' ' . $this->setting->site_name,
-                        'user_id' => Auth::user()->id,
-                        'views' => 0,
-                        'tutorial_id' => $request->tutorial,
-                    ]);
+                    if ($request->title == '' || $request->description == '' || $request->tag == '' || $request->category == '') {
+                        if ($request->status == 'publish') {
+                            $post = Post::create([
+                                'title' => $request->title ?? $randomStr,
+                                'slug' => Str::slug($request->title ?? $randomStr) ?? strtolower($randomStr),
+                                'thumbnail' => $newThumbnail ?? 'default.png',
+                                'description' => $request->description,
+                                'content' => $request->content,
+                                'author' => Auth::user()->name,
+                                'status' => 'draft',
+                                'keywords' => $request->title ?? $randomStr . ' ' . $this->setting->site_name,
+                                'user_id' => Auth::user()->id,
+                                'views' => 0,
+                                'tutorial_id' => $request->tutorial,
+                            ]);
+                        } else {
+                            $post = Post::create([
+                                'title' => $request->title ?? $randomStr,
+                                'slug' => Str::slug($request->title ?? $randomStr) ?? strtolower($randomStr),
+                                'thumbnail' => $newThumbnail ?? 'default.png',
+                                'description' => $request->description,
+                                'content' => $request->content,
+                                'author' => Auth::user()->name,
+                                'status' => $request->status,
+                                'keywords' => $request->title ?? $randomStr . ' ' . $this->setting->site_name,
+                                'user_id' => Auth::user()->id,
+                                'views' => 0,
+                                'tutorial_id' => $request->tutorial,
+                            ]);
+                        }
+                    } else {
+                        $post = Post::create([
+                            'title' => $request->title ?? $randomStr,
+                            'slug' => Str::slug($request->title ?? $randomStr) ?? strtolower($randomStr),
+                            'thumbnail' => $newThumbnail ?? 'default.png',
+                            'description' => $request->description,
+                            'content' => $request->content,
+                            'author' => Auth::user()->name,
+                            'status' => $request->status,
+                            'keywords' => $request->title ?? $randomStr . ' ' . $this->setting->site_name,
+                            'user_id' => Auth::user()->id,
+                            'views' => 0,
+                            'tutorial_id' => $request->tutorial,
+                        ]);
+                    }
                 }
 
                 $post->tags()->attach($request->tag);
@@ -390,9 +420,11 @@ class PostController extends Controller
                 if (Auth::user()->roles->pluck('name')->contains('Editor')) {
                     return redirect()->route('posts.index')->with('success', 'Postingan kamu sedang menunggu persetujuan dari mimin!');
                 } else {
+                    // JIKA KOSONG
                     if ($post->status == 'publish') {
 
                         $data = Newsletter::select('email')->get();
+
                         foreach ($data as $item) {
                             Mail::to($item->email)->send(new NewPost($post));
                         }
@@ -582,8 +614,8 @@ class PostController extends Controller
                 }
             }
 
-            // Validasi 4 postingan
-            if (count((array)$request['tag']) >= 4) {
+            // Validasi 3 tag postingan
+            if (count((array)$request['tag']) > 3) {
                 if ($request['tag']) {
                     $request['tag'] = Tag::select('id', 'title')->whereIn('id', $request->tag)->get();
                 }
@@ -597,27 +629,48 @@ class PostController extends Controller
                     'kamu tidak bisa pilih tag postingan lebih dari 3 ! sedangkan kamu pilih ' . count($request['tag']) . ' tag postingan! silahkan hapus salah satunya.'
                 )->autoClose(false);
 
-                return redirect()->back()->withInput($request->all())->withErrors($validator);
+                return redirect()
+                    ->back()
+                    ->withInput($request->all())
+                    ->withErrors($validator);
             }
 
             $post->update();
 
-            if ($post->title === null || $post->description === null || $post->categories->first() === null || $post->tags->first() === null) {
+            // JIKA DESKRIPSI KATEGORI DAN TAG KOSONG
+            if ($post->description == null || $post->categories->first() == null || $post->tags->first() == null) {
                 if ($post->status == 'publish') {
 
                     $post->status = 'draft';
                     $post->update();
 
-                    return Redirect::to(URL::route('posts.edit', ['slug' => $post->slug]) . '#content')->with('success', 'Postingan berhasil diperbarui.');
-                } else {
-                    return redirect()->route('posts.index')->with('success', 'Postingan berhasil diperbarui.');
-                }
-            }
+                    Alert::info(
+                        '',
+                        'Blog kamu otomatis disimpan ke dalam arsip.
+                        Karena salah satu form (Tag, Kategori dan Deskripsi)
+                        ada yg kosong!'
+                    )->autoClose(false);
 
-            if ($post->status == 'draft') {
-                return Redirect::to(URL::route('posts.index') . '?status=draft')->with('success', 'Postingan berhasil diperbarui!');
+                    return Redirect::to(
+                        URL::route('posts.edit',['slug' => $post->slug]
+                        )
+                    );
+                } else {
+                    $post->update();
+
+                    return Redirect::to(
+                        URL::route('posts.edit',['slug' => $post->slug]
+                        ) . '#content'
+                    );
+                }
             } else {
-                return Redirect::to(URL::route('posts.index'))->with('success', 'Postingan berhasil diperbarui!');
+                if ($post->status == 'publish') {
+                    return Redirect::to(URL::route('posts.index') . '?status=publish')
+                        ->with('success', 'Postingan berhasil diperbarui!');
+                } else {
+                    return Redirect::to(URL::route('posts.index') . '?status=draft')
+                        ->with('success', 'Postingan berhasil diperbarui!');
+                }
             }
         } catch (\Throwable $th) {
             DB::rollBack();

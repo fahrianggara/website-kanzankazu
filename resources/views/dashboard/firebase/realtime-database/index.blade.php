@@ -5,7 +5,7 @@
 @endsection
 
 @section('breadcrumbs')
-    {{ Breadcrumbs::render('databaseRealtime') }}
+    {{-- {{ Breadcrumbs::render('databaseRealtime') }} --}}
 @endsection
 
 @section('content')
@@ -168,8 +168,8 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    <button type="submit" class="submitEdit btn btn-primary">
-                        Tambah <i class="uil uil-plus"></i>
+                    <button type="submit" class="submitEdit btn btn-warning">
+                        Edit <i class="uil uil-pen"></i>
                     </button>
                 </div>
             </div>
