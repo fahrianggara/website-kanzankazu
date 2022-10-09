@@ -123,9 +123,12 @@
             }
         }
 
-        $(".btn-tooltip-hide").tooltip().on("click", function() {
-            $(this).tooltip("hide")
-        });
+        $(function() {
+            $(".btn-tooltip-hide").tooltip().on("click", function() {
+                $(this).tooltip("hide")
+            });
+        })
+
 
         // Notif status
         const notif = $('.notif-success').data('notif');

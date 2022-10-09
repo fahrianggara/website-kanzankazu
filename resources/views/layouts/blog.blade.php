@@ -119,8 +119,6 @@
             $("[data-toggle='tooltip']").tooltip().on("click", function() {
                 $(this).tooltip("hide")
             });
-
-
         });
 
         window.onload = function() {

@@ -78,6 +78,7 @@
                 @if (Route::has('login'))
                     @auth
                         <li class="drop-down">
+
                             @if (strlen(Auth::user()->name) > 10)
                                 <a href="javascript:void(0)" data-toggle="tooltip" data-placement="left"
                                     title="{{ Auth::user()->name }} (You)">
@@ -90,6 +91,7 @@
                                     {{ substr(Auth::user()->name, 0, 10) }}
                                 </a>
                             @endif
+
                             <ul>
                                 @if (Auth::user()->provider != 'anonymous')
                                     <li>
