@@ -13,3 +13,7 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+firebase-key.json
+firebase-sign-in.json
+kanzankazu-d3594-8285bc608d48
+/public/vendor/dashboard/documents/backup/*

@@ -19,6 +19,8 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         \App\Console\Commands\UserAllowable::class,
         \App\Console\Commands\UserNotVerification::class,
+        \App\Console\Commands\UserAnonymous::class,
+        \App\Console\Commands\BackupDatabase::class,
     ];
 
     /**
@@ -29,9 +31,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('user:allowable')->everyMinute()->runInBackground();
-        $schedule->command('user:anonymous')->everyMinute()->runInBackground();
-        $schedule->command('user:notverification')->everyMinute()->runInBackground();
+        $schedule->command('db:backup')->daily();
+        $schedule->command('user:allowable')->everyMinute();
+        $schedule->command('user:anonymous')->everyMinute();
+        $schedule->command('user:notverification')->everyMinute();
     }
 
     /**
