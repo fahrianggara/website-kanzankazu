@@ -39,7 +39,7 @@ class BackupDatabase extends Command
     public function handle()
     {
         $filename = "backup_" . Carbon::now()->format('d_m_Y') . ".gz";
-        $path = storage_path() . "vendor/dashboard/documents";
+        $path = storage_path() . "/vendor/dashboard/documents";
         $command = "mysqldump --user=" . env('DB_USERNAME') . ' --password="jxkfXG@f(VDX" --host=' . env('DB_HOST') . " " . env("DB_DATABASE") . " > " . $path . $filename;
 
         exec($command);
