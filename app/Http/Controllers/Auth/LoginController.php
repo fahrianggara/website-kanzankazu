@@ -49,7 +49,7 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        return redirect()->route('dashboard.index')->with('success', 'Selamat datang kembali, ' . $user->name . '!');
+        return redirect()->route('dashboard.index')->with('login', 'Selamat datang kembali, ' . $user->name . '!');
     }
 
     /**

@@ -31,6 +31,7 @@
                         <h3 class="profile-username text-center user_name mb-4">{{ Auth::user()->name }}</h3>
 
                         <input type="file" name="user_image" id="user_image" class="user-update">
+
                         <a href="javascript:void(0)" class="btn btn-primary btn-block" id="changeImageBtn">
                             <b>Ganti Foto Profile</b>
                         </a>

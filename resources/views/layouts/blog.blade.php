@@ -44,7 +44,7 @@
     {{-- jQuery Ui --}}
     <link rel="stylesheet" href="{{ asset('vendor/blog/assets/jquery-ui/jquery-ui.css') }}">
     {{-- Main CSS --}}
-    <link rel="stylesheet" href="{{ asset('vendor/blog/css/css.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/blog/css/style.css') }}">
     {{-- CSS EXT --}}
     @stack('css-external')
     {{-- CSS INT --}}
@@ -55,19 +55,20 @@
 
     @include('layouts._layouts.navbar')
 
-    <div id="overlay">
-        <main id="main">
-            <section id="main-blog" class="main-blog">
-                @yield('content')
-            </section>
-        </main>
+    <main id="main">
+        <section id="main-blog" class="main-blog">
+            @yield('content')
+        </section>
+    </main>
 
-        @include('layouts._layouts.footer')
-        @include('layouts._layouts.chat.index')
-    </div>
-    {{-- <a href="#" class="to-the-top btn-tooltip-hide" data-toggle="tooltip" data-placement="left" title="Keatas">
+    @include('layouts._layouts.footer')
+
+    {{-- Chat app masih dalam perbaikan --}}
+    {{-- @include('layouts._layouts.chat.index') --}}
+
+    <a href="#" class="to-the-top btn-tooltip-hide" data-toggle="tooltip" data-placement="left" title="Keatas">
         <i class="uil uil-angle-up"></i>
-    </a> --}}
+    </a>
 
     {{-- Assets JS --}}
     <script src="{{ asset('vendor/blog/assets/jquery/jquery.min.js') }}"></script>

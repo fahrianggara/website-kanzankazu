@@ -56,7 +56,8 @@
                 <li
                     class="drop-down {{ set_active(['blog.categories', 'blog.posts.categories', 'blog.tags', 'blog.posts.tags', 'blog.author', 'blog.authors', 'blog.tutorials', 'blog.posts.tutorials', 'blog.posts.tutorials.author']) }}">
                     <a href="javascript:void(0)"><i class="uil uil-sliders-v mr-2"></i>Filter Blog</a>
-                    <ul>
+
+                    <ul style="{{ d_block(['blog.categories', 'blog.posts.categories', 'blog.tags', 'blog.posts.tags', 'blog.author', 'blog.authors', 'blog.tutorials', 'blog.posts.tutorials', 'blog.posts.tutorials.author']) }}">
                         <li
                             class="{{ set_active(['blog.tutorials', 'blog.posts.tutorials', 'blog.posts.tutorials.author']) }}">
                             <a href="{{ route('blog.tutorials') }}"><i
@@ -80,8 +81,7 @@
                         <li class="drop-down">
 
                             @if (strlen(Auth::user()->name) > 10)
-                                <a href="javascript:void(0)" data-toggle="tooltip" data-placement="left"
-                                    title="{{ Auth::user()->name }}">
+                                <a href="javascript:void(0)" title="{{ Auth::user()->name }}">
                                     <i class="uil uil-user mr-2"></i>
                                     {{ substr(Auth::user()->name, 0, 10) }}..
                                 </a>
@@ -98,28 +98,31 @@
                                         <a href="{{ route('dashboard.index') }}"><i class="uil uil-graph-bar mr-2"></i>
                                             Dashboard</a>
                                     </li>
+
                                     <li>
                                         <a href="{{ route('profile.index') }}"><i class="uil uil-house-user mr-2"></i>
                                             Profile Kamu</a>
                                     </li>
-                                    <hr
-                                        style="background-color: #00b2cc; height: .1px; border: 0; margin: 11px 0 10px 0; width:90%; position: relative; transform: translateX(5%)">
+
                                     <li>
                                         <a href="{{ route('posts.create') }}"><i class="uil uil-plus mr-2"></i>
                                             Buat Blog Baru</a>
                                     </li>
+
                                     <li class="{{ request()->is('@' . Auth::user()->slug) ? 'active' : '' }}">
                                         <a href="{{ route('blog.author', ['author' => Auth::user()->slug]) }}"><i
-                                                class="uil uil uil-document-layout-left mr-2"></i>
+                                                class="uil uil-document-layout-left mr-2"></i>
                                             Blog Kamu</a>
                                     </li>
                                     <hr style="background-color: #00b2cc; height: .1px; border: 0; margin: 10px 0 10px 0;">
                                 @endif
                                 <li>
-                                    <a id="log-out" href="" data-toggle="modal" data-target="#logModal">Log Out <i
-                                            class="uil uil-signout ml-2"></i></a>
+                                    <a href="javascript:void(0)" id="log-out" data-toggle="modal" data-target="#logModal">
+                                        Log Out <i class="uil uil-signout ml-2 text-danger"></i>
+                                    </a>
                                 </li>
                             </ul>
+
                         </li>
                     @else
                         <li class="drop-down">
@@ -203,44 +206,43 @@
             localStorage.removeItem('messageStorage');
         }
 
-        function historyBackBlog(fallbackUrl) {
-            fallbackUrl = fallbackUrl || "{{ route('blog.home') }}";
-            var prevPage = window.location.href;
+        // function historyBackBlog(fallbackUrl) {
+        //     fallbackUrl = fallbackUrl || "{{ route('blog.home') }}";
+        //     var prevPage = window.location.href;
 
-            window.history.go(-1);
+        //     window.history.go(-1);
 
-            setTimeout(function() {
-                if (window.location.href == prevPage) {
-                    window.location.href = fallbackUrl;
-                }
-            }, 0);
-        }
+        //     setTimeout(function() {
+        //         if (window.location.href == prevPage) {
+        //             window.location.href = fallbackUrl;
+        //         }
+        //     }, 0);
+        // }
 
-        function historyBackAuthor(fallbackUrl) {
-            fallbackUrl = fallbackUrl || "{{ route('blog.authors') }}";
-            var prevPage = window.location.href;
+        // function historyBackAuthor(fallbackUrl) {
+        //     fallbackUrl = fallbackUrl || "{{ route('blog.authors') }}";
+        //     var prevPage = window.location.href;
 
-            window.history.go(-1);
+        //     window.history.go(-1);
 
-            setTimeout(function() {
-                if (window.location.href == prevPage) {
-                    window.location.href = fallbackUrl;
-                }
-            }, 0);
-        }
+        //     setTimeout(function() {
+        //         if (window.location.href == prevPage) {
+        //             window.location.href = fallbackUrl;
+        //         }
+        //     }, 0);
+        // }
 
-        function goBackOrTo(targetUrl) {
-            var currentUrl = window.location.href;
-            window.history.go(-1);
-            setTimeout(function() {
-                if (currentUrl === window.location.href) {
-                    window.location.href = targetUrl;
-                }
-            }, 100);
-        }
+        // function goBackOrTo(targetUrl) {
+        //     var currentUrl = window.location.href;
+        //     window.history.go(-1);
+        //     setTimeout(function() {
+        //         if (currentUrl === window.location.href) {
+        //             window.location.href = targetUrl;
+        //         }
+        //     }, 100);
+        // }
 
         // NOTIF
-
         const notifSuccess = $('.notif-success').data('notifsuccess');
         const notifInfo = $('.notif-info').data('notifinfo');
 
@@ -274,34 +276,37 @@
             const cancelBtn = document.querySelector(".uil-times");
             const form = document.querySelector("form");
 
-            cancelBtn.onclick = () => {
-                searchBtn.classList.remove("hide");
-                cancelBtn.classList.remove("show");
-                form.classList.remove("active");
-                $('body').removeAttr('style');
-                // add readonly to input
-                form.querySelector("input").readOnly = true;
-                // reset input value
-                $(document).find('.chat-btn').attr('disabled', false);
-                form.querySelector("input").value = "";
-                $('#overlay').removeClass('overlay-search');
-                $('.overlay-search').hide();
-            }
-
             searchBtn.onclick = () => {
                 form.classList.add("active");
                 searchBtn.classList.add("hide");
                 cancelBtn.classList.add("show");
-                $('body').css('overflow', 'hidden');
+                // $('body').css('overflow', 'hidden');
                 // remove readonly to input
                 form.querySelector("input").readOnly = false;
                 // focus input
                 form.querySelector("input").focus();
                 $(document).find('.chat-btn').attr('disabled', true);
-                $('#overlay').addClass('overlay-search');
-                $('.overlay-search').show();
-                // overlay-search add transition css
-                $('.overlay-search').addClass('transition-overlay');
+
+                // $("body #main").prepend('<div id="overlay"></div>');
+
+                // $('#overlay').addClass('overlay-search');
+                // $('.overlay-search').fadeIn();
+            }
+
+            cancelBtn.onclick = () => {
+                searchBtn.classList.remove("hide");
+                cancelBtn.classList.remove("show");
+                form.classList.remove("active");
+                // $('body').removeAttr('style');
+                // add readonly to input
+                form.querySelector("input").readOnly = true;
+                // reset input value
+                $(document).find('.chat-btn').attr('disabled', false);
+                // form.querySelector("input").value = "";
+
+                // $('.overlay-search').fadeOut();
+                // $("#overlay").remove();
+                // $('#overlay').removeClass('overlay-search');
             }
 
             // if fullscreen window remove overlay-search
@@ -324,7 +329,7 @@
                 } else {
                     // if body has class mobile-nav-active remove overlay-search
                     if ($(cancelBtn).hasClass('show')) {
-                        $('body').css('overflow', 'hidden');
+                        // $('body').css('overflow', 'hidden');
                         $('#overlay').addClass('overlay-search');
                     } else {
                         $('#overlay').removeClass('overlay-search');
@@ -333,47 +338,47 @@
             }).trigger('resize');
 
             // === AUTOCOMPLETE SEARCH === //
-            $("#search").autocomplete({
-                delay: 100,
-                source: "{{ route('blog.autocomplete') }}",
-                focus: function(event, ui) {
-                    $("#search").val(ui.item
-                        .title);
-                    return false;
-                },
-                // search: function() {
-                //     $('#buttonSubmit').attr('disabled', true);
-                //     $('#buttonSubmit').html('<i class="fa fa-spin fa-spinner"></i>');
-                // },
-                open: function() {
-                    $(".ui-autocomplete:visible").css({
-                        top: "+=10.6",
-                        left: "+=1"
-                    });
+            // $("#search").autocomplete({
+            //     delay: 100,
+            //     source: "{{ route('blog.autocomplete') }}",
+            //     focus: function(event, ui) {
+            //         $("#search").val(ui.item
+            //             .title);
+            //         return false;
+            //     },
+            //     // search: function() {
+            //     //     $('#buttonSubmit').attr('disabled', true);
+            //     //     $('#buttonSubmit').html('<i class="fa fa-spin fa-spinner"></i>');
+            //     // },
+            //     open: function() {
+            //         $(".ui-autocomplete:visible").css({
+            //             top: "+=10.6",
+            //             left: "+=1"
+            //         });
 
-                    // $('#buttonSubmit').attr('disabled', false);
-                    // $('#buttonSubmit').html('<i class="uil uil-search"></i>');
+            //         // $('#buttonSubmit').attr('disabled', false);
+            //         // $('#buttonSubmit').html('<i class="uil uil-search"></i>');
 
-                    // setInterval(() => {
-                    //     $('#buttonSubmit').attr('disabled', false);
-                    //     $('#buttonSubmit').html('<i class="uil uil-search"></i>');
-                    // }, 4000);
+            //         // setInterval(() => {
+            //         //     $('#buttonSubmit').attr('disabled', false);
+            //         //     $('#buttonSubmit').html('<i class="uil uil-search"></i>');
+            //         // }, 4000);
 
-                },
-                select: function(event, ui) {
-                    window.location.href = ui.item.url;
-                }
-            }).data("ui-autocomplete")._renderItem = function(ul, item) {
-                var inner_html = '<a class="align-self-center" href="' + item.url +
-                    '"><i class="uil uil-external-link-alt"></i> <p class="title-search">' +
-                    item.title +
-                    '</p></a>';
+            //     },
+            //     select: function(event, ui) {
+            //         window.location.href = ui.item.url;
+            //     }
+            // }).data("ui-autocomplete")._renderItem = function(ul, item) {
+            //     var inner_html = '<a class="align-self-center" href="' + item.url +
+            //         '"><i class="uil uil-external-link-alt"></i> <p class="title-search">' +
+            //         item.title +
+            //         '</p></a>';
 
-                return $("<li></li>")
-                    .data("item.autocomplete", item)
-                    .append(inner_html)
-                    .appendTo(ul);
-            };
+            //     return $("<li></li>")
+            //         .data("item.autocomplete", item)
+            //         .append(inner_html)
+            //         .appendTo(ul);
+            // };
 
         });
     </script>

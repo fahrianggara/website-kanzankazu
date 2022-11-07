@@ -226,7 +226,6 @@ class UserController extends Controller
         } else {
             DB::beginTransaction();
             try {
-
                 if ($request->hasFile('user_image')) {
                     // $public_path = '../../public_html/blog/';
                     // $path = $public_path . "vendor/dashboard/image/picture-profiles/";

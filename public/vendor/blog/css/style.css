@@ -292,7 +292,7 @@ input[type="search"]:focus::-webkit-search-cancel-button {
     padding: 5px 0;
     line-height: 1;
     /* margin-left: 20px; */
-    z-index: 10;
+    z-index: 101;
 }
 
 #header form {
@@ -418,13 +418,14 @@ input[type="search"]:focus::-webkit-search-cancel-button {
 
     #header form {
         position: absolute;
-        top: 0;
+        top: -46px;
         right: 0;
         opacity: 0;
         pointer-events: none;
         width: 100%;
-        border: none !important;
+        border: none;
         transition: top 0.2s ease-in-out, opacity 0.2s ease-in-out;
+        z-index: -2 !important;
     }
 
     #header form .search-blog {
@@ -459,8 +460,8 @@ input[type="search"]:focus::-webkit-search-cancel-button {
         height: 60px;
         padding: 1px;
         background: var(--container-color);
-        border-radius: 0 0 5px 5px;
-        z-index: -2;
+        /* border-radius: 0 0 5px 5px; */
+        z-index: -1;
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
@@ -478,7 +479,7 @@ input[type="search"]:focus::-webkit-search-cancel-button {
     }
 
     #header .searchButton .uil-times {
-        font-size: 25px;
+        font-size: 23px;
         margin: 0;
         padding: 11.5px 0 0 20px;
         text-align: right;
@@ -499,9 +500,12 @@ input[type="search"]:focus::-webkit-search-cancel-button {
 
 @media (max-width: 400px) {
 
-    #header .searchButton .uil-search,
-    #header .searchButton .uil-times {
+    #header .searchButton .uil-search {
         padding: 11.5px 0 0 15px;
+    }
+
+    #header .searchButton .uil-times {
+        padding: 13.5px 0 0 15px;
     }
 
     .mobile-nav-toggle {
@@ -781,7 +785,7 @@ input[type="search"]:focus::-webkit-search-cancel-button {
     left: 0;
     position: fixed;
     background: var(--containerSec-color);
-    opacity: 0.6;
+    opacity: 0.4;
     overflow: hidden;
     display: none;
 }
@@ -804,19 +808,15 @@ input[type="search"]:focus::-webkit-search-cancel-button {
 
 .overlay-search {
     width: 100%;
-    height: 100%;
-    z-index: 9997;
-    top: 0;
+    height: 90%;
+    z-index: 100;
+    bottom: 0;
     left: 0;
-    position: static;
+    position: fixed;
     background: var(--containerSec-color);
-    opacity: 0;
+    opacity: 0.4;
     overflow: hidden;
     display: none;
-}
-
-.transition-overlay {
-    transition: 0.3s ease-in-out;
 }
 
 /* ============= SLIDE ================== */
@@ -868,7 +868,7 @@ input[type="search"]:focus::-webkit-search-cancel-button {
     margin-bottom: 30px;
     font-size: 48px;
     font-weight: 700;
-    font-family: "Roboto Condensed", sans-serif;
+    font-family: "Rubik", sans-serif;
 }
 
 #slide p {
@@ -942,7 +942,7 @@ input[type="search"]:focus::-webkit-search-cancel-button {
     padding: 12px 32px;
     border-radius: 50px;
     margin: 10px;
-    font-family: "Roboto Condensed", sans-serif;
+    font-family: "Rubik", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1;
@@ -2092,7 +2092,7 @@ span.kutip::after {
 
 /* GALLERY */
 .gallery>* {
-    font-family: "Roboto Condensed", sans-serif;
+    font-family: "Rubik", sans-serif;
     font-weight: 600;
 }
 
@@ -4875,7 +4875,7 @@ pre[class*="language-"] {
     padding: 12px 32px;
     border-radius: 50px;
     margin: 10px;
-    font-family: "Roboto Condensed", sans-serif;
+    font-family: "Rubik", sans-serif;
     font-weight: 600;
     font-size: 20px;
     line-height: 1;

@@ -20,3 +20,20 @@ if (!function_exists('set_active')) {
         }
     }
 }
+
+if (!function_exists('d_block')) {
+    function d_block($uri, $output = 'display: block;')
+    {
+        if (is_array($uri)) {
+            foreach ($uri as $u) {
+                if (Route::is($u)) {
+                    return $output;
+                }
+            }
+        } else {
+            if (Route::is($uri)) {
+                return $output;
+            }
+        }
+    }
+}
