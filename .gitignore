@@ -17,3 +17,5 @@ firebase-key.json
 firebase-sign-in.json
 kanzankazu-d3594-8285bc608d48
 /public/vendor/dashboard/documents/backup/*
+firebase.key.json
+firebase-login.js
