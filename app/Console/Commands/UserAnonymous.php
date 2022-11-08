@@ -40,12 +40,17 @@ class UserAnonymous extends Command
      */
     public function handle()
     {
-        $user = User::where('provider', 'anonymous')->where('last_seen', '>=', Carbon::tomorrow())->delete();
+        $users = User::where('provider', 'anonymous')->get();
+
         $path = "vendor/dashboard/image/picture-profiles/";
-        if (File::exists($path . $user->user_image)) {
-            File::delete($path . $user->user_image);
+
+        foreach ($users as $user) {
+            if (File::exists($path . $user->user_image)) {
+                File::delete($path . $user->user_image);
+            }
+            $user->comments()->delete();
+            $user->removeRole($user->roles->first());
+            $user->delete();
         }
-        $user->comments()->delete();
-        $user->removeRole($user->roles->first());
     }
 }

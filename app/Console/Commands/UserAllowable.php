@@ -39,7 +39,7 @@ class UserAllowable extends Command
      */
     public function handle()
     {
-        $user = User::banned()->where('banned_at', '<', Carbon::now())->update([
+        User::banned()->where('banned_at', '<', Carbon::now())->update([
             'status' => 'allowable',
             'banned_at' => null,
         ]);

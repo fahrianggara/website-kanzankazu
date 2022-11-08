@@ -33,8 +33,8 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('db:backup')->daily();
         $schedule->command('user:allowable')->everyMinute();
-        $schedule->command('user:anonymous')->everyMinute();
-        $schedule->command('user:notverification')->everyMinute();
+        $schedule->command('user:anonymous')->weekly();
+        $schedule->command('user:notverification')->weekly();
     }
 
     /**

@@ -40,13 +40,10 @@ class UserNotVerification extends Command
      */
     public function handle()
     {
-        $now = Carbon::now();
-        $week = $now->endOfWeek(Carbon::TUESDAY);
-
         $users = User::where('email_verified_at', null)
             ->where('status', 'notverification')
-            ->where('created_at', '>=', $week)
             ->get();
+
         $path = "vendor/dashboard/image/picture-profiles/";
 
         foreach ($users as $user) {
